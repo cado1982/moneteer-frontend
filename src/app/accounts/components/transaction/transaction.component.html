@@ -1,6 +1,6 @@
 <div class="transaction-row" (click)="click($event)">
     <div class="transaction-cell transaction-cell--selected">
-        <input type="checkbox" (click)="$event.stopPropagation()" *ngIf="!isCreating" [(ngModel)]="isChecked" />
+        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isChecked" />
     </div>
     <div class="transaction-cell transaction-cell--date">
         <span *ngIf="!isEditing">{{transaction?.date | date:'shortDate'}}</span>

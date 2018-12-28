@@ -13,7 +13,7 @@
     </div>
     <div class="input-container">
         <label>Memo</label>  
-        <input clrInput name="description" class="input input-control is-small" type="text" [(ngModel)]="description" name="description">
+        <input name="description" class="input input-control is-small" type="text" [(ngModel)]="description" name="description">
     </div>
     <div class="input-container">
         <label>Inflow</label>
@@ -23,6 +23,6 @@
  
 <div id="actions">
     <button type="button" class="btn btn-outline-warning btn-sm" (click)="cancel()">Cancel</button>
-    <button [clrLoading]="isBusy$ | async" [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm" (click)="create()">Create</button>
+    <button [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm" (click)="create()">Create</button>
 </div>
 
