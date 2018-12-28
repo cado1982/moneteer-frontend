@@ -1,0 +1,15 @@
+<input [attr.disabled]="disabled ? '' : null" style="width: 100%;" #searchInput class="input is-small" (focus)="onSearchInputFocus($event)" (blur)="onSearchInputBlur($event)" type="text"
+       [(ngModel)]="searchFilter" name="search-input" (ngModelChange)="searchFilterTerm$.next(searchFilter)">
+
+<div class="moneteer-dropdown" #dropDownContent>
+    <div *ngIf="!groupByProperty">
+        <div class="item" *ngFor="let item of filteredValues | async" (mousedown)="itemClicked(item)">{{item[displayProperty]}}</div>
+    </div>
+    
+    <div *ngIf="groupByProperty">
+        <div *ngFor="let item of filteredValues | async | groupBy: groupByProperty | pairs">
+            <div class="subheader">{{item[0]}}</div>
+            <div class="item subitem" (mousedown)="itemClicked(childItem)" *ngFor="let childItem of item[1]">{{childItem[displayProperty]}}</div>
+        </div>
+    </div>
+</div>

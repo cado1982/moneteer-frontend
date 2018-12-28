@@ -1,0 +1,25 @@
+<div class="transaction-cell transaction-cell--selected">
+</div>
+<div class="transaction-cell transaction-cell--date">
+</div>
+<div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
+</div>
+
+<div class="transaction-cell transaction-cell--payee">
+</div>
+<div class="transaction-cell transaction-cell--description">
+</div>
+<div class="transaction-cell transaction-cell--category">
+    <span *ngIf="!isEditing" style="margin-left: 15px;">{{assignment.category.name}}</span>
+    <moneteer-type-ahead *ngIf="isEditing" [(ngModel)]="assignment.category" [values]="categories | async" [display-property]="'name'" [group-by]="'masterCategory.name'"></moneteer-type-ahead>
+</div>
+<div class="transaction-cell transaction-cell--flow" >
+    <span *ngIf="!isEditing">{{assignment.outflow | budgetCurrency }}</span>
+    <moneteer-currency-input *ngIf="isEditing" [(ngModel)]="assignment.outflow" (ngModelChange)="onOutflowChanged($event)"></moneteer-currency-input>
+</div>
+<div class="transaction-cell transaction-cell--flow">
+    <span *ngIf="!isEditing">{{assignment.inflow | budgetCurrency }}</span>
+    <moneteer-currency-input *ngIf="isEditing" [(ngModel)]="assignment.inflow" (ngModelChange)="onInflowChanged($event)"></moneteer-currency-input>
+</div>
+<div class="transaction-cell transaction-cell--cleared">
+</div>

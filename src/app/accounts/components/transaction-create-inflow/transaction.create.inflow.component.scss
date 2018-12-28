@@ -1,0 +1,33 @@
+:host { 
+    display: flex;
+    flex-direction: row; 
+    padding: 10px;
+}
+
+#actions {
+    flex: 1 1 50%;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+#inputs {
+    flex: 1 1 50%;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-container label {
+    min-width: 100px;
+    margin: 5px;
+}
+
+.input-container .input-control  {
+    width: 100%;
+}
+
+.input-container .date-container  {
+    width: 100%;
+}

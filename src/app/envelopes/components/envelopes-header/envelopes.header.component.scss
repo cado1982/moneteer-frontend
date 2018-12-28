@@ -1,0 +1,8 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    flex: 0 0 auto;
+}

@@ -1,0 +1,37 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow: hidden;
+    user-select: none;
+}
+
+.transactions-container {
+    overflow: auto;
+    display: grid;
+}
+
+.transaction-header {
+    //color: $primary-color-text;
+    font-size: 0.8em;
+    padding: 2px 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-right: 1px solid $divider-color;
+    border-bottom: 1px solid $divider-color;
+    text-transform: uppercase;
+    height: 18px;
+    line-height: 18px;
+}
+
+.transaction-header-row {
+    height: 2.2em;
+}
+
+.transaction-header--selected input {
+    width: 100%;
+    margin-top: 6px;
+}

@@ -1,0 +1,37 @@
+<moneteer-nav></moneteer-nav>
+
+<div class="budget-select--body">
+    
+    
+    <h2>Budgets</h2>
+    
+    <div class="budget-select--budget-list">
+        <div class="card" *ngFor="let budget of budgets$ | async">
+            <!-- <div *ngIf="budget?.isLoading" class="overlay">
+                <span class="spinner spinner-md spinner-inverse" ></span>
+            </div> -->
+            
+            <div class="card-header">
+                {{budget.name}}
+            </div>
+            <footer class="card-footer">
+                <button class="btn btn-primary btn-sm btn-link" (click)="navigateBudget(budget)">Open</button>
+                <a class="btn btn-info btn-sm btn-link">Edit</a>
+                <a class="btn btn-danger btn-sm btn-link" (click)="deleteBudget(budget)">Delete</a>
+            </footer>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Create New Budget
+            </div>
+            <footer class="card-footer">
+                <button class="btn btn-primary btn-sm" (click)="createBudget()">Create</button>
+            </footer>
+        </div>
+    </div>
+
+</div>
+
+<moneteer-budget-create></moneteer-budget-create>
+
+<moneteer-budget-delete></moneteer-budget-delete>

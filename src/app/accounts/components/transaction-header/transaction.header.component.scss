@@ -1,0 +1,12 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    display: flex;
+    flex: 0 0 auto;
+    border-bottom: $divider-color solid 1px;
+}
+
+[hidden] { 
+    display: none !important;
+}
+

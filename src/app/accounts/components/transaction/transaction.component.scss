@@ -1,0 +1,36 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    position: relative;
+    font-size: 0.9em;
+    border-bottom: 1px solid $divider-color;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+:host:hover {
+    background-color: $primary-color-light;
+}
+
+:host(.selected), .selected, :host(.editing), .editing {
+    background-color: $primary-color-light;
+    cursor: text;
+}
+
+.transaction-actions {
+    padding: 5px;
+    background-color: $primary-color-light;
+    align-self: flex-end;
+}
+
+.transaction-cell {
+    padding: 0px 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.transaction-cell, input {
+    width: 100%;
+}

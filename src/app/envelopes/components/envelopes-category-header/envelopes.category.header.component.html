@@ -1,0 +1,15 @@
+<span class="first-column">
+    <div (click)="onToggled()" class="category-name">
+        <i [hidden]="isToggled" class="fas fa-caret-down"></i>
+        <i [hidden]="!isToggled" class="fas fa-caret-up"></i>
+        <h5 [title]="envelopeCategory">{{envelopeCategory}}</h5>
+    </div>
+    
+    
+    <button class="create-button" type="button" [hidden]="!showCreateCategoryButton" class="btn btn-sm btn-icon btn-inverse" #addButton>
+        <i class="fas fa-plus"></i>
+    </button>
+    <moneteer-envelopes-category-create [anchor]="addButton" [envelopeCategory]="envelopeCategory"></moneteer-envelopes-category-create>
+</span>
+
+<span class="stat-column">{{ balance | budgetCurrency:true }}</span>

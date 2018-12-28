@@ -1,0 +1,12 @@
+<input style="width: 100%;" #searchInput class="input is-small" (focus)="onSearchInputFocus($event)" (blur)="onSearchInputBlur($event)"
+    type="text" [(ngModel)]="searchFilter" name="search-input" (ngModelChange)="searchFilterTerm$.next(searchFilter)">
+
+<moneteer-dropdown [anchor]="searchInput" openOn="focus">
+    <div [hidden]="accounts.length > 0">
+        You haven't added any accounts yet!
+    </div>
+    <div *ngFor="let grouped of accounts | filterBy: ['name']:(searchFilterTerm$ | async) | groupBy: 'isBudget' | pairs">
+        <div class="subheader">{{grouped[0] === 'true' ? 'Off-Budget' : 'Budget'}}</div>
+        <div class="item subitem" (mousedown)="accountClicked(account)" *ngFor="let account of grouped[1]">{{account.name}}</div>
+    </div>
+</moneteer-dropdown>

@@ -1,0 +1,1 @@
+<input #inputBox class="input is-small" autocomplete="off" type="text" (focus)="$event.target.select()" [ngModel]="inputValue" (ngModelChange)="onChange($event)" [ngModelOptions]="{updateOn: 'blur'}" name="currencyEdit">

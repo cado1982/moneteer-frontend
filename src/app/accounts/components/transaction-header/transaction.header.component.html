@@ -1,0 +1,22 @@
+<div class="btn-group btn-sm">
+  <button id="addInflow" class="button button-primary" (click)="addInflow()">Add Inflow</button>
+</div>
+
+<div class="btn-group btn-sm">
+    <button id="addOutflow" class="button button-primary" (click)="addOutflow()">Add Outflow</button>
+  </div>
+
+<div class="btn-group btn-sm">
+    <button id="deleteTransactions" class="button button-danger" [disabled]="(selectedTransactions$ | async)?.length === 0" (click)="confirmDeleteTransactions()">Delete</button>
+</div>
+
+<moneteer-modal [(open)]="isConfirmingDelete">
+    <h3 class="modal-title">Delete transactions</h3>
+    <div class="modal-body">
+        <p>Are you sure you want to delete <strong>{{(selectedTransactions$ | async)?.length}}</strong> selected transactions?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteTransactions()">Delete</button>
+    </div>
+</moneteer-modal>

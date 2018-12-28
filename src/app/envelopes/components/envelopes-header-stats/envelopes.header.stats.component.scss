@@ -1,0 +1,19 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 auto;
+    justify-content: center;
+}
+
+section {
+    background-color: $primary-color;
+    color: $primary-color-text;
+    flex: 0 1 30em;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    margin: 5px;
+    border-radius: 3px;
+}

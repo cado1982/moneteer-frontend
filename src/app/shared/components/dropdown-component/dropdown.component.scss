@@ -1,0 +1,14 @@
+@import "./../../../../css/base.scss";
+
+div {
+    min-width: 250px;
+    max-height: 250px;
+    min-height: 100px;
+    overflow-y: auto;
+    font-size: 0.8rem;
+    position: relative;
+}
+
+#dropDownContent {
+    overflow-y: scroll;
+}

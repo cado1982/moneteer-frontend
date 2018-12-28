@@ -1,0 +1,24 @@
+:host { 
+    display: flex;
+    flex-direction: row; 
+    padding: 10px;
+}
+
+#actions {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+}
+
+#inputs {
+    flex: 1 1 auto;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-container label {
+    min-width: 100px;
+    margin: 5px;
+}

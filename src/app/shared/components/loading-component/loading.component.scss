@@ -1,0 +1,24 @@
+:host {
+    
+    position: relative;
+}
+
+span {
+    position: absolute;
+    top: 100px;
+    background-color: white;
+    padding: 25px;
+}
+
+.overlay {
+    background-color: rgba(10, 10, 10, 0.6);
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    text-align: center;
+}
+

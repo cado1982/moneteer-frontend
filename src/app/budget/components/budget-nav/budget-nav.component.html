@@ -1,0 +1,26 @@
+<moneteer-nav>
+    <a class="link link-parent" routerLink="envelopes" routerLinkActive="active">
+        <i class="fas fa-piggy-bank"></i>
+        Envelopes
+    </a>
+    
+    <div class="link-container">
+        <a routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
+            <i class="fas fa-university"></i>
+            Accounts
+        </a>
+        <button title="Add Account" class="btn btn-icon btn-sm" (click)="openCreateAccount()">
+            <i class="fas fa-plus-circle"></i>
+        </button>
+    </div>
+    
+    <h6 [hidden]="(budgetAccounts | async)?.length === 0">Budget</h6>
+    <a class="link link-child" *ngFor="let account of budgetAccounts | async" routerLinkActive="active" [routerLink]="['accounts', account.id]">{{account.name}}</a>
+    <h6 [hidden]="(offBudgetAccounts | async)?.length === 0">Off-Budget</h6>
+    <a class="link link-child" *ngFor="let account of offBudgetAccounts | async" routerLinkActive="active" [routerLink]="['accounts', account.id]">{{account.name}}</a>
+    
+    <a class="link link-parent" routerLink="reports" routerLinkActive="active">
+    <i class="fas fa-chart-line"></i>
+    Reports
+    </a>
+</moneteer-nav>

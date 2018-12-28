@@ -1,0 +1,99 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    height: 100%;
+    background-color: $primary-color;
+    border-right: 1px solid $divider-color;
+    user-select: none;
+}
+
+#profile-dropdown-toggle {
+    width: 100%;
+    padding: 10px;
+    background-color: $primary-color;
+    color: $primary-color-text;
+    font-weight: 600;
+}
+
+.header {
+    background-color: $primary-color;
+    color: $secondary-text-color;
+    min-height: 4em;
+    display: flex;
+    align-items: center;
+}
+
+.header h1 {
+    flex: 1 1 auto;
+    margin: 0;
+    color: $primary-color-text;
+    letter-spacing: 1px;
+}
+
+.link {
+    padding: 0.3rem 0.4rem;
+    color: $primary;
+}
+
+.link-child {
+    padding-left: 1.8em;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.top-link-bottom {
+    align-items: flex-end;
+}
+
+h6 {
+    margin-left: 1.3em;
+    margin-top: 0;
+    color: $primary;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.logo {
+    padding: 7px;
+}
+
+.logo span {
+    font-size: 24px;
+}
+
+.link-container {
+    display: flex;
+}
+
+.link-container button {
+    margin: 0; 
+    flex: 0 1 auto; 
+    align-self: center;
+    border-color: $primary;
+    color: $primary;
+    margin-right: 0.8em;
+    padding: 0 0.25rem;
+}
+
+.link-container a {
+    flex: 1 0 auto;
+    padding: 0.3rem 0.4rem;
+    color: $primary
+}
+
+.link:hover, .link.active, .link-container:hover, .link-container:hover a, .link-container:hover button, .link-container.active {
+    background-color: $primary-color;
+    color: $primary-color-text;
+    border-color: $primary-color-text;
+}
+
+.link-container button:hover {
+    background-color: #e1f1f6;
+    color: #000;
+}

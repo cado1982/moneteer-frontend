@@ -1,0 +1,17 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+#child-categories {
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    display: flex;
+}
+
+

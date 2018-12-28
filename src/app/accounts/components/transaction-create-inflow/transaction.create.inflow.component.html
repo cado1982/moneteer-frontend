@@ -1,0 +1,28 @@
+<div id="inputs">
+    <div class="input-container">
+        <label>Date</label>
+        <input class="input-control" name="date" type="date" [(ngModel)]="date" name="date">
+    </div>
+    <div [hidden]="currentAccountId" class="input-container">
+        <label>Account</label>
+        <moneteer-account-select-dropdown class="input-control" [accounts]="accounts$ | async" [(selectedAccount)]="account"></moneteer-account-select-dropdown>
+    </div>
+    <div class="input-container">
+        <label>Payee</label>
+        <moneteer-payee-select-dropdown class="input-control" [payees]="payees$ | async" [(selectedPayee)]="payee"></moneteer-payee-select-dropdown>
+    </div>
+    <div class="input-container">
+        <label>Memo</label>  
+        <input clrInput name="description" class="input input-control is-small" type="text" [(ngModel)]="description" name="description">
+    </div>
+    <div class="input-container">
+        <label>Inflow</label>
+        <moneteer-currency-input class="input-control" name="inflow" [(ngModel)]="inflow"></moneteer-currency-input>
+    </div>
+</div>
+ 
+<div id="actions">
+    <button type="button" class="btn btn-outline-warning btn-sm" (click)="cancel()">Cancel</button>
+    <button [clrLoading]="isBusy$ | async" [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm" (click)="create()">Create</button>
+</div>
+

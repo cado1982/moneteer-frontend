@@ -1,0 +1,12 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 auto;
+    margin-bottom: 0.3em;
+}
+
+button {
+    margin: 7px;
+}

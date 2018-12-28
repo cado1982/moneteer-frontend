@@ -1,0 +1,20 @@
+<moneteer-modal [open]="isOpen$ | async" [closable]="false">
+    <h3 class="modal-title">Delete budget</h3>
+    <div class="modal-body">
+        <section class="form-block">
+            <p>Are you sure you want to delete <strong>{{(budget$ | async)?.name}}</strong>?
+                <br /> Please enter the name of the budget to confirm deletion.</p>
+                
+            <div class="form-group">
+                <input type="text" style="width: 100%;" autofocus id="budgetName" placeholder="Enter budget name"
+                    name="budgetName" [ngModel]="confirmName$ | async" (ngModelChange)="confirmName$.next($event)" ngModel>
+            </div>
+        </section>
+        <p>{{error$ | async}}</p>
+    </div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="close()">Cancel</button>
+        <button type="submit" class="btn btn-danger" [disabled]="!(canDelete() | async)" (click)="delete()">Delete</button>
+    </div>
+</moneteer-modal>

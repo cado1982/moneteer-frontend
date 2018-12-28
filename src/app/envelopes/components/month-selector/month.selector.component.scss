@@ -1,0 +1,32 @@
+@import "./../../../../css/base.scss";
+
+:host {
+  background-color: $primary-color;
+  color: $primary-color-text;
+  display: flex;
+  align-items: center;
+  flex: 0 1 auto;
+  margin: 5px;
+  border-radius: 3px;
+}
+
+.navigate {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#month {
+    text-align: center;
+    padding: 10px 10px;
+    cursor: pointer;
+    flex: 1;
+}
+
+#year {
+  background-color: $accent-color;
+  padding: 10px;
+}
+
+#year-and-month {
+    display: flex;
+}

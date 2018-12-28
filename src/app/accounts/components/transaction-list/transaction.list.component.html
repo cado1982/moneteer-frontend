@@ -1,0 +1,20 @@
+<moneteer-transaction-inflow-create [@createTransactionVisible]="isCreateInflowTransactionOpen$ | async" [currentAccountId]="currentAccountId"></moneteer-transaction-inflow-create>
+<moneteer-transaction-outflow-create [@createTransactionVisible]="isCreateOutflowTransactionOpen$ | async" [currentAccountId]="currentAccountId"></moneteer-transaction-outflow-create>
+
+<div class="transaction-row transaction-header-row">
+    <div class="transaction-header transaction-cell--selected">
+        <input type="checkbox" ngModel (ngModelChange)="onSelectAll($event)" />
+    </div>
+    <div class="transaction-header transaction-cell--date">Date</div>
+    <div [hidden]="currentAccountId" class="transaction-header transaction-cell--account">Account</div>
+    <div class="transaction-header transaction-cell--payee">Payee</div>
+    <div class="transaction-header transaction-cell--description">Memo</div>
+    <div class="transaction-header transaction-cell--category">Envelope</div>
+    <div class="transaction-header transaction-cell--flow">Outflow</div>
+    <div class="transaction-header transaction-cell--flow">Inflow</div>
+    <div class="transaction-header transaction-cell--cleared">Cleared</div>
+</div>
+
+<div class="transactions-container">
+    <moneteer-transaction [@.disabled]="isAnimationDisabled" @enterView (editing)="onTransactionEditing($event)" [currentAccountId]="currentAccountId" [transaction]="transaction" *ngFor="let transaction of transactions | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy"></moneteer-transaction>
+</div>

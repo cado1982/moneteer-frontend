@@ -1,0 +1,63 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+:host /deep/ .budget--column-header {
+    flex-basis: 180px;
+    flex-grow: 0;
+    min-width: 30px;
+    max-width: 250px;
+    width: 180px;
+    padding-right: 10px;
+    background-color: #fff;
+    color: $secondary-text-color;
+    box-sizing: border-box;
+}
+
+.budget--category-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.budget--add-category {
+    cursor: pointer;
+}
+
+
+.month-headers {
+    display: flex;
+}
+
+
+.budget--header {
+    overflow-y: scroll;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.budget--body {
+    overflow-y: scroll;
+    flex-grow: 1;
+    flex-shrink: 1;
+    position: relative;
+}
+
+.budget--row {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.budget--add-category {
+    cursor: pointer;
+}
+
+#workspace {
+    display: flex;
+    flex-direction: row
+}

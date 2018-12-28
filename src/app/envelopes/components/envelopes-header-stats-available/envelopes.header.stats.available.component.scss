@@ -1,0 +1,25 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+h2 {
+    margin: 0;
+    color: $primary-color-text;
+    font-weight: 500;
+    font-size: x-large;
+}
+
+h2.good {
+    color: $money-good-saturated;
+}
+
+h2.bad {
+    color: $money-bad-saturated;
+}

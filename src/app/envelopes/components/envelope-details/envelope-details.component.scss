@@ -1,0 +1,6 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    border-top: 1px solid $divider-color;
+    flex: 1 1 50%;
+}

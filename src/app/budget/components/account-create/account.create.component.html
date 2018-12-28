@@ -1,0 +1,35 @@
+<moneteer-modal [closable]="false" [open]="isOpen$ | async">
+    <h3 class="modal-title">Create Account</h3>
+    <div class="modal-body">
+        <form #createAccountForm="ngForm" name="create-account" novalidate>
+            <div [hidden]="!(error$ | async) || (isCreating$ | async)">
+                <div class="alert-item">
+                    <span class="alert-test">
+                        {{error$ | async}}
+                    </span>
+                </div>
+            </div>
+            <div class="form-block">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="input" #name="ngModel" required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text" [(ngModel)]="accountName">
+                    <p class="help is-danger" *ngIf="name.errors && (name.dirty || name.touched)">This name is invalid</p>
+                    
+                </div>
+                <div class="form-group">
+                    <label for="currency">Initial Balance</label>
+                    <moneteer-currency-input name="initialBalance" [(ngModel)]="initialBalance" allowNegative="true" allowZeros="true"></moneteer-currency-input>
+                </div>
+                <div class="form-group">
+                    <label for="currency">Budget Account</label>
+                    <input type="checkbox" name="isBudget" [(ngModel)]="isBudget">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-warning" (click)="close()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="create()" [attr.disabled]="!name.errors ? null : ''">Create</button>
+    </div>
+</moneteer-modal>
+

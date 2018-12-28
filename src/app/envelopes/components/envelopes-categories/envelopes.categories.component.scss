@@ -1,0 +1,21 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    border-top: 1px solid $divider-color;
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+::ng-deep .first-column {
+    flex: 0 0 200px;
+}
+
+::ng-deep .stat-column {
+    flex: 0 1 33.3%;
+    text-align: center;
+}
+
+::ng-deep h5 {
+    margin-top: 0;
+}

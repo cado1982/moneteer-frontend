@@ -1,0 +1,33 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    position: relative;
+    //background-color: $primary-color-light !important;
+}
+
+
+.transaction-dropdown-item {
+    padding: 2px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.active {
+    background-color: $accent-color !important;
+}
+
+input {
+    width: 100%;
+    color: $primary-text-color !important;
+}
+
+.transaction-actions {
+    position: absolute;
+    padding: 5px;    
+    top: 100%;
+    right: 30px;
+    z-index: 1;
+    color: $primary-color-text !important;
+    background-color: $primary-color-light !important;
+}

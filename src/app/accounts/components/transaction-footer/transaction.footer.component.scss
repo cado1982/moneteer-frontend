@@ -1,0 +1,18 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 auto;
+    border-top: 1px solid $divider-color;
+}
+
+.accounts--transaction-footer-stat {
+    text-align: center;
+    flex-basis: 100px;
+}
+
+h4, h6 {
+    margin-top: 0px;
+}

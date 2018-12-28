@@ -1,0 +1,26 @@
+@import "./../../../../css/base.scss";
+
+:host {
+    
+    position: relative;
+}
+
+.subheader {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.item {
+    font-size: 0.7em;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: $primary-color-light;
+}
+
+.subitem {
+    margin-left: 5px;
+}
+
