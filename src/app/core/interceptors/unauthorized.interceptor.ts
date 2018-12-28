@@ -2,7 +2,7 @@
 import {catchError} from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from "@angular/common/http";
-import { Observable } from "rxjs/observable";
+import { Observable } from "rxjs/Observable";
 import { ErrorObservable } from "rxjs/observable/ErrorObservable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";

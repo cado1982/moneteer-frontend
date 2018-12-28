@@ -11,9 +11,9 @@ import { map } from "rxjs/operators";
 
 
 @Component({
-    selector: "moneteer-envelopes-month-category",
-    templateUrl: "./envelopes.month.category.component.html",
-    styleUrls: ["./envelopes.month.category.component.scss"]
+    selector: "moneteer-envelopes-month-category"
+    //templateUrl: "./envelopes.month.category.component.html",
+    //styleUrls: ["./envelopes.month.category.component.scss"]
 })
 export class EnvelopesMonthCategoryComponent implements OnChanges, OnInit {
 
