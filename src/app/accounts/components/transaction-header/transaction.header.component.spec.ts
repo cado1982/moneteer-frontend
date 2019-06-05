@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { TransactionHeaderComponent } from "./transaction.header.component";
+import { ClarityModule } from "@clr/angular";
 import { Store, select } from "@ngrx/store";
 import { ITransactionsState, CreateTransactionMode, getSelectedTransactions } from "../../../core/reducers/transactions.reducer";
 import { TransactionsActions, ShowCreateTransactionAction } from "../../../core/actions/transactions.actions";
@@ -21,6 +22,7 @@ describe("TransactionHeaderComponent", () => {
     TestBed.configureTestingModule({
       declarations: [ TransactionHeaderComponent ],
       imports: [ 
+        ClarityModule,
         NoopAnimationsModule
       ],
       providers: [ 
@@ -64,5 +66,16 @@ describe("TransactionHeaderComponent", () => {
     addOutflowButton.triggerEventHandler("click", null);
 
     expect(spy).toHaveBeenCalledWith(action);
+  });
+
+  test("should disable delete transactions button when no transactions selected", () => {
+    when(store.pipe).calledWith(select(getSelectedTransactions)).mockReturnValue(s => hot("-a", { a : []}));
+    
+    fixture.detectChanges();
+
+    component.ngOnInit();
+    fixture.detectChanges();
+    let deleteTransactionsButton = fixture.debugElement.query(By.css("#deleteTransactions"));
+    expect(deleteTransactionsButton.nativeElement.disabled).toBeTruthy();
   });
 });

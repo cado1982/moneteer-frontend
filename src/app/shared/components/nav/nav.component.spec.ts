@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { NavComponent } from "./nav.component";
+import { ClarityModule } from "@clr/angular";
 import { AuthService, NotificationsService, ModalService } from "../../../core/services";
 import { HttpModule } from "@angular/http";
 import { HttpClientModule } from "@angular/common/http";
@@ -41,6 +42,9 @@ describe("NavComponent", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ NavComponent, DropdownComponent ],
+      imports: [
+        ClarityModule
+      ],
       providers: [
         { 
           provide: AuthService,

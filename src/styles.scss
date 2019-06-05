@@ -1,15 +1,29 @@
-@import "_normalize.scss";
-@import "colors.scss";
-@import "buttons.scss";
-@import "inputs.scss";
+$primary-color-dark:   #455A64;
+$primary-color:        #607D8B;
+$primary-color-light:  #CFD8DC;
+$primary-color-text:   #FFFFFF;
+$accent-color:         #FFC107;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
 
+$money-good:           #318700;
+$money-bad:            #c92100;
+
+$money-good-saturated: #00FFC8;
+$money-bad-saturated:  #FF5540;
+
+$error:                #cc0000;
+
+$primary: $primary-color;
 
 html {
-    font-family: 'Nunito Sans', sans-serif;
+    overflow: hidden;
+    height: 100%;
 }
 
 body {
-  background-color: $body-background;
+  height: 100%;
 }
 
 .is-good {

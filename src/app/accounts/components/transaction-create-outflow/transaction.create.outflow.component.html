@@ -1,7 +1,7 @@
 <div id="inputs">
     <div class="input-container">
         <label>Date</label>
-        <input name="date" type="date" name="date">
+        <input name="date" type="date" [(clrDate)]="date" name="date">
     </div>
     <div [hidden]="currentAccountId" class="input-container">
         <label>Account</label>
@@ -17,7 +17,7 @@
     </div>
     <div class="input-container">
         <label>Memo</label>  
-        <input name="description" class="input is-small" type="text" [(ngModel)]="description" name="description">
+        <input clrInput name="description" class="input is-small" type="text" [(ngModel)]="description" name="description">
     </div>
     <div class="input-container">
         <label>Outflow</label>
@@ -27,6 +27,6 @@
    
 <div id="actions">
     <button type="button" class="btn btn-outline-warning btn-sm" (click)="cancel()">Cancel</button>
-    <button [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm" (click)="create()">Create</button>
+    <button [clrLoading]="isBusy$ | async" [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm" (click)="create()">Create</button>
 </div>
 

@@ -3,17 +3,19 @@ import { DatePipe, CommonModule } from "@angular/common";
 import { LoadingComponent, TypeAheadComponent, CurrencyEditComponent, DropdownComponent } from "./components";
 import { CustomDatePipe } from "./pipes/date.pipe";
 import { BudgetCurrencyPipe } from "./pipes/budget.currency.pipe";
+import { ClarityModule, ClrFormsNextModule } from "@clr/angular";
 import { HttpModule } from "@angular/http";
 
 import { FormsModule } from "@angular/forms";
 import { NgPipesModule } from "ngx-pipes";
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NavComponent } from "./components/nav/nav.component";
-import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
     imports: [
         CommonModule,
+        ClarityModule,
+        ClrFormsNextModule,
         FormsModule,
         HttpModule,
         NgPipesModule
@@ -21,13 +23,14 @@ import { ModalComponent } from './components/modal/modal.component';
     exports: [
         CustomDatePipe,
         BudgetCurrencyPipe,
+        ClarityModule,
+        ClrFormsNextModule,
         NgPipesModule,
         LoadingComponent,
         TypeAheadComponent,
         CurrencyEditComponent,
         NavComponent,
         DropdownComponent,
-        ModalComponent,
         CurrencyMaskModule,
         FormsModule,
         CommonModule
@@ -42,8 +45,7 @@ import { ModalComponent } from './components/modal/modal.component';
         TypeAheadComponent,
         CurrencyEditComponent,
         DropdownComponent,
-        NavComponent,
-        ModalComponent
+        NavComponent
     ]
 })
 export class SharedModule {

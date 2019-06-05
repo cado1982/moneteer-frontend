@@ -7,7 +7,7 @@ import { MonthSelectorComponent, EnvelopesHomeComponent, EnvelopesCategoriesComp
          EnvelopesColumnHeaderComponent, EnvelopesCategoryHeaderComponent,
          EnvelopesHeaderStatsAvailableComponent,
          EnvelopesMonthCategoryCreateComponent,
-         EnvelopesCategoryCreateComponent } from "./components";
+         EnvelopesCategoryCreateComponent} from "./components";
 import { EnvelopesRoutingModule } from "./envelopes.routing.module";
 import { BudgetModule } from "../budget/budget.module";
 import { EnvelopeDetailsComponent } from './components/envelope-details/envelope-details.component';

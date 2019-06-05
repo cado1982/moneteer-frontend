@@ -1,4 +1,4 @@
-<moneteer-modal [open]="isOpen$ | async" [closable]="false">
+<clr-modal [clrModalOpen]="isOpen$ | async" [clrModalClosable]="false">
     <h3 class="modal-title">Delete budget</h3>
     <div class="modal-body">
         <section class="form-block">
@@ -15,6 +15,6 @@
     
     <div class="modal-footer">
         <button type="button" class="btn btn-outline" (click)="close()">Cancel</button>
-        <button type="submit" class="btn btn-danger" [disabled]="!(canDelete() | async)" (click)="delete()">Delete</button>
+        <button [clrLoading]="isDeleting$ | async" type="submit" class="btn btn-danger" [disabled]="!(canDelete() | async)" (click)="delete()">Delete</button>
     </div>
-</moneteer-modal>
+</clr-modal>

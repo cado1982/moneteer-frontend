@@ -1,6 +1,7 @@
-@import "./../../../../css/base.scss";
+@import "./../../../../styles.scss";
 
 :host {
+    padding: 10px;
     display: flex;
     flex: 0 0 auto;
     border-bottom: $divider-color solid 1px;

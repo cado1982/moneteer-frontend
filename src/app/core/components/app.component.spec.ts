@@ -3,6 +3,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 
 import { AppComponent } from "./app.component";
 import { ErrorModalComponent } from "./error-modal/error.modal.component";
+import { ClarityModule } from "@clr/angular";
 import { ModalService } from "../services";
 
 describe("AppComponent", () => {
@@ -10,6 +11,7 @@ describe("AppComponent", () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        ClarityModule
       ],
       declarations: [
         AppComponent,

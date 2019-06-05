@@ -1,4 +1,4 @@
-@import "./../../../../css/base.scss";
+@import "./../../../../styles.scss";
 
 :host {
     display: flex;
@@ -14,17 +14,14 @@
 }
 
 .transaction-header {
-    //color: $primary-color-text;
-    font-size: 0.8em;
+    background-color: $primary-color;
+    color: $primary-color-text;
+    font-size: 0.9em;
     padding: 2px 5px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     border-right: 1px solid $divider-color;
-    border-bottom: 1px solid $divider-color;
-    text-transform: uppercase;
-    height: 18px;
-    line-height: 18px;
 }
 
 .transaction-header-row {

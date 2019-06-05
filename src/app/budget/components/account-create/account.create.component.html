@@ -1,14 +1,14 @@
-<moneteer-modal [closable]="false" [open]="isOpen$ | async">
+<clr-modal [clrModalClosable]="false" [clrModalOpen]="isOpen$ | async">
     <h3 class="modal-title">Create Account</h3>
     <div class="modal-body">
         <form #createAccountForm="ngForm" name="create-account" novalidate>
-            <div [hidden]="!(error$ | async) || (isCreating$ | async)">
+            <clr-alert [hidden]="!(error$ | async) || (isCreating$ | async)" clrAlertType="alert-danger">
                 <div class="alert-item">
                     <span class="alert-test">
                         {{error$ | async}}
                     </span>
                 </div>
-            </div>
+            </clr-alert>
             <div class="form-block">
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -29,7 +29,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-warning" (click)="close()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="create()" [attr.disabled]="!name.errors ? null : ''">Create</button>
+        <button type="button" [clrLoading]="isCreating$ | async" class="btn btn-primary" (click)="create()" [attr.disabled]="!name.errors ? null : ''">Create</button>
     </div>
-</moneteer-modal>
+</clr-modal>
 

@@ -1,10 +1,10 @@
 <div class="transaction-row" (click)="click($event)">
     <div class="transaction-cell transaction-cell--selected">
-        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isChecked" />
+        <clr-checkbox (click)="$event.stopPropagation()" *ngIf="!isCreating" [(ngModel)]="isChecked"></clr-checkbox>
     </div>
     <div class="transaction-cell transaction-cell--date">
         <span *ngIf="!isEditing">{{transaction?.date | date:'shortDate'}}</span>
-        <input *ngIf="isEditing" type="date" [(ngModel)]="date" name="date">
+        <input *ngIf="isEditing" type="date" [(clrDate)]="date" name="date">
     </div>
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
         <span *ngIf="!isEditing">{{transaction?.account?.name}}</span>
@@ -32,7 +32,7 @@
         <moneteer-currency-input *ngIf="isEditing" [ngModel]="inflow" (ngModelChange)="onInflowChanged($event)"></moneteer-currency-input>
     </div>
     <div class="transaction-cell transaction-cell--cleared">
-        <input type="checkbox" (click)="$event.stopPropagation()" [ngModel]="isCleared" (ngModelChange)="setCleared($event)" />
+        <clr-checkbox (click)="$event.stopPropagation()" [ngModel]="isCleared" (ngModelChange)="setCleared($event)"></clr-checkbox>
     </div>
 </div>
 
@@ -44,6 +44,6 @@
 
 <div class="transaction-actions" *ngIf="isEditing">
     <button type="button" class="btn btn-outline-warning btn-sm" (click)="endEdit()">Cancel</button>
-    <button [disabled]="!canSave()" type="button" class="btn btn-primary btn-sm" (click)="save()">{{transaction.id === '00000000-0000-0000-0000-000000000000' ? 'Create' : 'Save'}}</button>
+    <button [clrLoading]="isBusy$ | async" [disabled]="!canSave()" type="button" class="btn btn-primary btn-sm" (click)="save()">{{transaction.id === '00000000-0000-0000-0000-000000000000' ? 'Create' : 'Save'}}</button>
 </div>
 

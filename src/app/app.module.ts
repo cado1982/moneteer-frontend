@@ -8,6 +8,10 @@ import { reducers, metaReducers } from "./reducers";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { EffectsModule } from "@ngrx/effects";
+import { BudgetsEffects } from "./core/effects/budgets.effects";
+import { TransactionsEffects } from "./core/effects/transactions.effects";
+import { AccountsEffects } from "./core/effects/accounts.effects";
+import { EnvelopesEffects } from "./core/effects/envelopes.effects";
 
 @NgModule({
     imports: [
