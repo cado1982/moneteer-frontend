@@ -27,7 +27,7 @@ export class AccountSelectDropdownComponent implements OnChanges {
     public searchFilter: string;
     public searchFilterTerm$: Subject<string> = new Subject<string>();
 
-    @ViewChild(DropdownComponent) public dropDown: DropdownComponent;
+    @ViewChild(DropdownComponent, {static: false}) public dropDown: DropdownComponent;
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.selectedAccount) {

@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccountSelectDropdownComponent } from './account-select-dropdown.component';
 import { DropdownComponent } from '../../../shared/components';
 import { FormsModule } from '@angular/forms';
-import { NgPipesModule } from 'ngx-pipes';
 
 describe('AccountSelectDropdownComponent', () => {
   let component: AccountSelectDropdownComponent;
@@ -12,7 +11,7 @@ describe('AccountSelectDropdownComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AccountSelectDropdownComponent, DropdownComponent ],
-      imports: [ FormsModule, NgPipesModule ]
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));

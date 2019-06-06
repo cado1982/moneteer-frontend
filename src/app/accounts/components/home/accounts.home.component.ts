@@ -1,8 +1,7 @@
 
-import {combineLatest as observableCombineLatest,  Observable } from "rxjs";
+import { Observable, combineLatest } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import "rxjs/add/observable/combineLatest";
 
 import { AccountModel } from "../../models";
 
@@ -19,7 +18,7 @@ export class AccountsHomeComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        observableCombineLatest(this.activatedRoute.params, this.accounts).subscribe(res => {
+        combineLatest(this.activatedRoute.params, this.accounts).subscribe(res => {
             const params: {[key: string]: any} = res[0];
             const accounts: AccountModel[] = res[1];
 

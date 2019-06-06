@@ -36,8 +36,8 @@ export class TypeAheadComponent implements ControlValueAccessor {
     @Input() @HostBinding("class.selected") isSelected: boolean;
     @Input() disabled: boolean;
 
-    @ViewChild("searchInput") public searchInput: ElementRef;
-    @ViewChild("dropDownContent") public dropDownContent: ElementRef;
+    @ViewChild("searchInput", {static: false}) public searchInput: ElementRef;
+    @ViewChild("dropDownContent", {static: false}) public dropDownContent: ElementRef;
 
     private selectedItem: any;
 

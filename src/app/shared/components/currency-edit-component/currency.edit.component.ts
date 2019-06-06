@@ -26,7 +26,7 @@ export class CurrencyEditComponent implements ControlValueAccessor {
     @Input() public allowZeros: boolean = false;
     @Input() public allowNegative: boolean = false;
 
-    @ViewChild("inputBox") public inputElement: ElementRef;
+    @ViewChild("inputBox", {static: false}) public inputElement: ElementRef;
 
     constructor(private changeDetector: ChangeDetectorRef, private zone: NgZone, private element: ElementRef) {
 

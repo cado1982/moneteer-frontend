@@ -4,7 +4,7 @@ import { TransactionModel, AccountModel, TransactionAssignmentModel } from "../.
 import { TransactionComponent } from "../transaction/transaction.component";
 import { PayeeModel, EnvelopeModel } from "../../../core/models";
 import { Store } from "@ngrx/store";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { TransactionCreateComponent } from "../transaction.create.component";
 import { ITransactionsState } from "../../../core/reducers/transactions.reducer";
 import { CreateTransactionAction, HideCreateTransactionAction } from "../../../core/actions/transactions.actions";

@@ -1,10 +1,6 @@
-import { AccountsActions, AccountsActionTypes } from "../actions/accounts.actions";
-import { AccountModel } from "../../accounts/models";
-import { EntityAdapter, createEntityAdapter, EntityState } from "@ngrx/entity";
-import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { createSelector } from "@ngrx/store";
 import { coreFeatureSelector } from "./feature.selector";
 import { EnvelopesActions, EnvelopesActionTypes } from "../actions/envelopes.actions";
-import "rxjs/add/operator/mergeMap";
 import * as _ from "lodash";
 import { EnvelopeModel } from "../models";
 

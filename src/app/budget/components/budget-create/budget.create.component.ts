@@ -30,7 +30,7 @@ export class BudgetCreateComponent implements OnInit {
     public error$: Subject<string> = new Subject<string>();
     public isCreating$: Observable<boolean>;
 
-    @ViewChild("createBudgetForm") private createBudgetForm: NgForm;
+    @ViewChild("createBudgetForm", {static: false}) private createBudgetForm: NgForm;
 
     constructor(
         private router: Router,

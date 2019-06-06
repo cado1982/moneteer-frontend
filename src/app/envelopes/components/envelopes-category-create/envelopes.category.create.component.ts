@@ -15,8 +15,8 @@ export class EnvelopesCategoryCreateComponent {
     @Input() public anchor: ElementRef;
     @Input() public envelopeCategory: EnvelopeCategoryModel;
 
-    @ViewChild(DropdownComponent) public dropDown: DropdownComponent;
-    @ViewChild("nameInput") public nameInput: ElementRef;
+    @ViewChild(DropdownComponent, {static: false}) public dropDown: DropdownComponent;
+    @ViewChild("nameInput", {static: false}) public nameInput: ElementRef;
 
     public name: string;
     public isCreating: boolean = false;

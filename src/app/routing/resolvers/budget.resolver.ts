@@ -4,7 +4,7 @@ import { first, map, switchMap } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { BudgetModel } from "../../core/models/index";
-
+ 
 import { Store } from "@ngrx/store";
 import { Actions, ofType } from "@ngrx/effects";
 import { IBudgetsState } from "../../core/reducers/budget.reducer";
@@ -33,7 +33,7 @@ export class BudgetResolver implements Resolve<BudgetModel> {
 
         const failure = this.actions$.pipe(
             ofType(BudgetActionTypes.LoadBudgetFailure),
-            switchMap((action: LoadBudgetFailureAction) => Observable.throwError(action.payload.error)),
+            switchMap((action: LoadBudgetFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 

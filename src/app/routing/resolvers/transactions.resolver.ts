@@ -30,7 +30,7 @@ export class TransactionsResolver implements Resolve<Array<TransactionModel>> {
 
         const failure = this.actions$.pipe(
             ofType(TransactionsActionTypes.LoadTransactionsFailure),
-            switchMap((action: LoadTransactionsFailureAction) => Observable.throwError(action.payload.error)),
+            switchMap((action: LoadTransactionsFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 

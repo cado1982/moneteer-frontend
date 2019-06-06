@@ -1,16 +1,12 @@
 
-import {of as observableOf,  Observable, of } from "rxjs";
+import {empty as observableEmpty, of as observableOf,  Observable, of } from 'rxjs';
 
 import {map, retry} from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import "rxjs/add/operator/retry";
-
 
 import { EnvelopeModel, PayeeModel } from "./../../core/models";
-import "rxjs/add/operator/map";
-import "rxjs/add/observable/of";
-import 'rxjs/add/observable/empty' 
+ 
 import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
 import { TransactionModel } from "../../accounts/models/index";
@@ -41,7 +37,7 @@ export class TransactionService extends ApiBaseService {
 
     public deleteTransactions(transactions: Array<TransactionModel>): Observable<TransactionModel[]> {
         if (!transactions || transactions.length === 0) {
-            return Observable.empty();
+            return observableEmpty();
         }
 
         const transactionIds: string[] = transactions.map(t => t.id);

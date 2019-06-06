@@ -1,21 +1,17 @@
 
 import {catchError} from "rxjs/operators";
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from "@angular/common/http";
-import { Observable } from "rxjs/observable";
-import { ErrorObservable } from "rxjs/observable/ErrorObservable";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
+import { HttpInterceptor, HttpRequest, HttpHandler } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
 import { AuthService } from "../services/index";
-import { error } from "util";
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) {
-
+        
     }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
                 this.authService.startAuthentication("");
@@ -31,7 +27,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
                 throw new Error(err.error);
             }
 
-            return Observable.throw(err);
+            return throwError(err);
         }));
     }
 }

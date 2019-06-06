@@ -11,7 +11,7 @@ import * as Drop from "tether-drop";
 export class DropdownComponent implements AfterViewInit, OnDestroy {
 
     private dropDown: Drop;
-    @ViewChild("dropDownContent") public dropDownContent: ElementRef;
+    @ViewChild("dropDownContent", {static: false}) public dropDownContent: ElementRef;
 
     @Output() public opened: EventEmitter<void> = new EventEmitter<void>();
 

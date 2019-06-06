@@ -1,28 +1,17 @@
-
-import { ActivatedRoute } from "@angular/router";
-
 import * as _ from "lodash";
-import "rxjs/add/operator/combineLatest";
 import { Observable } from "rxjs";
 
-
-import { CategoryDisplayPipe } from "./../../directives/category.month.display.pipe";
-
 import { EnvelopeModel, PayeeModel, EnvelopeCategoryModel, GuidModel } from "../../../core/models/index";
-import { NotificationsService, TransactionService } from "../../../core/services/index";
 import { TransactionModel, AccountModel, TransactionAssignmentModel } from "../../models/index";
-import { Component, Input, OnInit, HostBinding, HostListener, EventEmitter, Output } from "@angular/core";
+import { Component, Input, OnInit, EventEmitter, Output } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { map } from "rxjs/operators";
 import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.reducer";
-import { HideCreateTransactionAction, CreateTransactionAction, UpdateTransactionAction, SetTransactionClearedAction, SelectTransactionAction, DeselectTransactionAction } from "../../../core/actions/transactions.actions";
-import {  getEnvelopes } from "../../../core/reducers/envelopes.reducer";
-import { ITransactionsState, getIsCreating, CreateTransactionMode } from "../../../core/reducers/transactions.reducer";
+import { UpdateTransactionAction, SetTransactionClearedAction, SelectTransactionAction, DeselectTransactionAction } from "../../../core/actions/transactions.actions";
+import { getEnvelopes } from "../../../core/reducers/envelopes.reducer";
+import { getIsCreating } from "../../../core/reducers/transactions.reducer";
 import { OnChanges } from "@angular/core";
 import { SimpleChanges } from "@angular/core";
-import { ChangeDetectionStrategy } from "@angular/core";
 import { getPayees } from "../../../core/reducers/transactions.reducer";
-import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({
     selector: "moneteer-transaction",
@@ -91,10 +80,6 @@ export class TransactionComponent implements OnInit, OnChanges {
     public envelopes$: Observable<Array<EnvelopeModel>>;
 
     constructor(
-        private activatedRoute: ActivatedRoute,
-        private notificationsService: NotificationsService,
-        private categoryPipe: CategoryDisplayPipe,
-        private transactionService: TransactionService,
         private store: Store<IAccountsState>) {
 
     }
@@ -141,28 +126,9 @@ export class TransactionComponent implements OnInit, OnChanges {
         }
     }
 
-    private addAssignment(): void {
-        this.assignments.push(new TransactionAssignmentModel());
-    }
 
-    private onInflowChanged(newValue: number): void {
-        this.inflow = newValue;
-        if (newValue !== 0) {
-            this.outflow = 0;
-            this.envelope = undefined;
-        }
-    }
 
-    private onOutflowChanged(newValue: number): void {
-        this.outflow = newValue;
-        if (newValue !== 0) {
-            this.inflow = 0;
-        }
-    }
 
-    private endEdit(): void {
-        this.isEditing = false;
-    }
 
     public canSave(): boolean {
         return this.date &&
@@ -171,7 +137,7 @@ export class TransactionComponent implements OnInit, OnChanges {
                (this.inflow > 0 || this.outflow > 0);
     }
 
-    public click($event): void {
+    public click(): void {
         if (this.isChecked && !this.isEditing) {
             this.isEditing = true;
         } else if (!this.isChecked) {

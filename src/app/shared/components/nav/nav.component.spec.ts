@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { NavComponent } from "./nav.component";
 import { ClarityModule } from "@clr/angular";
 import { AuthService, NotificationsService, ModalService } from "../../../core/services";
-import { HttpModule } from "@angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterTestingModule } from "@angular/router/testing";
 import { User } from "oidc-client";
@@ -25,6 +24,7 @@ describe("NavComponent", () => {
   const exampleUser: User = {
     id_token: "",
     access_token: "",
+    refresh_token: "",
     expired: false,
     expires_at: 0,
     profile: {

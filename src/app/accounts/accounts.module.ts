@@ -12,7 +12,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { BudgetModule } from "../budget/budget.module";
 import { AccountSelectDropdownComponent } from './components/account-select-dropdown/account-select-dropdown.component';
 import { PayeeSelectDropdownComponent } from './components/payee-select-dropdown/payee-select-dropdown.component';
-import { ClrFormsNextModule, ClarityModule } from "@clr/angular";
+import { ClrFormsModule, ClarityModule } from "@clr/angular";
 
 @NgModule({
     declarations: [
@@ -35,7 +35,7 @@ import { ClrFormsNextModule, ClarityModule } from "@clr/angular";
     imports: [
         AccountsRoutingModule,
         SharedModule,
-        ClrFormsNextModule,
+        ClrFormsModule,
         ClarityModule
     ],
     exports: [

@@ -26,7 +26,7 @@ export class PayeeSelectDropdownComponent implements OnInit {
     public searchFilterTerm$: Subject<string> = new Subject<string>();
     public isCreatingNewPayee$: Observable<boolean>; 
 
-    @ViewChild(DropdownComponent) public dropDown: DropdownComponent;
+    @ViewChild(DropdownComponent, {static: false}) public dropDown: DropdownComponent;
 
     ngOnInit(): void {
         this.isCreatingNewPayee$ = this.searchFilterTerm$.pipe(

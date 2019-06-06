@@ -33,7 +33,7 @@ export class AccountsResolver implements Resolve<Array<AccountModel>> {
 
         const failure = this.actions$.pipe(
             ofType(AccountsActionTypes.LoadFailure),
-            switchMap((action: LoadAccountsFailureAction) => Observable.throwError(action.payload.error)),
+            switchMap((action: LoadAccountsFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 

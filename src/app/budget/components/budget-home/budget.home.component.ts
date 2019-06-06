@@ -1,11 +1,6 @@
 
-import {map} from "rxjs/operators";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, NavigationStart, Router, NavigationEnd } from "@angular/router";
-import "rxjs/add/operator/switchMap";
-import { Observable } from "rxjs";
-import { BudgetModel } from "../../../core/models/index";
-import { AccountModel } from "../../../accounts/models/index";
+import { Component } from "@angular/core";
+import { NavigationStart, Router, NavigationEnd } from "@angular/router";
 
 @Component({
     selector: "moneteer-budget-home",
@@ -17,7 +12,7 @@ export class BudgetHomeComponent {
 
     public isNavigating: boolean;
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    constructor(router: Router) {
         router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
                 this.isNavigating = true;

@@ -7,12 +7,11 @@ import { TransactionsActionTypes, LoadTransactionsAction, LoadTransactionsSucces
          CreateTransactionAction, CreateTransactionSuccessAction, UpdateTransactionAction, UpdateTransactionSuccessAction, 
          DeleteTransactionsAction, DeleteTransactionsSuccessAction, DeleteTransactionsFailureAction, LoadTransactionsFailureAction, 
          CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction, SetTransactionClearedFailureAction, DeselectTransactionAction, DeselectAllTransactionsAction, SelectTransactionAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction } from "../actions/transactions.actions";
-import { switchMap, map, tap, filter, flatMap } from "rxjs/operators";
+import { switchMap, map, tap, filter, flatMap, mergeMap } from "rxjs/operators";
 import { of, Observable, pipe } from "rxjs";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { LoadEnvelopesAction, LoadEnvelopesSuccessAction } from "../actions/envelopes.actions";
 import { getActiveBudget, IBudgetsState } from "../reducers/budget.reducer";
-import { mergeMap } from "rxjs-compat/operator/mergeMap";
 import { PayeeService } from "../services/payee.service";
 import { LoadBudgetAction } from "../actions/budget.actions";
 import { concatMapTo } from "rxjs/internal/operators/concatMapTo";
@@ -29,21 +28,23 @@ export class TransactionsEffects {
         private actions$: Actions
     ) { }
 
-    @Effect() loadTransactions$: Observable<Action> = this.actions$.pipe(
+    @Effect() loadTransactions$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.LoadTransactions),
         map((action: LoadTransactionsAction) => action.payload),
-        switchMap(payload => this.transactionService.getTransactionsForBudget(payload.budgetId)),
-        map(transactions => new LoadTransactionsSuccessAction({transactions})),
-        catchError(error => of(new LoadTransactionsFailureAction({error: error.message})))
-    );
+        switchMap(payload => this.transactionService.getTransactionsForBudget(payload.budgetId).pipe(
+            map(transactions => new LoadTransactionsSuccessAction({transactions})),
+            catchError(error => of(new LoadTransactionsFailureAction({error: error.message})))
+        )   
+    ));
 
-    @Effect() createTransaction$: Observable<Action> = this.actions$.pipe(
+    @Effect() createTransaction$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.CreateTransaction),
         map((action: CreateTransactionAction) => action.payload),
-        switchMap(payload => this.transactionService.createTransaction(payload.transaction)),
-        map(transaction => new CreateTransactionSuccessAction({transaction})),
-        catchError(error => of(new CreateTransactionFailureAction(error)))    
-    );
+        switchMap(payload => this.transactionService.createTransaction(payload.transaction).pipe(
+            map(transaction => new CreateTransactionSuccessAction({transaction})),
+            catchError(error => of(new CreateTransactionFailureAction(error)))    
+        )  
+    ));
 
     /*@Effect() createTransactionSuccess$: Observable<Action> = this.actions$.pipe(
         ofType(TransactionsActionTypes.CreateTransactionSuccess),
@@ -55,10 +56,10 @@ export class TransactionsEffects {
         ])
     );*/
 
-    @Effect() updateTransaction$: Observable<Action> = this.actions$.pipe(
+    @Effect() updateTransaction$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.UpdateTransaction),
         map((action: UpdateTransactionAction) => action.payload),
-        switchMap(payload => this.transactionService.editTransaction(payload.transaction).pipe(
+        mergeMap(payload => this.transactionService.editTransaction(payload.transaction).pipe(
             map(transaction => new UpdateTransactionSuccessAction({transaction})),
             catchError(error => of(new UpdateTransactionFailureAction({error, transaction: payload.transaction})))
         )
@@ -74,13 +75,14 @@ export class TransactionsEffects {
         ])
     );*/
 
-    @Effect() deleteTransactions$: Observable<Action> = this.actions$.pipe(
+    @Effect() deleteTransactions$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.DeleteTransactions),
         map((action: DeleteTransactionsAction) => action.payload),
-        switchMap(payload => this.transactionService.deleteTransactions(payload.transactions)),
-        map(transactions => new DeleteTransactionsSuccessAction({transactions})),
-        catchError(error => of(new DeleteTransactionsFailureAction(error)))
-    );
+        switchMap(payload => this.transactionService.deleteTransactions(payload.transactions).pipe(
+            map(transactions => new DeleteTransactionsSuccessAction({transactions})),
+            catchError(error => of(new DeleteTransactionsFailureAction(error)))
+        )
+    ));
 
     @Effect() deleteTransactionsSuccess$: Observable<Action> = this.actions$.pipe(
         ofType(TransactionsActionTypes.DeleteTransactionsSuccess),
@@ -89,7 +91,7 @@ export class TransactionsEffects {
         map(activeBudget => new DeselectAllTransactionsAction())
     );
 
-    @Effect() setTransactionCleared$: Observable<Action> = this.actions$.pipe(
+    @Effect() setTransactionCleared$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.SetTransactionCleared),
         map((action: SetTransactionClearedAction) => action.payload),
         switchMap(payload => this.transactionService.setTransactionIsCleared(payload.transactionId, payload.isCleared).pipe(
@@ -98,11 +100,12 @@ export class TransactionsEffects {
         )
     ));
 
-    @Effect() loadPayees$: Observable<Action> = this.actions$.pipe(
+    @Effect() loadPayees$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.LoadPayees),
         map((action: LoadPayeesAction) => action.payload),
-        switchMap(payload => this.payeeService.getAllPayeesByBudget(payload.budgetId)),
-        map(payees => new LoadPayeesSuccessAction({payees})),
-        catchError(err => of(new LoadPayeesFailureAction(err)))
-    );
+        switchMap(payload => this.payeeService.getAllPayeesByBudget(payload.budgetId).pipe(
+            map(payees => new LoadPayeesSuccessAction({payees})),
+            catchError(err => of(new LoadPayeesFailureAction(err)))
+        )   
+    ));
 }

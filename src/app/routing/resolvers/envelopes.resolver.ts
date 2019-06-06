@@ -1,6 +1,6 @@
 
-import { first, map } from "rxjs/operators";
-import {empty as observableEmpty, Observable, race } from "rxjs";
+import { first, map, flatMap } from "rxjs/operators";
+import {empty as observableEmpty, Observable, race, throwError, merge } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { AccountModel } from "../../accounts/models/index";
@@ -12,6 +12,8 @@ import { IEnvelopesState } from "../../core/reducers/envelopes.reducer";
 import { LoadEnvelopesAction, EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesFailureAction } from "../../core/actions/envelopes.actions";
 import { EnvelopeModel } from "../../core/models";
 import { switchMap } from "rxjs/internal/operators/switchMap";
+import { mergeMap } from "rxjs/internal/operators/mergeMap";
+import { } from "rxjs/internal/operators"
 
 @Injectable()
 export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
@@ -28,18 +30,18 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
         
         this.store.dispatch(new LoadEnvelopesAction({budgetId}));
 
-        const success =  this.actions$.pipe(
+        const success = this.actions$.pipe(
             ofType(EnvelopesActionTypes.LoadSuccess),
             map((action: LoadEnvelopesSuccessAction) => action.payload.envelopes),
             first()
         );
-
+            
         const failure = this.actions$.pipe(
             ofType(EnvelopesActionTypes.LoadFailure),
-            switchMap((action: LoadEnvelopesFailureAction) => Observable.throwError(action.payload.error)),
+            map((action: LoadEnvelopesFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 
-        return race(success, failure);
+        return success
     }
 }

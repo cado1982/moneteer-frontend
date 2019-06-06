@@ -1,5 +1,5 @@
 
-import {empty as observableEmpty, Observable, race } from "rxjs";
+import {empty as observableEmpty, Observable, race, throwError } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { PayeeModel } from "../../core/models/index";
@@ -32,7 +32,7 @@ export class PayeesResolver implements Resolve<Array<PayeeModel>> {
 
         const failure = this.actions$.pipe(
             ofType(TransactionsActionTypes.LoadPayeesFailure),
-            switchMap((action: LoadPayeesFailureAction) => Observable.throwError(action.payload.error)),
+            switchMap((action: LoadPayeesFailureAction) => throwError(action.payload.error)),
             first()
         );
 

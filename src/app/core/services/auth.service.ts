@@ -1,6 +1,5 @@
 import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
-import "rxjs/add/observable/fromPromise";
 import { HttpClient, HttpRequest, HttpHeaders } from "@angular/common/http";
 import { NotificationsService } from "./notifications.service";
 import { UserManager, UserManagerSettings, User } from "oidc-client";

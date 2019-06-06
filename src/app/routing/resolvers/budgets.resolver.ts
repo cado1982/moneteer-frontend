@@ -26,7 +26,7 @@ export class BudgetsResolver implements Resolve<Array<BudgetModel>> {
 
         const failure = this.actions$.pipe(
             ofType(BudgetActionTypes.LoadFailure),
-            switchMap((action: LoadBudgetsFailureAction) => Observable.throwError(action.payload.error)),
+            switchMap((action: LoadBudgetsFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 

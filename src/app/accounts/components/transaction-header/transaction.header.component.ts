@@ -1,16 +1,12 @@
-import {distinctUntilChanged, debounceTime} from "rxjs/operators";
+import {distinctUntilChanged, debounceTime,  take } from "rxjs/operators";
 import { Component, OnInit,  } from "@angular/core";
-import { Observable ,  Subject } from "rxjs";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/finally";
-import "rxjs/add/operator/distinctUntilChanged";
+import { Observable , Subject } from "rxjs";
 import { Store, select } from "@ngrx/store";
 
 import { TransactionModel } from "../../models/index";
 import { ITransactionsState, getIsDeleting, getSelectedTransactions, CreateTransactionMode } from "../../../core/reducers/transactions.reducer";
 import { ShowCreateTransactionAction, DeleteTransactionsAction, TransactionsActionTypes, TransactionsActions } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
-import { take } from "rxjs/operators";
 
 @Component({
   selector: "moneteer-transaction-header",
