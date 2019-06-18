@@ -10,6 +10,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NavComponent } from "./components/nav/nav.component";
 import { PairsPipe } from "./pipes/pairs.pipe";
 import { GroupByPipe } from "./pipes/group.by.pipe";
+import { FilterByPipe } from "./pipes/filter.by.pipe";
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { GroupByPipe } from "./pipes/group.by.pipe";
         BudgetCurrencyPipe,
         PairsPipe,
         GroupByPipe,
+        FilterByPipe,
         ClarityModule,
         ClrFormsModule,
         LoadingComponent,
@@ -42,6 +44,7 @@ import { GroupByPipe } from "./pipes/group.by.pipe";
         BudgetCurrencyPipe,
         PairsPipe,
         GroupByPipe,
+        FilterByPipe,
         LoadingComponent,
         TypeAheadComponent,
         CurrencyEditComponent,

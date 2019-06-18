@@ -13,7 +13,7 @@
             <div class="form-block">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input class="input" autoFocus #name="ngModel" required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text" [(ngModel)]="budget.name">
+                    <input clrInput class="input" autoFocus #name="ngModel" required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text" [(ngModel)]="budget.name">
                     <p class="help is-danger" *ngIf="name.errors && (name.dirty || name.touched)">This name is invalid</p>
 
                 </div>

@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isFunction, extractDeepPropertyByMapKey } from './pipe.helpers';
 
 @Pipe({ name: 'groupBy' })
 export class GroupByPipe implements PipeTransform {
@@ -21,31 +22,14 @@ export class GroupByPipe implements PipeTransform {
     }
 
     private extractKeyByDiscriminator(discriminator: any, payload: string, delimiter: string) {
-        if (this.isFunction(discriminator)) {
+        if (isFunction(discriminator)) {
             return (<Function>discriminator)(payload);
         }
 
         if (Array.isArray(discriminator)) {
-            return discriminator.map(k => this.extractDeepPropertyByMapKey(payload, k)).join(delimiter);
+            return discriminator.map(k => extractDeepPropertyByMapKey(payload, k)).join(delimiter);
         }
 
-        return this.extractDeepPropertyByMapKey(payload, <string>discriminator);
-    }
-
-    private isFunction(value: any): Boolean {
-        return typeof value === 'function';
-    }
-
-    private extractDeepPropertyByMapKey(obj: any, map: string): any {
-        const keys = map.split('.');
-        const head = keys.shift();
-
-        return keys.reduce((prop: any, key: string) => {
-            return !this.isUndefined(prop) && !this.isUndefined(prop[key]) ? prop[key] : undefined;
-        }, obj[head || '']);
-    }
-
-    private isUndefined(value: any) {
-        return typeof value === 'undefined';
+        return extractDeepPropertyByMapKey(payload, <string>discriminator);
     }
 }

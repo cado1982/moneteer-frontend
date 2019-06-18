@@ -1,6 +1,6 @@
 <div class="transaction-row" (click)="click($event)">
     <div class="transaction-cell transaction-cell--selected">
-        <clr-checkbox (click)="$event.stopPropagation()" *ngIf="!isCreating" [(ngModel)]="isChecked"></clr-checkbox>
+        <input type="checkbox" clrCheckbox (click)="$event.stopPropagation()" *ngIf="!isCreating" [(ngModel)]="isChecked" />
     </div>
     <div class="transaction-cell transaction-cell--date">
         <span *ngIf="!isEditing">{{transaction?.date | date:'shortDate'}}</span>
@@ -32,7 +32,7 @@
         <moneteer-currency-input *ngIf="isEditing" [ngModel]="inflow" (ngModelChange)="onInflowChanged($event)"></moneteer-currency-input>
     </div>
     <div class="transaction-cell transaction-cell--cleared">
-        <clr-checkbox (click)="$event.stopPropagation()" [ngModel]="isCleared" (ngModelChange)="setCleared($event)"></clr-checkbox>
+            <input type="checkbox" clrCheckbox (click)="$event.stopPropagation()" [ngModel]="isCleared" (ngModelChange)="setCleared($event)" />
     </div>
 </div>
 

@@ -145,6 +145,10 @@ export class TransactionComponent implements OnInit, OnChanges {
         }
     }
 
+    public endEdit(): void {
+        this.isEditing = false;
+    }
+
     public save(): void {
         if (this.currentAccountId) {
             this.account = new AccountModel();
