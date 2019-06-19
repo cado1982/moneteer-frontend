@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChildren, QueryList } from "@angular/core";
 import { Observable } from "rxjs";
-import { trigger, state, style, animate, transition } from "@angular/animations";
+import { trigger, state, style, animate, transition, query } from "@angular/animations";
 
 import { TransactionComponent } from "./../transaction/transaction.component";
 import { ActivatedRoute } from "@angular/router";
@@ -10,6 +10,7 @@ import { Store } from "@ngrx/store";
 import { ITransactionsState, getIsCreateInflowTransactionOpen, getIsCreateOutflowTransactionOpen } from "../../../core/reducers/transactions.reducer";
 import { TransactionsActionTypes } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
+import { tap } from "rxjs/operators";
 
 
 @Component({
@@ -28,12 +29,6 @@ import { Actions, ofType } from "@ngrx/effects";
                 display: "none"
             })),
             transition("* <=> *", animate("150ms ease-out"))
-        ]),
-        trigger("enterView", [
-            transition(":enter", [
-                style({backgroundColor: "#FFC107"}),
-                animate("3000ms ease-out")
-            ])
         ])
     ]
 })
@@ -41,10 +36,10 @@ export class TransactionListComponent implements OnInit {
 
     public isCreateInflowTransactionOpen$: Observable<boolean>;
     public isCreateOutflowTransactionOpen$: Observable<boolean>;
-    @Input() public transactions: Observable<TransactionModel[]>;
+    @Input() public transactions$: Observable<TransactionModel[]>;
     public currentAccountId: string;
     public isAnimationDisabled: boolean = true;
-    
+
     @ViewChildren(TransactionComponent) public transactionComponents: QueryList<TransactionComponent>;
 
     constructor(
@@ -61,18 +56,20 @@ export class TransactionListComponent implements OnInit {
 
         this.isCreateInflowTransactionOpen$ = this.store.select(getIsCreateInflowTransactionOpen);
         this.isCreateOutflowTransactionOpen$ = this.store.select(getIsCreateOutflowTransactionOpen);
-        
-        this.actions$.pipe(
-            ofType(TransactionsActionTypes.ShowCreateTransaction)
-        ).subscribe(() => {
-            this.deselectAllTransactions();
-        })
 
         this.actions$.pipe(
             ofType(TransactionsActionTypes.LoadTransactionsSuccess)
         ).subscribe(() => {
+            //Why isn't this getting called?
             this.isAnimationDisabled = false;
+            console.log("Animations enabled")
         });
+
+        this.actions$.pipe(
+            ofType(TransactionsActionTypes.ShowCreateTransaction)
+        ).subscribe(() => {
+            this.deselectAllTransactions();
+        })        
     }
 
     public onSelectAll(isSelected: boolean): void {

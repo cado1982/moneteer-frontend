@@ -5,6 +5,9 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from "@angular/
 import { Store } from "@ngrx/store";
 import { ITransactionsState, getTransactions } from "../../../core/reducers/transactions.reducer";
 import { TransactionListComponent } from "../transaction-list/transaction.list.component";
+import { Actions, ofType } from "@ngrx/effects";
+import { TransactionsActionTypes } from "src/app/core/actions/transactions.actions";
+import { tap } from "rxjs/operators";
 
 @Component({
     selector: "moneteer-accounts-detail",
@@ -13,16 +16,15 @@ import { TransactionListComponent } from "../transaction-list/transaction.list.c
 })
 
 export class AccountsDetailComponent implements OnInit {
-    public transactions: Observable<TransactionModel[]>;
+    public transactions$: Observable<TransactionModel[]>;
 
     constructor(
-        private route: ActivatedRoute,
-        private store: Store<ITransactionsState>) {
+        private store: Store<ITransactionsState>
+    ) {
 
     }
 
     public ngOnInit(): void {
-        this.transactions = this.store.select(getTransactions);
-
+        this.transactions$ = this.store.select(getTransactions);
     }
 }
