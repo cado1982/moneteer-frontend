@@ -62,7 +62,7 @@ export class TransactionListComponent implements OnInit {
         ).subscribe(() => {
             //Why isn't this getting called?
             this.isAnimationDisabled = false;
-            console.log("Animations enabled")
+            console.log("Animations disabled")
         });
 
         this.actions$.pipe(
