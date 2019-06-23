@@ -59,5 +59,6 @@
 
 #workspace {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+    overflow-y: auto;
 }
