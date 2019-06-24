@@ -66,6 +66,7 @@ h6 {
 
 .link-container {
     display: flex;
+    cursor: pointer;
 }
 
 .link-container button {
@@ -85,9 +86,9 @@ h6 {
 }
 
 .link:hover, .link.active, .link-container:hover, .link-container:hover a, .link-container:hover button, .link-container.active {
-    background-color: $primary-color;
-    color: $primary-color-text;
-    border-color: $primary-color-text;
+    background-color: $primary-color !important;
+    color: $primary-color-text !important;
+    border-color: $primary-color-text !important;
 }
 
 .link-container button:hover {

@@ -16,11 +16,11 @@ export class DropdownComponent implements AfterViewInit, OnDestroy {
     @Output() public opened: EventEmitter<void> = new EventEmitter<void>();
 
     @Input() public anchor: Element;
-    @Input() public attachment: string = "bottom center";
-    @Input() public targetAttachment: string = "top center";
+    @Input() public attachment: string = "top center";
+    @Input() public targetAttachment: string = "bottom center";
     @Input() public openOn: string = "click";
     @Input() public classes: string = "drop-theme-arrows-bounce";
-    @Input() public offset: string = "0 0"; // first up/down, second left/right
+    @Input() public offset: string = "-5 0"; // first up/down, second left/right
 
 
     constructor(private element: ElementRef) {
@@ -38,7 +38,7 @@ export class DropdownComponent implements AfterViewInit, OnDestroy {
                 targetAttachment: this.targetAttachment,
                 offset: this.offset
             },
-            constrainToScrollParent: true,
+            constrainToScrollParent: false,
             constrainToWindow: true
         });
         this.dropDown.on("open", () => this.onDropdownOpen());

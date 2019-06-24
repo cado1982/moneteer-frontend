@@ -16,5 +16,7 @@
 </div>
 
 <div class="transactions-container">
-    <moneteer-transaction [@.disabled]="isAnimationDisabled" (editing)="onTransactionEditing($event)" [currentAccountId]="currentAccountId" [transaction]="transaction" *ngFor="let transaction of transactions$ | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy"></moneteer-transaction>
+    <div class="transactions-list">
+            <moneteer-transaction [@.disabled]="isAnimationDisabled" (editing)="onTransactionEditing($event)" [currentAccountId]="currentAccountId" [transaction]="transaction" *ngFor="let transaction of transactions$ | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy"></moneteer-transaction>
+    </div>
 </div>

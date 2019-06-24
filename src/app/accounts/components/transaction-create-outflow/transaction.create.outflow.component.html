@@ -1,19 +1,20 @@
 <div id="inputs">
     <div class="input-container">
         <label>Date</label>
-        <input clrInput name="date" type="date" [(clrDate)]="date" name="date">
+        <input class="input-control" name="date" type="date" [(clrDate)]="date">
     </div>
     <div [hidden]="currentAccountId" class="input-container">
         <label>Account</label>
-        <moneteer-account-select-dropdown [accounts]="accounts$ | async" [(selectedAccount)]="account"></moneteer-account-select-dropdown>
+        <moneteer-account-select-dropdown class="input-control" [accounts]="accounts$ | async" [(selectedAccount)]="account"></moneteer-account-select-dropdown>
     </div>
     <div class="input-container">
         <label>Payee</label>
-        <moneteer-payee-select-dropdown [payees]="payees$ | async" [(selectedPayee)]="payee"></moneteer-payee-select-dropdown>
+        <moneteer-payee-select-dropdown class="input-control" [payees]="payees$ | async" [(selectedPayee)]="payee"></moneteer-payee-select-dropdown>
     </div>
     <div class="input-container">
         <label>Envelope</label>  
-        <moneteer-type-ahead [(ngModel)]="envelope" (ngModelChange)="onSelectedEnvelopeChange($event)" [values]="envelopes$ | async" [display-property]="'name'" [group-by]="'envelopeCategory.name'"></moneteer-type-ahead>
+        <moneteer-envelope-select-dropdown class="input-control" [envelopes]="envelopes$ | async" [(selectedEnvelope)]="envelope"></moneteer-envelope-select-dropdown>
+        <!-- <moneteer-type-ahead class="input-control" [(ngModel)]="envelope" (ngModelChange)="onSelectedEnvelopeChange($event)" [values]="envelopes$ | async" [display-property]="'name'" [group-by]="'envelopeCategory.name'"></moneteer-type-ahead> -->
     </div>
     <div class="input-container">
         <label>Memo</label>  
@@ -21,7 +22,7 @@
     </div>
     <div class="input-container">
         <label>Outflow</label>
-        <moneteer-currency-input name="outflow" [(ngModel)]="outflow"></moneteer-currency-input>
+        <moneteer-currency-input class="input-control" name="outflow" [(ngModel)]="outflow"></moneteer-currency-input>
     </div>
 </div>
    

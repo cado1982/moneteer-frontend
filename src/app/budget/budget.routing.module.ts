@@ -18,7 +18,7 @@ const routes: Routes = [
             budget: BudgetResolver,
             accounts: AccountsResolver,
             payees: PayeesResolver,
-            //envelopes: EnvelopesResolver
+            envelopes: EnvelopesResolver
         },
         children: [
             { path: "accounts", loadChildren: "./../accounts/accounts.module#AccountsModule" },

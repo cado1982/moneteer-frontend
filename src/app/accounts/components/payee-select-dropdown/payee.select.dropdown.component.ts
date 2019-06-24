@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'moneteer-payee-select-dropdown',
-    templateUrl: './payee-select-dropdown.component.html',
-    styleUrls: ['./payee-select-dropdown.component.scss']
+    templateUrl: './payee.select.dropdown.component.html',
+    styleUrls: ['./payee.select.dropdown.component.scss']
 })
 export class PayeeSelectDropdownComponent implements OnInit {
     

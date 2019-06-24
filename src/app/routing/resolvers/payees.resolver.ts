@@ -32,7 +32,7 @@ export class PayeesResolver implements Resolve<Array<PayeeModel>> {
 
         const failure = this.actions$.pipe(
             ofType(TransactionsActionTypes.LoadPayeesFailure),
-            switchMap((action: LoadPayeesFailureAction) => throwError(action.payload.error)),
+            switchMap((action: LoadPayeesFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 

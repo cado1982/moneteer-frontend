@@ -23,10 +23,10 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
     }
 
     public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Array<EnvelopeModel>> {
-        if (!route.parent || !route.parent.parent || !route.parent.parent.params || !route.parent.parent.params.budgetId) {
+        if (!route.params || !route.params.budgetId) {
             throw new Error("Unable to find budgetId from route");
         }
-        const budgetId: string = route.parent.parent.params.budgetId;
+        const budgetId: string = route.params.budgetId;
         
         this.store.dispatch(new LoadEnvelopesAction({budgetId}));
 
@@ -42,6 +42,6 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
             first()
         );
 
-        return success
+        return race(success, failure)
     }
 }

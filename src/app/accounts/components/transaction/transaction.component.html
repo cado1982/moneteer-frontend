@@ -21,7 +21,7 @@
     </div>
     <div class="transaction-cell transaction-cell--category">
         <span *ngIf="!isEditing">{{transaction?.envelope?.name}}</span>
-        <moneteer-type-ahead [disabled]="inflow > 0" [hidden]="!isEditing" [(ngModel)]="envelope" (ngModelChange)="onSelectedEnvelopeChange($event)" [values]="envelopes$ | async" [display-property]="'name'" [group-by]="'envelopeCategory.name'" [isSelected]="isEditing || isChecked"></moneteer-type-ahead>
+        <moneteer-envelope-select-dropdown *ngIf="isEditing" [disabled]="inflow > 0" [(selectedEnvelope)]="envelope" [envelopes]="envelopes$ | async"></moneteer-envelope-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.outflow | budgetCurrency }}</span>

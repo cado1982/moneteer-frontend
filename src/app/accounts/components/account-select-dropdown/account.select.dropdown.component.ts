@@ -8,8 +8,8 @@ import { AccountModel } from '../../models';
 
 @Component({
     selector: 'moneteer-account-select-dropdown',
-    templateUrl: './account-select-dropdown.component.html',
-    styleUrls: ['./account-select-dropdown.component.scss']
+    templateUrl: './account.select.dropdown.component.html',
+    styleUrls: ['./account.select.dropdown.component.scss']
 })
 export class AccountSelectDropdownComponent implements OnChanges {
     

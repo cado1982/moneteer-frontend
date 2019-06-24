@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PayeeSelectDropdownComponent } from './payee-select-dropdown.component';
+import { EnvelopeSelectDropdownComponent } from './envelope.select.dropdown.component';
 import { DropdownComponent } from '../../../shared/components';
 import { FormsModule } from '@angular/forms';
 
-describe('PayeeSelectDropdownComponent', () => {
-  let component: PayeeSelectDropdownComponent;
-  let fixture: ComponentFixture<PayeeSelectDropdownComponent>;
+describe('EnvelopeSelectDropdownComponent', () => {
+  let component: EnvelopeSelectDropdownComponent;
+  let fixture: ComponentFixture<EnvelopeSelectDropdownComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PayeeSelectDropdownComponent, DropdownComponent ],
+      declarations: [ EnvelopeSelectDropdownComponent, DropdownComponent ],
       imports: [ FormsModule ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PayeeSelectDropdownComponent);
+    fixture = TestBed.createComponent(EnvelopeSelectDropdownComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
