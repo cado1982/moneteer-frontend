@@ -5,18 +5,18 @@ import { createSelector } from "@ngrx/store";
 
 export interface IBudgetsState {
     budgets: BudgetModel[],
-    activeBudget: BudgetModel | undefined,
+    activeBudget: BudgetModel | null,
     showCreateBudget: boolean;
-    deletingBudget: BudgetModel | undefined;
+    deletingBudget: BudgetModel | null;
     deleting: boolean;
     creating: boolean;
 }
 
 export const initialState: IBudgetsState = {
     budgets: [],
-    activeBudget: undefined,
+    activeBudget: null,
     showCreateBudget: false,
-    deletingBudget: undefined,
+    deletingBudget: null,
     deleting: false,
     creating: false
 }
@@ -30,13 +30,13 @@ export function budgetsReducer(state: IBudgetsState = initialState, action: Budg
             return {...state, deletingBudget: action.payload.budget}
         }
         case BudgetActionTypes.HideDelete: {
-            return {...state, deletingBudget: undefined}
+            return {...state, deletingBudget: null}
         }
         case BudgetActionTypes.Delete: {
             return {...state, deleting: true}
         }
         case BudgetActionTypes.DeleteSuccess: {
-            return {...state, budgets: state.budgets.filter(b => b.id !== action.payload.budget.id), deleting: false, deletingBudget: undefined};
+            return {...state, budgets: state.budgets.filter(b => b.id !== action.payload.budget.id), deleting: false, deletingBudget: null};
         }
         case BudgetActionTypes.DeleteFailure: {
             return {...state, deleting: false};

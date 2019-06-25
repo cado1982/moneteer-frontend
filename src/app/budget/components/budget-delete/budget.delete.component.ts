@@ -18,7 +18,7 @@ import { map, first } from "rxjs/operators";
 export class BudgetDeleteComponent implements OnInit {
     public isOpen$: Observable<boolean>;
     public isDeleting$: Observable<boolean>;
-    public budget$: Observable<BudgetModel | undefined>;
+    public budget$: Observable<BudgetModel | null>;
     public confirmName$: BehaviorSubject<string> = new BehaviorSubject<string>("");
     public error$: Observable<string> = new Observable<string>();
 
