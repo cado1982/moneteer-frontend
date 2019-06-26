@@ -11,10 +11,14 @@
     cursor: pointer;
 }
 
-.item:hover {
+.item:hover, .item.highlighted {
     background-color: $primary-color-light;
 }
 
 .subitem {
     margin-left: 5px;
+}
+
+moneteer-dropdown .btn {
+    width: 100%;
 }

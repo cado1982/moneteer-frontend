@@ -13,7 +13,7 @@
     </div>
     <div class="input-container">
         <label>Envelope</label>  
-        <moneteer-envelope-select-dropdown class="input-control" [envelopes]="envelopes$ | async" [(selectedEnvelope)]="envelope"></moneteer-envelope-select-dropdown>
+        <moneteer-envelope-select-dropdown class="input-control" [envelopes$]="envelopes$" [(selectedEnvelope)]="envelope"></moneteer-envelope-select-dropdown>
         <!-- <moneteer-type-ahead class="input-control" [(ngModel)]="envelope" (ngModelChange)="onSelectedEnvelopeChange($event)" [values]="envelopes$ | async" [display-property]="'name'" [group-by]="'envelopeCategory.name'"></moneteer-type-ahead> -->
     </div>
     <div class="input-container">

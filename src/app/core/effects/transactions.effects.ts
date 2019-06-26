@@ -1,29 +1,25 @@
 import { Injectable } from "@angular/core";
 
-import { TransactionService, EnvelopesService } from "../../core/services";
+import { TransactionService } from "../../core/services";
 import { Actions, ofType, Effect } from "@ngrx/effects";
-import { Store, Action } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { TransactionsActionTypes, LoadTransactionsAction, LoadTransactionsSuccessAction,
          CreateTransactionAction, CreateTransactionSuccessAction, UpdateTransactionAction, UpdateTransactionSuccessAction, 
          DeleteTransactionsAction, DeleteTransactionsSuccessAction, DeleteTransactionsFailureAction, LoadTransactionsFailureAction, 
-         CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction, SetTransactionClearedFailureAction, DeselectTransactionAction, DeselectAllTransactionsAction, SelectTransactionAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction } from "../actions/transactions.actions";
-import { switchMap, map, tap, filter, flatMap, mergeMap, first } from "rxjs/operators";
-import { of, Observable, pipe } from "rxjs";
+         CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction, SetTransactionClearedFailureAction, DeselectAllTransactionsAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction } from "../actions/transactions.actions";
+import { switchMap, map, filter, mergeMap, first } from "rxjs/operators";
+import { of } from "rxjs";
 import { catchError } from "rxjs/internal/operators/catchError";
-import { LoadEnvelopesAction, LoadEnvelopesSuccessAction } from "../actions/envelopes.actions";
+import { LoadEnvelopesAction } from "../actions/envelopes.actions";
 import { getActiveBudget, IBudgetsState } from "../reducers/budget.reducer";
 import { PayeeService } from "../services/payee.service";
 import { LoadBudgetAction } from "../actions/budget.actions";
-import { concatMapTo } from "rxjs/internal/operators/concatMapTo";
-import { switchMapTo } from "rxjs/internal/operators/switchMapTo";
-import { mergeMapTo } from "rxjs/internal/operators/mergeMapTo";
 import { BudgetModel } from "../models";
 
 @Injectable()
 export class TransactionsEffects {
     constructor(
         private transactionService: TransactionService,
-        private envelopesService: EnvelopesService,
         private payeeService: PayeeService,
         private budgetStore: Store<IBudgetsState>,
         private actions$: Actions
