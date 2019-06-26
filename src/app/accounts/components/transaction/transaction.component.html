@@ -1,6 +1,7 @@
 <div class="transaction-row" (click)="click($event)">
     <div class="transaction-cell transaction-cell--selected">
-        <input type="checkbox" clrCheckbox (click)="$event.stopPropagation()" *ngIf="!isCreating" [(ngModel)]="isChecked" />
+        <input type="checkbox" (click)="$event.stopPropagation()" *ngIf="!isCreating" [(ngModel)]="isChecked"
+            name="isChecked" id="isChecked" class="clr-checkbox">
     </div>
     <div class="transaction-cell transaction-cell--date">
         <span *ngIf="!isEditing">{{transaction?.date | date:'shortDate'}}</span>
@@ -8,12 +9,14 @@
     </div>
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
         <span *ngIf="!isEditing">{{transaction?.account?.name}}</span>
-        <moneteer-account-select-dropdown *ngIf="isEditing" [accounts]="accounts$ | async" [(selectedAccount)]="account"></moneteer-account-select-dropdown>
+        <moneteer-account-select-dropdown *ngIf="isEditing" [accounts]="accounts$ | async"
+            [(selectedAccount)]="account"></moneteer-account-select-dropdown>
     </div>
 
     <div class="transaction-cell transaction-cell--payee">
         <span *ngIf="!isEditing">{{transaction?.payee?.name}}</span>
-        <moneteer-payee-select-dropdown *ngIf="isEditing" [payees]="payees$ | async" [(selectedPayee)]="payee"></moneteer-payee-select-dropdown>
+        <moneteer-payee-select-dropdown *ngIf="isEditing" [payees]="payees$ | async" [(selectedPayee)]="payee">
+        </moneteer-payee-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--description">
         <span *ngIf="!isEditing">{{transaction?.description}}</span>
@@ -21,29 +24,34 @@
     </div>
     <div class="transaction-cell transaction-cell--category">
         <span *ngIf="!isEditing">{{transaction?.envelope?.name}}</span>
-        <moneteer-envelope-select-dropdown *ngIf="isEditing" [disabled]="inflow > 0" [(selectedEnvelope)]="envelope" [envelopes]="envelopes$ | async"></moneteer-envelope-select-dropdown>
+        <moneteer-envelope-select-dropdown *ngIf="isEditing" [disabled]="inflow > 0" [(selectedEnvelope)]="envelope"
+            [envelopes]="envelopes$ | async"></moneteer-envelope-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.outflow | budgetCurrency }}</span>
-        <moneteer-currency-input *ngIf="isEditing" [ngModel]="outflow" (ngModelChange)="onOutflowChanged($event)"></moneteer-currency-input>
+        <moneteer-currency-input *ngIf="isEditing" [ngModel]="outflow" (ngModelChange)="onOutflowChanged($event)">
+        </moneteer-currency-input>
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.inflow | budgetCurrency }}</span>
-        <moneteer-currency-input *ngIf="isEditing" [ngModel]="inflow" (ngModelChange)="onInflowChanged($event)"></moneteer-currency-input>
+        <moneteer-currency-input *ngIf="isEditing" [ngModel]="inflow" (ngModelChange)="onInflowChanged($event)">
+        </moneteer-currency-input>
     </div>
     <div class="transaction-cell transaction-cell--cleared">
-            <input type="checkbox" clrCheckbox (click)="$event.stopPropagation()" [ngModel]="isCleared" (ngModelChange)="setCleared($event)" />
+        <input type="checkbox" (click)="$event.stopPropagation()" (ngModelChange)="setCleared($event)" [(ngModel)]="isCleared"
+        name="isCleared" id="isCleared" class="clr-checkbox">
     </div>
 </div>
 
 <div *ngIf="transaction.assignments?.length > 1" (click)="click($event)">
-    <moneteer-transaction-assignment [currentAccountId]="currentAccountId" [assignment]="assignment" [isEditing]="isEditing" *ngFor="let assignment of transaction.assignments">
+    <moneteer-transaction-assignment [currentAccountId]="currentAccountId" [assignment]="assignment"
+        [isEditing]="isEditing" *ngFor="let assignment of transaction.assignments">
 
     </moneteer-transaction-assignment>
 </div>
 
 <div class="transaction-actions" *ngIf="isEditing">
     <button type="button" class="btn btn-outline-warning btn-sm" (click)="endEdit()">Cancel</button>
-    <button [clrLoading]="isBusy$ | async" [disabled]="!canSave()" type="button" class="btn btn-primary btn-sm" (click)="save()">{{transaction.id === '00000000-0000-0000-0000-000000000000' ? 'Create' : 'Save'}}</button>
+    <button [clrLoading]="isBusy$ | async" [disabled]="!canSave()" type="button" class="btn btn-primary btn-sm"
+        (click)="save()">{{transaction.id === '00000000-0000-0000-0000-000000000000' ? 'Create' : 'Save'}}</button>
 </div>
-

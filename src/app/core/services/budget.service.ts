@@ -14,18 +14,18 @@ export class BudgetService extends ApiBaseService {
     }
 
     public getBudget(budgetId: string): Observable<BudgetModel> {
-        return this.get<BudgetModel>(`budget/${budgetId}`).pipe(first());
+        return this.get<BudgetModel>(`budget/${budgetId}`);
     }
 
     public getAllBudgets(): Observable<Array<BudgetModel>> {
-        return this.get<Array<BudgetModel>>("budget").pipe(first());
+        return this.get<Array<BudgetModel>>("budget");
     }
 
     public createBudget(budget: BudgetModel): Observable<BudgetModel> {
-        return this.post<BudgetModel>("budget", budget).pipe(first());
+        return this.post("budget", budget);
     }
 
     public deleteBudget(budgetId: string): Observable<string> {
-        return this.delete("budget/" + budgetId).pipe(first(),map(() => budgetId));
+        return this.delete("budget/" + budgetId).pipe(map(() => budgetId));
     }
 }

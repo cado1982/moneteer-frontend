@@ -132,7 +132,7 @@ export class SetTransactionClearedSuccessAction implements Action {
 }
 export class SetTransactionClearedFailureAction implements Action {
     readonly type = TransactionsActionTypes.SetTransactionClearedFailure;
-    constructor(public payload: {error: string, transactionId: string, originalState: boolean}) { }
+    constructor(public payload: {error: any, transactionId: string, originalState: boolean}) { }
 }
 
 // Selection

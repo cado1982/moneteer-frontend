@@ -16,7 +16,7 @@ export class AccountService extends ApiBaseService {
     }
 
     public createAccount(account: AccountModel): Observable<AccountModel> {
-        return this.post<AccountModel>(`account?budgetId=${account.budgetId}`, account);
+        return this.post(`account?budgetId=${account.budgetId}`, account);
     }
 
     public deleteAccount(account: AccountModel): Observable<void> {

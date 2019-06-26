@@ -17,11 +17,11 @@ export class EnvelopesService extends ApiBaseService {
         return this.get<{envelopes: EnvelopeModel[], available: number}>(`budget/${budgetId}/envelopes`);
     }
 
-    public createEnvelope(budgetId: string, envelope: EnvelopeModel) {
+    public createEnvelope(budgetId: string, envelope: EnvelopeModel): Observable<EnvelopeModel> {
         return this.post(`budget/${budgetId}/envelopes`, envelope);
     }
 
-    public createEnvelopeCategory(budgetId: string, envelopeCategory: EnvelopeCategoryModel) {
+    public createEnvelopeCategory(budgetId: string, envelopeCategory: EnvelopeCategoryModel): Observable<EnvelopeCategoryModel> {
         return this.post(`budget/${budgetId}/envelopes/category`, envelopeCategory);
     }
 }

@@ -1,4 +1,5 @@
-import { EnvelopeModel, EnvelopeCategoryModel } from "./";
+import { EnvelopeCategoryModel } from "./envelope.category.model";
+import { EnvelopeModel } from "./envelope.model";
 
 export class EnvelopeCategoryStructuredModel {
     constructor(

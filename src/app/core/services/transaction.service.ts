@@ -51,7 +51,7 @@ export class TransactionService extends ApiBaseService {
     public createTransaction(transactionModel: TransactionModel): Observable<TransactionModel> {
         this.validateTransaction(transactionModel);
 
-        return this.post(`transaction`, transactionModel).pipe(
+        return this.post<TransactionModel ,TransactionModel>(`transaction`, transactionModel).pipe(
             map(t => this.processTransaction(t))
         );
     }
@@ -59,15 +59,15 @@ export class TransactionService extends ApiBaseService {
     public editTransaction(transactionModel: TransactionModel): Observable<TransactionModel> {
         this.validateTransaction(transactionModel);
 
-        return this.put(`transaction`, transactionModel).pipe(map(t => {
+        return this.put<TransactionModel, TransactionModel>(`transaction`, transactionModel).pipe(map(t => {
             return this.processTransaction(t);
         }));
     }
 
-    public setTransactionIsCleared(transactionId: string, isCleared: boolean): Observable<{isCleared: boolean, transactionId: string}> {
+    public setTransactionIsCleared(transactionId: string, isCleared: boolean): Observable<void> {
         if (!transactionId) { throw new Error("transactionId must be set"); }
 
-        return this.put(`transaction/${transactionId}`, { isCleared, transactionId });
+        return this.put<{isCleared: boolean}, void>(`transaction/${transactionId}/setCleared`, { isCleared });
     }
 
     public editPayee(payeeModel: PayeeModel): Observable<PayeeModel> {
@@ -77,9 +77,9 @@ export class TransactionService extends ApiBaseService {
         return observableOf(payeeModel);
     }
 
-    public getPayees(budgetId: string): Observable<Array<PayeeModel>> {
-        return observableOf(new Array<PayeeModel>());
-    }
+    // public getPayees(budgetId: string): Observable<Array<PayeeModel>> {
+    //     return observableOf(new Array<PayeeModel>());
+    // }
 
     private processTransactions(transactions: Array<TransactionModel>): Array<TransactionModel> {
         transactions.map(t => this.processTransaction(t));

@@ -126,10 +126,6 @@ export class TransactionComponent implements OnInit, OnChanges {
         }
     }
 
-
-
-
-
     public canSave(): boolean {
         return this.date &&
                this.account &&

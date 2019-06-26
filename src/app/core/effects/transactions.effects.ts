@@ -107,7 +107,7 @@ export class TransactionsEffects {
         ofType(TransactionsActionTypes.SetTransactionCleared),
         map((action: SetTransactionClearedAction) => action.payload),
         mergeMap(payload => this.transactionService.setTransactionIsCleared(payload.transactionId, payload.isCleared).pipe(
-            map(response => new SetTransactionClearedSuccessAction({transactionId: response.transactionId, isCleared: response.isCleared})),
+            map(() => new SetTransactionClearedSuccessAction({transactionId: payload.transactionId, isCleared: payload.isCleared})),
             catchError(error => of(new SetTransactionClearedFailureAction({error, transactionId: payload.transactionId, originalState: !payload.isCleared })))
         )
     ));

@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 
 import { environment } from "./../../../environments/environment";
 import { AuthService } from "./../services/auth.service";
+import { UrlHandlingStrategy } from "@angular/router";
 
 export class ApiBaseService {
     private baseApiUrl: string = environment.api_url;
@@ -15,12 +16,12 @@ export class ApiBaseService {
         return this.http.get<T>(this.baseApiUrl + url);
     }
 
-    protected put<T>(url: string, value: T): Observable<T> {
-        return this.http.put<T>(this.baseApiUrl + url, value);
+    protected put<TPayload, TResponse>(url: string, payload: TPayload): Observable<TResponse> {
+        return this.http.put<TResponse>(this.baseApiUrl + url, payload);
     }
 
-    protected post<T>(url: string, value: T): Observable<T> {
-        return this.http.post<T>(this.baseApiUrl + url, value);
+    protected post<TPayload, TResponse>(url: string, payload: TPayload): Observable<TResponse> {
+        return this.http.post<TResponse>(this.baseApiUrl + url, payload);
     }
 
     protected delete(url: string): Observable<any> {
