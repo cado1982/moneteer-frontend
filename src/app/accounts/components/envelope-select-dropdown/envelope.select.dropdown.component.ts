@@ -2,19 +2,27 @@ import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewIni
 import { EnvelopeModel } from '../../../core/models';
 import { DropdownComponent } from '../../../shared/components';
 import { Subject, Observable, BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
-import { map, filter, tap } from 'rxjs/operators';
+import { map, filter, tap, mergeMap, concatMap } from 'rxjs/operators';
 import { groupBy, Dictionary } from 'lodash';
-import { CheckedViewModel } from 'src/app/shared/view-models/checked.view.model';
 
 @Component({
     selector: 'moneteer-envelope-select-dropdown',
     templateUrl: './envelope.select.dropdown.component.html',
     styleUrls: ['./envelope.select.dropdown.component.scss']
 })
-export class EnvelopeSelectDropdownComponent implements OnInit ,AfterViewInit {
+export class EnvelopeSelectDropdownComponent implements OnInit {
     @Input() public disabled: Boolean;
-    @Input() public envelopes$: BehaviorSubject<EnvelopeModel[]> = new BehaviorSubject([]);
-    public filteredEnvelopes$: Observable<{groupName: string, envelopes: CheckedViewModel<EnvelopeModel>[]}[]>;
+
+    private _envelopes: EnvelopeModel[];
+    @Input() set envelopes(value: EnvelopeModel[]) {
+        this._envelopes = value;
+
+    }
+    get envelopes(): EnvelopeModel[] {
+        return this._envelopes
+    }
+    
+    public filteredEnvelopes: { groupName: string, envelopes: EnvelopeModel[] }[];
 
     private _selectedEnvelope: EnvelopeModel | null;
     @Input() public get selectedEnvelope() { return this._selectedEnvelope; }
@@ -36,48 +44,35 @@ export class EnvelopeSelectDropdownComponent implements OnInit ,AfterViewInit {
     public searchFilter: string;
     public searchFilterTerm$: BehaviorSubject<string> = new BehaviorSubject<string>("");
     public isCreatingNewEnvelope$: Observable<boolean>;
+    public highlightedEnvelope: EnvelopeModel | null = null;
 
     @ViewChild(DropdownComponent, { static: false }) public dropDown: DropdownComponent;
     @ViewChild("searchInput", { static: false }) inputBox: ElementRef;
 
     ngOnInit(): void {
-        this.isCreatingNewEnvelope$ = combineLatest(this.envelopes$, this.searchFilterTerm$).pipe(
-            map((value) => {
-                const envelopes = value[0];
-                const searchTerm = value[1];
-
-                return !envelopes.some(p => p.name.toLowerCase() === searchTerm.toLowerCase())
-            })
+        this.isCreatingNewEnvelope$ = this.searchFilterTerm$.pipe(
+            map((searchTerm) => !this.envelopes.some(p => p.name.toLowerCase() === searchTerm.toLowerCase()))
         );
 
-        this.filteredEnvelopes$ = combineLatest(this.envelopes$, this.searchFilterTerm$).pipe(
-            map((value) => {
-                const envelopes = value[0];
-                const searchTerm = value[1];
+        this.searchFilterTerm$.subscribe(searchTerm => {
+            const filteredEnvelopes = this.envelopes.filter(p => searchTerm === "" || p.name.toLowerCase().startsWith(searchTerm.toLowerCase()))
 
-                const filteredEnvelopes = envelopes.filter(p => searchTerm === "" || p.name.toLowerCase().startsWith(searchTerm.toLowerCase()))
-                const checkedViewModels = filteredEnvelopes.map(e => new CheckedViewModel(e))
+            this.highlightedEnvelope = filteredEnvelopes.length === 0 ? null : filteredEnvelopes[0]
 
-                if (checkedViewModels.length > 0 && searchTerm !== "") {
-                    checkedViewModels[0].isChecked = true
+            const grouped = groupBy(filteredEnvelopes, n => n.envelopeCategory.name)
+            const toArray = Object.entries(grouped)
+            const groups = toArray.map(value => {
+                const groupName = value[0];
+                const envelopes = value[1];
+
+                return {
+                    groupName,
+                    envelopes
                 }
-
-                return checkedViewModels;
-            }),
-            map((envelopes: CheckedViewModel<EnvelopeModel>[]) => {
-                const grouped = groupBy(envelopes, n => n.model.envelopeCategory.name)
-                const toArray = Object.entries(grouped)
-                return toArray.map(value => {
-                    const groupName = value[0];
-                    const envelopes = value[1];
-
-                    return {
-                        groupName,
-                        envelopes
-                    }
-                })
             })
-        );
+
+            this.filteredEnvelopes = groups;
+        })
 
         this.searchFilterTerm$.subscribe(term => {
             if (term !== "") {
@@ -86,31 +81,39 @@ export class EnvelopeSelectDropdownComponent implements OnInit ,AfterViewInit {
         })
     }
 
-    ngAfterViewInit(): void {
-        fromEvent<KeyboardEvent>(this.inputBox.nativeElement, 'keyup').pipe(
-            filter(event => event.key === "ArrowDown" || event.key === "ArrowUp"),
-        ).subscribe(event => {
-            switch (event.key) {
-                case "ArrowDown":
-                    console.log("down");
-                    break;
-                case "ArrowUp":
-                    console.log("up")
-                    break;
-            }
-        })
+    private onDownPressed(): void {
+        if (this.highlightedEnvelope === null) return;
+
+        const highlightedIndex = this.envelopes.indexOf(this.highlightedEnvelope)
+        const nextIndex = highlightedIndex + 1;
+
+        if (nextIndex > this.envelopes.length - 1) { return } // Already at end of array
+
+        const nextItem = this.envelopes[nextIndex]
+        this.highlightedEnvelope = nextItem;
+    }
+
+    private onUpPressed(): void {
+        console.log("up");
+    }
+
+    private onEnterPressed(): void {
+        console.log("enter");
     }
 
 
-    public onSearchInputBlur($event: { target: { value: string } }): void {
-        const newEnvelope: string = $event.target.value;
-        const envelope = !this.envelopes$.value ? null : this.envelopes$.value.find(a => a.name.toLowerCase() === newEnvelope.toLowerCase());
-        if (envelope) {
-            this.selectedEnvelope = envelope;
-        } else {
-            this.selectedEnvelope = null
-        }
-    }
+    // public onSearchInputBlur($event: { target: { value: string } }): void {
+    //     if (this.selectedEnvelope !== null) {
+    //         this
+    //     }
+    //     const newEnvelope: string = $event.target.value;
+    //     const envelope = !this.envelopes$.value ? null : this.envelopes$.value.find(a => a.name.toLowerCase() === newEnvelope.toLowerCase());
+    //     if (envelope) {
+    //         this.selectedEnvelope = envelope;
+    //     } else {
+    //         this.selectedEnvelope = null
+    //     }
+    // }
 
     public onSearchInputFocus($event: any): void {
         $event.target.select();
@@ -122,13 +125,17 @@ export class EnvelopeSelectDropdownComponent implements OnInit ,AfterViewInit {
     }
 
     public onSearchInputKeyUp($event: any): void {
-        // fromEvent()
-        // if ($event.key === "ArrowDown") {
-        //     this.filteredEnvelopes$.
-        //     this.filteredEnvelopes$.forEach
-        // } else if ($event.key === "ArrowUp") {
-
-        // }
+        switch ($event.key) {
+            case "ArrowDown":
+                this.onDownPressed();
+                break;
+            case "ArrowUp":
+                this.onUpPressed();
+                break;
+            case "Enter":
+                this.onEnterPressed();
+                break;
+        }
     }
 
     public envelopeClicked(envelope: EnvelopeModel): void {
