@@ -1,6 +1,6 @@
-<div class="transaction-row" (click)="click($event)">
+<div class="transaction-row" (click)="click()">
     <div class="transaction-cell transaction-cell--selected">
-        <input type="checkbox" (click)="$event.stopPropagation()" *ngIf="!isCreating" [(ngModel)]="isChecked"
+        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isChecked"
             name="isChecked" id="isChecked" class="clr-checkbox">
     </div>
     <div class="transaction-cell transaction-cell--date">
