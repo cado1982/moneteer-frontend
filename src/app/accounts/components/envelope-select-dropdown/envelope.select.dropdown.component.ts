@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { EnvelopeModel } from '../../../core/models';
 import { DropdownComponent } from '../../../shared/components';
 import { Subject, Observable, BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
@@ -44,10 +44,30 @@ export class EnvelopeSelectDropdownComponent implements OnInit {
     public searchFilter: string;
     public searchFilterTerm$: BehaviorSubject<string> = new BehaviorSubject<string>("");
     public isCreatingNewEnvelope$: Observable<boolean>;
-    public highlightedEnvelope: EnvelopeModel | null = null;
+    
+    private _highlightedEnvelope: EnvelopeModel | null = null;
+    public get highlightedEnvelope(): EnvelopeModel | null {
+        return this._highlightedEnvelope;
+    }
+    public set highlightedEnvelope(value: EnvelopeModel | null) {
+        this._highlightedEnvelope = value;
+        this.scrollToHighlightedEnvelope();
+    }
+
+    private scrollToHighlightedEnvelope(): void {
+        if (!this.envelopeElements) return;
+        if (!this.highlightedEnvelope) return;
+
+        const elements = this.envelopeElements.filter(e => e.nativeElement.id === this.highlightedEnvelope!.id);
+
+        if (!!elements && elements.length > 0) {
+            elements[0].nativeElement.scrollIntoView(false);
+        }
+    }
 
     @ViewChild(DropdownComponent, { static: false }) public dropDown: DropdownComponent;
     @ViewChild("searchInput", { static: false }) inputBox: ElementRef;
+    @ViewChildren("envelopeElement") envelopeElements: QueryList<ElementRef>;
 
     ngOnInit(): void {
         this.isCreatingNewEnvelope$ = this.searchFilterTerm$.pipe(
@@ -94,30 +114,37 @@ export class EnvelopeSelectDropdownComponent implements OnInit {
     }
 
     private onUpPressed(): void {
-        console.log("up");
+        if (this.highlightedEnvelope === null) return;
+
+        const highlightedIndex = this.envelopes.indexOf(this.highlightedEnvelope)
+        const previousIndex = highlightedIndex - 1;
+
+        if (previousIndex < 0) { return } // Already at end of array
+
+        const previousItem = this.envelopes[previousIndex]
+        this.highlightedEnvelope = previousItem;
     }
 
     private onEnterPressed(): void {
-        console.log("enter");
+        this.selectedEnvelope = this.highlightedEnvelope;
+        this.inputBox.nativeElement.blur();
     }
 
 
-    // public onSearchInputBlur($event: { target: { value: string } }): void {
-    //     if (this.selectedEnvelope !== null) {
-    //         this
-    //     }
-    //     const newEnvelope: string = $event.target.value;
-    //     const envelope = !this.envelopes$.value ? null : this.envelopes$.value.find(a => a.name.toLowerCase() === newEnvelope.toLowerCase());
-    //     if (envelope) {
-    //         this.selectedEnvelope = envelope;
-    //     } else {
-    //         this.selectedEnvelope = null
-    //     }
-    // }
+    public onSearchInputBlur(): void {
+        if (this.highlightedEnvelope !== null) {
+            this.selectedEnvelope = this.highlightedEnvelope;
+        }
+    }
 
     public onSearchInputFocus($event: any): void {
         $event.target.select();
+
         this.searchFilterTerm$.next("");
+        if (this.selectedEnvelope !== null) {
+            this.highlightedEnvelope = this.selectedEnvelope
+        }
+        
     }
 
     public onSearchInputValueChanged(newValue: string): void {
