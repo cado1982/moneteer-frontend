@@ -2,21 +2,20 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { TransactionHeaderComponent } from "./transaction.header.component";
 import { ClarityModule } from "@clr/angular";
-import { Store, select } from "@ngrx/store";
+import { Store } from "@ngrx/store";
+import { MockStore, provideMockStore } from "@ngrx/store/testing";
 import { ITransactionsState, CreateTransactionMode, getSelectedTransactions } from "../../../core/reducers/transactions.reducer";
 import { TransactionsActions, ShowCreateTransactionAction } from "../../../core/actions/transactions.actions";
 import { Observable } from "rxjs";
 import { provideMockActions } from "@ngrx/effects/testing";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { By } from "@angular/platform-browser";
-import { hot } from "jasmine-marbles";
-import { when } from "jest-when";
 
 describe("TransactionHeaderComponent", () => {
   let component: TransactionHeaderComponent;
   let fixture: ComponentFixture<TransactionHeaderComponent>;
   const actions$: Observable<TransactionsActions> = new Observable();
-  let store: Store<ITransactionsState>;
+  let store: MockStore<ITransactionsState>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,22 +25,15 @@ describe("TransactionHeaderComponent", () => {
         NoopAnimationsModule
       ],
       providers: [ 
-        {
-          provide: Store, 
-          useValue: {
-            dispatch: jest.fn(),
-            pipe: jest.fn(),
-            select: jest.fn()
-          }
-        },
+        provideMockStore(),
         provideMockActions(() => actions$)
       ]
     }).compileComponents();
 
+    store = TestBed.get(Store);
+
     fixture = TestBed.createComponent(TransactionHeaderComponent);
     component = fixture.componentInstance;
-    store = TestBed.get(Store);
-    fixture.detectChanges();
   }));
 
   test("should be created", () => {
@@ -69,13 +61,13 @@ describe("TransactionHeaderComponent", () => {
   });
 
   test("should disable delete transactions button when no transactions selected", () => {
-    when(store.pipe).calledWith(select(getSelectedTransactions)).mockReturnValue(s => hot("-a", { a : []}));
-    
-    fixture.detectChanges();
+    store.overrideSelector(getSelectedTransactions, [])
 
     component.ngOnInit();
     fixture.detectChanges();
+
     let deleteTransactionsButton = fixture.debugElement.query(By.css("#deleteTransactions"));
+
     expect(deleteTransactionsButton.nativeElement.disabled).toBeTruthy();
   });
 });
