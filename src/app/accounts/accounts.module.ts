@@ -5,7 +5,7 @@ import { AccountsHomeComponent, TransactionListComponent, TransactionCreateInflo
          TransactionCreateOutflowComponent,
          AccountsDetailComponent, TransactionHeaderComponent,
          TransactionFooterComponent, TransactionComponent, TransactionAssignmentComponent, EnvelopeSelectDropdownComponent,
-         PayeeSelectDropdownComponent, AccountSelectDropdownComponent } from "./components";
+         PayeeSelectDropdownComponent, AccountSelectDropdownComponent, TransactionListNoAccountsComponent } from "./components";
 import { CategoryDisplayPipe } from "./directives/category.month.display.pipe";
 import { AccountsRoutingModule } from "./accounts.routing.module";
 import { StoreModule } from "@ngrx/store";
@@ -17,6 +17,7 @@ import { ClrFormsModule, ClarityModule } from "@clr/angular";
     declarations: [
         AccountsHomeComponent,
         TransactionListComponent,
+        TransactionListNoAccountsComponent,
         TransactionCreateInflowComponent,
         TransactionCreateOutflowComponent,
         TransactionHeaderComponent,

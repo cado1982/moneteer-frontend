@@ -11,7 +11,7 @@ import { LoadingSpinnerService, MediaQueryService, NotificationsService,
          BudgetService, AccountService, ModalService } from "./services";
 import { AppRoutingModule } from "../routing/app-routing.module";
 import { AuthGuard } from "./guards/auth.guard";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -35,6 +35,7 @@ import { RetryInterceptor } from "./interceptors/retry.interceptor";
         AppRoutingModule,
         SharedModule,
         BrowserAnimationsModule,
+        ReactiveFormsModule,
         StoreModule.forFeature("core", reducers),
         EffectsModule.forFeature([AccountsEffects, BudgetsEffects, TransactionsEffects, EnvelopesEffects]),
         ToastrModule.forRoot({

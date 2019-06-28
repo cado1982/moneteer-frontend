@@ -1,0 +1,27 @@
+@import "./../../../../styles.scss";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow: hidden;
+    user-select: none;
+}
+
+#container {
+    margin: auto;
+    text-align: center;
+}
+
+button {
+    margin: 1.2em 0;
+}
+
+h5 {
+    font-style: italic;
+}
+
+h3 {
+    margin-top: 0.5em;
+}
+

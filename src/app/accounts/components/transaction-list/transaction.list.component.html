@@ -15,8 +15,12 @@
     <div class="transaction-header transaction-cell--cleared">Cleared</div>
 </div>
 
-<div class="transactions-container">
+<div class="transactions-container" *ngIf="(accounts$ | async).length > 0">
     <div class="transactions-list">
             <moneteer-transaction [@.disabled]="isAnimationDisabled" (editing)="onTransactionEditing($event)" [currentAccountId]="currentAccountId" [transaction]="transaction" *ngFor="let transaction of transactions$ | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy"></moneteer-transaction>
     </div>
 </div>
+
+<moneteer-transaction-list-no-accounts *ngIf="(accounts$ | async).length === 0">
+    
+</moneteer-transaction-list-no-accounts>

@@ -5,12 +5,13 @@ import { trigger, state, style, animate, transition, query } from "@angular/anim
 import { TransactionComponent } from "./../transaction/transaction.component";
 import { ActivatedRoute } from "@angular/router";
 
-import { TransactionModel } from "../../models/index";
+import { TransactionModel, AccountModel } from "../../models/index";
 import { Store } from "@ngrx/store";
 import { ITransactionsState, getIsCreateInflowTransactionOpen, getIsCreateOutflowTransactionOpen } from "../../../core/reducers/transactions.reducer";
 import { TransactionsActionTypes } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
 import { tap } from "rxjs/operators";
+import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 
 
 @Component({
@@ -39,6 +40,7 @@ export class TransactionListComponent implements OnInit {
     @Input() public transactions$: Observable<TransactionModel[]>;
     public currentAccountId: string;
     public isAnimationDisabled: boolean = true;
+    public accounts$: Observable<AccountModel[]>;
 
     @ViewChildren(TransactionComponent) public transactionComponents: QueryList<TransactionComponent>;
 
@@ -56,6 +58,7 @@ export class TransactionListComponent implements OnInit {
 
         this.isCreateInflowTransactionOpen$ = this.store.select(getIsCreateInflowTransactionOpen);
         this.isCreateOutflowTransactionOpen$ = this.store.select(getIsCreateOutflowTransactionOpen);
+        this.accounts$ = this.store.select(getAccounts);
 
         this.actions$.pipe(
             ofType(TransactionsActionTypes.LoadTransactionsSuccess)

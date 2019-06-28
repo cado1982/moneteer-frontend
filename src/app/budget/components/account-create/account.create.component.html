@@ -1,7 +1,9 @@
 <clr-modal [clrModalClosable]="false" [clrModalOpen]="isOpen$ | async">
-    <h3 class="modal-title">Create Account</h3>
+    <h3 class="modal-title">
+        <clr-icon shape="bank" class="is-info" size="32"></clr-icon><span>Create Account</span>
+    </h3>
     <div class="modal-body">
-        <form clrForm clrLayout="horizontal" #createAccountForm="ngForm" name="create-account" novalidate>
+        <form clrForm #createAccountForm="ngForm" name="create-account" novalidate>
             <clr-alert [hidden]="!(error$ | async) || (isCreating$ | async)" clrAlertType="alert-danger">
                 <div class="alert-item">
                     <span class="alert-test">
@@ -11,29 +13,26 @@
             </clr-alert>
             <clr-input-container>
                 <label for="name">Name</label>
-                <input clrInput class="input" #name="ngModel" required
+                <input style="width: 100%;" clrInput autofocus class="input" #name="ngModel" required
                     [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text"
                     [(ngModel)]="accountName">
-                <clr-control-error *ngIf="name.errors && (name.dirty || name.touched)">This name is invalid
+                <clr-control-helper>How should Moneteer refer to this account?</clr-control-helper>
+                <clr-control-error *ngIf="name.errors && (name.dirty || name.touched)">Name is required
                 </clr-control-error>
             </clr-input-container>
 
-            <div class="clr-form-control">
-                <label class="clr-control-label" style="padding: 0;" for="currency">Initial Balance</label>
-                <div class="clr-control-container">
-                    <div class="clr-input-wrapper">
-                        <moneteer-currency-input name="initialBalance" [(ngModel)]="initialBalance" allowNegative="true"
-                            allowZeros="true"></moneteer-currency-input>
-                    </div>
-                </div>
-            </div>
+            <moneteer-currency-input label="Current Balance" name="initialBalance" [(ngModel)]="initialBalance"
+                allowNegative="true" hint="How much is in the account at the moment?" allowZeros="true">
+            </moneteer-currency-input>
 
-            <div class="clr-form-control">
+            <clr-checkbox-container>
                 <clr-checkbox-wrapper>
                     <input clrCheckbox type="checkbox" name="isBudget" [(ngModel)]="isBudget">
                     <label>Budget Account</label>
                 </clr-checkbox-wrapper>
-            </div>
+                <clr-control-helper>Should this account be included in your budget? Typically budget accounts are ones
+                    that you spend money from. If you are unsure, leave this checked.</clr-control-helper>
+            </clr-checkbox-container>
 
         </form>
     </div>

@@ -4,10 +4,43 @@
     padding: 10px;
     display: flex;
     flex: 0 0 auto;
+    align-items: center;
     border-bottom: $divider-color solid 1px;
+}
+
+.actions {
+    display: flex;
+    flex: 0 0 auto;
 }
 
 [hidden] { 
     display: none !important;
+}
+
+.account-title {
+    flex: 1 0 auto;
+    margin-right: 1em;
+    display: flex;
+    h5 {
+        flex: 1 0 auto;
+        margin: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    clr-icon {
+        flex: 0 0 auto;
+        margin-right: 0.8em;
+    }
+}
+
+.italic {
+    font-style: italic;
+}
+
+button {
+    clr-icon {
+        margin-right: 5px;
+    }
 }
 

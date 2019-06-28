@@ -1,22 +1,42 @@
-<div class="btn-group btn-sm">
-  <button id="addInflow" class="btn btn-outline btn-primary" (click)="addInflow()">Add Inflow</button>
+<div class="account-title">
+    <clr-icon shape="bank" class="is-info" size="24"></clr-icon>
+    <h5 [ngClass]="{'italic': !account}">{{!account ? 'All Accounts' : account.name}}</h5>
 </div>
 
-<div class="btn-group btn-sm">
-    <button id="addOutflow" class="btn btn-outline btn-primary" (click)="addOutflow()">Add Outflow</button>
-  </div>
+<div class="actions">
+    <div class="btn-group btn-sm">
+        <button [disabled]="(accounts$ | async).length === 0" id="addInflow" class="btn btn-success-outline"
+            (click)="addInflow()">
+            <clr-icon shape="plus-circle"></clr-icon><span>Add Income</span>
+        </button>
+    </div>
 
-<div class="btn-group btn-sm">
-    <button id="deleteTransactions" class="btn btn-danger-outline" [disabled]="(selectedTransactions$ | async)?.length === 0" (click)="confirmDeleteTransactions()">Delete</button>
+    <div class="btn-group btn-sm">
+            <button [disabled]="(accounts$ | async).length === 0" id="addOutflow" class="btn btn-danger-outline"
+                (click)="addOutflow()">
+                <clr-icon shape="minus-circle"></clr-icon><span>Add Expense</span>
+            </button>
+        </div>
+
+    <div [hidden]="(selectedTransactions$ | async)?.length === 0" class="btn-group btn-sm">
+        <button id="deleteTransactions" class="btn btn-danger"
+            [disabled]="(selectedTransactions$ | async)?.length === 0" (click)="confirmDeleteTransactions()">
+            <clr-icon shape="minus-circle"></clr-icon><span>Delete Transactions</span>
+        </button>
+    </div>
+
+
 </div>
 
 <clr-modal [(clrModalOpen)]="isConfirmingDelete">
     <h3 class="modal-title">Delete transactions</h3>
     <div class="modal-body">
-        <p>Are you sure you want to delete <strong>{{(selectedTransactions$ | async)?.length}}</strong> selected transactions?</p>
+        <p>Are you sure you want to delete <strong>{{(selectedTransactions$ | async)?.length}}</strong> selected
+            transactions?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline" (click)="cancel()">Cancel</button>
-        <button [clrLoading]="isDeleting$ | async" type="button" class="btn btn-danger" (click)="deleteTransactions()">Delete</button>
+        <button [clrLoading]="isDeleting$ | async" type="button" class="btn btn-danger"
+            (click)="deleteTransactions()">Delete</button>
     </div>
 </clr-modal>

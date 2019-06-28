@@ -1,5 +1,6 @@
 export * from "./home/accounts.home.component";
 export * from "./transaction-list/transaction.list.component";
+export * from "./transaction-list-no-accounts/transaction.list.no.accounts.component";
 export * from "./transaction-create-inflow/transaction.create.inflow.component";
 export * from "./transaction-create-outflow/transaction.create.outflow.component";
 export * from "./transaction-header/transaction.header.component";

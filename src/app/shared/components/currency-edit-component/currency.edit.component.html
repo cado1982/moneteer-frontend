@@ -1,1 +1,7 @@
-<input class="clr-input" #inputBox autocomplete="off" type="text" (focus)="$event.target.select()" [ngModel]="inputValue" (ngModelChange)="onChange($event)" [ngModelOptions]="{updateOn: 'blur'}" name="currencyEdit">
+<clr-input-container *ngIf="label !== null">
+    <label>{{label}}</label>
+    <input clrInput #inputBox autocomplete="off" type="text" (focus)="$event.target.select()" [ngModel]="inputValue" (ngModelChange)="onChange($event)" [ngModelOptions]="{updateOn: 'blur'}" name="currencyEdit">
+    <clr-control-helper>{{hint}}</clr-control-helper>
+</clr-input-container>
+
+<input *ngIf="label === null" class="clr-input" #inputBox autocomplete="off" type="text" (focus)="$event.target.select()" [ngModel]="inputValue" (ngModelChange)="onChange($event)" [ngModelOptions]="{updateOn: 'blur'}" name="currencyEdit">

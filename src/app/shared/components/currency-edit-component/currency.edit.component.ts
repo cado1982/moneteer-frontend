@@ -25,6 +25,8 @@ export class CurrencyEditComponent implements ControlValueAccessor {
 
     @Input() public allowZeros: boolean = false;
     @Input() public allowNegative: boolean = false;
+    @Input() public label: string | null = null;
+    @Input() public hint: string | null = null;
 
     @ViewChild("inputBox", {static: false}) public inputElement: ElementRef;
 

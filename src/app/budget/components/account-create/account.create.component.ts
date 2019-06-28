@@ -16,7 +16,7 @@ import { map } from "rxjs/operators";
 })
 export class AccountCreateComponent implements OnInit {
     public accountName: string;
-    public isBudget = false;
+    public isBudget = true;
     public initialBalance = 0;
 
     public isOpen$: Observable<boolean>;
