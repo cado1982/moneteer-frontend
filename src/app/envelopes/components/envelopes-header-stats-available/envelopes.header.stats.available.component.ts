@@ -7,8 +7,4 @@ import { Component, Input, } from "@angular/core";
 })
 export class EnvelopesHeaderStatsAvailableComponent {
     @Input() available: number;
-
-    public assign(): void {
-        console.log("assign");
-    }
 }

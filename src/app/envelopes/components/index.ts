@@ -1,5 +1,4 @@
 export * from "./home/envelopes.home.component";
-export * from "./month-selector/month.selector.component";
 export * from "./envelopes-categories/envelopes.categories.component";
 export * from "./envelope/envelope.component";
 export * from "./envelopes-month-category-create/envelopes.month.category.create.component";
@@ -10,3 +9,4 @@ export * from "./envelopes-header-stats-available/envelopes.header.stats.availab
 export * from "./envelopes-category/envelopes.category.component";
 export * from "./envelopes-category-header/envelopes.category.header.component";
 export * from "./envelopes-column-header/envelopes.column.header.component";
+export * from "./envelopes-assign-income/envelopes.assign.income.component";
