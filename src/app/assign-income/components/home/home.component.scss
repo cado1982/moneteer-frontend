@@ -1,0 +1,12 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+moneteer-assign-income-header {
+    flex: 0 0 auto;
+}
+
+moneteer-assign-income-workspace {
+    flex: 1 0 auto;
+}
