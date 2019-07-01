@@ -25,7 +25,8 @@ export class BudgetNavComponent implements OnInit {
         this.budgetAccounts = this.store.pipe(select(getBudgetAccounts));
     }
 
-    public openCreateAccount(): void {
+    public openCreateAccount($event: Event): void {
+        $event.stopPropagation();
         this.store.dispatch(new ShowCreateAccountAction());
     }
 }

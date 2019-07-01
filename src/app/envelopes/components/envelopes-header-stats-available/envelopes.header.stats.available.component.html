@@ -1,3 +1,3 @@
-<span>{{available < 0 ? 'Overassigned' : 'Available Income'}}</span>
-<h2 [ngClass]="{'good': available > 0, 'bad': available < 0}">{{available | budgetCurrency:true}}</h2>
+<h2>{{available < 0 ? 'Overassigned' : 'Available Income'}}</h2>
+<h3 [ngClass]="{'good': available > 0, 'bad': available < 0}">{{available | budgetCurrency:true}}</h3>
 <button class="btn btn-sm btn-primary" [hidden]="available < 0" routerLink="assignIncome">Move to Envelopes</button>
