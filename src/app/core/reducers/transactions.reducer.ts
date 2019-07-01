@@ -66,7 +66,7 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
         case TransactionsActionTypes.CreateTransactionSuccess: {
             let payees: PayeeModel[];
             // If there's a payee on the new transaction and we don't have it yet, save it.
-            if (!!action.payload.transaction.payee && !state.payees.find(p => p.id === action.payload.transaction.payee.id)) {
+            if (!!action.payload.transaction.payee && !state.payees.find(p => p.id === action.payload.transaction.payee!.id)) {
                 payees = [...state.payees, action.payload.transaction.payee];
             } else {
                 payees = state.payees;                

@@ -1,6 +1,4 @@
 import { Component, Input, OnChanges, SimpleChanges, EventEmitter, Output, } from "@angular/core";
-
-
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import * as _ from "lodash";
 

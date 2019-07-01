@@ -32,7 +32,7 @@ export class TransactionComponent implements OnInit, OnChanges {
     // Individual transaction properties
     public date: Date = new Date();
     public account: AccountModel = new AccountModel();
-    public payee: PayeeModel = new PayeeModel();
+    public payee: PayeeModel | undefined;
     public description: string = "";
     public envelope: EnvelopeModel | undefined;
     public outflow: number = 0;

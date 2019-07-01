@@ -1,4 +1,7 @@
+@import "./../../../../styles.scss";
+
 :host {
     flex: 0 0 50%;
     margin-right: 0.5em;
+    overflow-y: auto;
 }

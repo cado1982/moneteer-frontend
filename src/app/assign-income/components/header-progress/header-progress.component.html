@@ -1,6 +1,6 @@
-<div class="progress">
-    <progress [value]="percentageAssigned" max="100"></progress>
+<div class="progress" [ngClass]="{'danger':service.assignedIncome > service.availableIncome}">
+    <progress [value]="service.percentageAssigned" max="100"></progress>
 </div>
 <div class="progress-label">
-    {{currentlyAssigned | currency:'USD':'symbol-narrow'}} / {{availableIncome | currency:'USD':'symbol-narrow'}}
+    {{service.assignedIncome | currency:'USD':'symbol-narrow'}} / {{service.availableIncome | currency:'USD':'symbol-narrow'}}
 </div>

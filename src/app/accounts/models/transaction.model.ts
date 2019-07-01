@@ -7,7 +7,7 @@ export class TransactionModel {
     public account: AccountModel;
     public inflow: number;
     public outflow: number;
-    public payee: PayeeModel;
+    public payee: PayeeModel | undefined;
     public targetAccount: AccountModel;
     public date: Date;
     public description: string;

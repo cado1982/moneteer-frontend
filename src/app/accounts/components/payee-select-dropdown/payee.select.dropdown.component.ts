@@ -13,9 +13,9 @@ export class PayeeSelectDropdownComponent implements OnInit {
     
     @Input() public payees: PayeeModel[];
 
-    private _selectedPayee: PayeeModel;
+    private _selectedPayee: PayeeModel | undefined;
     @Input() public get selectedPayee() { return this._selectedPayee; }
-    public set selectedPayee(value: PayeeModel) {
+    public set selectedPayee(value: PayeeModel | undefined) {
         this._selectedPayee = value;
         this.searchFilter = this._selectedPayee ? this._selectedPayee.name : "";
         this.selectedPayeeChange.emit(this._selectedPayee);
@@ -41,6 +41,8 @@ export class PayeeSelectDropdownComponent implements OnInit {
         const payee = !this.payees ? null : this.payees.find(a => a.name.toLowerCase() === newPayee.toLowerCase());
         if (payee) {
             this.selectedPayee = payee;
+        } else if (!this.searchFilter) {
+            this.selectedPayee = undefined;
         } else {
             this.selectedPayee = new PayeeModel(this.searchFilter);
         }

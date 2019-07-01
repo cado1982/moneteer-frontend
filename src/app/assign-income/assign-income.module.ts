@@ -9,6 +9,8 @@ import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { EnvelopeListComponent } from './components/envelope-list/envelope-list.component';
 import { EnvelopeDetailsComponent } from './components/envelope-details/envelope-details.component';
 import { SharedModule } from '../shared/shared.module';
+import { EnvelopeListCategoryComponent } from './components/envelope-list-category/envelope-list-category.component';
+import { EnvelopeListEnvelopeComponent } from './components/envelope-list-envelope/envelope-list-envelope.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +19,9 @@ import { SharedModule } from '../shared/shared.module';
         HeaderProgressComponent,
         WorkspaceComponent,
         EnvelopeListComponent,
-        EnvelopeDetailsComponent
+        EnvelopeDetailsComponent,
+        EnvelopeListCategoryComponent,
+        EnvelopeListEnvelopeComponent
     ],
     imports: [
         SharedModule,

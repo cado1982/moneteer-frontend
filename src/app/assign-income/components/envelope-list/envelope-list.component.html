@@ -1,1 +1,3 @@
-<div>Envelope List</div>
+<moneteer-assign-income-envelope-list-category *ngFor="let grouped of service.envelopes | groupBy: 'envelopeCategory.name' | pairs"
+    [categoryName]="grouped[0]" [envelopes]="grouped[1]">
+</moneteer-assign-income-envelope-list-category>

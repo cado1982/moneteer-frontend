@@ -1,0 +1,27 @@
+@import "./../../../../styles.scss";
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-header {
+    display: flex;
+    background-color: $primary-color;
+    color: $primary-color-text;
+    padding: 0.5em;
+}
+
+.category-name {
+    flex: 0 0 160px;
+}
+
+.category-details {
+    display: flex;
+    flex: 1 1 auto;
+    text-align: center;
+    font-size: 0.8em;
+    div {
+        flex: 0 0 33%;
+    }
+}

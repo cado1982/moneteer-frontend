@@ -1,0 +1,25 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { EnvelopeModel } from 'src/app/core/models';
+import { AssignIncomeService } from '../../services/assign-income.service';
+
+@Component({
+    selector: 'moneteer-assign-income-envelope-list-envelope',
+    templateUrl: './envelope-list-envelope.component.html',
+    styleUrls: ['./envelope-list-envelope.component.scss']
+})
+export class EnvelopeListEnvelopeComponent implements OnInit {
+    @Input() public envelope: EnvelopeModel;
+    public assigned: number;
+    public balance: number;
+
+    constructor(private service: AssignIncomeService) { }
+
+    ngOnInit() {
+
+    }
+
+    onAssignedChanged() {
+        this.balance = this.envelope.balance + this.assigned;
+        this.service.updateAssignment(this.assigned, this.envelope);
+    }
+}

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { EnvelopeModel } from 'src/app/core/models';
+import { AssignIncomeService } from '../../services/assign-income.service';
 
 @Component({
     selector: 'moneteer-assign-income-envelope-list',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EnvelopeListComponent implements OnInit {
 
-    constructor() { }
+    constructor(private service: AssignIncomeService) {
+
+    }
 
     ngOnInit() {
     }

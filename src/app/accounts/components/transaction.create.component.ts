@@ -13,8 +13,8 @@ import { Input } from "@angular/core";
 export abstract class TransactionCreateComponent implements OnInit {
     @Input() public currentAccountId: string;
     public date: Date = new Date();
-    public account: AccountModel | undefined = undefined;
-    public payee: PayeeModel = new PayeeModel();
+    public account: AccountModel | undefined;
+    public payee: PayeeModel | undefined;
     public description: string = "";
     public isCleared: boolean = false;
 

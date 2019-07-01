@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AssignIncomeService } from '../../services/assign-income.service';
 
 @Component({
     selector: 'moneteer-assign-income-header',
@@ -7,12 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-    @Input() public currentlyAssigned: number;
-    @Input() public availableIncome: number;
-    
-    constructor() { }
+    constructor(public service: AssignIncomeService) { }
 
     ngOnInit() {
+    }
+
+    canSubmit(): boolean {
+        return this.service.assignedIncome <= this.service.availableIncome;
     }
 
 }
