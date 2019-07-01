@@ -23,8 +23,8 @@ const routes: Routes = [
         children: [
             { path: "accounts", loadChildren: "./../accounts/accounts.module#AccountsModule" },
             { path: "envelopes", loadChildren: "./../envelopes/envelopes.module#EnvelopesModule" },
-            { path: "assign-income", loadChildren: "./../assign-income/assign-income.module#AssignIncomeModule" },
-            { path: "", redirectTo: "accounts", pathMatch: "full" }
+            { path: "assignIncome", loadChildren: "./../assign-income/assign-income.module#AssignIncomeModule" },
+            { path: "", redirectTo: "envelopes", pathMatch: "full" }
         ]
     }
 ];

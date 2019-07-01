@@ -8,6 +8,7 @@ import { HeaderProgressComponent } from './components/header-progress/header-pro
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { EnvelopeListComponent } from './components/envelope-list/envelope-list.component';
 import { EnvelopeDetailsComponent } from './components/envelope-details/envelope-details.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { EnvelopeDetailsComponent } from './components/envelope-details/envelope
         EnvelopeDetailsComponent
     ],
     imports: [
+        SharedModule,
         CommonModule,
         AssignIncomeRoutingModule
     ]

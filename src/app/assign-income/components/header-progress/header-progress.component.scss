@@ -1,0 +1,15 @@
+:host {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+}
+
+.progress {
+    flex: 1 0 auto;
+    margin-right: 0.5em;
+}
+
+.progress-label {
+    flex: 0 0 auto;
+    font-size: 0.8em;
+}

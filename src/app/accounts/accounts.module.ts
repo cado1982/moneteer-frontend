@@ -36,8 +36,7 @@ import { ClrFormsModule, ClarityModule } from "@clr/angular";
     imports: [
         AccountsRoutingModule,
         SharedModule,
-        ClrFormsModule,
-        ClarityModule
+        ClrFormsModule
     ],
     exports: [
     ]

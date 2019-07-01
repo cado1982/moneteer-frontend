@@ -7,8 +7,7 @@ import { EnvelopesHomeComponent, EnvelopesCategoriesComponent,
          EnvelopesColumnHeaderComponent, EnvelopesCategoryHeaderComponent,
          EnvelopesHeaderStatsAvailableComponent,
          EnvelopesMonthCategoryCreateComponent,
-         EnvelopesCategoryCreateComponent,
-         EnvelopesAssignIncomeComponent} from "./components";
+         EnvelopesCategoryCreateComponent} from "./components";
 import { EnvelopesRoutingModule } from "./envelopes.routing.module";
 import { EnvelopeDetailsComponent } from './components/envelope-details/envelope-details.component';
 
@@ -25,8 +24,7 @@ import { EnvelopeDetailsComponent } from './components/envelope-details/envelope
         EnvelopesHeaderStatsAvailableComponent,
         EnvelopesCategoryComponent,
         EnvelopesCategoryHeaderComponent,
-        EnvelopeDetailsComponent,
-        EnvelopesAssignIncomeComponent
+        EnvelopeDetailsComponent
     ],
     imports: [
         EnvelopesRoutingModule,

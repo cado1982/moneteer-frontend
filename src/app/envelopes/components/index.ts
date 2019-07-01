@@ -9,4 +9,3 @@ export * from "./envelopes-header-stats-available/envelopes.header.stats.availab
 export * from "./envelopes-category/envelopes.category.component";
 export * from "./envelopes-category-header/envelopes.category.header.component";
 export * from "./envelopes-column-header/envelopes.column.header.component";
-export * from "./envelopes-assign-income/envelopes.assign.income.component";
