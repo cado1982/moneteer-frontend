@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 import { EnvelopeModel, EnvelopeCategoryModel } from "../../core/models/index";
 import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
+import { AssignIncomeRequest } from "../models/assign.income.request";
 
 @Injectable()
 export class EnvelopesService extends ApiBaseService {
@@ -23,5 +24,9 @@ export class EnvelopesService extends ApiBaseService {
 
     public createEnvelopeCategory(budgetId: string, envelopeCategory: EnvelopeCategoryModel): Observable<EnvelopeCategoryModel> {
         return this.post(`budget/${budgetId}/envelopes/category`, envelopeCategory);
+    }
+
+    public assignIncome(budgetId: string, request: AssignIncomeRequest): Observable<void> {
+        return this.post(`budget/${budgetId}/envelopes/assignIncome`, request);
     }
 }

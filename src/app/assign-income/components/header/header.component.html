@@ -6,5 +6,5 @@
     </div>
 </div>
 <div class="actions-container">
-    <button [disabled]="!canSubmit()" (click)="service.submit()" class="btn btn-primary">Done</button>
+    <button [clrLoading]="service.isBusy" [disabled]="!canSubmit()" (click)="service.submit()" class="btn btn-primary">Done</button>
 </div>

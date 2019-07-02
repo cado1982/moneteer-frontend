@@ -1,20 +1,22 @@
-import { map, switchMap, mergeMap, tap } from "rxjs/operators";
+import { map, switchMap, mergeMap, tap, filter } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { Effect, Actions, ofType } from "@ngrx/effects";
-import { AccountsActionTypes, LoadAccountsAction, LoadAccountsSuccessAction,
-         CreateAccountAction, CreateAccountSuccessAction } from "../actions/accounts.actions";
-import { AccountService } from "../../core/services";
 import { EnvelopesService } from "../services/envelopes.service";
 import { EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesAction, 
-         CreateEnvelopeCategoryAction, CreateEnvelopeCategorySuccessAction, CreateEnvelopeCategoryFailureAction } from "../actions/envelopes.actions";
+         CreateEnvelopeCategoryAction, CreateEnvelopeCategorySuccessAction, CreateEnvelopeCategoryFailureAction, AssignIncomeSuccessAction, AssignIncomeFailureAction, AssignIncomeRequestAction } from "../actions/envelopes.actions";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
+import { IEnvelopesState } from "../reducers/envelopes.reducer";
+import { getActiveBudget } from "../reducers/budget.reducer";
+import { BudgetModel } from "../models";
+import { Store } from "@ngrx/store";
 
 @Injectable()
 export class EnvelopesEffects {
     constructor(
         private envelopesService: EnvelopesService,
-        private actions$: Actions
+        private actions$: Actions,
+        private envelopesStore: Store<IEnvelopesState>
     ) { }
 
     @Effect() load$ = this.actions$.pipe(
@@ -32,4 +34,19 @@ export class EnvelopesEffects {
         )
     ));
 
+    @Effect() assignIncome$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.AssignIncomeRequest),
+        switchMap((action: AssignIncomeRequestAction) => this.envelopesService.assignIncome(action.payload.budgetId, action.payload.request).pipe(
+            map(() => new AssignIncomeSuccessAction()),
+            catchError(error => of(new AssignIncomeFailureAction(error)))
+        )
+    ));
+
+    @Effect() assignIncomeSuccess$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.AssignIncomeSuccess),
+        switchMap(() => this.envelopesStore.select(getActiveBudget).pipe(
+            filter((activeBudget: BudgetModel | null): activeBudget is BudgetModel => activeBudget !== null ),
+            map((activeBudget: BudgetModel) => new LoadEnvelopesAction({budgetId: activeBudget.id}))
+        )
+    ));
 }

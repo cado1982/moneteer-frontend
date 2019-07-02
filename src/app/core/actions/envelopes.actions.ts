@@ -1,5 +1,6 @@
 import { Action } from "@ngrx/store";
 import { EnvelopeModel, EnvelopeCategoryModel } from "../models";
+import { AssignIncomeRequest } from "../models/assign.income.request";
 
 export enum EnvelopesActionTypes {
     Load = "[Envelopes] Load",
@@ -8,6 +9,9 @@ export enum EnvelopesActionTypes {
     CreateEnvelopeCategory = "[Envelopes] Create Envelope Category",
     CreateEnvelopeCategorySuccess = "[Envelopes] Create Envelope Category Success",
     CreateEnvelopeCategoryFailure = "[Envelopes] Create Envelope Category Failure",
+    AssignIncomeRequest = "[Envelopes] Assign Income Request",
+    AssignIncomeSuccess = "[Envelopes] Assign Income Success",
+    AssignIncomeFailure = "[Envelopes] Assign Income Failure",
 }
 
 
@@ -26,7 +30,7 @@ export class LoadEnvelopesFailureAction implements Action {
 
 export class CreateEnvelopeCategoryAction implements Action {
     readonly type = EnvelopesActionTypes.CreateEnvelopeCategory;
-    constructor(public payload: {budgetId, envelopeCategory: EnvelopeCategoryModel}) { }
+    constructor(public payload: {budgetId: string, envelopeCategory: EnvelopeCategoryModel}) { }
 }
 export class CreateEnvelopeCategorySuccessAction implements Action {
     readonly type = EnvelopesActionTypes.CreateEnvelopeCategorySuccess;
@@ -37,10 +41,25 @@ export class CreateEnvelopeCategoryFailureAction implements Action {
     constructor(public payload: {error: string}) { }
 }
 
+export class AssignIncomeRequestAction implements Action {
+    readonly type = EnvelopesActionTypes.AssignIncomeRequest;
+    constructor(public payload: {budgetId: string, request: AssignIncomeRequest}) { }
+}
+export class AssignIncomeSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.AssignIncomeSuccess;
+}
+export class AssignIncomeFailureAction implements Action {
+    readonly type = EnvelopesActionTypes.AssignIncomeFailure;
+    constructor(public payload: {error: string}) { }
+}
+
 export type EnvelopesActions =
     | CreateEnvelopeCategoryAction
     | CreateEnvelopeCategorySuccessAction
     | CreateEnvelopeCategoryFailureAction
     | LoadEnvelopesAction
     | LoadEnvelopesSuccessAction
-    | LoadEnvelopesFailureAction;
+    | LoadEnvelopesFailureAction
+    | AssignIncomeRequestAction
+    | AssignIncomeSuccessAction
+    | AssignIncomeFailureAction;

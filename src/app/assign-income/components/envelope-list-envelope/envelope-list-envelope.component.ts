@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EnvelopeModel } from 'src/app/core/models';
 import { AssignIncomeService } from '../../services/assign-income.service';
+import { AssignIncome } from 'src/app/core/models/assign.income.request';
 
 @Component({
     selector: 'moneteer-assign-income-envelope-list-envelope',
@@ -20,6 +21,7 @@ export class EnvelopeListEnvelopeComponent implements OnInit {
 
     onAssignedChanged() {
         this.balance = this.envelope.balance + this.assigned;
-        this.service.updateAssignment(this.assigned, this.envelope);
+        const model = new AssignIncome(this.envelope, this.assigned);
+        this.service.updateAssignment(model);
     }
 }
