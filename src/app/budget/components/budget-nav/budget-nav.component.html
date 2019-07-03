@@ -1,26 +1,27 @@
 <moneteer-nav>
     <a class="link link-parent" routerLink="envelopes" routerLinkActive="active">
         <clr-icon shape="piggy-bank"></clr-icon>
-        Envelopes
+        <span> ENVELOPES</span>
     </a>
     
-    <div class="link-container" routerLink="accounts" routerLinkActive="active">
-        <a class="link link-parent" routerLink="accounts" routerLinkActive="active">
+    <div class="link-container" routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a class="link link-parent" routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <clr-icon shape="bank"></clr-icon>
-            Accounts
+            <span> ACCOUNTS</span>
         </a>
         <button title="Add Account" (click)="openCreateAccount($event)">
             <clr-icon size="20" shape="plus-circle"></clr-icon>
         </button>
     </div>
     
-    <h6 [hidden]="(budgetAccounts | async)?.length === 0">Budget</h6>
-    <a class="link link-child" *ngFor="let account of budgetAccounts | async" routerLinkActive="active" [routerLink]="['accounts', account.id]">{{account.name}}</a>
-    <h6 [hidden]="(offBudgetAccounts | async)?.length === 0">Off-Budget</h6>
-    <a class="link link-child" *ngFor="let account of offBudgetAccounts | async" routerLinkActive="active" [routerLink]="['accounts', account.id]">{{account.name}}</a>
-    
-    <!-- <a class="link link-parent" routerLink="reports" routerLinkActive="active">
-    <clr-icon shape="line-chart"></clr-icon>
-    Reports
-    </a> -->
+    <a class="link link-child" *ngFor="let account of budgetAccounts | async" routerLinkActive="active" [routerLink]="['accounts', account.id]">
+        <div class="account-container">
+            <div class="account-name">
+                {{account.name}}
+            </div>
+            <div class="account-balance money-label" [ngClass]="{'money-label-negative': account.clearedBalance + account.unclearedBalance < 0}">
+                {{account.clearedBalance + account.unclearedBalance | budgetCurrency:true}}
+            </div>
+        </div>
+    </a>
 </moneteer-nav>

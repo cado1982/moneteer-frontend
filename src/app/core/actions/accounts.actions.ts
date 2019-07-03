@@ -2,9 +2,12 @@ import { Action } from "@ngrx/store";
 import { AccountModel } from "../../accounts/models";
 
 export enum AccountsActionTypes {
-    Load = "[Accounts] Load",
-    LoadSuccess = "[Accounts] Load Success",
-    LoadFailure = "[Accounts] Load Failure",
+    LoadSingle = "[Accounts] Load Single",
+    LoadSingleSuccess = "[Accounts] Load Single Success",
+    LoadSingleFailure = "[Accounts] Load Single Failure",
+    LoadAll = "[Accounts] Load All",
+    LoadAllSuccess = "[Accounts] Load All Success",
+    LoadAllFailure = "[Accounts] Load All Failure",
     ShowCreate = "[Accounts] Show Create",
     HideCreate = "[Accounts] Hide Create",
     Create = "[Accounts] Create",
@@ -12,16 +15,30 @@ export enum AccountsActionTypes {
     CreateFailure = "[Accounts] Create Failure",
 }
 
-export class LoadAccountsAction implements Action {
-    readonly type = AccountsActionTypes.Load;
+export class LoadSingleAccountAction implements Action {
+    readonly type = AccountsActionTypes.LoadSingle;
+    constructor(public payload: {accountId: string}) { }
+}
+export class LoadSingleAccountSuccessAction implements Action {
+    readonly type = AccountsActionTypes.LoadSingleSuccess;
+    constructor(public payload: {account: AccountModel}) { }
+}
+export class LoadSingleAccountFailureAction implements Action {
+    readonly type = AccountsActionTypes.LoadSingleFailure;
+    constructor(public payload: {error: string}) { }
+}
+
+
+export class LoadAllAccountsAction implements Action {
+    readonly type = AccountsActionTypes.LoadAll;
     constructor(public payload: {budgetId: string}) { }
 }
-export class LoadAccountsSuccessAction implements Action {
-    readonly type = AccountsActionTypes.LoadSuccess;
+export class LoadAllAccountsSuccessAction implements Action {
+    readonly type = AccountsActionTypes.LoadAllSuccess;
     constructor(public payload: {accounts: AccountModel[]}) { }
 }
-export class LoadAccountsFailureAction implements Action {
-    readonly type = AccountsActionTypes.LoadFailure;
+export class LoadAllAccountsFailureAction implements Action {
+    readonly type = AccountsActionTypes.LoadAllFailure;
     constructor(public payload: {error: string}) { }
 }
 
@@ -45,9 +62,12 @@ export class CreateAccountFailureAction implements Action {
 }
 
 export type AccountsActions =
-    LoadAccountsAction |
-    LoadAccountsSuccessAction |
-    LoadAccountsFailureAction |
+    LoadSingleAccountAction |
+    LoadSingleAccountSuccessAction |
+    LoadSingleAccountFailureAction |
+    LoadAllAccountsAction |
+    LoadAllAccountsSuccessAction |
+    LoadAllAccountsFailureAction |
     ShowCreateAccountAction |
     HideCreateAccountAction |
     CreateAccountAction |

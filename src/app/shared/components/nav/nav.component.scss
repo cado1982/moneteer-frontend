@@ -6,23 +6,24 @@
     flex-direction: column;
     width: 230px;
     height: 100%;
-    background-color: $primary-color-light;
-    border-right: 1px solid $divider-color;
+    background: $theme-medium;
+    background: linear-gradient(90deg, $theme-medium 0%, $theme-darker 100%);
+    border-right: 1px solid $theme-divider-color;
     user-select: none;
 }
 
 clr-dropdown .dropdown-toggle-button {
     width: 100%;
     padding: 0.625em;
-    background-color: $primary-color;
-    color: $primary-color-text;
+    background-color: $theme-darker;
+    color: $theme-light-text;
     font-weight: 600;
     font-size: 0.8em;
 }
 
 .header {
-    background-color: $primary-color;
-    color: $secondary-text-color;
+    background-color: $theme-darker;
+    color: $theme-light-text;
     min-height: 4em;
     display: flex;
     align-items: center;
@@ -32,7 +33,7 @@ clr-dropdown .dropdown-toggle-button {
     font-size: 1.5em;
     flex: 1 1 auto;
     margin: 0;
-    color: $primary;
+    color: $theme-medium;
     color: #fff;
 }
 
@@ -50,4 +51,8 @@ a:hover {
 
 .logo span {
     font-size: 1.5em;
+}
+
+.header > .logo > clr-icon {
+    fill: $theme-accent !important;
 }

@@ -2,7 +2,7 @@
 
 :host {
     display: flex;
-    padding: 0.5em;
+    padding: 0.3em;
 }
 
 .envelope-name {
@@ -13,7 +13,7 @@
 .envelope-details {
     display: flex;
     flex: 1 0 auto;
-    div, moneteer-currency-edit {
+    * {
         flex: 0 0 33%;
         font-size: 0.8em;
     }

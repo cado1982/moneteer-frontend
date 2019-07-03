@@ -15,14 +15,14 @@
 }
 
 .transaction-header {
-    background-color: $primary-color;
-    color: $primary-color-text;
+    background-color: $theme-medium;
+    color: $theme-light-text;
     font-size: 0.7em;
     padding: 2px 5px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    border-right: 1px solid $divider-color;
+    border-right: 1px solid $theme-divider-color;
 }
 
 .transaction-header-row {

@@ -5,3 +5,23 @@
     margin-right: 0.5em;
     overflow-y: auto;
 }
+
+.envelope-list-header {
+    display: flex;
+    
+    
+    .spacer {
+        flex: 0 0 160px;
+    }
+}
+
+
+.header-labels {
+    display: flex;
+    flex: 1 1 auto;
+    font-size: 0.8em;
+    text-align: center;
+    div {
+        flex: 0 0 33%;
+    }
+}

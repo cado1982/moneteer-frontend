@@ -1,11 +1,16 @@
-$primary-color-dark:   #455A64;
-$primary-color:        #607D8B;
-$primary-color-light:  #CFD8DC;
-$primary-color-text:   #FFFFFF;
-$accent-color:         #FFC107;
-$primary-text-color:   #212121;
-$secondary-text-color: #757575;
-$divider-color:        #BDBDBD;
+// Colors and theme from https://www.behance.net/gallery/73265931/Dashboards-2018-part-1
+$theme-darker: #403491;
+$theme-dark: #4E41A6;
+$theme-medium: #4634BF;
+$theme-light: #5849BF;
+$theme-accent: #F29F05;
+$theme-background: #F0F0F2;
+$theme-divider-color: #BDBDBD;
+$theme-hover: #EFEFEF;
+
+$theme-light-text: #F0F0F0;
+$theme-dark-text: #292929;
+
 
 $money-good:           #318700;
 $money-bad:            #c92100;
@@ -14,8 +19,6 @@ $money-good-saturated: #00FFC8;
 $money-bad-saturated:  #FF5540;
 
 $error:                #cc0000;
-
-$primary: $primary-color;
 
 html {
     overflow: hidden;
@@ -54,7 +57,7 @@ body {
 }
 
 .selected, .editing {
-    background-color: $primary-color-light;
+    background-color: $theme-light;
     cursor: text;
 }
 
@@ -90,6 +93,20 @@ body {
 .transaction-cell--selected {
     flex: 0 1 30px;
     padding-left: 8px;
+}
+
+.money-label {
+    height: 0.75rem;
+    border-radius: 0.5rem;
+    padding: 0 0.4rem;
+    background-color: $theme-background;
+    color: $theme-dark-text;
+    line-height: 1.7em;
+    font-weight: 500;
+}
+
+.money-label-negative {
+    color: $money-bad;
 }
 
 /* Clarity overrides */

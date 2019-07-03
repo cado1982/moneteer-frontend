@@ -1,11 +1,12 @@
 import { map, switchMap, mergeMap, tap } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { Effect, Actions, ofType } from "@ngrx/effects";
-import { AccountsActionTypes, LoadAccountsAction, LoadAccountsSuccessAction,
-         CreateAccountAction, CreateAccountSuccessAction, CreateAccountFailureAction } from "../actions/accounts.actions";
+import { AccountsActionTypes, LoadAllAccountsAction, LoadAllAccountsSuccessAction,
+         CreateAccountAction, CreateAccountSuccessAction, CreateAccountFailureAction, LoadSingleAccountAction, LoadSingleAccountSuccessAction, LoadAllAccountsFailureAction, LoadSingleAccountFailureAction } from "../actions/accounts.actions";
 import { AccountService } from "../../core/services";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
+import { LoadTransactionsForAccountAction } from "../actions/transactions.actions";
 
 @Injectable()
 export class AccountsEffects {
@@ -14,10 +15,19 @@ export class AccountsEffects {
         private actions$: Actions
     ) { }
 
-    @Effect() loadAccounts$ = this.actions$.pipe(
-        ofType(AccountsActionTypes.Load),
-        mergeMap((action: LoadAccountsAction) => this.accountService.getAccounts(action.payload.budgetId).pipe(
-            map(accounts => new LoadAccountsSuccessAction({accounts}))
+    @Effect() loadAllAccounts$ = this.actions$.pipe(
+        ofType(AccountsActionTypes.LoadAll),
+        mergeMap((action: LoadAllAccountsAction) => this.accountService.getAccounts(action.payload.budgetId).pipe(
+            map(accounts => new LoadAllAccountsSuccessAction({accounts})),
+            catchError(err => of(new LoadAllAccountsFailureAction(err)))
+        )
+    ));
+
+    @Effect() loadSingleAccount$ = this.actions$.pipe(
+        ofType(AccountsActionTypes.LoadSingle),
+        mergeMap((action: LoadSingleAccountAction) => this.accountService.getAccount(action.payload.accountId).pipe(
+            map(account => new LoadSingleAccountSuccessAction({account})),
+            catchError(err => of(new LoadSingleAccountFailureAction(err)))
         )
     ));
 
@@ -28,4 +38,9 @@ export class AccountsEffects {
             catchError(err => of(new CreateAccountFailureAction(err)))
         )
     ));
+
+    @Effect() createAccountSuccess$ = this.actions$.pipe(
+        ofType(AccountsActionTypes.CreateSuccess),
+        map((action: CreateAccountSuccessAction) => new LoadTransactionsForAccountAction({ accountId: action.payload.account.id}))
+    )
 }

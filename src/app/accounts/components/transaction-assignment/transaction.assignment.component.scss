@@ -14,12 +14,12 @@
 }
 
 .active {
-    background-color: $accent-color !important;
+    background-color: $theme-accent !important;
 }
 
 input {
     width: 100%;
-    color: $primary-text-color !important;
+    color: $theme-light-text !important;
 }
 
 .transaction-actions {
@@ -28,6 +28,6 @@ input {
     top: 100%;
     right: 30px;
     z-index: 1;
-    color: $primary-color-text !important;
-    background-color: $primary-color-light !important;
+    color: $theme-light-text !important;
+    background-color: $theme-accent !important;
 }

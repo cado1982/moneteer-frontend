@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
 import { AccountModel } from "../../accounts/models/index";
+import { map } from "rxjs/operators";
 
 @Injectable()
 export class AccountService extends ApiBaseService {
@@ -12,11 +13,15 @@ export class AccountService extends ApiBaseService {
     }
 
     public getAccounts(budgetId: string): Observable<Array<AccountModel>> {
-        return this.get<Array<AccountModel>>(`account?budgetId=${budgetId}`);
+        return this.get<Array<AccountModel>>(`budget/${budgetId}/accounts`);
+    }
+
+    public getAccount(accountId: string): Observable<AccountModel> {
+        return this.get<AccountModel>(`account/${accountId}`);
     }
 
     public createAccount(account: AccountModel): Observable<AccountModel> {
-        return this.post(`account?budgetId=${account.budgetId}`, account);
+        return this.post(`account`, account);
     }
 
     public deleteAccount(account: AccountModel): Observable<void> {

@@ -2,14 +2,14 @@
 
 :host {
     display: flex;
-    background-color: $primary-color;
-    color: $primary-color-text;
+    background-color: $theme-medium;
+    color: $theme-light-text;
     padding: 5px;
     font-weight: bold;
 }
 
 h5 {
-    color: $primary-color-text;
+    color: $theme-light-text;
     margin-left: 0.3em;
 }
 

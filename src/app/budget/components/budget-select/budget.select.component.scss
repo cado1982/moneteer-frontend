@@ -21,7 +21,7 @@
 }
 
 h2 {
-    border-bottom: 2px solid $divider-color;
+    border-bottom: 2px solid $theme-divider-color;
     padding-bottom: 7px;
 }
 
@@ -32,8 +32,8 @@ h2 {
 
 .budget-select--budget,
 .budget-select--create {
-    background-color: $primary-color;
-    color: $primary-color-text;
+    background-color: $theme-medium;
+    color: $theme-light-text;
     padding: 20px;
     width: 150px;
     height: 150px;

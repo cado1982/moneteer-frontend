@@ -12,12 +12,12 @@
 h2 {
     font-size: 1.2em;
     margin: 0;
-    color: $primary-color-text;
+    color: $theme-light-text;
 }
 
 h3 {
     margin: 0;
-    color: $primary-color-text;
+    color: $theme-light-text;
     font-weight: 500;
     font-size: 1em;
 }
@@ -28,4 +28,8 @@ h3.good {
 
 h3.bad {
     color: $money-bad-saturated;
+}
+
+button {
+    margin: 0;
 }

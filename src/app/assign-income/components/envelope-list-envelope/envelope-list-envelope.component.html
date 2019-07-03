@@ -1,6 +1,6 @@
 <div class="envelope-name">{{envelope.name}}</div>
 <div class="envelope-details">
-    <div [ngClass]="{'label-success': envelope.balance > 0, 'label-danger': envelope.balance < 0, 'label': envelope.balance != 0}">{{envelope.balance | currency:'USD':'symbol-narrow'}}</div>
+    <div class="label" [ngClass]="{'label-success': envelope.balance > 0, 'label-danger': envelope.balance < 0, 'label-info': envelope.balance === 0}">{{envelope.balance | currency:'USD':'symbol-narrow'}}</div>
     <moneteer-currency-input class="assigned" [(ngModel)]="assigned" (ngModelChange)="onAssignedChanged()"></moneteer-currency-input>
     <div>{{balance | currency:'USD':'symbol-narrow'}}</div>
 </div>

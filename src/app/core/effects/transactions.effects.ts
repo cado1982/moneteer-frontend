@@ -6,7 +6,7 @@ import { Store } from "@ngrx/store";
 import { TransactionsActionTypes, LoadTransactionsAction, LoadTransactionsSuccessAction,
          CreateTransactionAction, CreateTransactionSuccessAction, UpdateTransactionAction, UpdateTransactionSuccessAction, 
          DeleteTransactionsAction, DeleteTransactionsSuccessAction, DeleteTransactionsFailureAction, LoadTransactionsFailureAction, 
-         CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction, SetTransactionClearedFailureAction, DeselectAllTransactionsAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction } from "../actions/transactions.actions";
+         CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction, SetTransactionClearedFailureAction, DeselectAllTransactionsAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction, LoadTransactionsForAccountAction, LoadTransactionsForAccountSuccessAction, LoadTransactionsForAccountFailureAction } from "../actions/transactions.actions";
 import { switchMap, map, filter, mergeMap, first } from "rxjs/operators";
 import { of } from "rxjs";
 import { catchError } from "rxjs/internal/operators/catchError";
@@ -15,6 +15,7 @@ import { getActiveBudget, IBudgetsState } from "../reducers/budget.reducer";
 import { PayeeService } from "../services/payee.service";
 import { LoadBudgetAction } from "../actions/budget.actions";
 import { BudgetModel } from "../models";
+import { LoadSingleAccountAction, LoadAllAccountsAction } from "../actions/accounts.actions";
 
 @Injectable()
 export class TransactionsEffects {
@@ -34,6 +35,15 @@ export class TransactionsEffects {
         )   
     ));
 
+    @Effect() loadTransactionsForAccount$ = this.actions$.pipe(
+        ofType(TransactionsActionTypes.LoadTransactionsForAccount),
+        map((action: LoadTransactionsForAccountAction) => action.payload),
+        mergeMap(payload => this.transactionService.getTransactionsForAccount(payload.accountId).pipe(
+            map(transactionsForAccount => new LoadTransactionsForAccountSuccessAction({transactionsForAccount})),
+            catchError(error => of(new LoadTransactionsForAccountFailureAction({error: error.message})))
+        )   
+    ));
+
     @Effect() createTransaction$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.CreateTransaction),
         map((action: CreateTransactionAction) => action.payload),
@@ -46,12 +56,13 @@ export class TransactionsEffects {
     
     @Effect() createTransactionSuccess$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.CreateTransactionSuccess),
-        switchMap(() => this.budgetStore.select(getActiveBudget).pipe(
+        switchMap((action: CreateTransactionSuccessAction) => this.budgetStore.select(getActiveBudget).pipe(
             first(),
             filter((activeBudget: BudgetModel | null): activeBudget is BudgetModel => activeBudget !== null ),
             switchMap(activeBudget => [
                 new LoadEnvelopesAction({budgetId: activeBudget.id}),
-                new LoadBudgetAction({budgetId: activeBudget.id})
+                new LoadBudgetAction({budgetId: activeBudget.id}),
+                new LoadSingleAccountAction({accountId: action.payload.transaction.account.id})
             ])
         ))
     );
@@ -88,13 +99,14 @@ export class TransactionsEffects {
 
     @Effect() deleteTransactionsSuccess$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.DeleteTransactionsSuccess),
-        mergeMap(() => this.budgetStore.select(getActiveBudget).pipe(
+        mergeMap((action: DeleteTransactionsSuccessAction) => this.budgetStore.select(getActiveBudget).pipe(
             first(),
             filter((activeBudget: BudgetModel | null): activeBudget is BudgetModel => activeBudget !== null ),
             switchMap(activeBudget => [
                 new DeselectAllTransactionsAction(),
                 new LoadEnvelopesAction({budgetId: activeBudget.id}),
-                new LoadBudgetAction({budgetId: activeBudget.id})
+                new LoadBudgetAction({budgetId: activeBudget.id}),
+                new LoadAllAccountsAction({budgetId: activeBudget.id})
             ])
         ))
     );
@@ -102,11 +114,16 @@ export class TransactionsEffects {
     @Effect() setTransactionCleared$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.SetTransactionCleared),
         map((action: SetTransactionClearedAction) => action.payload),
-        mergeMap(payload => this.transactionService.setTransactionIsCleared(payload.transactionId, payload.isCleared).pipe(
-            map(() => new SetTransactionClearedSuccessAction({transactionId: payload.transactionId, isCleared: payload.isCleared})),
-            catchError(error => of(new SetTransactionClearedFailureAction({error, transactionId: payload.transactionId, originalState: !payload.isCleared })))
+        mergeMap(payload => this.transactionService.setTransactionIsCleared(payload.transaction.id, payload.isCleared).pipe(
+            map(() => new SetTransactionClearedSuccessAction({transaction: payload.transaction, isCleared: payload.isCleared})),
+            catchError(error => of(new SetTransactionClearedFailureAction({error, transaction: payload.transaction, originalState: !payload.isCleared })))
         )
     ));
+
+    @Effect() setTransactionClearedSuccess$ = this.actions$.pipe(
+        ofType(TransactionsActionTypes.SetTransactionClearedSuccess),
+        map((action: SetTransactionClearedAction) => new LoadSingleAccountAction({ accountId: action.payload.transaction.account.id}))
+    );
 
     @Effect() loadPayees$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.LoadPayees),

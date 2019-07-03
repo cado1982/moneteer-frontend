@@ -8,7 +8,7 @@ import { Store, select } from "@ngrx/store";
 import { IState } from "../../reducers";
 import { Actions, ofType } from "@ngrx/effects";
 import { IAccountsState } from "../../core/reducers/accounts.reducer";
-import { LoadAccountsAction, AccountsActionTypes, LoadAccountsSuccessAction, LoadAccountsFailureAction } from "../../core/actions/accounts.actions";
+import { LoadAllAccountsAction, AccountsActionTypes, LoadAllAccountsSuccessAction, LoadAllAccountsFailureAction } from "../../core/actions/accounts.actions";
 
 @Injectable()
 export class AccountsResolver implements Resolve<Array<AccountModel>> {
@@ -23,17 +23,17 @@ export class AccountsResolver implements Resolve<Array<AccountModel>> {
         }
         const budgetId: string = route.params.budgetId;
 
-        this.store.dispatch(new LoadAccountsAction({budgetId}));
+        this.store.dispatch(new LoadAllAccountsAction({budgetId}));
 
         const success = this.actions$.pipe(
-            ofType(AccountsActionTypes.LoadSuccess),
-            map((action: LoadAccountsSuccessAction) => action.payload.accounts),
+            ofType(AccountsActionTypes.LoadAllSuccess),
+            map((action: LoadAllAccountsSuccessAction) => action.payload.accounts),
             first()
         );
 
         const failure = this.actions$.pipe(
-            ofType(AccountsActionTypes.LoadFailure),
-            switchMap((action: LoadAccountsFailureAction) => { throw new Error(action.payload.error) }),
+            ofType(AccountsActionTypes.LoadAllFailure),
+            switchMap((action: LoadAllAccountsFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 

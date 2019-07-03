@@ -8,6 +8,10 @@ export enum TransactionsActionTypes {
     LoadTransactionsSuccess = "[Transactions] Load Success",
     LoadTransactionsFailure = "[Transactions] Load Failure",
 
+    LoadTransactionsForAccount = "[Transactions] Load For Account",
+    LoadTransactionsForAccountSuccess = "[Transactions] Load For Account Success",
+    LoadTransactionsForAccountFailure = "[Transactions] Load For Account Failure",
+
     LoadPayees = "[Payees] Load",
     LoadPayeesSuccess = "[Payees] Load Success",
     LoadPayeesFailure = "[Payees] Load Failure",
@@ -49,6 +53,20 @@ export class LoadTransactionsSuccessAction implements Action {
 }
 export class LoadTransactionsFailureAction implements Action {
     readonly type = TransactionsActionTypes.LoadTransactionsFailure;
+    constructor(public payload: {error: string}) { }
+}
+
+// Load For Account
+export class LoadTransactionsForAccountAction implements Action {
+    readonly type = TransactionsActionTypes.LoadTransactionsForAccount;
+    constructor(public payload: {accountId: string}) { }
+}
+export class LoadTransactionsForAccountSuccessAction implements Action {
+    readonly type = TransactionsActionTypes.LoadTransactionsForAccountSuccess;
+    constructor(public payload: {transactionsForAccount: TransactionModel[]}) { }
+}
+export class LoadTransactionsForAccountFailureAction implements Action {
+    readonly type = TransactionsActionTypes.LoadTransactionsForAccountFailure;
     constructor(public payload: {error: string}) { }
 }
 
@@ -124,15 +142,15 @@ export class CancelDeleteTransactions implements Action {
 // Clear
 export class SetTransactionClearedAction implements Action {
     readonly type = TransactionsActionTypes.SetTransactionCleared;
-    constructor(public payload: {transactionId: string, isCleared: boolean}) { }
+    constructor(public payload: {transaction: TransactionModel, isCleared: boolean}) { }
 }
 export class SetTransactionClearedSuccessAction implements Action {
     readonly type = TransactionsActionTypes.SetTransactionClearedSuccess;
-    constructor(public payload: {transactionId: string, isCleared: boolean}) { }
+    constructor(public payload: {transaction: TransactionModel, isCleared: boolean}) { }
 }
 export class SetTransactionClearedFailureAction implements Action {
     readonly type = TransactionsActionTypes.SetTransactionClearedFailure;
-    constructor(public payload: {error: any, transactionId: string, originalState: boolean}) { }
+    constructor(public payload: {error: any, transaction: TransactionModel, originalState: boolean}) { }
 }
 
 // Selection
@@ -155,6 +173,9 @@ export type TransactionsActions =
     | LoadTransactionsAction
     | LoadTransactionsSuccessAction
     | LoadTransactionsFailureAction
+    | LoadTransactionsForAccountAction
+    | LoadTransactionsForAccountSuccessAction
+    | LoadTransactionsForAccountFailureAction
     | LoadPayeesAction
     | LoadPayeesSuccessAction
     | LoadPayeesFailureAction

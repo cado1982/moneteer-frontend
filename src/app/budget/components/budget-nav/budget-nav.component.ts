@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { AccountModel } from "../../../accounts/models/index";
 import { ShowCreateAccountAction } from "../../../core/actions/accounts.actions";
 import { IAccountsState, getOffBudgetAccounts, getBudgetAccounts } from "../../../core/reducers/accounts.reducer";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "moneteer-budget-nav",
@@ -22,7 +23,19 @@ export class BudgetNavComponent implements OnInit {
 
     ngOnInit(): void {
         this.offBudgetAccounts = this.store.pipe(select(getOffBudgetAccounts));
-        this.budgetAccounts = this.store.pipe(select(getBudgetAccounts));
+        this.budgetAccounts = this.store.pipe(
+            select(getBudgetAccounts),
+            map(accounts => accounts.sort((a, b) => {
+                {
+                    let comparison = 0;
+                    if (a.name > b.name) {
+                        comparison = 1;
+                    } else if (a.name < b.name) {
+                        comparison = -1;
+                    }
+                    return comparison;
+                }
+            })));
     }
 
     public openCreateAccount($event: Event): void {

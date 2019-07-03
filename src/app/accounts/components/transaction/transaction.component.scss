@@ -3,24 +3,32 @@
 :host {
     position: relative;
     font-size: 0.8em;
-    border-bottom: 1px solid $divider-color;
+    border-bottom: 1px solid $theme-divider-color;
     cursor: pointer;
     display: flex;
     flex-direction: column;
 }
 
 :host:hover {
-    background-color: $primary-color-light;
+    background-color: $theme-hover;
 }
 
 :host(.selected), .selected, :host(.editing), .editing {
-    background-color: $primary-color-light;
+    background-color: $theme-accent;
+    color: $theme-light-text;
     cursor: text;
+    input {
+        color: $theme-light-text;
+    }
+}
+
+.editing input {
+    color: $theme-light-text;
 }
 
 .transaction-actions {
     padding: 5px;
-    background-color: $primary-color-light;
+    background-color: $theme-accent;
     align-self: flex-end;
 }
 

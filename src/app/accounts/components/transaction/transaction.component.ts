@@ -115,7 +115,7 @@ export class TransactionComponent implements OnInit, OnChanges {
             return;
         }
 
-        this.store.dispatch(new SetTransactionClearedAction({transactionId: this.transaction.id, isCleared}));
+        this.store.dispatch(new SetTransactionClearedAction({transaction: this.transaction, isCleared}));
     }
 
     public onSelectedEnvelopeChange(envelope: EnvelopeModel): void {

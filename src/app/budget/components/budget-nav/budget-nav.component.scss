@@ -6,14 +6,14 @@
     flex-direction: column;
     width: 230px;
     height: 100%;
-    background-color: $primary-color-light;
     user-select: none;
+    color: $theme-light-text;
 }
 
 .link {
     padding: 0.4em 0.8em;
-    color: $primary;
-    font-size: 0.8em;
+    color: $theme-light-text;
+    font-size: 0.7em;
 }
 
 .link-child {
@@ -28,7 +28,7 @@ h6 {
     padding: 0.3em 0.4em;
     margin-left: 1.3em;
     margin-top: 0;
-    color: $primary;
+    color: $theme-light-text;
     font-size: 0.7em;
     font-weight: bold;
 }
@@ -42,9 +42,8 @@ h6 {
     margin: 0; 
     flex: 0 1 auto; 
     align-self: center;
-    //border-color: $primary;
     border: none;
-    color: $primary;
+    color: $theme-light-text;
     background-color: #0000;
     cursor: pointer;
     margin-right: 0.8em;
@@ -54,17 +53,17 @@ h6 {
 
 .link-container a {
     flex: 1 0 auto;
-    color: $primary
+    color: $theme-light-text;
 }
 
 .link:hover, .link.active, .link-container:hover, .link-container:hover a, .link-container.active {
-    background-color: $primary-color !important;
-    color: $primary-color-text !important;
-    border-color: $primary-color-text !important;
+    background-color: $theme-accent !important;
+    color: $theme-light-text !important;
+    border-color: $theme-light-text !important;
 }
 
 .link-container.active clr-icon, .link-container:hover clr-icon {
-    color: $primary-color-text !important;
+    color: $theme-light-text !important;
 }
 
 // .link-container:hover button {
@@ -75,3 +74,17 @@ h6 {
 //     background-color: #e1f1f6;
 //     color: #000;
 // }
+
+.account-container {
+    display: flex;
+    align-items: center;
+}
+
+.account-container > .account-name {
+    flex: 1 0 auto;
+}
+
+.account-container > .account.balance {
+    flex: 0 0 auto;
+    font-size: 0.9em;
+}

@@ -5,14 +5,34 @@
     display: flex;
     flex-direction: row;
     flex: 0 0 auto;
-    border-top: 1px solid $divider-color;
+    border-top: 1px solid $theme-divider-color;
 }
 
-.accounts--transaction-footer-stat {
+.stats {
+    display: flex;
+    flex: 0 1 auto;
+    align-items: center;
+}
+
+.stat {
+    flex: 0 0 33%;
+    background-color: $theme-accent;
+    padding: 0.7em 0.6em;
+    display: flex;
+    flex-direction: row;
+    color: $theme-light-text;
+    margin: 0 0.5em;
     text-align: center;
-    flex-basis: 100px;
+    border-radius: 0.5em;
 }
 
-h4, h6 {
-    margin-top: 0px;
+.stat-title {
+    font-size: 1em;
+    margin-right: 0.5em;
+    flex: 0 0 auto;
+}
+
+.stat-value {
+    font-size: 1.2em;
+    flex: 1 1 auto;
 }

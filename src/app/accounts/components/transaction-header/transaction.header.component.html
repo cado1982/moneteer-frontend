@@ -3,6 +3,7 @@
     <h5 [ngClass]="{'italic': !account}">{{!account ? 'All Accounts' : account.name}}</h5>
 </div>
 
+
 <div class="actions">
     <div class="btn-group btn-sm">
         <button [disabled]="(accounts$ | async).length === 0" id="addInflow" class="btn btn-success-outline"

@@ -24,13 +24,23 @@ const initialState: IAccountsState = {
 
 export function accountsReducer(state: IAccountsState = initialState, action: AccountsActions): IAccountsState {
     switch (action.type) {
-        case AccountsActionTypes.Load: {
+        case AccountsActionTypes.LoadSingle: {
             return {...state, loading: true};
         }
-        case AccountsActionTypes.LoadSuccess: {
+        case AccountsActionTypes.LoadSingleSuccess: {
+            return {...state, accounts: [...state.accounts.filter(a => a.id !== action.payload.account.id), action.payload.account], loading: false};
+        }
+        case AccountsActionTypes.LoadSingleFailure: {
+            return {...state, loading: false};
+        }
+
+        case AccountsActionTypes.LoadAll: {
+            return {...state, loading: true};
+        }
+        case AccountsActionTypes.LoadAllSuccess: {
             return {...state, accounts: action.payload.accounts, loading: false};
         }
-        case AccountsActionTypes.LoadFailure: {
+        case AccountsActionTypes.LoadAllFailure: {
             return {...state, loading: false};
         }
         

@@ -67,7 +67,7 @@ export class TransactionService extends ApiBaseService {
     public setTransactionIsCleared(transactionId: string, isCleared: boolean): Observable<void> {
         if (!transactionId) { throw new Error("transactionId must be set"); }
 
-        return this.put<{isCleared: boolean}, void>(`transaction/${transactionId}/setCleared`, { isCleared });
+        return this.put<boolean, void>(`transaction/${transactionId}/setCleared`, isCleared);
     }
 
     public editPayee(payeeModel: PayeeModel): Observable<PayeeModel> {

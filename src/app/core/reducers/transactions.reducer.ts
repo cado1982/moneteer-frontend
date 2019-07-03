@@ -35,6 +35,7 @@ export const initialState: ITransactionsState = {
 
 export function transactionsReducer(state: ITransactionsState = initialState, action: TransactionsActions): ITransactionsState {
     switch (action.type) {
+        // Load
         case TransactionsActionTypes.LoadTransactions: {
             return{...state, loading: true};
         }
@@ -42,6 +43,21 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
             return {...state, transactions: action.payload.transactions, loading: false};
         }
         case TransactionsActionTypes.LoadTransactionsFailure: {
+            return {...state, loading: false};
+        }
+
+        // Load for account
+        case TransactionsActionTypes.LoadTransactionsForAccount: {
+            return{...state, loading: true};
+        }
+        case TransactionsActionTypes.LoadTransactionsForAccountSuccess: {
+            if (action.payload.transactionsForAccount.length > 0) {
+                return {...state, transactions: [...state.transactions.filter(t => t.account.id !== action.payload.transactionsForAccount[0].account.id), ...action.payload.transactionsForAccount], loading: false};
+            } else {
+                return state;
+            }
+        }
+        case TransactionsActionTypes.LoadTransactionsForAccountFailure: {
             return {...state, loading: false};
         }
 
@@ -116,14 +132,14 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
         }
 
         case TransactionsActionTypes.SetTransactionClearedSuccess: {
-            const matchingTransaction = state.transactions.find(t => t.id === action.payload.transactionId);
+            const matchingTransaction = state.transactions.find(t => t.id === action.payload.transaction.id);
             if (!matchingTransaction) return state;
-            return {...state, transactions: [...state.transactions.filter(t => t.id !== action.payload.transactionId), {...matchingTransaction, isCleared: action.payload.isCleared} ]}
+            return {...state, transactions: [...state.transactions.filter(t => t.id !== action.payload.transaction.id), {...matchingTransaction, isCleared: action.payload.isCleared} ]}
         }
         case TransactionsActionTypes.SetTransactionClearedFailure: {
-            const matchingTransaction = state.transactions.find(t => t.id === action.payload.transactionId);
+            const matchingTransaction = state.transactions.find(t => t.id === action.payload.transaction.id);
             if (!matchingTransaction) return state;
-            return {...state, transactions: [...state.transactions.filter(t => t.id !== action.payload.transactionId), {...matchingTransaction, isCleared: action.payload.originalState} ]}
+            return {...state, transactions: [...state.transactions.filter(t => t.id !== action.payload.transaction.id), {...matchingTransaction, isCleared: action.payload.originalState} ]}
         }
 
         case TransactionsActionTypes.SelectTransaction: {

@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 import { environment } from "./../../../environments/environment";
@@ -17,7 +17,11 @@ export class ApiBaseService {
     }
 
     protected put<TPayload, TResponse>(url: string, payload: TPayload): Observable<TResponse> {
-        return this.http.put<TResponse>(this.baseApiUrl + url, payload);
+        return this.http.put<TResponse>(this.baseApiUrl + url, payload, { headers: { 'Content-Type': "application/json" } });
+    }
+
+    protected putWithHeaders<TPayload, TResponse>(url: string, payload: TPayload, headers: HttpHeaders): Observable<TResponse> {
+        return this.http.put<TResponse>(this.baseApiUrl + url, payload, { headers: headers });
     }
 
     protected post<TPayload, TResponse>(url: string, payload: TPayload): Observable<TResponse> {

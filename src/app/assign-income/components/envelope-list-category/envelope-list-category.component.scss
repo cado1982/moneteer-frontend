@@ -6,14 +6,9 @@
 }
 
 .category-header {
-    display: flex;
-    background-color: $primary-color;
-    color: $primary-color-text;
-    padding: 0.5em;
-}
-
-.category-name {
-    flex: 0 0 160px;
+    background-color: $theme-medium;
+    color: $theme-light-text;
+    padding: 0.4em;
 }
 
 .category-details {

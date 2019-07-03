@@ -1,18 +1,13 @@
 
-import { first, map, flatMap } from "rxjs/operators";
-import {empty as observableEmpty, Observable, race, throwError, merge } from "rxjs";
+import { first, map } from "rxjs/operators";
+import {Observable, race } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { AccountModel } from "../../accounts/models/index";
-import { Store, select } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { Actions, ofType } from "@ngrx/effects";
-import { IAccountsState } from "../../core/reducers/accounts.reducer";
-import { LoadAccountsAction, AccountsActionTypes, LoadAccountsSuccessAction } from "../../core/actions/accounts.actions";
 import { IEnvelopesState } from "../../core/reducers/envelopes.reducer";
 import { LoadEnvelopesAction, EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesFailureAction } from "../../core/actions/envelopes.actions";
 import { EnvelopeModel } from "../../core/models";
-import { switchMap } from "rxjs/internal/operators/switchMap";
-import { mergeMap } from "rxjs/internal/operators/mergeMap";
 import { } from "rxjs/internal/operators"
 
 @Injectable()
