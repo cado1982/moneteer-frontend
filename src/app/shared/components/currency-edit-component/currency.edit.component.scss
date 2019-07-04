@@ -2,4 +2,12 @@
 
 input {
     width: 100%;
+    text-align: right;
+    border-radius: 0.25em;
+    border: 1px solid #DDDDDD;
+    padding-right: 0.5em;
+}
+
+input:hover {
+    border: 1px solid $theme-accent;
 }

@@ -3,12 +3,16 @@
 :host {
     display: flex;
     flex-direction: column;
+    margin-top: 0.5em;
 }
 
 .category-header {
-    background-color: $theme-medium;
+    background-color: $theme-light;
     color: $theme-light-text;
-    padding: 0.4em;
+    padding: 0.2em 1em;
+    border-radius: 0.5em;
+    font-size: 0.95em;
+
 }
 
 .category-details {
@@ -19,4 +23,12 @@
     div {
         flex: 0 0 33%;
     }
+}
+
+moneteer-assign-income-envelope-list-envelope {
+    border-bottom: 1px solid $theme-divider-color;
+}
+
+moneteer-assign-income-envelope-list-envelope:last-child {
+    border-bottom: none;
 }

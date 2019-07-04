@@ -41,9 +41,9 @@ export class BudgetCurrencyPipe implements PipeTransform {
         
                     if (currency) {
                         if (currencySymbolLocation === SymbolLocation.Before) {
-                            return currency.symbol + formattedNumber;
+                            return "$" + formattedNumber;
                         } else if (currencySymbolLocation === SymbolLocation.After) {
-                            return formattedNumber + currency.symbol;
+                            return formattedNumber + "$";
                         } else {
                             return formattedNumber;
                         }

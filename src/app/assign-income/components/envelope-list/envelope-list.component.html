@@ -1,9 +1,8 @@
 <div class="envelope-list-header">
     <div class="spacer"></div>
     <div class="header-labels">
-        <div>Balance</div>
         <div>Assigned</div>
-        <div>New Balance</div>
+        <div>Balance</div>
     </div>
 </div>
 <moneteer-assign-income-envelope-list-category *ngFor="let grouped of service.envelopes | groupBy: 'envelopeCategory.name' | pairs"
