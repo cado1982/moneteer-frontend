@@ -1,19 +1,19 @@
 <div class="stats">
     <div class="stat">
         <div class="stat-title">
-            Uncleared
+            Cleared
         </div>
         <div class="stat-value">
-            {{account.unclearedBalance | budgetCurrency:true}}
+            {{(!account ? accountsCleared : account.clearedBalance) | budgetCurrency:true | async}}
         </div>
     </div>
     <span class="math-symbol">+</span>
     <div class="stat">
         <div class="stat-title">
-            Cleared
+            Uncleared
         </div>
         <div class="stat-value">
-            {{account.clearedBalance | budgetCurrency:true}}
+            {{(!account ? accountsUncleared : account.unclearedBalance) | budgetCurrency:true | async}}
         </div>
     </div>
     <span class="math-symbol">=</span>
@@ -22,7 +22,7 @@
             Working
         </div>
         <div class="stat-value">
-            {{account.unclearedBalance + account.clearedBalance | budgetCurrency:true}}
+            {{(!account ? accountsUncleared + accountsCleared : account.unclearedBalance + account.clearedBalance) | budgetCurrency:true | async}}
         </div>
     </div>
 </div>

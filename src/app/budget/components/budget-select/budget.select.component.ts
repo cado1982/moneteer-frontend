@@ -10,7 +10,8 @@ import { ShowDeleteBudgetAction, ShowCreateBudgetAction } from "../../../core/ac
 
 @Component({
     selector: "moneteer-budget-select",
-    templateUrl: "./budget.select.component.html",
+    template: "",
+    //templateUrl: "./budget.select.component.html",
     styleUrls: ["./budget.select.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -25,18 +26,21 @@ export class BudgetSelectComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.budgets$ = this.store.select(getBudgets);
+        this.store.select(getBudgets).subscribe(b => {
+            if (b.length === 0) return;
+
+            const firstBudget = b[0];
+
+            this.router.navigate(["budget", firstBudget.id]);
+        });
+
     }
 
-    public createBudget(): void {
-        this.store.dispatch(new ShowCreateBudgetAction());
-    }
+    // public createBudget(): void {
+    //     this.store.dispatch(new ShowCreateBudgetAction());
+    // }
 
-    public navigateBudget(budget: BudgetModel): void {
-        this.router.navigate(["/budget", budget.id]);
-    }
-
-    public deleteBudget(budget: BudgetModel): void {
-        this.store.dispatch(new ShowDeleteBudgetAction({budget}));
-    }
+    // public deleteBudget(budget: BudgetModel): void {
+    //     this.store.dispatch(new ShowDeleteBudgetAction({budget}));
+    // }
 }

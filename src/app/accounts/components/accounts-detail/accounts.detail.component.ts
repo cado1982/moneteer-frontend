@@ -19,6 +19,7 @@ import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 export class AccountsDetailComponent implements OnInit {
     public transactions$: Observable<TransactionModel[]>;
     public account$: Observable<AccountModel | null>;
+    public accounts$: Observable<AccountModel[]>;
 
     constructor(
         private store: Store<ITransactionsState>,
@@ -44,7 +45,8 @@ export class AccountsDetailComponent implements OnInit {
                     return account
                 }
             })
-        )
+        );
 
+        this.accounts$ = this.store.select(getAccounts);
     }
 }

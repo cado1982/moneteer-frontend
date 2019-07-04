@@ -28,12 +28,12 @@
             [envelopes]="envelopes$ | async"></moneteer-envelope-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--flow">
-        <span *ngIf="!isEditing">{{transaction?.outflow | budgetCurrency }}</span>
+        <span *ngIf="!isEditing">{{transaction?.outflow | budgetCurrency | async }}</span>
         <moneteer-currency-input *ngIf="isEditing" [ngModel]="outflow" (ngModelChange)="onOutflowChanged($event)">
         </moneteer-currency-input>
     </div>
     <div class="transaction-cell transaction-cell--flow">
-        <span *ngIf="!isEditing">{{transaction?.inflow | budgetCurrency }}</span>
+        <span *ngIf="!isEditing">{{transaction?.inflow | budgetCurrency | async }}</span>
         <moneteer-currency-input *ngIf="isEditing" [ngModel]="inflow" (ngModelChange)="onInflowChanged($event)">
         </moneteer-currency-input>
     </div>

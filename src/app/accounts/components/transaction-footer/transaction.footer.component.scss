@@ -22,17 +22,18 @@
     flex-direction: row;
     color: $theme-light-text;
     margin: 0 0.5em;
-    text-align: center;
     border-radius: 0.5em;
 }
 
 .stat-title {
-    font-size: 1em;
+    text-align: left;
+    font-size: 0.8em;
     margin-right: 0.5em;
     flex: 0 0 auto;
 }
 
 .stat-value {
+    text-align: right;
     font-size: 1.2em;
     flex: 1 1 auto;
 }

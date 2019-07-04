@@ -15,7 +15,7 @@
                 {{budget.name}}
             </div>
             <footer class="card-footer">
-                <button class="btn btn-primary btn-sm btn-link" (click)="navigateBudget(budget)">Open</button>
+                <button class="btn btn-primary btn-sm btn-link" [routerLink]="budget.id">Open</button>
                 <a class="btn btn-info btn-sm btn-link">Edit</a>
                 <a class="btn btn-danger btn-sm btn-link" (click)="deleteBudget(budget)">Delete</a>
             </footer>

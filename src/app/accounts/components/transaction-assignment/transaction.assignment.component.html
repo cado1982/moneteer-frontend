@@ -14,11 +14,11 @@
     <moneteer-type-ahead *ngIf="isEditing" [(ngModel)]="assignment.category" [values]="categories | async" [display-property]="'name'" [group-by]="'masterCategory.name'"></moneteer-type-ahead>
 </div>
 <div class="transaction-cell transaction-cell--flow" >
-    <span *ngIf="!isEditing">{{assignment.outflow | budgetCurrency }}</span>
+    <span *ngIf="!isEditing">{{assignment.outflow | budgetCurrency | async }}</span>
     <moneteer-currency-input *ngIf="isEditing" [(ngModel)]="assignment.outflow" (ngModelChange)="onOutflowChanged($event)"></moneteer-currency-input>
 </div>
 <div class="transaction-cell transaction-cell--flow">
-    <span *ngIf="!isEditing">{{assignment.inflow | budgetCurrency }}</span>
+    <span *ngIf="!isEditing">{{assignment.inflow | budgetCurrency | async }}</span>
     <moneteer-currency-input *ngIf="isEditing" [(ngModel)]="assignment.inflow" (ngModelChange)="onInflowChanged($event)"></moneteer-currency-input>
 </div>
 <div class="transaction-cell transaction-cell--cleared">

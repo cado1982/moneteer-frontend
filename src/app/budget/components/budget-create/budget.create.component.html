@@ -31,7 +31,7 @@
                     <label for="currencyFormat">Currency Format</label>
                     <div class="select" [class.is-danger]="currencyFormatElement.errors && (currencyFormatElement.dirty || currencyFormatElement.touched)">
                         <select #currencyFormatElement="ngModel" required name="currencyFormat" id="currencyFormat" [(ngModel)]="budget.currencyFormat">
-                            <option *ngFor="let currencyFormat of currencyFormats" [ngValue]="currencyFormat">{{'123456.78' | budgetCurrency:'false':currencyFormat:budget.currencySymbolLocation:budget.currency}}</option>
+                            <option *ngFor="let currencyFormat of currencyFormats" [ngValue]="currencyFormat">{{'123456.78' | budgetCurrency:'false':currencyFormat:budget.currencySymbolLocation:budget.currency | async}}</option>
                         </select>
                     </div>
                     <p class="help is-danger" *ngIf="currencyFormatElement.errors && (currencyFormatElement.dirty || currencyFormatElement.touched)">Please select a currency format</p>

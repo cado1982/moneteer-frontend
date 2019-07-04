@@ -3,5 +3,5 @@
 </div>
 
 <div class="stat-column">
-    <span [ngClass]="{'label-success': envelope.balance > 0, 'label-danger': envelope.balance < 0, 'label': envelope.balance != 0}">{{envelope.balance | budgetCurrency:false}}</span>
+    <span [ngClass]="{'label-success': envelope.balance > 0, 'label-danger': envelope.balance < 0, 'label': envelope.balance != 0}">{{envelope.balance | budgetCurrency:false | async}}</span>
 </div> 

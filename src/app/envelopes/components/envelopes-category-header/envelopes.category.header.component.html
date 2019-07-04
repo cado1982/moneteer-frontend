@@ -11,4 +11,4 @@
     <moneteer-envelopes-category-create [anchor]="addButton" [envelopeCategory]="envelopeCategory"></moneteer-envelopes-category-create>
 </span>
 
-<span class="stat-column">{{ balance | budgetCurrency:true }}</span>
+<span class="stat-column">{{ balance | budgetCurrency:true | async }}</span>

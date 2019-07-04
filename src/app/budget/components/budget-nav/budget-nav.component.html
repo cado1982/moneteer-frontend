@@ -20,7 +20,7 @@
                 {{account.name}}
             </div>
             <div class="account-balance money-label" [ngClass]="{'money-label-negative': account.clearedBalance + account.unclearedBalance < 0}">
-                {{account.clearedBalance + account.unclearedBalance | budgetCurrency:true}}
+                {{account.clearedBalance + account.unclearedBalance | budgetCurrency:true | async}}
             </div>
         </div>
     </a>
