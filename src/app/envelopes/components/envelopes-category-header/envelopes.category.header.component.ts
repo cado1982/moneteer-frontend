@@ -21,9 +21,8 @@ import { EnvelopeCategoryModel } from "../../../core/models";
 })
 export class EnvelopesCategoryHeaderComponent {
     @Input() public envelopeCategory: string;
-    @Input() public assigned: number;
-    @Input() public activity: number;
     @Input() public balance: number;
+    @Input() public spendingLast30Days: number;
 
     public isToggled: boolean = true;
 

@@ -1,7 +1,10 @@
-<div class="first-column">
+<div class="first-column ellipsis-text">
     {{envelope?.name}}
 </div>
 
-<div class="stat-column">
-    <span [ngClass]="{'label-success': envelope.balance > 0, 'label-danger': envelope.balance < 0, 'label': envelope.balance != 0}">{{envelope.balance | budgetCurrency:false | async}}</span>
+<div class="stat-column ellipsis-text">
+    <span [ngClass]="{'is-good': envelope.balance > 0, 'is-bad': envelope.balance < 0}">{{envelope.balance | budgetCurrency:false | async}}</span>
+</div> 
+<div class="stat-column ellipsis-text">
+    <span>{{envelope.spendingLast30Days | budgetCurrency:false | async}}</span>
 </div> 

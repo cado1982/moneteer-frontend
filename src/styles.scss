@@ -6,10 +6,12 @@ $theme-light: #5849BF;
 $theme-accent: #F29F05;
 $theme-background: #F0F0F2;
 $theme-divider-color: #BDBDBD;
-$theme-hover: #EFEFEF;
+$theme-hover: #EAEAEA;
 
 $theme-light-text: #F0F0F0;
 $theme-dark-text: #292929;
+
+$shadow-color: #00000088;
 
 
 $money-good:           #318700;
@@ -56,10 +58,10 @@ body {
     padding-top: 1px;
 }
 
-.selected, .editing {
-    background-color: $theme-light;
-    cursor: text;
-}
+// .selected, .editing {
+//     background-color: $theme-light;
+//     cursor: text;
+// }
 
 .transaction-cell--date {
     flex: 1 1 120px;
@@ -112,4 +114,18 @@ body {
 /* Clarity overrides */
 clr-date-container.clr-form-control {
     margin: 0;
+}
+
+.ellipsis-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.text-shadow {
+    text-shadow: 0 0.05em 0.2em $shadow-color;
+}
+
+.box-shadow {
+    box-shadow: 0 0.2em 0.3em $shadow-color;
 }

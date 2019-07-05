@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { EnvelopeModel } from "../../../core/models";
 import { getEnvelopes, IEnvelopesState, getAvailable } from "../../../core/reducers/envelopes.reducer";
-import { Store, select } from "@ngrx/store";
+import { Store } from "@ngrx/store";
+import { EnvelopesSelectionService } from "../../services/envelopes-selection.service";
 
 @Component({
     selector: "moneteer-envelopes-home",
     templateUrl: "./envelopes.home.component.html",
-    styleUrls: ["./envelopes.home.component.scss"]
+    styleUrls: ["./envelopes.home.component.scss"],
+    providers: [EnvelopesSelectionService]
 })
 export class EnvelopesHomeComponent implements OnInit {
     public envelopes: EnvelopeModel[];

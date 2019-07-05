@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges, NgZone,
-         ChangeDetectorRef, Output, EventEmitter, OnInit, } from "@angular/core";
+         ChangeDetectorRef, Output, EventEmitter, OnInit, HostBinding, HostListener, } from "@angular/core";
 
 import { ActivatedRoute } from "@angular/router";
 import { NotificationsService } from "../../../core/services/index";
@@ -9,6 +9,7 @@ import { EnvelopesActionTypes } from "../../../core/actions/envelopes.actions";
 import { Actions, ofType } from "@ngrx/effects";
 import { map } from "rxjs/operators";
 import { EnvelopeModel } from "../../../core/models";
+import { EnvelopesSelectionService } from "../../services/envelopes-selection.service";
 
 
 @Component({
@@ -18,9 +19,13 @@ import { EnvelopeModel } from "../../../core/models";
 })
 export class EnvelopeComponent implements OnChanges, OnInit {
     @Input() public envelope: EnvelopeModel;
-
+    
     @Output() public assignedChanged: EventEmitter<{oldValue: number, newValue: number}> =
         new EventEmitter<{oldValue: number, newValue: number}>();
+
+    @HostBinding('class.selected') get isSelected() {
+        return this.selectionService.selectedEnvelope && this.selectionService.selectedEnvelope.id === this.envelope.id;
+    }
 
     public assignedValue: number;
 
@@ -29,7 +34,8 @@ export class EnvelopeComponent implements OnChanges, OnInit {
                 private ngZone: NgZone,
                 private store: Store<IEnvelopesState>,
                 private actions$: Actions,
-                private changeDetector: ChangeDetectorRef) {
+                private changeDetector: ChangeDetectorRef,
+                public selectionService: EnvelopesSelectionService) {
 
     }
 
@@ -43,6 +49,10 @@ export class EnvelopeComponent implements OnChanges, OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    @HostListener('click') click() {
+        this.selectionService.selectedEnvelope = this.envelope;
     }
 
     public showTransactions(): void {

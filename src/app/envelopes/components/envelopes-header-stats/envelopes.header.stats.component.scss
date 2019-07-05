@@ -8,9 +8,9 @@
 }
 
 section {
-    background-color: $theme-medium;
+    background-color: $theme-light;
     color: $theme-light-text;
-    flex: 0 1 30em;
+    flex: 0 1 auto;
     display: flex;
     flex-direction: row;
     align-items: stretch;

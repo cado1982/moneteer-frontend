@@ -1,0 +1,6 @@
+<div class="header-title">
+    {{selectionService.selectedEnvelope?.name}}
+</div>
+<div class="header-balance">
+    {{selectionService.selectedEnvelope?.balance | budgetCurrency:true | async}}
+</div>

@@ -32,35 +32,21 @@ export class EnvelopesCategoryComponent implements OnChanges {
 
     public isToggled: boolean = true;
 
-    public assigned: number;
-    public activity: number;
     public balance: number;
+    public spendingLast30Days: number;
 
     ngOnChanges(changes: SimpleChanges): void {
-        // if (changes.masterCategoryMonth) {
-        //     this.updateAssigned();
-        //     this.updateActivity();
-        //     this.updateBalance();
-        // }
+        if (changes.envelopes) {
+            this.updateSpendingLast30Days();
+            this.updateBalance();
+        }
     }
 
-    // private onChildCategoryAssignedChanged(event: {oldValue: number, newValue: number}): void {
-    //     const oldValue = this.assigned;
-    //     this.updateAssigned();
-    //     this.updateBalance();
-    //     const newValue = this.assigned;
-    //     this.assignedChanged.emit({oldValue, newValue});
-    // }
+    private updateSpendingLast30Days(): void {
+        this.spendingLast30Days = this.envelopes.map(e => e.spendingLast30Days).reduce((a, b) => a + b);
+    }
 
-    // private updateAssigned(): void {
-    //     this.assigned = _(this.masterCategoryMonth.categories).map(c => c.assigned).sum();
-    // }
-
-    // private updateActivity(): void {
-    //     this.activity = _(this.masterCategoryMonth.categories).map(c => c.activity).sum();
-    // }
-
-    // private updateBalance(): void {
-    //     this.balance = _(this.masterCategoryMonth.categories).map(c => c.balance).sum();
-    // }
+    private updateBalance(): void {
+        this.balance = this.envelopes.map(e => e.balance).reduce((a, b) => a + b);
+    }
 }

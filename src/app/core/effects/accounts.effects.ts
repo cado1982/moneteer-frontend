@@ -41,6 +41,9 @@ export class AccountsEffects {
 
     @Effect() createAccountSuccess$ = this.actions$.pipe(
         ofType(AccountsActionTypes.CreateSuccess),
-        map((action: CreateAccountSuccessAction) => new LoadTransactionsForAccountAction({ accountId: action.payload.account.id}))
+        switchMap((action: CreateAccountSuccessAction) => [
+            new LoadTransactionsForAccountAction({ accountId: action.payload.account.id }),
+            new LoadSingleAccountAction({ accountId: action.payload.account.id })
+        ])
     )
 }

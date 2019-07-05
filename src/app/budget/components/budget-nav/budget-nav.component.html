@@ -1,13 +1,13 @@
 <moneteer-nav>
     <a class="link link-parent" routerLink="envelopes" routerLinkActive="active">
         <clr-icon shape="piggy-bank"></clr-icon>
-        <span> ENVELOPES</span>
+        <span class="text-shadow"> ENVELOPES</span>
     </a>
     
     <div class="link-container" routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <a class="link link-parent" routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <clr-icon shape="bank"></clr-icon>
-            <span> ACCOUNTS</span>
+            <span class="text-shadow"> ACCOUNTS</span>
         </a>
         <button title="Add Account" (click)="openCreateAccount($event)">
             <clr-icon size="20" shape="plus-circle"></clr-icon>
@@ -16,10 +16,10 @@
     
     <a class="link link-child" *ngFor="let account of budgetAccounts | async" routerLinkActive="active" [routerLink]="['accounts', account.id]">
         <div class="account-container">
-            <div class="account-name">
+            <div class="account-name text-shadow">
                 {{account.name}}
             </div>
-            <div class="account-balance money-label" [ngClass]="{'money-label-negative': account.clearedBalance + account.unclearedBalance < 0}">
+            <div class="account-balance box-shadow money-label" [ngClass]="{'money-label-negative': account.clearedBalance + account.unclearedBalance < 0}">
                 {{account.clearedBalance + account.unclearedBalance | budgetCurrency:true | async}}
             </div>
         </div>

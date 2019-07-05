@@ -1,0 +1,22 @@
+@import "./../../../../styles.scss";
+
+:host {
+    flex: 0 0 auto;
+    display: flex;
+    background-color: $theme-light;
+    color: $theme-light-text;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.header-title {
+    flex: 1 0 auto;
+}
+
+.header-balance {
+    flex: 0 1 auto;
+}
+
+.header-title, .header-balance {
+    padding: 0.5em;
+}

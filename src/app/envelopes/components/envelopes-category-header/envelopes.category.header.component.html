@@ -1,14 +1,15 @@
 <span class="first-column">
     <div (click)="onToggled()" class="category-name">
         <clr-icon class="is-inverse" shape="caret down" [@toggled]="isToggled"></clr-icon>
-        <h5 [title]="envelopeCategory">{{envelopeCategory}}</h5>
+        <h5 class="text-shadow" [title]="envelopeCategory">{{envelopeCategory}}</h5>
     </div>
     
     
     <button class="create-button" type="button" [hidden]="!showCreateCategoryButton" class="btn btn-sm btn-icon btn-inverse" #addButton>
-            <clr-icon shape="plus"></clr-icon>
+        <clr-icon shape="plus"></clr-icon>
     </button>
     <moneteer-envelopes-category-create [anchor]="addButton" [envelopeCategory]="envelopeCategory"></moneteer-envelopes-category-create>
 </span>
 
-<span class="stat-column">{{ balance | budgetCurrency:true | async }}</span>
+<span class="stat-column">{{ balance | budgetCurrency:false | async }}</span>
+<span class="stat-column">{{ spendingLast30Days | budgetCurrency:false | async }}</span>

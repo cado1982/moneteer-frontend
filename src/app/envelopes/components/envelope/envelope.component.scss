@@ -2,24 +2,38 @@
 
 :host {
     display: flex;
-    padding: 5px;
     border-bottom: 1px solid $theme-divider-color;
     flex: 0 0 auto;
     font-size: 0.8em;
+    cursor: pointer;
 }
 
-.good {
-    background-color: $money-good;
-    color: #ffffff;
-    border-radius: 10px;
+:host:hover {
+    background-color: $theme-hover;
+    .first-column {
+        font-weight: 600;
+    }
 }
 
-.bad {
-    background-color: $money-bad;
-    color: #ffffff;
-    border-radius: 10px;
+:host.selected {
+    background-color: $theme-accent;
+    color: $theme-light-text;
+    .stat-column:first-of-type, .first-column {
+        border-right: 1px solid $theme-light-text;
+    }
+    .first-column {
+        font-weight: 600;
+    }
 }
 
-.stat-balance {
-    padding: 3px 7px;
+.stat-column, .first-column {
+    padding: 0.4em;
+}
+
+.stat-column:first-of-type, .first-column {
+    border-right: 1px solid $theme-divider-color;
+}
+
+.first-column {
+    padding: 0.4em;
 }
