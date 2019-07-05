@@ -18,7 +18,7 @@
 :host.selected {
     background-color: $theme-accent;
     color: $theme-light-text;
-    .stat-column:first-of-type, .first-column {
+    .stat-column, .first-column {
         border-right: 1px solid $theme-light-text;
     }
     .first-column {
@@ -28,12 +28,13 @@
 
 .stat-column, .first-column {
     padding: 0.4em;
-}
-
-.stat-column:first-of-type, .first-column {
     border-right: 1px solid $theme-divider-color;
 }
 
 .first-column {
     padding: 0.4em;
+}
+
+.spending-column {
+    border-right: none;
 }

@@ -40,6 +40,14 @@ body {
   color: $money-bad;
 }
 
+.is-good-light {
+    color: $money-good-saturated;
+}
+
+.is-bad-light {
+    color: $money-bad-saturated;
+}
+
 .badge.badge-success {
   color: #fff;
 }

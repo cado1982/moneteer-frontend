@@ -6,6 +6,7 @@ export class EnvelopeModel {
     public isHidden: boolean;
     public balance: number;
     public spendingLast30Days: number;
+    public averageSpend: number;
     
     constructor(public name: string = "") {
         

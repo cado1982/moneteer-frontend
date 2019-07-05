@@ -23,19 +23,23 @@ export class EnvelopeComponent implements OnChanges, OnInit {
     @Output() public assignedChanged: EventEmitter<{oldValue: number, newValue: number}> =
         new EventEmitter<{oldValue: number, newValue: number}>();
 
-    @HostBinding('class.selected') get isSelected() {
-        return this.selectionService.selectedEnvelope && this.selectionService.selectedEnvelope.id === this.envelope.id;
+    @HostBinding('class.selected') get selected() {
+        return this.isSelected();
+    }
+
+    public get balanceDisplayClass(): string {
+        if (this.envelope.balance > 0) {
+            return "is-good";
+        } else if (this.envelope.balance < 0) {
+            return "is-bad";
+        } else {
+            return "";
+        }
     }
 
     public assignedValue: number;
 
-    constructor(private activatedRoute: ActivatedRoute,
-                private notificationsService: NotificationsService,
-                private ngZone: NgZone,
-                private store: Store<IEnvelopesState>,
-                private actions$: Actions,
-                private changeDetector: ChangeDetectorRef,
-                public selectionService: EnvelopesSelectionService) {
+    constructor(public selectionService: EnvelopesSelectionService) {
 
     }
 
@@ -56,6 +60,10 @@ export class EnvelopeComponent implements OnChanges, OnInit {
     }
 
     public showTransactions(): void {
-        //console.log(this.monthCategory.activityTransactions);
+        console.log("Show transactions is not implemented.");
+    }
+
+    private isSelected(): boolean {
+        return !!this.selectionService.selectedEnvelope && this.selectionService.selectedEnvelope.id === this.envelope.id;
     }
 }

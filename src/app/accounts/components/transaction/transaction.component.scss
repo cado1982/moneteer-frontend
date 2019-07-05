@@ -14,11 +14,11 @@
 }
 
 :host(.selected), .selected, :host(.editing), .editing {
-    background-color: $theme-accent;
-    color: $theme-light-text;
+    background-color: $theme-hover;
+    color: $theme-dark-text;
     cursor: text;
     input {
-        color: $theme-light-text;
+        color: $theme-dark-text;
     }
 }
 
@@ -28,7 +28,7 @@
 
 .transaction-actions {
     padding: 5px;
-    background-color: $theme-accent;
+    background-color: $theme-hover;
     align-self: flex-end;
 }
 

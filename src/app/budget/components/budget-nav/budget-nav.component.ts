@@ -8,17 +8,17 @@ import { IAccountsState, getOffBudgetAccounts, getBudgetAccounts } from "../../.
 import { map } from "rxjs/operators";
 
 @Component({
-  selector: "moneteer-budget-nav",
-  templateUrl: "./budget-nav.component.html",
-  styleUrls: ["./budget-nav.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: "moneteer-budget-nav",
+    templateUrl: "./budget-nav.component.html",
+    styleUrls: ["./budget-nav.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BudgetNavComponent implements OnInit {
     public offBudgetAccounts: Observable<Array<AccountModel>>;
     public budgetAccounts: Observable<Array<AccountModel>>;
 
-    constructor(private store: Store<IAccountsState>) { 
-        
+    constructor(private store: Store<IAccountsState>) {
+
     }
 
     ngOnInit(): void {
@@ -26,15 +26,13 @@ export class BudgetNavComponent implements OnInit {
         this.budgetAccounts = this.store.pipe(
             select(getBudgetAccounts),
             map(accounts => accounts.sort((a, b) => {
-                {
-                    let comparison = 0;
-                    if (a.name > b.name) {
-                        comparison = 1;
-                    } else if (a.name < b.name) {
-                        comparison = -1;
-                    }
-                    return comparison;
+                let comparison = 0;
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {
+                    comparison = 1;
+                } else if (a.name < b.name) {
+                    comparison = -1;
                 }
+                return comparison;
             })));
     }
 

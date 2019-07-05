@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
 
 @Component({
   selector: 'moneteer-envelope-details-body-stats',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EnvelopeDetailsBodyStatsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public selectionService: EnvelopesSelectionService) { }
 
   ngOnInit() {
   }

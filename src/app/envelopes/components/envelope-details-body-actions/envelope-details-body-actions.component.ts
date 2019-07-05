@@ -12,4 +12,8 @@ export class EnvelopeDetailsBodyActionsComponent implements OnInit {
   ngOnInit() {
   }
 
+  deleteCategory() {
+      console.log("Delete category not implemented.");
+  }
+
 }

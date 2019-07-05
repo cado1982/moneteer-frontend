@@ -12,19 +12,34 @@ import { AccountModel } from "../../models/index";
 export class TransactionFooterComponent implements OnInit {
     @Input() public account: AccountModel;
     @Input() public accounts: AccountModel[];
-    public get accountsUncleared(): number {
+    public get uncleared(): number {
         let uncleared = 0;
-        this.accounts.forEach(account => {
-            uncleared = uncleared + account.unclearedBalance
-        });
+
+        if (!!this.account) {
+            uncleared = this.account.unclearedBalance;
+        } else {
+            this.accounts.forEach(account => {
+                uncleared = uncleared + account.unclearedBalance
+            });
+        }
+ 
         return uncleared;
     }
-    public get accountsCleared(): number {
+    public get cleared(): number {
         let cleared = 0;
-        this.accounts.forEach(account => {
-            cleared = cleared + account.clearedBalance
-        });
+
+        if (!!this.account) {
+            cleared = this.account.clearedBalance;
+        } else {
+            this.accounts.forEach(account => {
+                cleared = cleared + account.clearedBalance
+            });
+        }
+ 
         return cleared;
+    }
+    public get working(): number {
+        return this.uncleared + this.cleared;
     }
 
     ngOnInit(): void {
