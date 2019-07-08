@@ -1,0 +1,11 @@
+<div *ngIf="(dataService.filteredEnvelopes$ | async).length > 0">
+    <div *ngFor="let grouped of dataService.filteredEnvelopes$ | async | groupBy: 'envelopeCategory.name' | pairs">
+        <moneteer-envelopes-category *ngIf="grouped[1].length > 0" [envelopeCategory]="grouped[0]" [envelopes]="grouped[1]"
+            (assignedChanged)="onMasterCategoryAssignedChanged($event)"></moneteer-envelopes-category>
+    </div>
+</div>
+<div class="no-matching-envelopes-container" *ngIf="(dataService.filteredEnvelopes$ | async).length === 0">
+    <div>
+        No envelopes matching '{{dataService.searchQuery$ | async}}'
+    </div>
+</div>

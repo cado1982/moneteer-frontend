@@ -1,7 +1,2 @@
 <moneteer-envelopes-column-header></moneteer-envelopes-column-header>
-<div style="overflow-y: auto;">
-    <div *ngFor="let grouped of envelopes | groupBy: 'envelopeCategory.name' | pairs">
-        <moneteer-envelopes-category [envelopeCategory]="grouped[0]" [envelopes]="grouped[1]" (assignedChanged)="onMasterCategoryAssignedChanged($event)"></moneteer-envelopes-category>
-
-    </div>
-</div>
+<moneteer-envelopes-categories-list></moneteer-envelopes-categories-list>

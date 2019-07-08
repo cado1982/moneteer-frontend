@@ -1,0 +1,16 @@
+@import "./../../../../styles.scss";
+
+:host {
+    overflow-y: auto;
+    flex: 1 1 auto;
+}
+
+.no-matching-envelopes-container {
+    display: flex;
+    height: 100%;
+    font-size: 0.9em;
+    div {
+        margin: auto;
+        font-style: italic;
+    }
+}

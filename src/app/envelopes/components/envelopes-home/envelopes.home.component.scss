@@ -56,10 +56,3 @@
 .budget--add-category {
     cursor: pointer;
 }
-
-#workspace {
-    display: flex;
-    flex-direction: row;
-    overflow-y: auto;
-    border-top: 1px solid $theme-divider-color;
-}

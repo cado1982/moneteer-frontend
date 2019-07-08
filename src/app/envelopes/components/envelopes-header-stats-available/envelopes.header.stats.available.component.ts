@@ -1,4 +1,5 @@
 import { Component, Input, } from "@angular/core";
+import { EnvelopesDataService } from "../../services/envelopes-data.service";
 
 @Component({
     selector: "moneteer-envelopes-header-stats-available",
@@ -6,5 +7,8 @@ import { Component, Input, } from "@angular/core";
     styleUrls: ["./envelopes.header.stats.available.component.scss"]
 })
 export class EnvelopesHeaderStatsAvailableComponent {
-    @Input() available: number;
+
+    constructor(public dataService: EnvelopesDataService) {
+        
+    }
 }

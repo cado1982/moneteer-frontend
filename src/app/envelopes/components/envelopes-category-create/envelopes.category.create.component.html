@@ -1,6 +1,0 @@
-<moneteer-dropdown [anchor]="anchor" (opened)="onDropdownOpened()">
-    <form>
-        <input #nameInput type="text" autofocus name="name" placeholder="Name" [(ngModel)]="name" />
-        <button class="btn btn-primary" [clrLoading]="isCreating" [disabled]="!canCreate()" (click)="create()">Create</button>
-    </form>
-</moneteer-dropdown>

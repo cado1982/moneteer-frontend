@@ -6,5 +6,5 @@ import { Component, Input, } from "@angular/core";
     styleUrls: ["./envelopes.header.component.scss"]
 })
 export class EnvelopesHeaderComponent {
-    @Input() public available: number;
+
 }
