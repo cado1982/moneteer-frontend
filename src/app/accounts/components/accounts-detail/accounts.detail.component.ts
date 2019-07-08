@@ -29,7 +29,21 @@ export class AccountsDetailComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.transactions$ = this.store.select(getTransactions);
+        this.transactions$ = this.store.select(getTransactions).pipe(
+            map(transactions => transactions.sort((a, b) => {
+                let comparison = 0;
+                if (a.date > b.date) {
+                    comparison = 1;
+                } else if (a.date < b.date) {
+                    comparison = -1;
+                } else if (a.id > b.id) {
+                    comparison = 1;
+                } else if (a.id < b.id) {
+                    comparison = -1;
+                }
+                return comparison;
+            })
+        ));
 
         this.account$ = combineLatest(this.activatedRoute.params, this.store.pipe(select(getAccounts))).pipe(
             map(value => {
