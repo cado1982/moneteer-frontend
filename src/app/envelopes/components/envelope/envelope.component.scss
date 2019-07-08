@@ -27,12 +27,8 @@
 }
 
 .stat-column, .first-column {
-    padding: 0.4em;
+    padding: 0.2em 0.4em;
     border-right: 1px solid $theme-divider-color;
-}
-
-.first-column {
-    padding: 0.4em;
 }
 
 .spending-column {

@@ -27,4 +27,8 @@ export class EnvelopesColumnHeaderComponent implements AfterViewInit {
             this.dataService.filterEnvelopes(filter);
         });
     }
+
+    addEnvelopeCategory(): void {
+        
+    }
 }

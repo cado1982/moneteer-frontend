@@ -10,6 +10,7 @@ $theme-hover: #EAEAEA;
 
 $theme-light-text: #F0F0F0;
 $theme-dark-text: #292929;
+$theme-faded-text: #D5D5D5;
 
 $shadow-color: #00000088;
 
@@ -38,6 +39,10 @@ body {
 
 .is-bad {
   color: $money-bad;
+}
+
+.is-neutral {
+    color: $theme-faded-text;
 }
 
 .is-good-light {
@@ -136,4 +141,9 @@ clr-date-container.clr-form-control {
 
 .box-shadow {
     box-shadow: 0 0.2em 0.3em $shadow-color;
+}
+
+// Make sure the drop downs always show on top of modals
+.drop {
+    z-index: 10000;
 }

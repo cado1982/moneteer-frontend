@@ -1,7 +1,8 @@
 <span class="first-column">
-    <div (click)="onToggled()" class="category-name">
+    <div class="category-name">
         <clr-icon class="is-inverse" shape="caret down" [@toggled]="isToggled"></clr-icon>
         <h5 class="text-shadow" [title]="envelopeCategory">{{envelopeCategory}}</h5>
+        <clr-icon class="is-inverse add-envelope" shape="plus-circle" (click)="addEnvelope($event)" size="20"></clr-icon>
     </div>
 </span>
 

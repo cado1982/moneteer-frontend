@@ -1,12 +1,12 @@
 
 import { first, map } from "rxjs/operators";
-import {Observable, race } from "rxjs";
+import {Observable, race, merge } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Actions, ofType } from "@ngrx/effects";
 import { IEnvelopesState } from "../../core/reducers/envelopes.reducer";
-import { LoadEnvelopesAction, EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesFailureAction } from "../../core/actions/envelopes.actions";
+import { LoadEnvelopesAction, EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesFailureAction, LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesSuccessAction, LoadEnvelopeCategoriesFailureAction } from "../../core/actions/envelopes.actions";
 import { EnvelopeModel } from "../../core/models";
 import { } from "rxjs/internal/operators"
 
@@ -24,19 +24,32 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
         const budgetId: string = route.params.budgetId;
         
         this.store.dispatch(new LoadEnvelopesAction({budgetId}));
+        this.store.dispatch(new LoadEnvelopeCategoriesAction({budgetId}));
 
-        const success = this.actions$.pipe(
+        const envelopesSuccess = this.actions$.pipe(
             ofType(EnvelopesActionTypes.LoadSuccess),
-            map((action: LoadEnvelopesSuccessAction) => action.payload.envelopes),
+            first()
+        );
+
+        const categoriesSuccess = this.actions$.pipe(
+            ofType(EnvelopesActionTypes.LoadCategoriesSuccess),
             first()
         );
             
-        const failure = this.actions$.pipe(
+        const envelopesFailure = this.actions$.pipe(
             ofType(EnvelopesActionTypes.LoadFailure),
             map((action: LoadEnvelopesFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 
-        return race(success, failure)
+        const categoriesFailure = this.actions$.pipe(
+            ofType(EnvelopesActionTypes.LoadCategoriesFailure),
+            map((action: LoadEnvelopeCategoriesFailureAction) => { throw new Error(action.payload.error) }),
+            first()
+        );
+
+        const success = merge(envelopesSuccess, categoriesSuccess);
+
+        return race(success, envelopesFailure, categoriesFailure)
     }
 }

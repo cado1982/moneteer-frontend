@@ -3,8 +3,8 @@
 </div>
 
 <div class="stat-column ellipsis-text">
-    <span [ngClass]="balanceDisplayClass">{{envelope.balance | budgetCurrency:false | async}}</span>
+    <span [ngClass]="{'is-good': envelope.balance > 0, 'is-bad': envelope.balance < 0, 'is-neutral': envelope.balance === 0}">{{envelope.balance | budgetCurrency:true | async}}</span>
 </div> 
 <div class="stat-column spending-column ellipsis-text">
-    <span>{{envelope.spendingLast30Days | budgetCurrency:false | async}}</span>
+    <span [ngClass]="{'is-neutral': envelope.spendingLast30Days === 0}">{{envelope.spendingLast30Days | budgetCurrency:true | async}}</span>
 </div> 

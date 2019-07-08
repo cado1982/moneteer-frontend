@@ -1,6 +1,7 @@
-import { Component, Input, EventEmitter, Output, } from "@angular/core";
+import { Component, Input, EventEmitter, Output, HostListener, } from "@angular/core";
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import { EnvelopeCategoryModel } from "../../../core/models";
+import { AnyFn } from "@ngrx/store/src/selector";
 
 @Component({
     selector: "moneteer-envelopes-category-header",
@@ -24,14 +25,18 @@ export class EnvelopesCategoryHeaderComponent {
     @Input() public balance: number;
     @Input() public spendingLast30Days: number;
 
+    @HostListener('click') click() {
+        this.isToggled = !this.isToggled;
+        this.toggled.emit(this.isToggled);
+    }
+
     public isToggled: boolean = true;
 
     public showCreateCategoryButton: boolean = false;
 
     @Output() public toggled: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    public onToggled(): void {
-        this.isToggled = !this.isToggled;
-        this.toggled.emit(this.isToggled);
+    addEnvelope($event: any): void {
+        $event.stopPropagation();
     }
 }

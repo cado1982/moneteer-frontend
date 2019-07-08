@@ -11,6 +11,7 @@ import { NavComponent } from "./components/nav/nav.component";
 import { PairsPipe } from "./pipes/pairs.pipe";
 import { GroupByPipe } from "./pipes/group.by.pipe";
 import { FilterByPipe } from "./pipes/filter.by.pipe";
+import { EnvelopeCategorySelectDropdownComponent } from './components/envelope-category-select-dropdown/envelope-category-select-dropdown.component';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { FilterByPipe } from "./pipes/filter.by.pipe";
         DropdownComponent,
         CurrencyMaskModule,
         FormsModule,
-        CommonModule
+        CommonModule,
+        EnvelopeCategorySelectDropdownComponent
     ],
     providers: [
         DatePipe
@@ -49,7 +51,8 @@ import { FilterByPipe } from "./pipes/filter.by.pipe";
         TypeAheadComponent,
         CurrencyEditComponent,
         DropdownComponent,
-        NavComponent
+        NavComponent,
+        EnvelopeCategorySelectDropdownComponent
     ]
 })
 export class SharedModule {

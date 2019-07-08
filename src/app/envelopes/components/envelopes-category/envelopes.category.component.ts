@@ -9,6 +9,7 @@ import { EnvelopeCategoryModel, EnvelopeModel } from "../../../core/models";
     templateUrl: "./envelopes.category.component.html",
     styleUrls: ["./envelopes.category.component.scss"],
     animations: [
+        // TODO: Fix this animation. When transitioning to * height, the animation doesn't play.
         trigger("categoryVisible", [
             state("1", style({
                 height: "*",
