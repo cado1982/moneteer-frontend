@@ -42,3 +42,7 @@
 .transaction-cell, input {
     width: 100%;
 }
+
+.transaction-cell--flow > .clr-form-control {
+    margin-top: 0;
+}

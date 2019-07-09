@@ -44,11 +44,11 @@ export class CurrencyEditComponent implements ControlValueAccessor {
         return sanitizedNewValue;
     }
 
-    public onChange(newValue: string): void {
-        const sanitizedNewValue: number = this.getSanitizedFromEvent(newValue);
+    // public onChange(newValue: string): void {
+    //     const sanitizedNewValue: number = this.getSanitizedFromEvent(newValue);
 
-        this.value = sanitizedNewValue;
-    }
+    //     this.value = sanitizedNewValue;
+    // }
 
     private toNumber(input: string): number {
         return Number(input);

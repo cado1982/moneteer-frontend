@@ -6,13 +6,14 @@
 }
 
 .item {
-    font-size: 0.7em;
+    font-size: 0.8em;
     padding: 3px;
     cursor: pointer;
 }
 
 .item:hover, .item.highlighted {
-    background-color: $theme-light;
+    background-color: $theme-accent;
+    color: $theme-light-text;
 }
 
 .subitem {

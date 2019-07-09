@@ -12,6 +12,7 @@ import { PairsPipe } from "./pipes/pairs.pipe";
 import { GroupByPipe } from "./pipes/group.by.pipe";
 import { FilterByPipe } from "./pipes/filter.by.pipe";
 import { EnvelopeCategorySelectDropdownComponent } from './components/envelope-category-select-dropdown/envelope-category-select-dropdown.component';
+import { CurrencyInputDirective } from './directives/currency-input.directive';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { EnvelopeCategorySelectDropdownComponent } from './components/envelope-c
         CurrencyMaskModule,
         FormsModule,
         CommonModule,
-        EnvelopeCategorySelectDropdownComponent
+        EnvelopeCategorySelectDropdownComponent,
+        CurrencyInputDirective
     ],
     providers: [
         DatePipe
@@ -52,7 +54,8 @@ import { EnvelopeCategorySelectDropdownComponent } from './components/envelope-c
         CurrencyEditComponent,
         DropdownComponent,
         NavComponent,
-        EnvelopeCategorySelectDropdownComponent
+        EnvelopeCategorySelectDropdownComponent,
+        CurrencyInputDirective
     ]
 })
 export class SharedModule {

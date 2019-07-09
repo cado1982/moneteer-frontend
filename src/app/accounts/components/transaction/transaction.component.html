@@ -1,7 +1,7 @@
 <div class="transaction-row" (click)="click()">
     <div class="transaction-cell transaction-cell--selected">
-        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isChecked"
-            name="isChecked" id="isChecked" class="clr-checkbox">
+        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isChecked" name="isChecked"
+            id="isChecked" class="clr-checkbox">
     </div>
     <div class="transaction-cell transaction-cell--date">
         <span *ngIf="!isEditing">{{transaction?.date | date:'shortDate'}}</span>
@@ -29,17 +29,15 @@
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.outflow | budgetCurrency | async }}</span>
-        <moneteer-currency-input *ngIf="isEditing" [ngModel]="outflow" (ngModelChange)="onOutflowChanged($event)">
-        </moneteer-currency-input>
+        <input *ngIf="isEditing" class="clr-input" moneteerCurrencyInput [(value)]="outflow" autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.inflow | budgetCurrency | async }}</span>
-        <moneteer-currency-input *ngIf="isEditing" [ngModel]="inflow" (ngModelChange)="onInflowChanged($event)">
-        </moneteer-currency-input>
+        <input *ngIf="isEditing" class="clr-input" moneteerCurrencyInput [(value)]="inflow" autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--cleared">
-        <input type="checkbox" (click)="$event.stopPropagation()" (ngModelChange)="setCleared($event)" [(ngModel)]="isCleared"
-        name="isCleared" id="isCleared" class="clr-checkbox">
+        <input type="checkbox" (click)="$event.stopPropagation()" (ngModelChange)="setCleared($event)"
+            [(ngModel)]="isCleared" name="isCleared" id="isCleared" class="clr-checkbox">
     </div>
 </div>
 
