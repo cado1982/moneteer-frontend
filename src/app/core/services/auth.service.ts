@@ -7,9 +7,9 @@ import { UserManager, UserManagerSettings, User } from "oidc-client";
 @Injectable()
 export class AuthService {
     private config: UserManagerSettings = {
-        authority: "https://localhost:4400",
+        authority: "http://localhost:4400",
         client_id: "moneteer-spa",
-        redirect_uri: "https://localhost:4200/auth-callback",
+        redirect_uri: "http://localhost:4200/auth-callback",
         response_type: "id_token token",
         scope: "openid profile email moneteer-api"
     };

@@ -15,8 +15,7 @@
     "tsc:w": "tsc -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:ci": "jest --runInBand",
-    "serve": "ng serve --ssl true --ssl-cert server.crt --ssl-key server.key"
+    "test:ci": "jest --runInBand"
   },
   "devDependencies": {
     "@angular-builders/jest": "^7.4.4",

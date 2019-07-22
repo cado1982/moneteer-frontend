@@ -58,10 +58,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "moneteer:build",
-            "ssl": true,
-            "sslKey": "server.key",
-            "sslCert": "server.cert"
+            "browserTarget": "moneteer:build"
           },
           "configurations": {
             "production": {

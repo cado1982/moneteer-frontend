@@ -7,6 +7,7 @@ cache:
 stages:
   - build
   - test
+  - release
 
 before_script:
   - "npm install"  
@@ -20,3 +21,6 @@ test:
   stage: test
   script:
     - "npm run test:ci"
+
+release:
+  stage: release
