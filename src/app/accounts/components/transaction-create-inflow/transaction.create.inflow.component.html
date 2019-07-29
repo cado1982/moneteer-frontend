@@ -17,7 +17,7 @@
     </div>
     <div class="input-container">
         <label>Inflow</label>
-        <moneteer-currency-input class="input-control" name="inflow" [(ngModel)]="inflow"></moneteer-currency-input>
+        <input moneteerCurrencyInput [(value)]="inflow" name="inflow" class="input-control clr-input" allowZeros=false allowNegative=false>
     </div>
 </div>
  

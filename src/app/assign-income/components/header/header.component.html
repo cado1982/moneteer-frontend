@@ -1,10 +1,10 @@
 <div class="info-container">
     <h3>Assign Income</h3>
-    <h4>{{service.availableIncome | budgetCurrency:true | async}}</h4>
+    <h4>{{service.availableIncome$ | async | budgetCurrency:true | async}}</h4>
     <div id="progress-container">
         <moneteer-assign-income-header-progress></moneteer-assign-income-header-progress>
     </div>
 </div>
 <div class="actions-container">
-    <button [clrLoading]="service.isBusy" [disabled]="!canSubmit()" (click)="service.submit()" class="btn btn-primary">Done</button>
+    <button [clrLoading]="service.isBusy" [disabled]="!(service.canSubmit$ | async)" (click)="service.submit()" class="btn btn-primary">Done</button>
 </div>

@@ -13,8 +13,4 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
     }
 
-    canSubmit(): boolean {
-        return this.service.assignedIncome <= this.service.availableIncome;
-    }
-
 }

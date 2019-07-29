@@ -1,6 +1,12 @@
-<div class="progress" [ngClass]="{'danger':service.assignedIncome > service.availableIncome}">
-    <progress [value]="service.percentageAssigned" max="100"></progress>
+<div class="progress" [ngClass]="{'danger':(service.leftToAssign$ | async) < 0}">
+    <progress [value]="service.percentageAssigned$ | async" max="100"></progress>
+    <pre>{{service.percentageAssigned$ | async}}</pre>
 </div>
 <div class="progress-label">
-    {{service.availableIncome - service.assignedIncome | currency:'USD':'symbol-narrow'}} remaining
+    <span [hidden]="(service.leftToAssign$ | async) >= 0">
+        {{+(service.leftToAssign$ | async) | currency:'USD':'symbol-narrow'}} overassigned
+    </span>
+    <span [hidden]="(service.leftToAssign$ | async) < 0">
+        {{service.leftToAssign$ | async | currency:'USD':'symbol-narrow'}} remaining
+    </span>
 </div>

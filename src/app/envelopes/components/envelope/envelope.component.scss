@@ -17,7 +17,7 @@
 
 :host.selected {
     background-color: $theme-accent;
-    color: $theme-light-text;
+    //color: $theme-light-text;
     .stat-column, .first-column {
         border-right: 1px solid $theme-light-text;
     }

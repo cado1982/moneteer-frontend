@@ -46,10 +46,7 @@ export class AccountsDetailComponent implements OnInit {
         ));
 
         this.account$ = combineLatest(this.activatedRoute.params, this.store.pipe(select(getAccounts))).pipe(
-            map(value => {
-                const params: {[key: string]: any} = value[0];
-                const accounts: AccountModel[] = value[1];
-    
+            map(([params, accounts]) => {
                 const accountId: string | null = params.accountId || null;
     
                 if (accountId == null) { 

@@ -3,43 +3,47 @@ import { Directive, ElementRef, HostListener, Input, Output, EventEmitter } from
 @Directive({
     selector: '[moneteerCurrencyInput]'
 })
-export class CurrencyInputDirective {
+export class CurrencyInputDirective implements OnInit {
     private _value: number;
     @Input() public get value() {
-      return this._value;
+        return this._value;
     }
 
     public set value(newVal) {
-      const stringSafeValue: string = this.toStringSafe(newVal);
+        const stringSafeValue: string = this.toStringSafe(newVal);
 
-      this.inputElement.nativeElement.value = stringSafeValue;
+        this.inputElement.nativeElement.value = stringSafeValue;
 
-      this._value = newVal;
-      this.valueChange.emit(this._value);
+        this._value = newVal;
     }
 
-    @Output()
-    public valueChange = new EventEmitter<number>();
+    @Output() public valueChange = new EventEmitter<number>();
 
-    @Input() public allowZeros: boolean = false;
-    @Input() public allowNegative: boolean = false;
+    @Input() public allowZeros: boolean;
+    @Input() public allowNegative: boolean;
 
     constructor(
-      private inputElement: ElementRef) {
+        private inputElement: ElementRef) {
 
+    }
+
+    ngOnInit() {
+        // This is necessary because this.value is set before the input bindings are resolved.
+        // Without this, allowZeros and allowNegative won't be used for initial values.
+        this.value = this._value;
     }
 
     @HostListener('focus', ['$event']) onFocus($event) {
-      $event.target.select();
+        $event.target.select();
     }
 
     @HostListener('blur', ['$event']) onBlur($event) {
-      const value = this.inputElement.nativeElement.value;
+        const value = this.inputElement.nativeElement.value;
 
-      const sanitizedNewValue: number = this.getSanitizedFromEvent(value);
+        const sanitizedNewValue: number = this.getSanitizedFromEvent(value);
 
-      this.value = sanitizedNewValue;
-
+        this.value = sanitizedNewValue;
+        this.valueChange.emit(this.value);
     }
 
     private getSanitizedFromEvent(value: string): number {

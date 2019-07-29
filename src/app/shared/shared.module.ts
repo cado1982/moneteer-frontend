@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { DatePipe, CommonModule } from "@angular/common";
-import { LoadingComponent, TypeAheadComponent, CurrencyEditComponent, DropdownComponent } from "./components";
+import { LoadingComponent, TypeAheadComponent, DropdownComponent } from "./components";
 import { CustomDatePipe } from "./pipes/date.pipe";
 import { BudgetCurrencyPipe } from "./pipes/budget.currency.pipe";
 import { ClarityModule, ClrFormsModule } from "@clr/angular";
@@ -31,7 +31,6 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
         ClrFormsModule,
         LoadingComponent,
         TypeAheadComponent,
-        CurrencyEditComponent,
         NavComponent,
         DropdownComponent,
         CurrencyMaskModule,
@@ -51,7 +50,6 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
         FilterByPipe,
         LoadingComponent,
         TypeAheadComponent,
-        CurrencyEditComponent,
         DropdownComponent,
         NavComponent,
         EnvelopeCategorySelectDropdownComponent,

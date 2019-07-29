@@ -15,11 +15,11 @@
 </div>
 <div class="transaction-cell transaction-cell--flow" >
     <span *ngIf="!isEditing">{{assignment.outflow | budgetCurrency | async }}</span>
-    <moneteer-currency-input *ngIf="isEditing" [(ngModel)]="assignment.outflow" (ngModelChange)="onOutflowChanged($event)"></moneteer-currency-input>
+    <input *ngIf="isEditing" moneteerCurrencyInput [(value)]="assignment.outflow" (change)="onOutflowChanged($event)" name="outflow" class="input-control clr-input" allowZeros=false allowNegative=false>
 </div>
 <div class="transaction-cell transaction-cell--flow">
     <span *ngIf="!isEditing">{{assignment.inflow | budgetCurrency | async }}</span>
-    <moneteer-currency-input *ngIf="isEditing" [(ngModel)]="assignment.inflow" (ngModelChange)="onInflowChanged($event)"></moneteer-currency-input>
+    <input *ngIf="isEditing" moneteerCurrencyInput [(value)]="assignment.inflow" (change)="onInflowChanged($event)" name="outflow" class="input-control clr-input" allowZeros=false allowNegative=false>
 </div>
 <div class="transaction-cell transaction-cell--cleared">
 </div>

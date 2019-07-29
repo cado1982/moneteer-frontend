@@ -50,10 +50,7 @@ export class BudgetDeleteComponent implements OnInit {
     public canDelete(): Observable<boolean> {
         return combineLatest(this.budget$, this.isDeleting$, this.confirmName$).pipe(
             first(),
-            map(data => {
-                const budget = data[0];
-                const isDeleting = data[1];
-                const confirmName = data[2];
+            map(([budget, isDeleting, confirmName]) => {
                 return !!budget && !!budget.name && budget.name.toLowerCase() === confirmName.toLowerCase() && !isDeleting;
             })
         );

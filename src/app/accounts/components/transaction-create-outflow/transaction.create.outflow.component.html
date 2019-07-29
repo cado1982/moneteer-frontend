@@ -14,7 +14,6 @@
     <div class="input-container">
         <label>Envelope</label>  
         <moneteer-envelope-select-dropdown class="input-control" [envelopes]="envelopes$ | async" [(selectedEnvelope)]="envelope"></moneteer-envelope-select-dropdown>
-        <!-- <moneteer-type-ahead class="input-control" [(ngModel)]="envelope" (ngModelChange)="onSelectedEnvelopeChange($event)" [values]="envelopes$ | async" [display-property]="'name'" [group-by]="'envelopeCategory.name'"></moneteer-type-ahead> -->
     </div>
     <div class="input-container">
         <label>Memo</label>  
@@ -22,7 +21,7 @@
     </div>
     <div class="input-container">
         <label>Outflow</label>
-        <moneteer-currency-input class="input-control" name="outflow" [(ngModel)]="outflow"></moneteer-currency-input>
+        <input moneteerCurrencyInput [(value)]="outflow" name="outflow" class="input-control clr-input" allowZeros=false allowNegative=false>
     </div>
 </div>
    
