@@ -8,6 +8,7 @@ import { ITransactionsState, getIsDeleting, getSelectedTransactions, CreateTrans
 import { ShowCreateTransactionAction, DeleteTransactionsAction, TransactionsActionTypes, TransactionsActions } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "moneteer-transaction-header",
@@ -26,7 +27,8 @@ export class TransactionHeaderComponent implements OnInit {
 
     constructor(
         private store: Store<ITransactionsState>,
-        private actions$: Actions<TransactionsActions>
+        private actions$: Actions<TransactionsActions>,
+        private activeModal: NgbActiveModal
     ) { 
 
     }
@@ -58,9 +60,6 @@ export class TransactionHeaderComponent implements OnInit {
         this.isConfirmingDelete = false;
     }
 
-    public confirmDeleteTransactions(): void {
-        this.isConfirmingDelete = true;
-    }
 
     public deleteTransactions(): void {
         this.store.select(getSelectedTransactions).pipe(take(1)).subscribe(transactions => {

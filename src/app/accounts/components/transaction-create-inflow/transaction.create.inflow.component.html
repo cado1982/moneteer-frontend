@@ -1,7 +1,7 @@
 <div id="inputs">
     <div class="input-container">
         <label>Date</label>
-        <input class="input-control" name="date" type="date" [(clrDate)]="date">
+        <input class="input-control" name="date" type="date" ngbDatepicker [(ngModel)]="date">
     </div>
     <div [hidden]="currentAccountId" class="input-container">
         <label>Account</label>
@@ -13,16 +13,16 @@
     </div>
     <div class="input-container">
         <label>Memo</label>  
-        <input name="description" class="clr-input input-control" type="text" [(ngModel)]="description" name="description">
+        <input name="description" class="form-control input-control" type="text" [(ngModel)]="description" name="description">
     </div>
     <div class="input-container">
         <label>Inflow</label>
-        <input moneteerCurrencyInput [(value)]="inflow" name="inflow" class="input-control clr-input" allowZeros=false allowNegative=false>
+        <input moneteerCurrencyInput [(value)]="inflow" name="inflow" class="input-control form-control" allowZeros=false allowNegative=false>
     </div>
 </div>
  
 <div id="actions">
     <button type="button" class="btn btn-outline-warning btn-sm" (click)="cancel()">Cancel</button>
-    <button [clrLoading]="isBusy$ | async" [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm" (click)="create()">Create</button>
+    <button [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm" (click)="create()">Create</button>
 </div>
 

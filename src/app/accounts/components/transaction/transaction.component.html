@@ -1,11 +1,11 @@
 <div class="transaction-row" (click)="click()">
     <div class="transaction-cell transaction-cell--selected">
         <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isChecked" name="isChecked"
-            id="isChecked" class="clr-checkbox">
+            id="isChecked" class="form-check-input">
     </div>
     <div class="transaction-cell transaction-cell--date">
         <span *ngIf="!isEditing">{{transaction?.date | date:'shortDate'}}</span>
-        <input *ngIf="isEditing" type="date" [(clrDate)]="date" name="date">
+        <input *ngIf="isEditing" type="date" ngbDatepicker [(ngModel)]="date" name="date">
     </div>
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
         <span *ngIf="!isEditing">{{transaction?.account?.name}}</span>
@@ -20,7 +20,7 @@
     </div>
     <div class="transaction-cell transaction-cell--description">
         <span *ngIf="!isEditing">{{transaction?.description}}</span>
-        <input *ngIf="isEditing" class="clr-input" type="text" [(ngModel)]="description" name="description">
+        <input *ngIf="isEditing" class="form-control" type="text" [(ngModel)]="description" name="description">
     </div>
     <div class="transaction-cell transaction-cell--category">
         <span *ngIf="!isEditing">{{transaction?.envelope?.name}}</span>
@@ -29,15 +29,15 @@
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.outflow | budgetCurrency | async }}</span>
-        <input *ngIf="isEditing" class="clr-input" moneteerCurrencyInput [(value)]="outflow" autocomplete="off" type="text">
+        <input *ngIf="isEditing" class="form-control" moneteerCurrencyInput [(value)]="outflow" autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.inflow | budgetCurrency | async }}</span>
-        <input *ngIf="isEditing" class="clr-input" moneteerCurrencyInput [(value)]="inflow" autocomplete="off" type="text">
+        <input *ngIf="isEditing" class="form-control" moneteerCurrencyInput [(value)]="inflow" autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--cleared">
         <input type="checkbox" (click)="$event.stopPropagation()" (ngModelChange)="setCleared($event)"
-            [(ngModel)]="isCleared" name="isCleared" id="isCleared" class="clr-checkbox">
+            [(ngModel)]="isCleared" name="isCleared" id="isCleared" class="form-check-input">
     </div>
 </div>
 
@@ -50,6 +50,6 @@
 
 <div class="transaction-actions" *ngIf="isEditing">
     <button type="button" class="btn btn-outline-warning btn-sm" (click)="endEdit()">Cancel</button>
-    <button [clrLoading]="isBusy$ | async" [disabled]="!canSave()" type="button" class="btn btn-primary btn-sm"
+    <button [disabled]="!canSave()" type="button" class="btn btn-primary btn-sm"
         (click)="save()">{{transaction.id === '00000000-0000-0000-0000-000000000000' ? 'Create' : 'Save'}}</button>
 </div>

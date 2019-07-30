@@ -1,16 +1,16 @@
 <moneteer-nav>
     <a class="link link-parent" routerLink="envelopes" routerLinkActive="active">
-        <clr-icon shape="piggy-bank"></clr-icon>
+        <i class="fas fa-piggy-bank"></i>
         <span class="text-shadow"> ENVELOPES</span>
     </a>
     
     <div class="link-container" routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <a class="link link-parent" routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <clr-icon shape="bank"></clr-icon>
+            <i class="fas fa-university"></i>
             <span class="text-shadow"> ACCOUNTS</span>
         </a>
         <button title="Add Account" (click)="openCreateAccount($event)">
-            <clr-icon size="20" shape="plus-circle"></clr-icon>
+            <i class="fas fa-plus-circle"></i>
         </button>
     </div>
     

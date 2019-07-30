@@ -1,66 +1,91 @@
-<clr-modal *ngIf="budget" [clrModalClosable]="false" [clrModalOpen]="isOpen">
-    <h3 class="modal-title">Create Budget</h3>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Create Budget</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <div class="modal-body">
         <form #createBudgetForm="ngForm" name="create-budget" novalidate>
-            <clr-alert [hidden]="!(error$ | async) || (isCreating$ | async)" clrAlertType="alert-danger">
-                <div class="alert-item">
-                    <span class="alert-test">
-                        {{error$ | async}}
-                    </span>
-                </div>
-            </clr-alert>
+            <ngb-alert [dismissible]="false" type="danger" [hidden]="!(error$ | async) || (isCreating$ | async)">
+                {{error$ | async}}
+            </ngb-alert>
 
             <div class="form-block">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input clrInput class="input" autoFocus #name="ngModel" required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text" [(ngModel)]="budget.name">
-                    <p class="help is-danger" *ngIf="name.errors && (name.dirty || name.touched)">This name is invalid</p>
+                    <input class="form-control" autoFocus #name="ngModel" required
+                        [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text"
+                        [(ngModel)]="budget.name">
+                    <p class="help is-danger" *ngIf="name.errors && (name.dirty || name.touched)">This name is invalid
+                    </p>
 
                 </div>
                 <div class="form-group">
                     <label for="currency">Currency</label>
-                    <div class="select" [class.is-danger]="currencyElement.errors && (currencyElement.dirty || currencyElement.touched)">
-                        <select #currencyElement="ngModel" required name="currency" id="currency" [(ngModel)]="budget.currency">
+                    <div class="select"
+                        [class.is-danger]="currencyElement.errors && (currencyElement.dirty || currencyElement.touched)">
+                        <select #currencyElement="ngModel" required name="currency" id="currency"
+                            [(ngModel)]="budget.currency">
                             <option *ngFor="let currency of currencies" [ngValue]="currency">{{currency.name}}</option>
                         </select>
                     </div>
-                    <p class="help is-danger" *ngIf="currencyElement.errors && (currencyElement.dirty || currencyElement.touched)">Please select a currency</p>
+                    <p class="help is-danger"
+                        *ngIf="currencyElement.errors && (currencyElement.dirty || currencyElement.touched)">Please
+                        select a currency</p>
                 </div>
 
                 <div class="form-group">
                     <label for="currencyFormat">Currency Format</label>
-                    <div class="select" [class.is-danger]="currencyFormatElement.errors && (currencyFormatElement.dirty || currencyFormatElement.touched)">
-                        <select #currencyFormatElement="ngModel" required name="currencyFormat" id="currencyFormat" [(ngModel)]="budget.currencyFormat">
-                            <option *ngFor="let currencyFormat of currencyFormats" [ngValue]="currencyFormat">{{'123456.78' | budgetCurrency:'false':currencyFormat:budget.currencySymbolLocation:budget.currency | async}}</option>
+                    <div class="select"
+                        [class.is-danger]="currencyFormatElement.errors && (currencyFormatElement.dirty || currencyFormatElement.touched)">
+                        <select #currencyFormatElement="ngModel" required name="currencyFormat" id="currencyFormat"
+                            [(ngModel)]="budget.currencyFormat">
+                            <option *ngFor="let currencyFormat of currencyFormats" [ngValue]="currencyFormat">
+                                {{'123456.78' | budgetCurrency:'false':currencyFormat:budget.currencySymbolLocation:budget.currency | async}}
+                            </option>
                         </select>
                     </div>
-                    <p class="help is-danger" *ngIf="currencyFormatElement.errors && (currencyFormatElement.dirty || currencyFormatElement.touched)">Please select a currency format</p>
+                    <p class="help is-danger"
+                        *ngIf="currencyFormatElement.errors && (currencyFormatElement.dirty || currencyFormatElement.touched)">
+                        Please select a currency format</p>
                 </div>
 
                 <div class="form-group">
                     <label for="currencySymbolLocation">Currency Symbol Location</label>
-                    <div class="select" [class.is-danger]="currencySymbolLocationElement.errors && (currencySymbolLocationElement.dirty || currencySymbolLocationElement.touched)">
-                        <select #currencySymbolLocationElement="ngModel" required name="currencySymbolLocation" id="currencyFormat" [(ngModel)]="budget.currencySymbolLocation">
-                            <option *ngFor="let currencySymbolLocation of currencySymbolLocations" [ngValue]="currencySymbolLocation.id">{{currencySymbolLocation.name}}</option>
+                    <div class="select"
+                        [class.is-danger]="currencySymbolLocationElement.errors && (currencySymbolLocationElement.dirty || currencySymbolLocationElement.touched)">
+                        <select #currencySymbolLocationElement="ngModel" required name="currencySymbolLocation"
+                            id="currencyFormat" [(ngModel)]="budget.currencySymbolLocation">
+                            <option *ngFor="let currencySymbolLocation of currencySymbolLocations"
+                                [ngValue]="currencySymbolLocation.id">{{currencySymbolLocation.name}}</option>
                         </select>
                     </div>
-                    <p class="help is-danger" *ngIf="currencySymbolLocationElement.errors && (currencySymbolLocationElement.dirty || currencySymbolLocationElement.touched)">Please select a currency format</p>
+                    <p class="help is-danger"
+                        *ngIf="currencySymbolLocationElement.errors && (currencySymbolLocationElement.dirty || currencySymbolLocationElement.touched)">
+                        Please select a currency format</p>
                 </div>
 
                 <div class="form-group">
                     <label for="dateFormat">Date Format</label>
-                    <div class="select" [class.is-danger]="dateFormatElement.errors && (dateFormatElement.dirty || dateFormatElement.touched)">
-                        <select #dateFormatElement="ngModel" required name="dateFormat" id="dateFormat" [(ngModel)]="budget.dateFormat">
-                            <option *ngFor="let dateFormat of dateFormats" [ngValue]="dateFormat">{{getDate() | date:dateFormat}}</option>
+                    <div class="select"
+                        [class.is-danger]="dateFormatElement.errors && (dateFormatElement.dirty || dateFormatElement.touched)">
+                        <select #dateFormatElement="ngModel" required name="dateFormat" id="dateFormat"
+                            [(ngModel)]="budget.dateFormat">
+                            <option *ngFor="let dateFormat of dateFormats" [ngValue]="dateFormat">
+                                {{getDate() | date:dateFormat}}</option>
                         </select>
                     </div>
-                    <p class="help is-danger" *ngIf="dateFormatElement.errors && (dateFormatElement.dirty || dateFormatElement.touched)">Please select a date format</p>
+                    <p class="help is-danger"
+                        *ngIf="dateFormatElement.errors && (dateFormatElement.dirty || dateFormatElement.touched)">
+                        Please select a date format</p>
                 </div>
             </div>
         </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-warning-outline" (click)="close()">Cancel</button>
-        <button type="button" [clrLoading]="isCreating$ | async" class="btn btn-primary" (click)="create()" [attr.disabled]="!name.errors ? null : ''">Create</button>
+        <button type="button" class="btn btn-primary" (click)="create()"
+            [attr.disabled]="!name.errors ? null : ''">Create</button>
     </div>
-</clr-modal>
+</ng-template>

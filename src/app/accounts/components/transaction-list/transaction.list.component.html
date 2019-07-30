@@ -3,7 +3,7 @@
 
 <div class="transaction-row transaction-header-row">
     <div class="transaction-header transaction-cell--selected">
-        <input type="checkbox" clrCheckbox ngModel (ngModelChange)="onSelectAll($event)" />
+        <input type="checkbox" class="form-input-check" ngModel (ngModelChange)="onSelectAll($event)" />
     </div>
     <div class="transaction-header transaction-cell--date">Date</div>
     <div [hidden]="currentAccountId" class="transaction-header transaction-cell--account">Account</div>

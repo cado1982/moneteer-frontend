@@ -12,15 +12,6 @@
     user-select: none;
 }
 
-clr-dropdown .dropdown-toggle-button {
-    width: 100%;
-    padding: 0.625em;
-    background-color: $theme-light;
-    color: $theme-light-text;
-    font-weight: 600;
-    font-size: 0.8em;
-}
-
 .header {
     background-color: $theme-darker;
     color: $theme-light-text;
@@ -37,10 +28,6 @@ clr-dropdown .dropdown-toggle-button {
     color: #fff;
 }
 
-.header clr-dropdown {
-    margin-right: 0.625em;
-}
-
 a:hover {
     text-decoration: none;
 }
@@ -51,8 +38,4 @@ a:hover {
 
 .logo span {
     font-size: 1.5em;
-}
-
-.header > .logo > clr-icon {
-    fill: $theme-accent !important;
 }

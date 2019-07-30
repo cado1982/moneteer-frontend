@@ -1,9 +1,14 @@
-<clr-modal [(clrModalOpen)]="modalService.open" [clrModalClosable]="true">
-    <div class="modal-title">
-        <h3>{{modalService.title}}</h3>
-        <h4>Something went wrong</h4>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <h3>{{modalService.title}}</h3>
+            <h4>Something went wrong</h4>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <p>{{modalService.message}}</p>
     </div>
-</clr-modal>
+</ng-template>

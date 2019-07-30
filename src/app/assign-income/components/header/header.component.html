@@ -6,5 +6,5 @@
     </div>
 </div>
 <div class="actions-container">
-    <button [clrLoading]="service.isBusy" [disabled]="!(service.canSubmit$ | async)" (click)="service.submit()" class="btn btn-primary">Done</button>
+    <button [disabled]="!(service.canSubmit$ | async)" (click)="service.submit()" class="btn btn-primary">Done</button>
 </div>

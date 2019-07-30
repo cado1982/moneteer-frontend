@@ -1,29 +1,17 @@
 <div class="header">
     <img height="40" src="/assets/images/logos/logo-full-inverted.png" />
-    <!-- <clr-dropdown [clrCloseMenuOnItemClick]="false">
-        <button type="button" clrDropdownTrigger>
-            <clr-icon class="is-inverse" size="24" shape="cog"></clr-icon>
-            <clr-icon class="is-inverse" shape="caret down"></clr-icon>
-        </button>
-        
-        <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
-            
-        </clr-dropdown-menu>
-    </clr-dropdown> -->
 </div>
 
 <ng-content></ng-content>
 
 <div style="flex: 1 0 auto;"></div>
 
-<clr-dropdown [hidden]="!user">
-    <button type="button" class="dropdown-toggle-button text-shadow" clrDropdownTrigger>
-        <clr-icon shape="user"></clr-icon>
-        {{user?.profile.email}}        
+<div ngbDropdown class="d-inline-block">
+    <button type="button" class="btn btn-outline text-shadow" ngbDropdownToggle>
+        <i class="far fa-user"></i>
+        {{user?.profile.email}}
     </button>
-    <clr-dropdown-menu clrPosition="top-left" *clrIfOpen>
-        <!-- <button (click)="switchBudget()" type="button" clrDropdownItem>Switch Budget</button>
-        <div class="dropdown-divider"></div> -->
-        <button type="button" clrDropdownItem (click)="logOut()">Log Out</button>
-    </clr-dropdown-menu>
-</clr-dropdown>
+    <div ngbDropdownMenu aria-labelledby="profileDropdown">
+        <button (click)="logOut()" ngbDropdownItem>Log Out</button>
+    </div>
+</div>
