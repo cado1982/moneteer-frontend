@@ -3,7 +3,7 @@ import { DatePipe, CommonModule } from "@angular/common";
 import { LoadingComponent, TypeAheadComponent, DropdownComponent } from "./components";
 import { CustomDatePipe } from "./pipes/date.pipe";
 import { BudgetCurrencyPipe } from "./pipes/budget.currency.pipe";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 
 import { FormsModule } from "@angular/forms";
 import { CurrencyMaskModule } from "ng2-currency-mask";
@@ -38,7 +38,8 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
         CurrencyInputDirective
     ],
     providers: [
-        DatePipe
+        DatePipe,
+        NgbActiveModal 
     ],
     declarations: [
         CustomDatePipe,

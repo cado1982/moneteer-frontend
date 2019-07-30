@@ -1,0 +1,10 @@
+@import "colors.scss";
+
+$font-family-sans-serif: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+$body-bg: $body-color;
+$body-color: $theme-dark-text; 
+
+$primary: $theme-medium;
+
+@import '../node_modules/bootstrap/scss/bootstrap';

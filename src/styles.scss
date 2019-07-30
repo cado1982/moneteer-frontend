@@ -1,27 +1,5 @@
-// Colors and theme from https://www.behance.net/gallery/73265931/Dashboards-2018-part-1
-$theme-darker: #403491;
-$theme-dark: #4E41A6;
-$theme-medium: #4634BF;
-$theme-light: #5849BF;
-$theme-accent: #F29F05;
-$theme-background: #F0F0F2;
-$theme-divider-color: #BDBDBD;
-$theme-hover: #EAEAEA;
-
-$theme-light-text: #F0F0F0;
-$theme-dark-text: #292929;
-$theme-faded-text: #D5D5D5;
-
-$shadow-color: #00000088;
-
-
-$money-good:           #318700;
-$money-bad:            #c92100;
-
-$money-good-saturated: #00FFC8;
-$money-bad-saturated:  #FF5540;
-
-$error:                #cc0000;
+@import "colors.scss";
+@import "customize-bootstrap.scss";
 
 html {
     overflow: hidden;
