@@ -48,7 +48,7 @@
     "jasmine-core": "2.6.2",
     "jasmine-marbles": "0.4.1",
     "jest": "^24.8.0",
-    "jest-preset-angular": "6.0.2",
+    "jest-preset-angular": "7.1.1",
     "jest-when": "^2.6.0",
     "json-loader": "^0.5.7",
     "ngrx-store-freeze": "^0.2.4",
