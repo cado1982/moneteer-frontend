@@ -1,19 +1,9 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { NavComponent } from "./nav.component";
-import { ClarityModule } from "@clr/angular";
-import { AuthService, NotificationsService, ModalService } from "../../../core/services";
-import { HttpClientModule } from "@angular/common/http";
-import { RouterTestingModule } from "@angular/router/testing";
+import { AuthService } from "../../../core/services";
 import { User } from "oidc-client";
 import { Router } from "@angular/router";
-import { ToastrService, ToastrModule } from "ngx-toastr";
-import { routes } from "../../../routing/app-routing.module";
-import { CoreModule } from "../../../../app/core/core.module";
-import { Store, StoreModule } from "@ngrx/store";
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from "rxjs/internal/Observable";
-import { EffectsModule } from "@ngrx/effects";
 import { DropdownComponent } from "../dropdown-component/dropdown.component";
 
 describe("NavComponent", () => {
@@ -42,9 +32,6 @@ describe("NavComponent", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ NavComponent, DropdownComponent ],
-      imports: [
-        ClarityModule
-      ],
       providers: [
         { 
           provide: AuthService,

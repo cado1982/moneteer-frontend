@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { TransactionHeaderComponent } from "./transaction.header.component";
-import { ClarityModule } from "@clr/angular";
 import { Store } from "@ngrx/store";
 import { MockStore, provideMockStore } from "@ngrx/store/testing";
 import { ITransactionsState, CreateTransactionMode, getSelectedTransactions } from "../../../core/reducers/transactions.reducer";
@@ -21,7 +20,6 @@ describe("TransactionHeaderComponent", () => {
     TestBed.configureTestingModule({
       declarations: [ TransactionHeaderComponent ],
       imports: [ 
-        ClarityModule,
         NoopAnimationsModule
       ],
       providers: [ 

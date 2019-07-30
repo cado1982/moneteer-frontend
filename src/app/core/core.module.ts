@@ -12,7 +12,6 @@ import { LoadingSpinnerService, MediaQueryService, NotificationsService,
 import { AppRoutingModule } from "../routing/app-routing.module";
 import { AuthGuard } from "./guards/auth.guard";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { SharedModule } from "../shared/shared.module";
@@ -37,11 +36,7 @@ import { RetryInterceptor } from "./interceptors/retry.interceptor";
         BrowserAnimationsModule,
         ReactiveFormsModule,
         StoreModule.forFeature("core", reducers),
-        EffectsModule.forFeature([AccountsEffects, BudgetsEffects, TransactionsEffects, EnvelopesEffects]),
-        ToastrModule.forRoot({
-            positionClass: "toast-bottom-right",
-            preventDuplicates: true
-        })
+        EffectsModule.forFeature([AccountsEffects, BudgetsEffects, TransactionsEffects, EnvelopesEffects])
     ],
     exports: [
         HttpClientModule,
