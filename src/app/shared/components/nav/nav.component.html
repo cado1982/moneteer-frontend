@@ -6,12 +6,12 @@
 
 <div style="flex: 1 0 auto;"></div>
 
-<div ngbDropdown class="d-inline-block">
-    <button type="button" class="btn btn-outline text-shadow" ngbDropdownToggle>
+<div ngbDropdown placement="top-right" class="d-inline-block">
+    <button type="button" class="w-100 btn text-light text-shadow dropdown-toggle" ngbDropdownToggle>
         <i class="far fa-user"></i>
         {{user?.profile.email}}
     </button>
     <div ngbDropdownMenu aria-labelledby="profileDropdown">
-        <button (click)="logOut()" ngbDropdownItem>Log Out</button>
+        <button class="btn btn-link" (click)="logOut()" ngbDropdownItem>Log Out</button>
     </div>
 </div>

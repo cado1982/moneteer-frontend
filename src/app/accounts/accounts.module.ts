@@ -8,6 +8,7 @@ import { AccountsHomeComponent, TransactionListComponent, TransactionCreateInflo
          PayeeSelectDropdownComponent, AccountSelectDropdownComponent, TransactionListNoAccountsComponent } from "./components";
 import { CategoryDisplayPipe } from "./directives/category.month.display.pipe";
 import { AccountsRoutingModule } from "./accounts.routing.module";
+import { TransactionDeleteModalComponent } from './components/transaction-delete-modal/transaction-delete-modal.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { AccountsRoutingModule } from "./accounts.routing.module";
         CategoryDisplayPipe,
         AccountSelectDropdownComponent,
         PayeeSelectDropdownComponent,
-        EnvelopeSelectDropdownComponent
+        EnvelopeSelectDropdownComponent,
+        TransactionDeleteModalComponent
     ],
     providers: [
         CategoryDisplayPipe
@@ -33,7 +35,8 @@ import { AccountsRoutingModule } from "./accounts.routing.module";
         AccountsRoutingModule,
         SharedModule
     ],
-    exports: [
+    entryComponents: [
+        TransactionDeleteModalComponent
     ]
 })
 export class AccountsModule {

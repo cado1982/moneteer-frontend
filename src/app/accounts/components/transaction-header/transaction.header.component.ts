@@ -8,7 +8,8 @@ import { ITransactionsState, getIsDeleting, getSelectedTransactions, CreateTrans
 import { ShowCreateTransactionAction, DeleteTransactionsAction, TransactionsActionTypes, TransactionsActions } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { TransactionDeleteModalComponent } from "../transaction-delete-modal/transaction-delete-modal.component";
 
 @Component({
   selector: "moneteer-transaction-header",
@@ -20,15 +21,13 @@ export class TransactionHeaderComponent implements OnInit {
     public selectedTransactions$: Observable<TransactionModel[]>;
     public accounts$: Observable<AccountModel[]>;
 
-    public isConfirmingDelete: boolean;
     public isDeleting$: Observable<boolean>;
 
     @Input() public account: AccountModel | null;
 
     constructor(
         private store: Store<ITransactionsState>,
-        private actions$: Actions<TransactionsActions>,
-        private activeModal: NgbActiveModal
+        private modalService: NgbModal
     ) { 
 
     }
@@ -39,13 +38,7 @@ export class TransactionHeaderComponent implements OnInit {
         this.isDeleting$ = this.store.pipe(select(getIsDeleting));
         this.selectedTransactions$ = this.store.pipe(select(getSelectedTransactions));
 
-        this.accounts$ = this.store.pipe(select(getAccounts));
-        
-        this.actions$.pipe(
-            ofType(TransactionsActionTypes.DeleteTransactionsSuccess)
-        ).subscribe(() => {
-            this.isConfirmingDelete = false; 
-        });
+        this.accounts$ = this.store.pipe(select(getAccounts));      
     }
 
     public addInflow(): void {
@@ -56,14 +49,11 @@ export class TransactionHeaderComponent implements OnInit {
         this.store.dispatch(new ShowCreateTransactionAction({mode: CreateTransactionMode.Outflow}));
     }
 
-    public cancel(): void {
-        this.isConfirmingDelete = false;
-    }
-
-
-    public deleteTransactions(): void {
+    public tryDeleteTransactions(): void {
         this.store.select(getSelectedTransactions).pipe(take(1)).subscribe(transactions => {
-            this.store.dispatch(new DeleteTransactionsAction({transactions: transactions}));
-        });
+            let modalRef = this.modalService.open(TransactionDeleteModalComponent);
+            modalRef.componentInstance.selectedTransactions = transactions;
+        })
+        
     }
 }

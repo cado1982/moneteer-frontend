@@ -1,28 +1,45 @@
-<div id="inputs">
-    <div class="input-container">
-        <label>Date</label>
-        <input class="input-control" name="date" type="date" ngbDatepicker [(ngModel)]="date">
-    </div>
-    <div [hidden]="currentAccountId" class="input-container">
-        <label>Account</label>
-        <moneteer-account-select-dropdown class="input-control" [accounts]="accounts$ | async" [(selectedAccount)]="account"></moneteer-account-select-dropdown>
-    </div>
-    <div class="input-container">
-        <label>Payee</label>
-        <moneteer-payee-select-dropdown class="input-control" [payees]="payees$ | async" [(selectedPayee)]="payee"></moneteer-payee-select-dropdown>
-    </div>
-    <div class="input-container">
-        <label>Memo</label>  
-        <input name="description" class="form-control input-control" type="text" [(ngModel)]="description" name="description">
-    </div>
-    <div class="input-container">
-        <label>Inflow</label>
-        <input moneteerCurrencyInput [(value)]="inflow" name="inflow" class="input-control form-control" allowZeros=false allowNegative=false>
-    </div>
-</div>
- 
-<div id="actions">
-    <button type="button" class="btn btn-outline-warning btn-sm" (click)="cancel()">Cancel</button>
-    <button [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm" (click)="create()">Create</button>
-</div>
+<div class="container-fluid"> 
+    <form>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label-sm">Date</label>
+            <div class="col-sm-6">
+                <input class="form-control form-control-sm" name="date" type="date" ngbDatepicker [(ngModel)]="date">
+            </div>
 
+        </div>
+        <div [hidden]="currentAccountId" class="form-group row">
+            <label class="col-sm-2 col-form-label-sm">Account</label>
+            <div class="col-sm-6">
+                <moneteer-account-select-dropdown [accounts]="accounts$ | async"
+                    [(selectedAccount)]="account"></moneteer-account-select-dropdown>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label-sm">Payee</label>
+            <div class="col-sm-6">
+                <moneteer-payee-select-dropdown [payees]="payees$ | async"
+                    [(selectedPayee)]="payee">
+                </moneteer-payee-select-dropdown>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label-sm">Memo</label>
+            <div class="col-sm-6">
+                <input name="description" class="form-control form-control-sm" type="text" [(ngModel)]="description"
+                    name="description">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label-sm">Inflow</label>
+            <div class="col-sm-6">
+                <input moneteerCurrencyInput [(value)]="inflow" name="inflow" class="form-control form-control-sm"
+                    allowZeros=false allowNegative=false>
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-outline-warning btn-sm" (click)="cancel()">Cancel</button>
+            <button [disabled]="!canCreate()" type="button" class="btn btn-primary btn-sm"
+                (click)="create()">Create</button>
+        </div>
+    </form>
+</div>

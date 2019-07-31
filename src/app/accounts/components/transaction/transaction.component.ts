@@ -35,8 +35,30 @@ export class TransactionComponent implements OnInit, OnChanges {
     public payee: PayeeModel | undefined;
     public description: string = "";
     public envelope: EnvelopeModel | undefined;
-    public outflow: number = 0;
-    public inflow: number = 0;
+
+    private _inflow: number = 0;
+    public get inflow(): number {
+        return this._inflow;
+    }
+    public set inflow(newValue: number) {
+        this._inflow = newValue;
+        if (newValue > 0) {
+            this.outflow = 0;
+            this.envelope = undefined;
+        }
+    }
+
+    private _outflow: number = 0;
+    public get outflow(): number {
+        return this._outflow;
+    }
+    public set outflow(newValue: number) {
+        this._outflow = newValue;
+        if (newValue > 0) {
+            this.inflow = 0;
+        }
+    }
+
     public isCleared: boolean = false;
     public assignments: TransactionAssignmentModel[] = [];
 
@@ -130,7 +152,7 @@ export class TransactionComponent implements OnInit, OnChanges {
         return this.date &&
                this.account &&
                (this.envelope || this.inflow > 0) &&
-               (this.inflow > 0 || this.outflow > 0);
+               ((this.inflow > 0 && this.outflow === 0) || (this.inflow === 0 && this.outflow > 0));
     }
 
     public click(): void {
@@ -142,6 +164,17 @@ export class TransactionComponent implements OnInit, OnChanges {
     }
 
     public endEdit(): void {
+        // Set the old values back
+        this.date = this.transaction.date;
+        this.account = this.transaction.account;
+        this.payee = this.transaction.payee;
+        this.description = this.transaction.description;
+        this.envelope = this.transaction.envelope;
+        this.outflow = this.transaction.outflow;
+        this.inflow = this.transaction.inflow;
+        this.isCleared = this.transaction.isCleared;
+        this.assignments = this.transaction.assignments;
+
         this.isEditing = false;
     }
 

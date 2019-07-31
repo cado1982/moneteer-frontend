@@ -1,4 +1,4 @@
-<input style="width: 100%;" #searchInput class="form-control" (focus)="onSearchInputFocus($event)" (blur)="onSearchInputBlur($event)"
+<input style="width: 100%;" #searchInput class="form-control form-control-sm" (focus)="onSearchInputFocus($event)" (blur)="onSearchInputBlur($event)"
     type="text" [(ngModel)]="searchFilter" name="search-input" (ngModelChange)="searchFilterTerm$.next(searchFilter)">
 
 <moneteer-dropdown [anchor]="searchInput" openOn="focus">

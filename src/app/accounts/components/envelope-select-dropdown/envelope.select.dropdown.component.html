@@ -1,4 +1,4 @@
-<input [attr.disabled]="disabled ? '' : null" style="width: 100%;" #searchInput class="form-control"
+<input [attr.disabled]="disabled ? '' : null" style="width: 100%;" #searchInput class="form-control form-control-sm"
     (focus)="onSearchInputFocus($event)" type="text" [(ngModel)]="searchFilter" name="search-input"
     (ngModelChange)="onSearchInputValueChanged($event)" (keyup)="onSearchInputKeyUp($event)"
     (blur)="onSearchInputBlur()">

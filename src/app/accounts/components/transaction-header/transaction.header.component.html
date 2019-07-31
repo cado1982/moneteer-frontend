@@ -1,48 +1,28 @@
 <div class="account-title">
-    <i class="fas fa-university"></i>
+    <span class="align-middle mr-2"><i class="fas fa-university"></i></span>
     <h5 [ngClass]="{'italic': !account}">{{!account ? 'All Accounts' : account.name}}</h5>
 </div>
 
 
 <div class="actions">
     <div class="btn-group btn-sm">
-        <button [disabled]="(accounts$ | async).length === 0" id="addInflow" class="btn btn-success-outline"
+        <button [disabled]="(accounts$ | async).length === 0" id="addInflow" class="btn btn-sm btn-outline-success"
             (click)="addInflow()">
             <i class="fas fa-plus-circle"></i><span> Add Income </span>
         </button>
     </div>
 
     <div class="btn-group btn-sm">
-        <button [disabled]="(accounts$ | async).length === 0" id="addOutflow" class="btn btn-danger-outline"
+        <button [disabled]="(accounts$ | async).length === 0" id="addOutflow" class="btn btn-sm btn-outline-danger"
             (click)="addOutflow()">
             <i class="fas fa-minus-circle"></i><span> Add Expense </span>
         </button>
     </div>
 
     <div [hidden]="(selectedTransactions$ | async)?.length === 0" class="btn-group btn-sm">
-        <button id="deleteTransactions" class="btn btn-danger"
-            [disabled]="(selectedTransactions$ | async)?.length === 0" (click)="open(content)">
-            <i class="fas fa-minus-circle"></i><span>Delete Transactions</span>
+        <button id="deleteTransactions" class="btn btn-sm btn-danger"
+            [disabled]="(selectedTransactions$ | async)?.length === 0" (click)="tryDeleteTransactions()">
+            <i class="fas fa-minus-circle"></i><span> Delete Transactions </span>
         </button>
     </div>
-
-
 </div>
-
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Delete transactions</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <p>Are you sure you want to delete <strong>{{(selectedTransactions$ | async)?.length}}</strong> selected
-            transactions?</p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline" (click)="cancel()">Cancel</button>
-        <button type="button" class="btn btn-danger"
-            (click)="deleteTransactions()">Delete</button>
-    </div>
-</ng-template>
