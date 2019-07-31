@@ -1,54 +1,49 @@
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">
-            <i class="fas fa-university"></i>
-            <span>Create Account</span>
-        </h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form #createAccountForm="ngForm" name="create-account" novalidate>
-            <ngb-alert [dismissible]="false" [hidden]="!(error$ | async) || (isCreating$ | async)" type="danger">
-                {{error$ | async}}
-            </ngb-alert>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input style="width: 100%;" autofocus class="form-control" aria-describedby="nameHelp" #name="ngModel"
-                    required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text"
-                    [(ngModel)]="accountName">
-                <small id="nameHelp" class="form-text text-muted">How should Moneteer refer to this account?</small>
-                <div *ngIf="name.errors && (name.dirty || name.touched)" class="invalid-feedback">Name is required</div>
-            </div>
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+        <i class="fas fa-university"></i>
+        <span>Create Account</span>
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form #createAccountForm="ngForm" name="create-account" novalidate>
+        <ngb-alert [dismissible]="false" [hidden]="!(error$ | async) || (isCreating$ | async)" type="danger">
+            {{error$ | async}}
+        </ngb-alert>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input style="width: 100%;" autofocus class="form-control" aria-describedby="nameHelp" #name="ngModel"
+                required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text"
+                [(ngModel)]="accountName">
+            <small id="nameHelp" class="form-text text-muted">How should Moneteer refer to this account?</small>
+            <div *ngIf="name.errors && (name.dirty || name.touched)" class="invalid-feedback">Name is required</div>
+        </div>
 
-            <div class="form-group">
-                <label for="initialBalance">Current Balance</label>
-                <input style="width: 100%;" autofocus class="form-control" aria-describedby="nameHelp" #name="ngModel"
-                    required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text"
-                    [(ngModel)]="accountName">
-                <input class="form-control" moneteerCurrencyInput [(value)]="initialBalance" name="initialBalance"
-                    allowZeros=true allowNegative=true>
-                <small id="nameHelp" class="form-text text-muted">How much is in the account at the moment?</small>
-            </div>
+        <div class="form-group">
+            <label for="initialBalance">Current Balance</label>
+            <input class="form-control" moneteerCurrencyInput [(value)]="initialBalance" name="initialBalance"
+                allowZeros=true allowNegative=true>
+            <small id="nameHelp" class="form-text text-muted">How much is in the account at the moment?</small>
+        </div>
 
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="isBudget" id="isBudgetCheck">
-                    <label class="form-check-label" for="isBudgetCheck">
-                        Budget Account
-                    </label>
-                    <small class="form-text text-muted">
-                        Should this account be included in your budget? Typically budget accounts are ones
-                        that you spend money from. If you are unsure, leave this checked.
-                    </small>
-                </div>
+        <!-- <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" name="isBudget" type="checkbox" [(ngModel)]="isBudget" id="isBudgetCheck">
+                <label class="form-check-label" for="isBudgetCheck">
+                    Budget Account
+                </label>
+                <small class="form-text text-muted">
+                    Should this account be included in your budget? Typically budget accounts are ones
+                    that you spend money from. If you are unsure, leave this checked.
+                </small>
             </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-warning" (click)="close()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="create()"
-            [attr.disabled]="!name.errors ? null : ''">Create</button>
-    </div>
-</ng-template>
+        </div> -->
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cancel click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="create()"
+        [attr.disabled]="!name.errors ? null : ''">Create</button>
+</div>

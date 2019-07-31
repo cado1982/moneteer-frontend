@@ -21,7 +21,10 @@ import { EffectsModule } from "@ngrx/effects";
         SharedModule,
         BudgetRoutingModule
     ],
-    providers: []
+    providers: [],
+    entryComponents: [
+        AccountCreateComponent
+    ]
 })
 export class BudgetModule {
 }

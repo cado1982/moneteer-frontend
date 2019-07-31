@@ -19,7 +19,7 @@
             <div class="account-name text-shadow">
                 {{account.name}}
             </div>
-            <div class="account-balance box-shadow money-label" [ngClass]="{'money-label-negative': account.clearedBalance + account.unclearedBalance < 0}">
+            <div class="badge badge-pill" [ngClass]="{'badge-danger': account.clearedBalance + account.unclearedBalance < 0, 'badge-light': account.clearedBalance + account.unclearedBalance >= 0}">
                 {{account.clearedBalance + account.unclearedBalance | budgetCurrency:true | async}}
             </div>
         </div>

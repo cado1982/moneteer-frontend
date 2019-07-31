@@ -6,6 +6,9 @@ import { AccountModel } from "../../../accounts/models/index";
 import { ShowCreateAccountAction } from "../../../core/actions/accounts.actions";
 import { IAccountsState, getOffBudgetAccounts, getBudgetAccounts } from "../../../core/reducers/accounts.reducer";
 import { map } from "rxjs/operators";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { AccountCreateComponent } from "../account-create/account.create.component";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "moneteer-budget-nav",
@@ -17,7 +20,7 @@ export class BudgetNavComponent implements OnInit {
     public offBudgetAccounts: Observable<Array<AccountModel>>;
     public budgetAccounts: Observable<Array<AccountModel>>;
 
-    constructor(private store: Store<IAccountsState>) {
+    constructor(private store: Store<IAccountsState>, private modalService: NgbModal, private activatedRoute: ActivatedRoute) {
 
     }
 
@@ -36,8 +39,9 @@ export class BudgetNavComponent implements OnInit {
             })));
     }
 
-    public openCreateAccount($event: Event): void {
+    public async openCreateAccount($event: Event): Promise<void> {
         $event.stopPropagation();
-        this.store.dispatch(new ShowCreateAccountAction());
+        let modalRef = this.modalService.open(AccountCreateComponent);
+        modalRef.componentInstance.budgetId = this.activatedRoute.snapshot.params.budgetId;
     }
 }
