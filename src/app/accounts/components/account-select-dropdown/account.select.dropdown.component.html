@@ -1,12 +1,12 @@
-<input class="form-control form-control-sm" style="width: 100%;" #searchInput (focus)="onSearchInputFocus($event)" (blur)="onSearchInputBlur($event)"
-    type="text" [(ngModel)]="searchFilter" name="search-input" (ngModelChange)="searchFilterTerm$.next(searchFilter)">
+<ng-template #account let-name="name" let-id="id">
+    <div id="{{id}}">{{name}}</div>
+</ng-template>
 
-<moneteer-dropdown [anchor]="searchInput" openOn="focus">
-    <div [hidden]="accounts.length > 0">
-        You haven't added any accounts yet!
-    </div>
-    <div *ngFor="let grouped of accounts | filterBy: ['name']:(searchFilterTerm$ | async) | groupBy: 'isBudget' | pairs">
-        <div class="subheader">{{grouped[0] === 'true' ? 'Off-Budget' : 'Budget'}}</div>
-        <div class="item subitem" (mousedown)="accountClicked(account)" *ngFor="let account of grouped[1]">{{account.name}}</div>
-    </div>
-</moneteer-dropdown>
+<ng-template #header>
+
+</ng-template>
+
+<moneteer-dropdown-list [items]="accounts" [disabled]="disabled" 
+    [(selectedItem)]="selectedAccount" [itemTemplate]="account"
+    [headerTemplate]="header">
+</moneteer-dropdown-list>

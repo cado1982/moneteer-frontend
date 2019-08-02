@@ -3,26 +3,24 @@
     <h5 [ngClass]="{'italic': !account}">{{!account ? 'All Accounts' : account.name}}</h5>
 </div>
 
-
 <div class="actions">
-    <div class="btn-group btn-sm">
-        <button [disabled]="(accounts$ | async).length === 0" id="addInflow" class="btn btn-sm btn-outline-success"
-            (click)="addInflow()">
-            <i class="fas fa-plus-circle"></i><span> Add Income </span>
-        </button>
-    </div>
 
-    <div class="btn-group btn-sm">
-        <button [disabled]="(accounts$ | async).length === 0" id="addOutflow" class="btn btn-sm btn-outline-danger"
-            (click)="addOutflow()">
-            <i class="fas fa-minus-circle"></i><span> Add Expense </span>
-        </button>
-    </div>
+    <button [disabled]="(accounts$ | async).length === 0" id="addInflow" class="btn btn-xs btn-outline-success mr-2"
+        (click)="addInflow()">
+        <i class="fas fa-plus-circle"></i><span> Add Income </span>
+    </button>
 
-    <div [hidden]="(selectedTransactions$ | async)?.length === 0" class="btn-group btn-sm">
-        <button id="deleteTransactions" class="btn btn-sm btn-danger"
-            [disabled]="(selectedTransactions$ | async)?.length === 0" (click)="tryDeleteTransactions()">
-            <i class="fas fa-minus-circle"></i><span> Delete Transactions </span>
-        </button>
-    </div>
+
+    <button [disabled]="(accounts$ | async).length === 0" id="addOutflow" class="btn btn-xs btn-outline-danger mr-2"
+        (click)="addOutflow()">
+        <i class="fas fa-minus-circle"></i><span> Add Expense </span>
+    </button>
+
+
+    <button [hidden]="(selectedTransactions$ | async)?.length === 0" id="deleteTransactions"
+        class="btn btn-xs btn-danger" [disabled]="(selectedTransactions$ | async)?.length === 0"
+        (click)="tryDeleteTransactions()">
+        <i class="fas fa-minus-circle"></i><span> Delete Transactions </span>
+    </button>
+
 </div>

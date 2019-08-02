@@ -1,14 +1,11 @@
-<input style="width: 100%;" #searchInput class="form-control form-control-sm" (focus)="onSearchInputFocus($event)" (blur)="onSearchInputBlur($event)"
-    type="text" [(ngModel)]="searchFilter" name="search-input" (ngModelChange)="searchFilterTerm$.next(searchFilter)">
+<ng-template #payee let-name="name" let-id="id">
+    <div id="{{id}}">{{name}}</div>
+</ng-template>
 
-<moneteer-dropdown [anchor]="searchInput" openOn="focus">
-    <div [hidden]="payees?.length > 0">
-        No previous payees. Enter a new one to get started.
-    </div>
-    <div [hidden]="!(isCreatingNewPayee$ | async) || !searchFilter">
-        Payee '{{searchFilter}}' will be created.
-    </div>
-    <div *ngFor="let payee of payees | filterBy: ['name']:(searchFilterTerm$ | async)">
-        <div class="item subitem" (mousedown)="payeeClicked(payee)">{{payee.name}}</div>
-    </div>
-</moneteer-dropdown>
+<ng-template #header>
+    
+</ng-template>
+
+<moneteer-dropdown-list [items]="payees" [disabled]="disabled" [(selectedItem)]="selectedPayee"
+    [itemTemplate]="payee" [headerTemplate]="header">
+</moneteer-dropdown-list>

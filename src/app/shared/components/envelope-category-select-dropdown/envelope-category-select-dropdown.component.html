@@ -1,16 +1,12 @@
-<input [attr.disabled]="disabled ? '' : null" style="width: 100%;" #searchInput class="form-control"
-    (focus)="onSearchInputFocus($event)" type="text" [(ngModel)]="searchFilter" name="search-input"
-    (ngModelChange)="onSearchInputValueChanged($event)" (keyup)="onSearchInputKeyUp($event)"
-    (blur)="onSearchInputBlur()">
-<pre>{{isCreatingNewEnvelopeCategory$ | async}}</pre>
-
-<moneteer-dropdown [anchor]="searchInput" openOn="focus">
-    <div>
-        <button class="btn btn-sm btn-primary" (click)="addNewCategory()">Add New Category</button>
-    </div>
-    <div *ngFor="let envelopeCategory of filteredEnvelopeCategories$ | async" #envelopeCategoryElement [id]="envelopeCategory.id"
-        class="item subitem" [ngClass]="{'highlighted': highlightedEnvelopeCategory?.id === envelopeCategory.id}"
-        (mousedown)="envelopeCategoryClicked(envelopeCategory)">
-        {{envelopeCategory.name}}
-    </div>
-</moneteer-dropdown>
+<ng-template #envelopeCategory let-name="name" let-id="id">
+        <div id="{{id}}">{{name}}</div>
+    </ng-template>
+    
+    <ng-template #header>
+        <button class="btn btn-outline btn-primary btn-xs" (click)="addNewCategory()">Create new category</button>
+    </ng-template>
+    
+    <moneteer-dropdown-list [items]="envelopeCategories" [disabled]="disabled" 
+        [(selectedItem)]="selectedEnvelopeCategory" [itemTemplate]="envelopeCategory"
+        [headerTemplate]="header">
+    </moneteer-dropdown-list>

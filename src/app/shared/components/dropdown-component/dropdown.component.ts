@@ -11,16 +11,16 @@ import * as Drop from "tether-drop";
 export class DropdownComponent implements AfterViewInit, OnDestroy {
 
     private dropDown: Drop;
-    @ViewChild("dropDownContent", {static: false}) public dropDownContent: ElementRef;
+    @ViewChild("dropDownContent", { static: false }) public dropDownContent: ElementRef;
 
     @Output() public opened: EventEmitter<void> = new EventEmitter<void>();
 
     @Input() public anchor: Element;
-    @Input() public attachment: string = "top center";
-    @Input() public targetAttachment: string = "bottom center";
+    @Input() public attachment: string = "bottom center";
+    @Input() public targetAttachment: string = "top center";
     @Input() public openOn: string = "click";
     @Input() public classes: string = "drop-theme-arrows-bounce";
-    @Input() public offset: string = "-5 0"; // first up/down, second left/right
+    @Input() public offset: string = "0 0"; // first up/down, second left/right
 
 
     constructor(private element: ElementRef) {
@@ -36,7 +36,13 @@ export class DropdownComponent implements AfterViewInit, OnDestroy {
             tetherOptions: {
                 attachment: this.attachment,
                 targetAttachment: this.targetAttachment,
-                offset: this.offset
+                offset: this.offset,
+                constraints: [
+                    {
+                        to: 'window',
+                        attachment: 'together'
+                    }
+                ]
             },
             constrainToScrollParent: false,
             constrainToWindow: true

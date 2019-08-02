@@ -6,10 +6,12 @@
     <div class="transaction-cell transaction-cell--date">
         <span *ngIf="!isEditing">{{transaction?.date | date:'shortDate'}}</span>
         <div class="input-group" *ngIf="isEditing">
-            <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="date" [(ngModel)]="date" ngbDatepicker
+            <input class="form-control form-control-xs" placeholder="yyyy-mm-dd" name="date" [(ngModel)]="date" ngbDatepicker
                 #d="ngbDatepicker" container="body">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                <button class="btn btn-outline-secondary btn-xs" (click)="d.toggle()" type="button">
+                    <i class="fas fa-calendar"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -26,7 +28,7 @@
     </div>
     <div class="transaction-cell transaction-cell--description">
         <span *ngIf="!isEditing">{{transaction?.description}}</span>
-        <input *ngIf="isEditing" class="form-control form-control-sm" type="text" [(ngModel)]="description"
+        <input *ngIf="isEditing" class="form-control form-control-xs" type="text" [(ngModel)]="description"
             name="description">
     </div>
     <div class="transaction-cell transaction-cell--category">
@@ -36,12 +38,12 @@
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.outflow | budgetCurrency | async }}</span>
-        <input *ngIf="isEditing" class="form-control form-control-sm" moneteerCurrencyInput [(value)]="outflow"
+        <input *ngIf="isEditing" class="form-control form-control-xs" moneteerCurrencyInput [(value)]="outflow"
             autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <span *ngIf="!isEditing">{{transaction?.inflow | budgetCurrency | async }}</span>
-        <input *ngIf="isEditing" class="form-control form-control-sm" moneteerCurrencyInput [(value)]="inflow"
+        <input *ngIf="isEditing" class="form-control form-control-xs" moneteerCurrencyInput [(value)]="inflow"
             autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--cleared">
@@ -58,7 +60,7 @@
 </div>
 
 <div class="transaction-actions" *ngIf="isEditing">
-    <button type="button" class="btn btn-outline-warning btn-sm" (click)="endEdit()">Cancel</button>
+    <button type="button" class="btn btn-link btn-sm mr-3" (click)="endEdit()">Cancel</button>
     <button [disabled]="!canSave()" type="button" class="btn btn-primary btn-sm"
         (click)="save()">{{transaction.id === '00000000-0000-0000-0000-000000000000' ? 'Create' : 'Save'}}</button>
 </div>

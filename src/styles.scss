@@ -45,13 +45,8 @@ body {
     flex-direction: row;
     align-items: stretch;
     flex-shrink: 0;
-    padding: 0.3em;
+    padding: 0.4em;
 }
-
-// .selected, .editing {
-//     background-color: $theme-light;
-//     cursor: text;
-// }
 
 .transaction-cell--date {
     flex: 1 1 120px;

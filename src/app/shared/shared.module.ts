@@ -3,7 +3,7 @@ import { DatePipe, CommonModule } from "@angular/common";
 import { LoadingComponent, TypeAheadComponent, DropdownComponent } from "./components";
 import { CustomDatePipe } from "./pipes/date.pipe";
 import { BudgetCurrencyPipe } from "./pipes/budget.currency.pipe";
-import { NgbModule, NgbActiveModal, NgbAlertModule, NgbModalModule, NgbDropdownModule, NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule, NgbActiveModal, NgbAlertModule, NgbModalModule, NgbDropdownModule, NgbDatepickerModule, NgbDateNativeAdapter, NgbDateAdapter, NgbProgressbarModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { FormsModule } from "@angular/forms";
 import { CurrencyMaskModule } from "ng2-currency-mask";
@@ -13,6 +13,7 @@ import { GroupByPipe } from "./pipes/group.by.pipe";
 import { FilterByPipe } from "./pipes/filter.by.pipe";
 import { EnvelopeCategorySelectDropdownComponent } from './components/envelope-category-select-dropdown/envelope-category-select-dropdown.component';
 import { CurrencyInputDirective } from './directives/currency-input.directive';
+import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
         NgbModalModule,
         NgbDropdownModule,
         NgbDatepickerModule,
+        NgbProgressbarModule,
         FormsModule
     ],
     exports: [
@@ -33,6 +35,7 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
         NgbModalModule,
         NgbDropdownModule,
         NgbDatepickerModule,
+        NgbProgressbarModule,
         LoadingComponent,
         TypeAheadComponent,
         NavComponent,
@@ -41,11 +44,13 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
         FormsModule,
         CommonModule,
         EnvelopeCategorySelectDropdownComponent,
-        CurrencyInputDirective
+        CurrencyInputDirective,
+        DropdownListComponent
     ],
     providers: [
         DatePipe,
-        NgbActiveModal 
+        NgbActiveModal ,
+        {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}
     ],
     declarations: [
         CustomDatePipe,
@@ -58,7 +63,8 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
         DropdownComponent,
         NavComponent,
         EnvelopeCategorySelectDropdownComponent,
-        CurrencyInputDirective
+        CurrencyInputDirective,
+        DropdownListComponent
     ]
 })
 export class SharedModule {

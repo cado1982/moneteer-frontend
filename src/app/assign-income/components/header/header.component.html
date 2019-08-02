@@ -1,8 +1,8 @@
 <div class="info-container">
-    <h3>Assign Income</h3>
-    <h4>{{service.availableIncome$ | async | budgetCurrency:true | async}}</h4>
+    <h5>Assign Income</h5>
+    <div class="text-success">{{service.availableIncome$ | async | budgetCurrency:true | async}}</div>
     <div id="progress-container">
-        <moneteer-assign-income-header-progress></moneteer-assign-income-header-progress>
+        <moneteer-assign-income-header-progress class="align-items-center"></moneteer-assign-income-header-progress>
     </div>
 </div>
 <div class="actions-container">

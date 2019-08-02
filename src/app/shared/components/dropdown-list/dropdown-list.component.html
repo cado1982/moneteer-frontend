@@ -1,0 +1,23 @@
+<input [attr.disabled]="disabled ? '' : null" style="width: 100%;" #searchInput class="form-control form-control-xs"
+    (focus)="onSearchInputFocus($event)" type="text" [(ngModel)]="searchFilter" name="search-input"
+    (ngModelChange)="onSearchInputValueChanged($event)" (keyup)="onSearchInputKeyUp($event)"
+    (blur)="onSearchInputBlur()">
+
+<moneteer-dropdown [anchor]="searchInput" openOn="focus">
+    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+    <ng-container *ngIf="!!groupByProperty">
+        <div *ngFor="let group of groupedItems">
+            <h5>{{group.groupName}}</h5>
+            <div #itemElement class="item" [ngClass]="{'highlighted': isItemHighlighted(item)}" *ngFor="let item of group.items" (mousedown)="itemClicked(item)">
+                <ng-container *ngTemplateOutlet="itemTemplate;context:item"></ng-container>
+            </div>
+        </div>
+        
+    </ng-container>
+    <ng-container *ngIf="!groupByProperty">
+        <div #itemElement class="item" [ngClass]="{'highlighted': isItemHighlighted(item)}" *ngFor="let item of items" (mousedown)="itemClicked(item)">
+            <ng-container *ngTemplateOutlet="itemTemplate;context:item"></ng-container>
+        </div>
+    </ng-container>
+
+</moneteer-dropdown>

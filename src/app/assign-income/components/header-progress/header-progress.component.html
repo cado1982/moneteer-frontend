@@ -1,8 +1,6 @@
-<div class="progress" [ngClass]="{'danger':(service.leftToAssign$ | async) < 0}">
-    <progress [value]="service.percentageAssigned$ | async" max="100"></progress>
-    <pre>{{service.percentageAssigned$ | async}}</pre>
-</div>
-<div class="progress-label">
+<ngb-progressbar class="flex-grow-1" type="{{(service.leftToAssign$ | async) < 0 ? 'danger' : 'info'}}"
+    [value]="service.percentageAssigned$ | async"></ngb-progressbar>
+<div class="ml-2 small">
     <span [hidden]="(service.leftToAssign$ | async) >= 0">
         {{+(service.leftToAssign$ | async) | currency:'USD':'symbol-narrow'}} overassigned
     </span>
