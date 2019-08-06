@@ -4,20 +4,29 @@
     (blur)="onSearchInputBlur()">
 
 <moneteer-dropdown [anchor]="searchInput" openOn="focus">
-    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-    <ng-container *ngIf="!!groupByProperty">
-        <div *ngFor="let group of groupedItems">
-            <h5>{{group.groupName}}</h5>
-            <div #itemElement class="item" [ngClass]="{'highlighted': isItemHighlighted(item)}" *ngFor="let item of group.items" (mousedown)="itemClicked(item)">
+    <div class="header">
+        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+    </div>
+
+    <div class="body">
+        <ng-container *ngIf="!!groupByProperty">
+            <div *ngFor="let group of groupedItems">
+                <div class="item-header my-2 pl-2 text-bold bg-primary text-light">{{group.groupName}}</div>
+                <div #itemElement class="item pl-4 cursor-pointer pr-2"
+                    [ngClass]="{'highlighted': isItemHighlighted(item)}" *ngFor="let item of group.items"
+                    (mousedown)="itemClicked(item)">
+                    <ng-container *ngTemplateOutlet="itemTemplate;context:item"></ng-container>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!groupByProperty">
+            <div #itemElement class="item px-1 pr-2" [ngClass]="{'highlighted': isItemHighlighted(item)}"
+                *ngFor="let item of items" (mousedown)="itemClicked(item)">
                 <ng-container *ngTemplateOutlet="itemTemplate;context:item"></ng-container>
             </div>
-        </div>
-        
-    </ng-container>
-    <ng-container *ngIf="!groupByProperty">
-        <div #itemElement class="item" [ngClass]="{'highlighted': isItemHighlighted(item)}" *ngFor="let item of items" (mousedown)="itemClicked(item)">
-            <ng-container *ngTemplateOutlet="itemTemplate;context:item"></ng-container>
-        </div>
-    </ng-container>
+        </ng-container>
+    </div>
+
 
 </moneteer-dropdown>

@@ -51,7 +51,7 @@ export class DropdownListComponent<T> implements OnInit {
     }
     public set highlightedItem(value: T | null) {
         this._highlightedItem = value;
-        this.scrollToHighlightedItem();
+        //this.scrollToHighlightedItem();
     }
 
     private scrollToHighlightedItem(): void {
@@ -144,7 +144,7 @@ export class DropdownListComponent<T> implements OnInit {
 
     ngOnInit() {
         this.searchFilterTerm$.subscribe(searchTerm => {
-            this.filteredItems = this.items.filter(p => searchTerm === "" || p[this.itemDisplayProperty].toLowerCase().contains(searchTerm.toLowerCase()))
+            this.filteredItems = this.items.filter(p => searchTerm === "" || p[this.itemDisplayProperty].toLowerCase().includes(searchTerm.toLowerCase()))
 
             if (!!this.groupByProperty) {
                 const grouped = groupBy(this.filteredItems, n => get(n, this.groupByProperty))

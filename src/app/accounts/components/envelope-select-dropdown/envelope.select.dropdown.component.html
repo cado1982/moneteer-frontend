@@ -1,14 +1,17 @@
-<ng-template #envelope let-name="name" let-id="id">
-    <div id="{{id}}">{{name}}</div>
+<ng-template #envelope let-name="name" let-id="id" let-balance="balance">
+    <div id="{{id}}" class="d-flex align-items-center">
+        <span class="w-100 mr-2 text-truncate">{{name}}</span>
+        <span class="badge badge-pill flex-shrink-1"
+            [ngClass]="{'badge-success': balance > 0, 'badge-danger': balance < 0, 'badge-secondary': balance === 0}">
+            {{balance | budgetCurrency:true | async}}
+        </span>
+    </div>
 </ng-template>
 
 <ng-template #header>
-    <button class="btn btn-outline btn-primary btn-xs" (click)="createEnvelope()">Create new envelope</button>
+    <button class="btn btn-success btn-xs" (click)="createEnvelope()">Create new envelope</button>
 </ng-template>
 
-<moneteer-dropdown-list [items]="envelopes" [disabled]="disabled" 
-    [(selectedItem)]="selectedEnvelope" [itemTemplate]="envelope"
-    [headerTemplate]="header" groupBy="envelopeCategory.name">
+<moneteer-dropdown-list [items]="envelopes" [disabled]="disabled" [(selectedItem)]="selectedEnvelope"
+    [itemTemplate]="envelope" [headerTemplate]="header" groupBy="envelopeCategory.name">
 </moneteer-dropdown-list>
-
-<pre>{{selectedEnvelope?.name}}</pre>

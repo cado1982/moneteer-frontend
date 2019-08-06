@@ -12,7 +12,7 @@
         <ngb-alert [dismissible]="false" [hidden]="!(error$ | async) || (isCreating$ | async)" type="danger">
             {{error$ | async}}
         </ngb-alert>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="name">Name</label>
             <input style="width: 100%;" autofocus class="form-control" aria-describedby="nameHelp" #name="ngModel"
                 required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text"
@@ -43,7 +43,7 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cancel click')">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="create()"
+    <button type="button" class="btn btn-link" (click)="modal.dismiss('Cancel click')">Cancel</button>
+    <button type="button" class="btn btn-success" (click)="create()"
         [attr.disabled]="!name.errors ? null : ''">Create</button>
 </div>

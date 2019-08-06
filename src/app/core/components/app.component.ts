@@ -5,7 +5,8 @@ import { ModalService } from "../services/modal.service";
 
 @Component({
     selector: "moneteer-root",
-    template: `<router-outlet></router-outlet>
+    template: `<ngx-loading-bar></ngx-loading-bar>
+    <router-outlet></router-outlet>
     <moneteer-error-modal></moneteer-error-modal>`
 })
 export class AppComponent {

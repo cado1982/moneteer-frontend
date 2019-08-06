@@ -18,7 +18,6 @@ import { SharedModule } from "../shared/shared.module";
 import { AuthCallbackComponent } from "./components/auth-callback/auth-callback.component";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { reducers } from "./reducers";
 import { AccountsEffects } from "./effects/accounts.effects";
 import { BudgetsEffects } from "./effects/budgets.effects";
@@ -27,6 +26,8 @@ import { EnvelopesEffects } from "./effects/envelopes.effects";
 import { ErrorHandler } from "@angular/core";
 import { ErrorsHandler } from "./errors.handler";
 import { RetryInterceptor } from "./interceptors/retry.interceptor";
+import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
+import { LoadingBarModule } from "@ngx-loading-bar/core";
 
 @NgModule({
     imports: [
@@ -35,6 +36,8 @@ import { RetryInterceptor } from "./interceptors/retry.interceptor";
         SharedModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
+        LoadingBarRouterModule,
+        LoadingBarModule,
         StoreModule.forFeature("core", reducers),
         EffectsModule.forFeature([AccountsEffects, BudgetsEffects, TransactionsEffects, EnvelopesEffects])
     ],

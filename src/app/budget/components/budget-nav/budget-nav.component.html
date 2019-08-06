@@ -1,27 +1,36 @@
 <moneteer-nav>
-    <a class="link link-parent" routerLink="envelopes" routerLinkActive="active">
-        <span class="align-middle"><i class="fas fa-piggy-bank"></i></span>
-        <span class="text-shadow"> ENVELOPES</span>
-    </a>
-    
-    <div class="link-container" routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a class="link link-parent" routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <i class="fas fa-university"></i>
-            <span class="text-shadow"> ACCOUNTS</span>
+    <div class="nav-body d-flex flex-column">
+        <a class="link link-parent" routerLink="envelopes" routerLinkActive="active">
+            <span class="align-middle"><i class="fas fa-piggy-bank"></i></span>
+            <span class="text-shadow"> ENVELOPES</span>
         </a>
-        <button title="Add Account" (click)="openCreateAccount($event)">
-            <i class="fas fa-plus-circle"></i>
-        </button>
-    </div>
-    
-    <a class="link link-child" *ngFor="let account of budgetAccounts | async" routerLinkActive="active" [routerLink]="['accounts', account.id]">
-        <div class="account-container">
-            <div class="account-name text-shadow">
-                {{account.name}}
-            </div>
-            <div class="badge badge-pill" [ngClass]="{'badge-danger': account.clearedBalance + account.unclearedBalance < 0, 'badge-light': account.clearedBalance + account.unclearedBalance >= 0}">
-                {{account.clearedBalance + account.unclearedBalance | budgetCurrency:true | async}}
-            </div>
+
+        <div class="link-container" routerLink="accounts" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">
+            <a class="link link-parent" routerLink="accounts" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <i class="fas fa-university"></i>
+                <span class="text-shadow"> ACCOUNTS</span>
+            </a>
+            <button title="Add Account" (click)="openCreateAccount($event)">
+                <i class="fas fa-plus-circle"></i>
+            </button>
         </div>
-    </a>
+
+        <div class="d-flex flex-column">
+                <a class="link link-child" *ngFor="let account of budgetAccounts | async" routerLinkActive="active"
+                [routerLink]="['accounts', account.id]">
+                <div class="account-container">
+                    <div class="account-name text-shadow">
+                        {{account.name}}
+                    </div>
+                    <div class="badge badge-pill"
+                        [ngClass]="{'badge-danger': account.clearedBalance + account.unclearedBalance < 0, 'badge-light': account.clearedBalance + account.unclearedBalance >= 0}">
+                        {{account.clearedBalance + account.unclearedBalance | budgetCurrency:true | async}}
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+    </div>
 </moneteer-nav>

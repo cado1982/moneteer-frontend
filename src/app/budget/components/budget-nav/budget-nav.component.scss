@@ -10,6 +10,10 @@
     color: $theme-light-text;
 }
 
+.nav-body {
+    overflow-y: auto;
+}
+
 .link {
     padding: 0.4em 0.8em;
     color: $theme-light-text;

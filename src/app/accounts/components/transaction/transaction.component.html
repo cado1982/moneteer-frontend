@@ -60,7 +60,7 @@
 </div>
 
 <div class="transaction-actions" *ngIf="isEditing">
-    <button type="button" class="btn btn-link btn-sm mr-3" (click)="endEdit()">Cancel</button>
-    <button [disabled]="!canSave()" type="button" class="btn btn-primary btn-sm"
-        (click)="save()">{{transaction.id === '00000000-0000-0000-0000-000000000000' ? 'Create' : 'Save'}}</button>
+    <button type="button" class="btn btn-link btn-xs mr-3" (click)="endEdit()">Cancel</button>
+    <button [disabled]="!canSave()" type="button" class="btn btn-success btn-xs"
+        (click)="save()">Create</button>
 </div>

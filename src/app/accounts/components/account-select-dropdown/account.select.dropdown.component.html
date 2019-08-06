@@ -1,5 +1,11 @@
-<ng-template #account let-name="name" let-id="id">
-    <div id="{{id}}">{{name}}</div>
+<ng-template #account let-name="name" let-id="id" let-unclearedBalance="unclearedBalance" let-clearedBalance="clearedBalance"> 
+    <div id="{{id}}" class="d-flex align-items-center">
+        <span class="w-100 mr-2 text-truncate">{{name}}</span>
+        <span class="badge badge-pill flex-shrink-1" [ngClass]="{'badge-success': unclearedBalance + clearedBalance > 0, 'badge-danger': unclearedBalance + clearedBalance < 0, 'badge-secondary': unclearedBalance + clearedBalance === 0}">
+            {{unclearedBalance + clearedBalance | budgetCurrency:true | async}}
+        </span>
+    </div>
+    
 </ng-template>
 
 <ng-template #header>

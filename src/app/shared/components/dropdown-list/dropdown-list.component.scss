@@ -1,11 +1,15 @@
 @import "./../../../../colors.scss";
 
-.item {
-    font-size: 0.8em;
-    padding: 0.2em;
-    cursor: pointer;
-}
-
 .item:hover, .item.highlighted {
     background-color: $theme-accent;
+}
+
+.item {
+    font-size: 0.8rem;
+}
+
+.body {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 250px;
 }

@@ -27,3 +27,10 @@ $btn-font-size-xs: 0.7rem;
 }
 
 .btn-group-xs > .btn { @extend .btn-xs; }
+
+.col-form-label-xs {
+    padding-top: calc(#{$input-padding-y-sm} + #{$input-border-width});
+    padding-bottom: calc(#{$input-padding-y-sm} + #{$input-border-width});
+    @include font-size($input-font-size-xs);
+    line-height: $input-line-height-sm;
+  }
