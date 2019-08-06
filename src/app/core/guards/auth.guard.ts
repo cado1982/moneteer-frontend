@@ -3,8 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnaps
 
 import { AuthService, NotificationsService } from "../../core/services/index";
 
-
-
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
     constructor(private authService: AuthService, private notificationsService: NotificationsService) { }

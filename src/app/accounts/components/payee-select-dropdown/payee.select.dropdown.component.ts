@@ -9,7 +9,14 @@ import { PayeeModel } from '../../../core/models';
 export class PayeeSelectDropdownComponent {
     
     @Input() public payees: PayeeModel[];
-    @Input() public selectedPayee: PayeeModel;
-    @Output() public selectedPayeeChange = new EventEmitter<PayeeModel>();
+    
+    private _selectedPayee: PayeeModel | null;
+    @Input() public get selectedPayee() { return this._selectedPayee; }
+    public set selectedPayee(value: PayeeModel | null) {
+        this._selectedPayee = value;
+
+        this.selectedPayeeChange.emit(this._selectedPayee);
+    }
+    @Output() public selectedPayeeChange = new EventEmitter<PayeeModel | null>();
 
 }

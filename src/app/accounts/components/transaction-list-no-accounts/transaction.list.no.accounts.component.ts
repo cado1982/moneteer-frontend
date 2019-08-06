@@ -1,9 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
-
-import { Store } from "@ngrx/store";
-import { ITransactionsState } from "../../../core/reducers/transactions.reducer";
-import { ShowCreateAccountAction } from "src/app/core/actions/accounts.actions";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { AccountCreateComponent } from "src/app/budget/components/account-create/account.create.component";
+import { ActivatedRoute } from "@angular/router";
 
 
 @Component({
@@ -12,18 +11,14 @@ import { ShowCreateAccountAction } from "src/app/core/actions/accounts.actions";
     styleUrls: ["./transaction.list.no.accounts.component.scss"],
     
 })
-export class TransactionListNoAccountsComponent implements OnInit {
+export class TransactionListNoAccountsComponent {
 
     constructor(
-        private store: Store<ITransactionsState>) {
-
-    }
-
-    public ngOnInit(): void {
-               
-    }
+        private modalService: NgbModal,
+        private activatedRoute: ActivatedRoute) { }
 
     public createAccount(): void {
-        this.store.dispatch(new ShowCreateAccountAction());
+        let modalRef = this.modalService.open(AccountCreateComponent);
+        modalRef.componentInstance.budgetId = this.activatedRoute.snapshot.parent!.parent!.parent!.params.budgetId;
     }
 }

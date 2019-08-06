@@ -1,9 +1,5 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Subject } from 'rxjs';
-import { ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
-import { DropdownComponent } from '../../../shared/components';
 import { AccountModel } from '../../models';
 
 @Component({
@@ -15,8 +11,12 @@ export class AccountSelectDropdownComponent {
     
     @Input() public accounts: AccountModel[];
 
-    @Input() public selectedAccount: AccountModel;    
-    @Output() public selectedAccountChange = new EventEmitter<AccountModel>();
+    private _selectedAccount: AccountModel | null;
+    @Input() public get selectedAccount() { return this._selectedAccount; }
+    public set selectedAccount(value: AccountModel | null) {
+        this._selectedAccount = value;
 
-
+        this.selectedAccountChange.emit(this._selectedAccount);
+    }
+    @Output() public selectedAccountChange = new EventEmitter<AccountModel | null>();
 }

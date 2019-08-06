@@ -8,11 +8,11 @@
 <div style="flex: 1 0 auto;"></div>
 
 <div ngbDropdown placement="top-right" class="d-inline-block">
-    <button type="button" class="w-100 btn text-light text-shadow dropdown-toggle" ngbDropdownToggle>
+    <button type="button" class="w-100 btn btn-sm text-light text-shadow dropdown-toggle text-truncate" ngbDropdownToggle>
         <i class="far fa-user"></i>
         {{user?.profile.email}}
     </button>
-    <div ngbDropdownMenu container="body" aria-labelledby="profileDropdown">
+    <div ngbDropdownMenu container="body" aria-labelledby="profileDropdown" >
         <button class="btn btn-link" (click)="logOut()" ngbDropdownItem>Log Out</button>
     </div>
 </div>

@@ -1,7 +1,5 @@
 import { Component, Input, EventEmitter, Output, HostListener, } from "@angular/core";
 import { trigger, state, style, animate, transition } from "@angular/animations";
-import { EnvelopeCategoryModel } from "../../../core/models";
-import { AnyFn } from "@ngrx/store/src/selector";
 
 @Component({
     selector: "moneteer-envelopes-category-header",
@@ -17,7 +15,8 @@ import { AnyFn } from "@ngrx/store/src/selector";
     ],
     host: {
         "(mouseenter)": "showCreateCategoryButton = true",
-        "(mouseleave)": "showCreateCategoryButton = false"
+        "(mouseleave)": "showCreateCategoryButton = false",
+        "class": "align-items-center"
     }
 })
 export class EnvelopesCategoryHeaderComponent {

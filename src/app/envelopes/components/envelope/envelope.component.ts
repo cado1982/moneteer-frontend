@@ -15,7 +15,8 @@ import { EnvelopesSelectionService } from "../../services/envelopes-selection.se
 @Component({
     selector: "moneteer-envelope",
     templateUrl: "./envelope.component.html",
-    styleUrls: ["./envelope.component.scss"]
+    styleUrls: ["./envelope.component.scss"],
+    host: {'class': 'py-1'}
 })
 export class EnvelopeComponent implements OnChanges, OnInit {
     @Input() public envelope: EnvelopeModel;

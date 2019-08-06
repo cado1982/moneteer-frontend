@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { EnvelopeCategoryModel } from 'src/app/core/models';
-import { DropdownListComponent } from '../dropdown-list/dropdown-list.component';
 
 @Component({
     selector: 'moneteer-envelope-category-select-dropdown',
@@ -9,19 +8,18 @@ import { DropdownListComponent } from '../dropdown-list/dropdown-list.component'
 })
 export class EnvelopeCategorySelectDropdownComponent {
     @Input() public envelopeCategories: EnvelopeCategoryModel[];
-    @Input() public selectedEnvelopeCategory: EnvelopeCategoryModel;
-    @Output() public selectedEnvelopeCategoryChange = new EventEmitter<EnvelopeCategoryModel>();
+    
+    private _selectedEnvelopeCategory: EnvelopeCategoryModel | null;
+    @Input() public get selectedEnvelopeCategory() { return this._selectedEnvelopeCategory; }
+    public set selectedEnvelopeCategory(value: EnvelopeCategoryModel | null) {
+        this._selectedEnvelopeCategory = value;
+
+        this.selectedEnvelopeCategoryChange.emit(this._selectedEnvelopeCategory);
+    }
+    @Output() public selectedEnvelopeCategoryChange = new EventEmitter<EnvelopeCategoryModel | null>();
 
     public addNewCategory(): void {
 
     }
-
-    
-
-    
-
-    
-
-    
 
 }

@@ -15,7 +15,7 @@ export class TransactionsResolver implements Resolve<Array<TransactionModel>> {
     }
 
     public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Array<TransactionModel>> {
-        if (!route.parent || !route.parent.parent || !route.parent.parent.params || !route.parent.parent.params.budgetId) {
+        if (!route.parent || !route.parent.parent || !route.parent.parent.parent || !route.parent.parent.parent.params || !route.parent.parent.parent.params.budgetId) {
             throw new Error("Unable to find budgetId from route");
         }
         const budgetId: string = route.parent.parent.params.budgetId;

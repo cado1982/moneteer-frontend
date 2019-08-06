@@ -4,9 +4,9 @@ import { AccountsDetailComponent, AccountsHomeComponent } from "./components/ind
 import { TransactionsResolver } from "../routing/resolvers/transactions.resolver";
 
 const routes: Routes = [{
-    path: "", component: AccountsHomeComponent, resolve: {transactions: TransactionsResolver}, children: [
-        { path: ":accountId", component: AccountsDetailComponent },
-        { path: "", component: AccountsDetailComponent },
+    path: "", component: AccountsHomeComponent, children: [
+        { path: ":accountId", component: AccountsDetailComponent, resolve: {transactions: TransactionsResolver} },
+        { path: "", component: AccountsDetailComponent, resolve: {transactions: TransactionsResolver} },
     ]
 }];
 

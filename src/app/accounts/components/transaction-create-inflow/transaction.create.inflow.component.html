@@ -1,21 +1,21 @@
 <div class="container-fluid"> 
     <form>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label-xs">Date</label>
+            <label class="col-sm-1 col-form-label-xs text-right">Date</label>
             <div class="col-sm-6">
                 <input class="form-control form-control-xs" name="date" type="date" ngbDatepicker [(ngModel)]="date">
             </div>
 
         </div>
         <div [hidden]="currentAccountId" class="form-group row">
-            <label class="col-sm-2 col-form-label-xs">Account</label>
+            <label class="col-sm-1 col-form-label-xs text-right">Account</label>
             <div class="col-sm-6">
                 <moneteer-account-select-dropdown [accounts]="accounts$ | async"
                     [(selectedAccount)]="account"></moneteer-account-select-dropdown>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label-xs">Payee</label>
+            <label class="col-sm-1 col-form-label-xs text-right">Payee</label>
             <div class="col-sm-6">
                 <moneteer-payee-select-dropdown [payees]="payees$ | async"
                     [(selectedPayee)]="payee">
@@ -23,14 +23,14 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label-xs">Memo</label>
+            <label class="col-sm-1 col-form-label-xs text-right">Memo</label>
             <div class="col-sm-6">
                 <input name="description" class="form-control form-control-xs" type="text" [(ngModel)]="description"
                     name="description">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label-xs">Inflow</label>
+            <label class="col-sm-1 col-form-label-xs text-right">Inflow</label>
             <div class="col-sm-6">
                 <input moneteerCurrencyInput [(value)]="inflow" name="inflow" class="form-control form-control-xs"
                     allowZeros=false allowNegative=false>

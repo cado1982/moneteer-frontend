@@ -7,7 +7,10 @@ import { AssignIncome } from 'src/app/core/models/assign.income.request';
 @Component({
     selector: 'moneteer-assign-income-envelope-list-envelope',
     templateUrl: './envelope-list-envelope.component.html',
-    styleUrls: ['./envelope-list-envelope.component.scss']
+    styleUrls: ['./envelope-list-envelope.component.scss'],
+    host: {
+        "class": "align-items-center"
+    }
 })
 export class EnvelopeListEnvelopeComponent implements OnInit {
     @Input() public envelope: EnvelopeModel;

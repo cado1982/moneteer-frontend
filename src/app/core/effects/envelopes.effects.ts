@@ -49,7 +49,7 @@ export class EnvelopesEffects {
             map(() => new AssignIncomeSuccessAction()),
             catchError(error => of(new AssignIncomeFailureAction(error)))
         )
-    ));
+    ));w
 
     @Effect() assignIncomeSuccess$ = this.actions$.pipe(
         ofType(EnvelopesActionTypes.AssignIncomeSuccess),
