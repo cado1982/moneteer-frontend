@@ -16,6 +16,7 @@ import { EnvelopesFooterComponent } from './components/envelopes-footer/envelope
 import { EnvelopesBodyComponent } from './components/envelopes-body/envelopes-body.component';
 import { EnvelopesCategoriesListComponent } from './components/envelopes-categories-list/envelopes-categories-list.component';
 import { EnvelopesAddModalComponent } from './components/envelopes-add-modal/envelopes-add-modal.component';
+import { EnvelopeDetailsBodyRecentTransactionsComponent } from './components/envelope-details-body-recent-transactions/envelope-details-body-recent-transactions.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { EnvelopesAddModalComponent } from './components/envelopes-add-modal/env
         EnvelopesFooterComponent,
         EnvelopesBodyComponent,
         EnvelopesCategoriesListComponent,
-        EnvelopesAddModalComponent
+        EnvelopesAddModalComponent,
+        EnvelopeDetailsBodyRecentTransactionsComponent
     ],
     imports: [
         EnvelopesRoutingModule,

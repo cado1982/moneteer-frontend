@@ -33,4 +33,12 @@ $btn-font-size-xs: 0.7rem;
     padding-bottom: calc(#{$input-padding-y-sm} + #{$input-border-width});
     @include font-size($input-font-size-xs);
     line-height: $input-line-height-sm;
-  }
+}
+
+.table-xs {
+    th,
+    td {
+        padding: 0.2rem;
+        font-size: 0.8rem;
+    }
+}
