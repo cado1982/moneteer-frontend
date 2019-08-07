@@ -18,7 +18,7 @@ export class TransactionsResolver implements Resolve<Array<TransactionModel>> {
         if (!route.parent || !route.parent.parent || !route.parent.parent.parent || !route.parent.parent.parent.params || !route.parent.parent.parent.params.budgetId) {
             throw new Error("Unable to find budgetId from route");
         }
-        const budgetId: string = route.parent.parent.params.budgetId;
+        const budgetId: string = route.parent.parent.parent.params.budgetId;
 
         this.store.dispatch(new LoadTransactionsAction({budgetId}));
 

@@ -27,7 +27,7 @@ export class AccountCreateComponent implements OnInit {
 
     constructor(private store: Store<IAccountsState>,
                 private actions$: Actions,
-                private modal: NgbActiveModal) { }
+                public modal: NgbActiveModal) { }
 
     public ngOnInit(): void {
         this.isOpen$ = this.store.select(getShowCreate);

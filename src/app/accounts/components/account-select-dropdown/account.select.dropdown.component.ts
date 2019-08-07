@@ -8,7 +8,7 @@ import { AccountModel } from '../../models';
     styleUrls: ['./account.select.dropdown.component.scss']
 })
 export class AccountSelectDropdownComponent {
-    
+    @Input() public disabled: boolean;
     @Input() public accounts: AccountModel[];
 
     private _selectedAccount: AccountModel | null;

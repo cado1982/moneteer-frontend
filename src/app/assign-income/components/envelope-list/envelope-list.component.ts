@@ -9,7 +9,7 @@ import { AssignIncomeService } from '../../services/assign-income.service';
 })
 export class EnvelopeListComponent implements OnInit {
 
-    constructor(private service: AssignIncomeService) {
+    constructor(public service: AssignIncomeService) {
 
     }
 

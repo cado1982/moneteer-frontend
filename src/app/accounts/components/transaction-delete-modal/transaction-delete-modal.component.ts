@@ -18,7 +18,7 @@ export class TransactionDeleteModalComponent implements OnInit {
     public selectedTransactions: TransactionModel[] = [];
 
     constructor(
-        private modal: NgbActiveModal, 
+        public modal: NgbActiveModal, 
         private actions$: Actions, 
         private store: Store<ITransactionsState>) { 
 

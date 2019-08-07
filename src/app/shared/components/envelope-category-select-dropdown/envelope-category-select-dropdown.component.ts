@@ -7,6 +7,7 @@ import { EnvelopeCategoryModel } from 'src/app/core/models';
     styleUrls: ['./envelope-category-select-dropdown.component.scss']
 })
 export class EnvelopeCategorySelectDropdownComponent {
+    @Input() public disabled: boolean;
     @Input() public envelopeCategories: EnvelopeCategoryModel[];
     
     private _selectedEnvelopeCategory: EnvelopeCategoryModel | null;

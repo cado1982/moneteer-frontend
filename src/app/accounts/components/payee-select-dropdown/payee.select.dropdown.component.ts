@@ -7,7 +7,7 @@ import { PayeeModel } from '../../../core/models';
     styleUrls: ['./payee.select.dropdown.component.scss']
 })
 export class PayeeSelectDropdownComponent {
-    
+    @Input() public disabled: boolean;
     @Input() public payees: PayeeModel[];
     
     private _selectedPayee: PayeeModel | null;

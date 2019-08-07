@@ -24,11 +24,11 @@ body {
 }
 
 .is-good-light {
-    color: $money-good-saturated;
+    color: $money-good-saturated !important;
 }
 
 .is-bad-light {
-    color: $money-bad-saturated;
+    color: $money-bad-saturated !important;
 }
 
 .badge.badge-success {
