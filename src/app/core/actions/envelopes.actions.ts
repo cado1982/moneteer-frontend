@@ -12,6 +12,9 @@ export enum EnvelopesActionTypes {
     CreateEnvelopeCategory = "[Envelopes] Create Envelope Category",
     CreateEnvelopeCategorySuccess = "[Envelopes] Create Envelope Category Success",
     CreateEnvelopeCategoryFailure = "[Envelopes] Create Envelope Category Failure",
+    CreateEnvelope = "[Envelopes] Create Envelope",
+    CreateEnvelopeSuccess = "[Envelopes] Create Envelope Success",
+    CreateEnvelopeFailure = "[Envelopes] Create Envelope Failure",
     AssignIncomeRequest = "[Envelopes] Assign Income Request",
     AssignIncomeSuccess = "[Envelopes] Assign Income Success",
     AssignIncomeFailure = "[Envelopes] Assign Income Failure",
@@ -58,6 +61,19 @@ export class CreateEnvelopeCategoryFailureAction implements Action {
     constructor(public payload: {error: string}) { }
 }
 
+export class CreateEnvelopeAction implements Action {
+    readonly type = EnvelopesActionTypes.CreateEnvelope;
+    constructor(public payload: {budgetId: string, envelope: EnvelopeModel}) { }
+}
+export class CreateEnvelopeSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.CreateEnvelopeSuccess;
+    constructor(public payload: {envelope: EnvelopeModel}) { }
+}
+export class CreateEnvelopeFailureAction implements Action {
+    readonly type = EnvelopesActionTypes.CreateEnvelopeFailure;
+    constructor(public payload: {error: string}) { }
+}
+
 export class AssignIncomeRequestAction implements Action {
     readonly type = EnvelopesActionTypes.AssignIncomeRequest;
     constructor(public payload: {budgetId: string, request: AssignIncomeRequest}) { }
@@ -74,6 +90,9 @@ export type EnvelopesActions =
     | CreateEnvelopeCategoryAction
     | CreateEnvelopeCategorySuccessAction
     | CreateEnvelopeCategoryFailureAction
+    | CreateEnvelopeAction
+    | CreateEnvelopeSuccessAction
+    | CreateEnvelopeFailureAction
     | LoadEnvelopesAction
     | LoadEnvelopesSuccessAction
     | LoadEnvelopesFailureAction

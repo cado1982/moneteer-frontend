@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { EnvelopesService } from "../services/envelopes.service";
 import { EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesAction, 
-         CreateEnvelopeCategoryAction, CreateEnvelopeCategorySuccessAction, CreateEnvelopeCategoryFailureAction, AssignIncomeSuccessAction, AssignIncomeFailureAction, AssignIncomeRequestAction, LoadEnvelopesFailureAction, LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesSuccessAction, LoadEnvelopeCategoriesFailureAction } from "../actions/envelopes.actions";
+         CreateEnvelopeCategoryAction, CreateEnvelopeCategorySuccessAction, CreateEnvelopeCategoryFailureAction, AssignIncomeSuccessAction, AssignIncomeFailureAction, AssignIncomeRequestAction, LoadEnvelopesFailureAction, LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesSuccessAction, LoadEnvelopeCategoriesFailureAction, CreateEnvelopeAction, CreateEnvelopeSuccessAction, CreateEnvelopeFailureAction } from "../actions/envelopes.actions";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
 import { IEnvelopesState } from "../reducers/envelopes.reducer";
@@ -40,6 +40,14 @@ export class EnvelopesEffects {
         switchMap((action: CreateEnvelopeCategoryAction) => this.envelopesService.createEnvelopeCategory(action.payload.budgetId, action.payload.envelopeCategory).pipe(
             map(envelopeCategory => new CreateEnvelopeCategorySuccessAction({envelopeCategory})),
             catchError(error => of(new CreateEnvelopeCategoryFailureAction(error)))
+        )
+    ));
+
+    @Effect() createEnvelope$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.CreateEnvelope),
+        switchMap((action: CreateEnvelopeAction) => this.envelopesService.createEnvelope(action.payload.budgetId, action.payload.envelope).pipe(
+            map(envelope => new CreateEnvelopeSuccessAction({envelope})),
+            catchError(error => of(new CreateEnvelopeFailureAction(error)))
         )
     ));
 

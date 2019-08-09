@@ -3,9 +3,11 @@ import { DatePipe, CommonModule } from "@angular/common";
 import { LoadingComponent, TypeAheadComponent, DropdownComponent } from "./components";
 import { CustomDatePipe } from "./pipes/date.pipe";
 import { BudgetCurrencyPipe } from "./pipes/budget.currency.pipe";
-import { NgbModule, NgbActiveModal, NgbAlertModule, NgbModalModule, NgbDropdownModule, NgbDatepickerModule, NgbDateNativeAdapter, NgbDateAdapter, NgbProgressbarModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbAlertModule, NgbModalModule, NgbDropdownModule,
+         NgbDatepickerModule, NgbDateNativeAdapter, NgbDateAdapter, NgbProgressbarModule 
+} from "@ng-bootstrap/ng-bootstrap";
 
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NavComponent } from "./components/nav/nav.component";
 import { PairsPipe } from "./pipes/pairs.pipe";
@@ -23,7 +25,8 @@ import { DropdownListComponent } from './components/dropdown-list/dropdown-list.
         NgbDropdownModule,
         NgbDatepickerModule,
         NgbProgressbarModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
         CustomDatePipe,
@@ -45,7 +48,8 @@ import { DropdownListComponent } from './components/dropdown-list/dropdown-list.
         CommonModule,
         EnvelopeCategorySelectDropdownComponent,
         CurrencyInputDirective,
-        DropdownListComponent
+        DropdownListComponent,
+        ReactiveFormsModule
     ],
     providers: [
         DatePipe,

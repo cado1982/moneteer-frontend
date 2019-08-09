@@ -42,3 +42,11 @@ $btn-font-size-xs: 0.7rem;
         font-size: 0.8rem;
     }
 }
+
+.ng-touched.ng-invalid {
+    @extend .is-invalid;
+}
+
+.ng-valid {
+    @extend .is-valid;
+}

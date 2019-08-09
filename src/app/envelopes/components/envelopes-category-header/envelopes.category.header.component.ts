@@ -1,5 +1,9 @@
-import { Component, Input, EventEmitter, Output, HostListener, } from "@angular/core";
+import { Component, Input, EventEmitter, Output, HostListener, OnInit, } from "@angular/core";
 import { trigger, state, style, animate, transition } from "@angular/animations";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { EnvelopesAddModalComponent } from "../envelopes-add-modal/envelopes-add-modal.component";
+import { EnvelopeCategoryModel } from "src/app/core/models";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "moneteer-envelopes-category-header",
@@ -20,7 +24,7 @@ import { trigger, state, style, animate, transition } from "@angular/animations"
     }
 })
 export class EnvelopesCategoryHeaderComponent {
-    @Input() public envelopeCategory: string;
+    @Input() public envelopeCategory: EnvelopeCategoryModel;
     @Input() public balance: number;
     @Input() public spendingLast30Days: number;
 
@@ -29,13 +33,23 @@ export class EnvelopesCategoryHeaderComponent {
         this.toggled.emit(this.isToggled);
     }
 
+    constructor(
+        private modal: NgbModal,
+        private route: ActivatedRoute
+    ) { }
+
     public isToggled: boolean = true;
 
-    public showCreateCategoryButton: boolean = false;
-
-    @Output() public toggled: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() public toggled = new EventEmitter<boolean>();
 
     addEnvelope($event: any): void {
         $event.stopPropagation();
+        const budgetId = this.route.snapshot.params.budgetId;
+
+        if (!budgetId) throw Error("Budget id is missing");
+
+        const modalRef = this.modal.open(EnvelopesAddModalComponent);
+        modalRef.componentInstance.envelopeCategory = this.envelopeCategory;
+        modalRef.componentInstance.budgetId = budgetId;
     }
 }

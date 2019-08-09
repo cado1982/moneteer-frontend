@@ -1,6 +1,6 @@
 <div class="header-title">
-    {{selectionService.selectedEnvelope?.name}}
+    {{(selectionService.selectedEnvelope | async)?.name}}
 </div>
 <div class="header-balance">
-    {{selectionService.selectedEnvelope?.balance | budgetCurrency:true | async}}
+    {{(selectionService.selectedEnvelope | async)?.balance | budgetCurrency:true | async}}
 </div>

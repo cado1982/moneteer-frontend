@@ -8,7 +8,7 @@ import { EnvelopesSelectionService } from '../../services/envelopes-selection.se
 })
 export class EnvelopeDetailsComponent implements OnInit {
 
-    @HostBinding('class.hidden') get isHidden() { return !this.selectionService.selectedEnvelope; }
+    @HostBinding('class.hidden') get isHidden() { return !this.selectionService.selectedEnvelope.value; }
 
     constructor(public selectionService: EnvelopesSelectionService) { }
 

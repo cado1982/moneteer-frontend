@@ -26,10 +26,9 @@ import { EnvelopeCategoryModel, EnvelopeModel } from "../../../core/models";
 })
 export class EnvelopesCategoryComponent implements OnChanges {
 
-    @Input() public envelopeCategory: EnvelopeCategoryModel;
+    public envelopeCategory: EnvelopeCategoryModel;
     @Input() public envelopes: Array<EnvelopeModel>;
-    @Output() public assignedChanged: EventEmitter<{oldValue: number, newValue: number}>
-        = new EventEmitter<{oldValue: number, newValue: number}>();
+    @Output() public assignedChanged = new EventEmitter<{oldValue: number, newValue: number}>();
 
     public isToggled: boolean = true;
 
@@ -40,6 +39,10 @@ export class EnvelopesCategoryComponent implements OnChanges {
         if (changes.envelopes) {
             this.updateSpendingLast30Days();
             this.updateBalance();
+
+            if (changes.envelopes.currentValue.length > 0) {
+                this.envelopeCategory = changes.envelopes.currentValue[0].envelopeCategory;
+            }
         }
     }
 

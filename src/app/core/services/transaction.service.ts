@@ -10,11 +10,9 @@ import { EnvelopeModel, PayeeModel } from "./../../core/models";
 import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
 import { TransactionModel } from "../../accounts/models/index";
-import { tap } from "rxjs/internal/operators/tap";
-import { catchError } from "rxjs/internal/operators/catchError";
 import { Store } from "@ngrx/store";
 import { ITransactionsState } from "../reducers/transactions.reducer";
-import { LoadTransactionsFailureAction } from "../actions/transactions.actions";
+import { RecentTransactionByEnvelope } from '../models/recent.transaction.by.envelope.model';
 
 @Injectable()
 export class TransactionService extends ApiBaseService {
@@ -27,6 +25,10 @@ export class TransactionService extends ApiBaseService {
         return this.get<Array<TransactionModel>>(`budget/${budgetId}/transactions`).pipe(
             map(t => this.processTransactions(t))
         );
+    }
+
+    public getRecentTransactionsForEnvelopes(budgetId: string): Observable<Array<RecentTransactionByEnvelope>> {
+        return this.get<Array<RecentTransactionByEnvelope>>(`budget/${budgetId}/recenttransactions`);
     }
 
     public getTransactionsForAccount(accountId: string): Observable<Array<TransactionModel>> {

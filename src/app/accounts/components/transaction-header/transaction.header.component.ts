@@ -1,14 +1,15 @@
-import {distinctUntilChanged, debounceTime,  take } from "rxjs/operators";
+import { distinctUntilChanged, debounceTime, take } from "rxjs/operators";
 import { Component, OnInit, Input,  } from "@angular/core";
 import { Observable , Subject } from "rxjs";
 import { Store, select } from "@ngrx/store";
 
 import { TransactionModel, AccountModel } from "../../models/index";
-import { ITransactionsState, getIsDeleting, getSelectedTransactions, CreateTransactionMode } from "../../../core/reducers/transactions.reducer";
-import { ShowCreateTransactionAction, DeleteTransactionsAction, TransactionsActionTypes, TransactionsActions } from "../../../core/actions/transactions.actions";
-import { Actions, ofType } from "@ngrx/effects";
+import { ITransactionsState, getIsDeleting,
+         getSelectedTransactions, CreateTransactionMode 
+} from "../../../core/reducers/transactions.reducer";
+import { ShowCreateTransactionAction } from "../../../core/actions/transactions.actions";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
-import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TransactionDeleteModalComponent } from "../transaction-delete-modal/transaction-delete-modal.component";
 
 @Component({

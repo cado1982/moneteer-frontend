@@ -12,11 +12,11 @@ import { EnvelopeDetailsHeaderComponent } from './components/envelope-details-he
 import { EnvelopeDetailsBodyComponent } from './components/envelope-details-body/envelope-details-body.component';
 import { EnvelopeDetailsBodyStatsComponent } from './components/envelope-details-body-stats/envelope-details-body-stats.component';
 import { EnvelopeDetailsBodyActionsComponent } from './components/envelope-details-body-actions/envelope-details-body-actions.component';
-import { EnvelopesFooterComponent } from './components/envelopes-footer/envelopes-footer.component';
 import { EnvelopesBodyComponent } from './components/envelopes-body/envelopes-body.component';
 import { EnvelopesCategoriesListComponent } from './components/envelopes-categories-list/envelopes-categories-list.component';
 import { EnvelopesAddModalComponent } from './components/envelopes-add-modal/envelopes-add-modal.component';
 import { EnvelopeDetailsBodyRecentTransactionsComponent } from './components/envelope-details-body-recent-transactions/envelope-details-body-recent-transactions.component';
+import { EnvelopeAddCategoryModalComponent } from './components/envelope-add-category-modal/envelope-add-category-modal.component';
 
 @NgModule({
     declarations: [
@@ -34,16 +34,20 @@ import { EnvelopeDetailsBodyRecentTransactionsComponent } from './components/env
         EnvelopeDetailsBodyComponent,
         EnvelopeDetailsBodyStatsComponent,
         EnvelopeDetailsBodyActionsComponent,
-        EnvelopesFooterComponent,
         EnvelopesBodyComponent,
         EnvelopesCategoriesListComponent,
         EnvelopesAddModalComponent,
-        EnvelopeDetailsBodyRecentTransactionsComponent
+        EnvelopeDetailsBodyRecentTransactionsComponent,
+        EnvelopeAddCategoryModalComponent
     ],
     imports: [
         EnvelopesRoutingModule,
         SharedModule
     ],
+    entryComponents: [
+        EnvelopeAddCategoryModalComponent,
+        EnvelopesAddModalComponent
+    ]
 })
 export class EnvelopesModule {
 }

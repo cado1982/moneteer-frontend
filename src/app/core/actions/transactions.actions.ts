@@ -2,6 +2,7 @@ import { Action } from "@ngrx/store";
 import { TransactionModel } from "../../accounts/models";
 import { CreateTransactionMode } from "../reducers/transactions.reducer";
 import { PayeeModel } from "../models";
+import { RecentTransactionByEnvelope } from "../models/recent.transaction.by.envelope.model";
 
 export enum TransactionsActionTypes {
     LoadTransactions = "[Transactions] Load",
@@ -11,6 +12,10 @@ export enum TransactionsActionTypes {
     LoadTransactionsForAccount = "[Transactions] Load For Account",
     LoadTransactionsForAccountSuccess = "[Transactions] Load For Account Success",
     LoadTransactionsForAccountFailure = "[Transactions] Load For Account Failure",
+
+    LoadRecentTransactionsByEnvelope = "[Transactions] Load Recent By Envelope",
+    LoadRecentTransactionsByEnvelopeSuccess = "[Transactions] Load Recent By Envelope Success",
+    LoadRecentTransactionsByEnvelopeFailure = "[Transactions] Load Recent By Envelope Failure",
 
     LoadPayees = "[Payees] Load",
     LoadPayeesSuccess = "[Payees] Load Success",
@@ -67,6 +72,20 @@ export class LoadTransactionsForAccountSuccessAction implements Action {
 }
 export class LoadTransactionsForAccountFailureAction implements Action {
     readonly type = TransactionsActionTypes.LoadTransactionsForAccountFailure;
+    constructor(public payload: {error: string}) { }
+}
+
+// Load Recent By Envelope
+export class LoadRecentTransactionsByEnvelopeAction implements Action {
+    readonly type = TransactionsActionTypes.LoadRecentTransactionsByEnvelope;
+    constructor(public payload: {budgetId: string}) { }
+}
+export class LoadRecentTransactionsByEnvelopeSuccessAction implements Action {
+    readonly type = TransactionsActionTypes.LoadRecentTransactionsByEnvelopeSuccess;
+    constructor(public payload: {recentTransactions: RecentTransactionByEnvelope[]}) { }
+}
+export class LoadRecentTransactionsByEnvelopeFailureAction implements Action {
+    readonly type = TransactionsActionTypes.LoadRecentTransactionsByEnvelopeFailure;
     constructor(public payload: {error: string}) { }
 }
 
@@ -176,6 +195,9 @@ export type TransactionsActions =
     | LoadTransactionsForAccountAction
     | LoadTransactionsForAccountSuccessAction
     | LoadTransactionsForAccountFailureAction
+    | LoadRecentTransactionsByEnvelopeAction
+    | LoadRecentTransactionsByEnvelopeSuccessAction
+    | LoadRecentTransactionsByEnvelopeFailureAction
     | LoadPayeesAction
     | LoadPayeesSuccessAction
     | LoadPayeesFailureAction

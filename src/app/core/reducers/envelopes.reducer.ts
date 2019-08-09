@@ -22,6 +22,10 @@ export function envelopesReducer(state: IEnvelopesState = initialState, action: 
             return {...state, envelopes: action.payload.envelopes, available: action.payload.available };
         case EnvelopesActionTypes.LoadCategoriesSuccess:
             return {...state, envelopeCategories: action.payload.envelopeCategories};
+        case EnvelopesActionTypes.CreateEnvelopeCategorySuccess:
+            return {...state, envelopeCategories: [...state.envelopeCategories, action.payload.envelopeCategory]}
+        case EnvelopesActionTypes.CreateEnvelopeSuccess:
+            return {...state, envelopes: [...state.envelopes, action.payload.envelope]}
         default: {
             return state;
         }
@@ -47,3 +51,8 @@ export const getEnvelopeCategories = createSelector(
     envelopesState,
     state => state.envelopeCategories
 );
+
+export const getEnvelopeCategoryById = createSelector(
+    getEnvelopeCategories,
+    (categories: EnvelopeCategoryModel[], props) => categories.find(c => c.id === props.categoryId)
+)

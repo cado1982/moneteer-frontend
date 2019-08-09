@@ -3,7 +3,6 @@ import { Store, select } from "@ngrx/store";
 import { ChangeDetectionStrategy } from "@angular/core";
 import { Observable } from "rxjs";
 import { AccountModel } from "../../../accounts/models/index";
-import { ShowCreateAccountAction } from "../../../core/actions/accounts.actions";
 import { IAccountsState, getOffBudgetAccounts, getBudgetAccounts } from "../../../core/reducers/accounts.reducer";
 import { map } from "rxjs/operators";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -20,7 +19,11 @@ export class BudgetNavComponent implements OnInit {
     public offBudgetAccounts: Observable<Array<AccountModel>>;
     public budgetAccounts: Observable<Array<AccountModel>>;
 
-    constructor(private store: Store<IAccountsState>, private modalService: NgbModal, private activatedRoute: ActivatedRoute) {
+    constructor(
+        private store: Store<IAccountsState>,
+        private modalService: NgbModal,
+        private activatedRoute: ActivatedRoute
+    ) {
 
     }
 
@@ -39,7 +42,7 @@ export class BudgetNavComponent implements OnInit {
             })));
     }
 
-    public async openCreateAccount($event: Event): Promise<void> {
+    public openCreateAccount($event: Event): void {
         $event.stopPropagation();
         let modalRef = this.modalService.open(AccountCreateComponent);
         modalRef.componentInstance.budgetId = this.activatedRoute.snapshot.params.budgetId;

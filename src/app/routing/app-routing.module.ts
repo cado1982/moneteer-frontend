@@ -8,6 +8,7 @@ import { AccountsResolver } from "./resolvers/accounts.resolver";
 import { TransactionsResolver } from "./resolvers/transactions.resolver";
 import { PayeesResolver } from "./resolvers/payees.resolver";
 import { EnvelopesResolver } from "./resolvers/envelopes.resolver";
+import { RecentTransactionsResolver } from "./resolvers/recent.transactions.resolver";
 
 export const routes: Routes = [
     { path: "auth-callback", component: AuthCallbackComponent },
@@ -17,7 +18,7 @@ export const routes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes/*, { enableTracing: true }*/)
+        RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always', /*enableTracing: true*/})
     ],
     exports: [RouterModule],
     providers: [
@@ -26,7 +27,8 @@ export const routes: Routes = [
         AccountsResolver,
         TransactionsResolver,
         PayeesResolver,
-        EnvelopesResolver
+        EnvelopesResolver,
+        RecentTransactionsResolver
     ]
 })
 export class AppRoutingModule {

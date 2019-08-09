@@ -1,1 +1,1 @@
-<div>Average Spend {{selectionService.selectedEnvelope?.averageSpend | budgetCurrency:true | async }}</div>
+<div>Average Spend {{(selectionService.selectedEnvelope | async)?.averageSpend | budgetCurrency:true | async }}</div>

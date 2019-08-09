@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { IEnvelopesState, getEnvelopeCategories } from 'src/app/core/reducers/envelopes.reducer';
-import { EnvelopesDataService } from '../../services/envelopes-data.service';
-import { EnvelopeCategoryModel } from 'src/app/core/models';
-import { Observable } from 'rxjs';
+import { EnvelopeCategoryModel, EnvelopeModel } from 'src/app/core/models';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ITransactionsState } from 'src/app/core/reducers/transactions.reducer';
+import { CreateEnvelopeCategoryAction, EnvelopesActionTypes, CreateEnvelopeCategoryFailureAction, CreateEnvelopeFailureAction, CreateEnvelopeAction } from 'src/app/core/actions/envelopes.actions';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'moneteer-envelopes-add-modal',
@@ -12,31 +14,56 @@ import { Observable } from 'rxjs';
     styleUrls: ['./envelopes-add-modal.component.scss']
 })
 export class EnvelopesAddModalComponent implements OnInit {
-    public isOpen: boolean = false;
-    public selectedEnvelopeCategory: EnvelopeCategoryModel | null;
+    public isBusy: boolean;
+    public error: string;
+    public budgetId: string;
+    public envelopeCategory: EnvelopeCategoryModel;
 
-    //public envelopeCategories$: Observable<EnvelopeCategoryModel[]>;
+    public addEnvelopeForm = new FormGroup({
+        envelopeName: new FormControl('', [Validators.required, Validators.maxLength(255)])
+    });
+
+    private get categoryName(): string {
+        return this.addEnvelopeForm.value['envelopeName'];
+    }
 
     constructor(
-        private actions$: Actions,
-        private store: Store<IEnvelopesState>,
-        public dataService: EnvelopesDataService) {
-
-    }
+        public modal: NgbActiveModal,
+        private store: Store<ITransactionsState>,
+        private actions$: Actions) { }
 
     ngOnInit() {
-        //this.envelopeCategories$ = this.store.select(getEnvelopeCategories)
+        this.actions$.pipe(
+            ofType(EnvelopesActionTypes.CreateEnvelopeFailure),
+            map((action: CreateEnvelopeFailureAction) => action.payload.error)
+        ).subscribe(error => {
+            this.isBusy = false;
+            this.error = error;
+        });
+
+        this.actions$.pipe(
+            ofType(EnvelopesActionTypes.CreateEnvelopeSuccess)
+        ).subscribe(() => {
+            this.isBusy = false;
+            this.modal.close();
+        })
     }
 
-    public open(): void {
-        this.isOpen = true;
-    }
+    public create(): void {
+        this.error = "";
 
-    public close(): void {
-        this.isOpen = false;
-    }
+        if (!this.budgetId || !this.categoryName) {
+            return;
+        }
 
-    create(): void {
+        this.isBusy = true;
 
+        let envelope = new EnvelopeModel(this.categoryName);
+        envelope.envelopeCategory = this.envelopeCategory;
+
+        this.store.dispatch(new CreateEnvelopeAction({
+            budgetId: this.budgetId,
+            envelope: envelope
+        }))
     }
 }

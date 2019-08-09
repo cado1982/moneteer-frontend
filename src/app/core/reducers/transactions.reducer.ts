@@ -3,6 +3,7 @@ import { createSelector } from "@ngrx/store";
 import { TransactionModel } from "../../accounts/models";
 import { coreFeatureSelector } from "./feature.selector";
 import { PayeeModel } from "../models";
+import { RecentTransactionByEnvelope } from "../models/recent.transaction.by.envelope.model";
 
 export enum CreateTransactionMode {
     Inflow = "INFLOW",
@@ -19,6 +20,7 @@ export interface ITransactionsState {
     transactions: TransactionModel[];
     payees: PayeeModel[];
     selectedTransactionIds: string[];
+    recentTransactionsByEnvelopes: RecentTransactionByEnvelope[];
 }
 
 export const initialState: ITransactionsState = {
@@ -30,7 +32,8 @@ export const initialState: ITransactionsState = {
     createTransactionOutflowOpen: false,
     transactions: [],
     payees: [],
-    selectedTransactionIds: []
+    selectedTransactionIds: [],
+    recentTransactionsByEnvelopes: []
 };
 
 export function transactionsReducer(state: ITransactionsState = initialState, action: TransactionsActions): ITransactionsState {
@@ -59,6 +62,15 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
         }
         case TransactionsActionTypes.LoadTransactionsForAccountFailure: {
             return {...state, loading: false};
+        }
+
+        // Load recent by envelope
+        case TransactionsActionTypes.LoadRecentTransactionsByEnvelopeSuccess: {
+            if (action.payload.recentTransactions.length > 0) {
+                return {...state, recentTransactionsByEnvelopes: action.payload.recentTransactions};
+            } else {
+                return state;
+            }
         }
 
         // Payees
@@ -178,6 +190,11 @@ export const getTransactions = createSelector(
         if (a.date === b.date && a.id > b.id) return 1;
         return 0;
     })
+);
+
+export const getRecentTransactionsByEnvelope = createSelector(
+    transactionsState,
+    state => state.recentTransactionsByEnvelopes
 );
 
 export const getIsCreateInflowTransactionOpen = createSelector(

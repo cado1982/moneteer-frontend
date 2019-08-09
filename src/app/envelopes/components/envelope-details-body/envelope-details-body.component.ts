@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './envelope-details-body.component.html',
   styleUrls: ['./envelope-details-body.component.scss'],
   host: {
-      "class": "d-inline-flex flex-column border-bottom border-right border-left"
+      "class": "d-inline-flex flex-column border-bottom border-right border-left overflow-auto"
   }
 })
 export class EnvelopeDetailsBodyComponent implements OnInit {

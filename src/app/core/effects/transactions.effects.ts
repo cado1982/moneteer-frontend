@@ -6,7 +6,7 @@ import { Store } from "@ngrx/store";
 import { TransactionsActionTypes, LoadTransactionsAction, LoadTransactionsSuccessAction,
          CreateTransactionAction, CreateTransactionSuccessAction, UpdateTransactionAction, UpdateTransactionSuccessAction, 
          DeleteTransactionsAction, DeleteTransactionsSuccessAction, DeleteTransactionsFailureAction, LoadTransactionsFailureAction, 
-         CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction, SetTransactionClearedFailureAction, DeselectAllTransactionsAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction, LoadTransactionsForAccountAction, LoadTransactionsForAccountSuccessAction, LoadTransactionsForAccountFailureAction } from "../actions/transactions.actions";
+         CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction, SetTransactionClearedFailureAction, DeselectAllTransactionsAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction, LoadTransactionsForAccountAction, LoadTransactionsForAccountSuccessAction, LoadTransactionsForAccountFailureAction, LoadRecentTransactionsByEnvelopeAction, LoadRecentTransactionsByEnvelopeSuccessAction, LoadRecentTransactionsByEnvelopeFailureAction } from "../actions/transactions.actions";
 import { switchMap, map, filter, mergeMap, first } from "rxjs/operators";
 import { of } from "rxjs";
 import { catchError } from "rxjs/internal/operators/catchError";
@@ -41,6 +41,15 @@ export class TransactionsEffects {
         mergeMap(payload => this.transactionService.getTransactionsForAccount(payload.accountId).pipe(
             map(transactionsForAccount => new LoadTransactionsForAccountSuccessAction({transactionsForAccount})),
             catchError(error => of(new LoadTransactionsForAccountFailureAction({error: error.message})))
+        )   
+    ));
+
+    @Effect() loadRecentTransactionsByEnvelope$ = this.actions$.pipe(
+        ofType(TransactionsActionTypes.LoadRecentTransactionsByEnvelope),
+        map((action: LoadRecentTransactionsByEnvelopeAction) => action.payload),
+        mergeMap(payload => this.transactionService.getRecentTransactionsForEnvelopes(payload.budgetId).pipe(
+            map(recentTransactions => new LoadRecentTransactionsByEnvelopeSuccessAction({recentTransactions})),
+            catchError(error => of(new LoadRecentTransactionsByEnvelopeFailureAction({error: error.message})))
         )   
     ));
 
