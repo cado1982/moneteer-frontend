@@ -1,2 +1,2 @@
-<moneteer-envelope-details-header></moneteer-envelope-details-header>
-<moneteer-envelope-details-body></moneteer-envelope-details-body>
+<moneteer-envelope-details-header [selectedEnvelope]="selectionService.selectedEnvelope | async"></moneteer-envelope-details-header>
+<moneteer-envelope-details-body [selectedEnvelope]="selectionService.selectedEnvelope | async"></moneteer-envelope-details-body>

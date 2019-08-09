@@ -15,6 +15,9 @@ export enum EnvelopesActionTypes {
     CreateEnvelope = "[Envelopes] Create Envelope",
     CreateEnvelopeSuccess = "[Envelopes] Create Envelope Success",
     CreateEnvelopeFailure = "[Envelopes] Create Envelope Failure",
+    DeleteEnvelope = "[Envelopes] Delete Envelope",
+    DeleteEnvelopeSuccess = "[Envelopes] Delete Envelope Success",
+    DeleteEnvelopeFailure = "[Envelopes] Delete Envelope Failure",
     AssignIncomeRequest = "[Envelopes] Assign Income Request",
     AssignIncomeSuccess = "[Envelopes] Assign Income Success",
     AssignIncomeFailure = "[Envelopes] Assign Income Failure",
@@ -74,6 +77,19 @@ export class CreateEnvelopeFailureAction implements Action {
     constructor(public payload: {error: string}) { }
 }
 
+export class DeleteEnvelopeAction implements Action {
+    readonly type = EnvelopesActionTypes.DeleteEnvelope;
+    constructor(public payload: {envelopeId: string}) { }
+}
+export class DeleteEnvelopeSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.DeleteEnvelopeSuccess;
+    constructor(public payload: {envelopeId: string}) { }
+}
+export class DeleteEnvelopeFailureAction implements Action {
+    readonly type = EnvelopesActionTypes.DeleteEnvelopeFailure;
+    constructor(public payload: {error: string}) { }
+}
+
 export class AssignIncomeRequestAction implements Action {
     readonly type = EnvelopesActionTypes.AssignIncomeRequest;
     constructor(public payload: {budgetId: string, request: AssignIncomeRequest}) { }
@@ -93,6 +109,9 @@ export type EnvelopesActions =
     | CreateEnvelopeAction
     | CreateEnvelopeSuccessAction
     | CreateEnvelopeFailureAction
+    | DeleteEnvelopeAction
+    | DeleteEnvelopeSuccessAction
+    | DeleteEnvelopeFailureAction
     | LoadEnvelopesAction
     | LoadEnvelopesSuccessAction
     | LoadEnvelopesFailureAction

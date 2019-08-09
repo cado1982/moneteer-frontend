@@ -1,5 +1,5 @@
 
-import {first} from "rxjs/operators";
+import {first, map} from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
@@ -32,5 +32,11 @@ export class EnvelopesService extends ApiBaseService {
 
     public assignIncome(budgetId: string, request: AssignIncomeRequest): Observable<void> {
         return this.post(`budget/${budgetId}/envelopes/assignIncome`, request);
+    }
+
+    public deleteEnvelope(envelopeId: string): Observable<string> {
+        return this.delete(`envelopes/${envelopeId}`).pipe(
+            map(() => envelopeId)
+        );
     }
 }

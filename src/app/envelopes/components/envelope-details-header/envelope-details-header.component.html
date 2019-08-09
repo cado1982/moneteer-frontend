@@ -1,6 +1,6 @@
 <div class="header-title">
-    {{(selectionService.selectedEnvelope | async)?.name}}
+    {{selectedEnvelope?.name}}
 </div>
-<div class="header-balance">
-    {{(selectionService.selectedEnvelope | async)?.balance | budgetCurrency:true | async}}
+<div class="badge" [ngClass]="{'badge-success': selectedEnvelope?.balance > 0, 'badge-danger': selectedEnvelope?.balance < 0, 'badge-secondary': selectedEnvelope?.balance === 0}">
+    {{selectedEnvelope?.balance | budgetCurrency:true | async}}
 </div>

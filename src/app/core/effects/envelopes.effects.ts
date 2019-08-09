@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { EnvelopesService } from "../services/envelopes.service";
 import { EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesAction, 
-         CreateEnvelopeCategoryAction, CreateEnvelopeCategorySuccessAction, CreateEnvelopeCategoryFailureAction, AssignIncomeSuccessAction, AssignIncomeFailureAction, AssignIncomeRequestAction, LoadEnvelopesFailureAction, LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesSuccessAction, LoadEnvelopeCategoriesFailureAction, CreateEnvelopeAction, CreateEnvelopeSuccessAction, CreateEnvelopeFailureAction } from "../actions/envelopes.actions";
+         CreateEnvelopeCategoryAction, CreateEnvelopeCategorySuccessAction, CreateEnvelopeCategoryFailureAction, AssignIncomeSuccessAction, AssignIncomeFailureAction, AssignIncomeRequestAction, LoadEnvelopesFailureAction, LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesSuccessAction, LoadEnvelopeCategoriesFailureAction, CreateEnvelopeAction, CreateEnvelopeSuccessAction, CreateEnvelopeFailureAction, DeleteEnvelopeAction, DeleteEnvelopeSuccessAction, DeleteEnvelopeFailureAction } from "../actions/envelopes.actions";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
 import { IEnvelopesState } from "../reducers/envelopes.reducer";
@@ -48,6 +48,14 @@ export class EnvelopesEffects {
         switchMap((action: CreateEnvelopeAction) => this.envelopesService.createEnvelope(action.payload.budgetId, action.payload.envelope).pipe(
             map(envelope => new CreateEnvelopeSuccessAction({envelope})),
             catchError(error => of(new CreateEnvelopeFailureAction(error)))
+        )
+    ));
+
+    @Effect() deleteEnvelope$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.DeleteEnvelope),
+        switchMap((action: DeleteEnvelopeAction) => this.envelopesService.deleteEnvelope(action.payload.envelopeId).pipe(
+            map(envelopeId => new DeleteEnvelopeSuccessAction({envelopeId})),
+            catchError(error => of(new DeleteEnvelopeFailureAction(error)))
         )
     ));
 
