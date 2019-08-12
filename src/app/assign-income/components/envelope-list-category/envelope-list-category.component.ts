@@ -7,7 +7,7 @@ import { EnvelopeCategoryModel, EnvelopeModel } from 'src/app/core/models';
     styleUrls: ['./envelope-list-category.component.scss']
 })
 export class EnvelopeListCategoryComponent implements OnInit {
-    @Input() public categoryName: string;
+    @Input() public category: EnvelopeCategoryModel;
     @Input() public envelopes: EnvelopeModel[];
     
     constructor() { }

@@ -4,6 +4,7 @@ import { IEnvelopesState, getEnvelopes, getAvailable, getEnvelopeCategories } fr
 import { EnvelopeModel, EnvelopeCategoryModel } from 'src/app/core/models';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
+import { groupBy, sortBy } from "lodash";
 
 @Injectable()
 export class EnvelopesDataService {
@@ -18,17 +19,18 @@ export class EnvelopesDataService {
         this.envelopeCategories$ = this.store.select(getEnvelopeCategories);
         this.envelopesByCategory$ = combineLatest(this.store.select(getEnvelopes), this.searchQuery$, this.envelopeCategories$).pipe(
             map(([envelopes, searchFilter, categories]) => {
-                return categories.map(c =>  {
+                const grouped = categories.map(c =>  {
                     return { 
                         "category": c,
-                        "envelopes": envelopes.filter(e => 
+                        "envelopes": sortBy(envelopes.filter(e => 
                             e.envelopeCategory.id === c.id &&
                             (searchFilter === '' ||
-                             e.name.toUpperCase().includes(searchFilter.toUpperCase())
-                            )
-                        )
+                             e.name.toUpperCase().includes(searchFilter.toUpperCase()))
+                        ), "name")
                     }
                 })
+
+                return sortBy(grouped, "category.name")
             })
         )
         

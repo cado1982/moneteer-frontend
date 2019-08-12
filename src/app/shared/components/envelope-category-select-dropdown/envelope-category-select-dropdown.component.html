@@ -1,12 +1,11 @@
 <ng-template #envelopeCategory let-name="name" let-id="id">
-        <div id="{{id}}">{{name}}</div>
-    </ng-template>
-    
-    <ng-template #header>
-        <button class="btn btn-outline btn-primary btn-xs" (click)="addNewCategory()">Create new category</button>
-    </ng-template>
-    
-    <moneteer-dropdown-list [items]="envelopeCategories" [disabled]="disabled" 
-        [(selectedItem)]="selectedEnvelopeCategory" [itemTemplate]="envelopeCategory"
-        [headerTemplate]="header">
-    </moneteer-dropdown-list>
+    <div id="{{id}}">{{name}}</div>
+</ng-template>
+
+<ng-template #header>
+    <button class="btn btn-outline btn-primary btn-xs" (click)="addNewCategory()">Create new category</button>
+</ng-template>
+
+<moneteer-dropdown-list [items]="envelopeCategories" [disabled]="disabled" [(selectedItem)]="selectedEnvelopeCategory"
+    [itemTemplate]="envelopeCategory" [headerTemplate]="header">
+</moneteer-dropdown-list>

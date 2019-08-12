@@ -14,7 +14,7 @@
                 <div class="item-header pl-2 text-bold bg-primary text-light">{{group.groupName}}</div>
                 <div #itemElement class="item pl-3 cursor-pointer pr-2"
                     [ngClass]="{'highlighted': isItemHighlighted(item)}" *ngFor="let item of group.items"
-                    (mousedown)="itemClicked(item)">
+                    (mousedown)="itemClicked(item)" [id]="item[idProperty]">
                     <ng-container *ngTemplateOutlet="itemTemplate;context:item"></ng-container>
                 </div>
             </div>
@@ -22,7 +22,7 @@
 
         <ng-container *ngIf="!groupByProperty">
             <div #itemElement class="item px-1 pr-2" [ngClass]="{'highlighted': isItemHighlighted(item)}"
-                *ngFor="let item of items" (mousedown)="itemClicked(item)">
+                *ngFor="let item of filteredItems" (mousedown)="itemClicked(item)" [id]="item[idProperty]">
                 <ng-container *ngTemplateOutlet="itemTemplate;context:item"></ng-container>
             </div>
         </ng-container>

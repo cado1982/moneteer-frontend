@@ -21,17 +21,18 @@ export class HomeComponent implements OnInit {
 
     public envelopes$: Observable<EnvelopeModel[]>;
 
-    constructor(private actions$: Actions, private store: Store<IEnvelopesState>, private route: ActivatedRoute, private service: AssignIncomeService) { 
+    constructor(
+        private actions$: Actions,
+        private store: Store<IEnvelopesState>,
+        private route: ActivatedRoute,
+        private service: AssignIncomeService
+    ) { 
         
     }
 
     ngOnInit() {
-        if (!this.route.snapshot.parent || !this.route.snapshot.parent.parent || !this.route.snapshot.parent.parent.params || !this.route.snapshot.parent.parent.params.budgetId) {
-            throw new Error("Unable to find budgetId from route");
-        }
-
         this.store.select(getAvailable).subscribe(a => this.availableIncome = a);
         this.envelopes$ = this.store.select(getEnvelopes);
-        this.service.budgetId = this.route.snapshot.parent.parent.params.budgetId;
+        this.service.budgetId = this.route.snapshot.params.budgetId;
     }
 }

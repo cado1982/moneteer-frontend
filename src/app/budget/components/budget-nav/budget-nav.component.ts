@@ -8,6 +8,7 @@ import { map } from "rxjs/operators";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AccountCreateComponent } from "../account-create/account.create.component";
 import { ActivatedRoute } from "@angular/router";
+import { sortBy } from "lodash";
 
 @Component({
     selector: "moneteer-budget-nav",
@@ -31,15 +32,8 @@ export class BudgetNavComponent implements OnInit {
         this.offBudgetAccounts = this.store.pipe(select(getOffBudgetAccounts));
         this.budgetAccounts = this.store.pipe(
             select(getBudgetAccounts),
-            map(accounts => accounts.sort((a, b) => {
-                let comparison = 0;
-                if (a.name.toUpperCase() > b.name.toUpperCase()) {
-                    comparison = 1;
-                } else if (a.name < b.name) {
-                    comparison = -1;
-                }
-                return comparison;
-            })));
+            map(accounts => sortBy(accounts, "name"))
+        );
     }
 
     public openCreateAccount($event: Event): void {

@@ -1,12 +1,9 @@
-import {combineLatest as observableCombineLatest, empty as observableEmpty,  Observable, combineLatest } from "rxjs";
+import { combineLatest, Observable } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { TransactionModel, AccountModel } from "../../models/index";
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Store, select } from "@ngrx/store";
 import { ITransactionsState, getTransactions } from "../../../core/reducers/transactions.reducer";
-import { TransactionListComponent } from "../transaction-list/transaction.list.component";
-import { Actions, ofType } from "@ngrx/effects";
-import { TransactionsActionTypes } from "src/app/core/actions/transactions.actions";
 import { tap, map } from "rxjs/operators";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 

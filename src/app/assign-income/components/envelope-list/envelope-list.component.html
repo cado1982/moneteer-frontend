@@ -5,6 +5,6 @@
         <div>Balance</div>
     </div>
 </div>
-<moneteer-assign-income-envelope-list-category *ngFor="let grouped of service.envelopes$ | async | groupBy: 'envelopeCategory.name' | pairs"
-    [categoryName]="grouped[0]" [envelopes]="grouped[1]">
+<moneteer-assign-income-envelope-list-category *ngFor="let grouped of groupedEnvelopes$ | async"
+    [category]="grouped.category" [envelopes]="grouped.envelopes">
 </moneteer-assign-income-envelope-list-category>

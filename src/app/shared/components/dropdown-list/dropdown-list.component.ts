@@ -18,6 +18,7 @@ export class DropdownListComponent<T> implements OnInit {
     @Input() public idProperty: string = "id";
     @Input() public searchFilter: string;
     @Input() public disabled: boolean = false;
+    @Input() public allowsNewItems: boolean = false;
 
     @Input() public itemTemplate: TemplateRef<any>;
     @Input() public headerTemplate: TemplateRef<any>;
@@ -51,7 +52,7 @@ export class DropdownListComponent<T> implements OnInit {
     }
     public set highlightedItem(value: T | null) {
         this._highlightedItem = value;
-        //this.scrollToHighlightedItem();
+        this.scrollToHighlightedItem();
     }
 
     private scrollToHighlightedItem(): void {
@@ -76,7 +77,7 @@ export class DropdownListComponent<T> implements OnInit {
 
         if (nextIndex > this.items.length - 1) { return } // Already at end of array
 
-        const nextItem = this.items[nextIndex]
+        const nextItem = this.items[nextIndex];
         this.highlightedItem = nextItem;
     }
 
@@ -105,6 +106,8 @@ export class DropdownListComponent<T> implements OnInit {
         if (!!this.clickedItem) {
             this.selectedItem = this.clickedItem;
             this.clickedItem = null;
+        } else if (!this.searchFilter) {
+            this.selectedItem = null;
         } else if (!!this.highlightedItem) {
             this.selectedItem = this.highlightedItem;
         }
@@ -123,7 +126,6 @@ export class DropdownListComponent<T> implements OnInit {
         if (this.selectedItem !== null) {
             this.highlightedItem = this.selectedItem
         }
-
     }
 
     public onSearchInputKeyUp($event: any): void {

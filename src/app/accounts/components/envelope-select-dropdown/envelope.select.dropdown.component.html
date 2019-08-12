@@ -8,10 +8,6 @@
     </div>
 </ng-template>
 
-<ng-template #header>
-    <button class="btn btn-success btn-xs" (click)="createEnvelope()">Create new envelope</button>
-</ng-template>
-
 <moneteer-dropdown-list [items]="envelopes" [disabled]="disabled" [(selectedItem)]="selectedEnvelope"
-    [itemTemplate]="envelope" [headerTemplate]="header" groupBy="envelopeCategory.name">
+    [itemTemplate]="envelope" groupBy="envelopeCategory.name">
 </moneteer-dropdown-list>
