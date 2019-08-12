@@ -46,7 +46,7 @@ export class EnvelopeAddCategoryModalComponent implements OnInit {
         ).subscribe(() => {
             this.isBusy = false;
             this.modal.close();
-        })
+        });
     }
 
     public create(): void {

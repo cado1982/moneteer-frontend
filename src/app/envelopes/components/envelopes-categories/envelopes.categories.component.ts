@@ -1,6 +1,4 @@
-import { Component, Input, Output, EventEmitter, } from "@angular/core";
-import { EnvelopeModel, EnvelopeCategoryModel } from "../../../core/models";
-import { EnvelopesDataService } from "../../services/envelopes-data.service";
+import { Component } from "@angular/core"
 
 @Component({
     selector: "moneteer-envelopes-categories",

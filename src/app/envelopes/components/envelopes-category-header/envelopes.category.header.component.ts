@@ -24,7 +24,7 @@ import { ActivatedRoute } from "@angular/router";
     }
 })
 export class EnvelopesCategoryHeaderComponent {
-    @Input() public envelopeCategory: EnvelopeCategoryModel;
+    @Input() public category: EnvelopeCategoryModel;
     @Input() public balance: number;
     @Input() public spendingLast30Days: number;
 
@@ -49,7 +49,7 @@ export class EnvelopesCategoryHeaderComponent {
         if (!budgetId) throw Error("Budget id is missing");
 
         const modalRef = this.modal.open(EnvelopesAddModalComponent);
-        modalRef.componentInstance.envelopeCategory = this.envelopeCategory;
+        modalRef.componentInstance.envelopeCategory = this.category;
         modalRef.componentInstance.budgetId = budgetId;
     }
 }

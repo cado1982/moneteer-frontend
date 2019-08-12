@@ -152,7 +152,7 @@ export class DropdownListComponent<T> implements OnInit {
                 this.groupedItems = toArray.map(([groupName, items]) => {
                     return {
                         groupName,
-                        items: items.filter(p => searchTerm === "" || p[this.itemDisplayProperty].toLowerCase().contains(searchTerm.toLowerCase()))
+                        items: items.filter(p => searchTerm === "" || p[this.itemDisplayProperty].toLowerCase().includes(searchTerm.toLowerCase()))
                     }
                 });
 

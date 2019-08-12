@@ -26,31 +26,27 @@ import { EnvelopeCategoryModel, EnvelopeModel } from "../../../core/models";
 })
 export class EnvelopesCategoryComponent implements OnChanges {
 
-    public envelopeCategory: EnvelopeCategoryModel;
+    @Input() public category: EnvelopeCategoryModel;
     @Input() public envelopes: Array<EnvelopeModel>;
     @Output() public assignedChanged = new EventEmitter<{oldValue: number, newValue: number}>();
 
     public isToggled: boolean = true;
 
-    public balance: number;
-    public spendingLast30Days: number;
+    public balance: number = 0;
+    public spendingLast30Days: number = 0;
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.envelopes) {
             this.updateSpendingLast30Days();
             this.updateBalance();
-
-            if (changes.envelopes.currentValue.length > 0) {
-                this.envelopeCategory = changes.envelopes.currentValue[0].envelopeCategory;
-            }
         }
     }
 
     private updateSpendingLast30Days(): void {
-        this.spendingLast30Days = this.envelopes.map(e => e.spendingLast30Days).reduce((a, b) => a + b);
+        this.spendingLast30Days = this.envelopes.length === 0 ? 0 : this.envelopes.map(e => e.spendingLast30Days).reduce((a, b) => a + b);
     }
 
     private updateBalance(): void {
-        this.balance = this.envelopes.map(e => e.balance).reduce((a, b) => a + b);
+        this.balance = this.envelopes.length === 0 ? 0 : this.envelopes.map(e => e.balance).reduce((a, b) => a + b);
     }
 }

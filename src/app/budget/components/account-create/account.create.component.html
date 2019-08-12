@@ -1,29 +1,26 @@
-<div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">
-        <i class="fas fa-university"></i>
-        <span> Create Account</span>
-    </h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<div class="modal-body">
-    <form #createAccountForm="ngForm" name="create-account" novalidate>
-        <ngb-alert [dismissible]="false" [hidden]="!(error$ | async) || (isCreating$ | async)" type="danger">
-            {{error$ | async}}
-        </ngb-alert>
+<form [formGroup]="createAccountForm" (ngSubmit)="create()" novalidate>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="fas fa-university"></i>
+            <span> Create Account</span>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
         <div class="form-group mb-3">
             <label for="name">Name</label>
-            <input style="width: 100%;" autofocus class="form-control" aria-describedby="nameHelp" #name="ngModel"
-                required [class.is-danger]="name.errors && (name.dirty || name.touched)" name="name" type="text"
-                [(ngModel)]="accountName">
+            <input id="name" ngbAutofocus formControlName="accountName" class="form-control" required>
+            <div class="invalid-feedback">
+                Please choose an account name.
+            </div>
             <small id="nameHelp" class="form-text text-muted">How should Moneteer refer to this account?</small>
-            <div *ngIf="name.errors && (name.dirty || name.touched)" class="invalid-feedback">Name is required</div>
         </div>
 
         <div class="form-group">
             <label for="initialBalance">Current Balance</label>
-            <input class="form-control" moneteerCurrencyInput [(value)]="initialBalance" name="initialBalance"
+            <input id="initialBalance" class="form-control" moneteerCurrencyInput [(value)]="initialBalance"
                 allowZeros=true allowNegative=true>
             <small id="nameHelp" class="form-text text-muted">How much is in the account at the moment?</small>
         </div>
@@ -40,10 +37,18 @@
                 </small>
             </div>
         </div> -->
-    </form>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-link" (click)="modal.dismiss('Cancel click')">Cancel</button>
-    <button type="button" class="btn btn-success" (click)="create()"
-        [attr.disabled]="!name.errors ? null : ''">Create</button>
-</div>
+
+    </div>
+    <div class="modal-footer flex-column align-items-stretch">
+        <div class="align-self-end">
+            <button type="button" class="btn btn-link" (click)="modal.dismiss('Cancel click')">Cancel</button>
+            <button type="submit" class="btn btn-success" [disabled]="!createAccountForm.valid">
+                <span [hidden]="!isBusy" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                Create
+            </button>
+        </div>
+
+        <moneteer-error-alert [error]="error"></moneteer-error-alert>
+    </div>
+</form>

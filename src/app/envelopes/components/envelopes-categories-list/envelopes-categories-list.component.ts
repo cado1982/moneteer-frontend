@@ -18,7 +18,7 @@ export class EnvelopesCategoriesListComponent implements OnInit {
      
     }
 
-    public onMasterCategoryAssignedChanged(changes: { oldValue: number, newValue: number }): void {
+    public onCategoryAssignedChanged(changes: { oldValue: number, newValue: number }): void {
         this.assignedChanged.emit(changes);
     }
 

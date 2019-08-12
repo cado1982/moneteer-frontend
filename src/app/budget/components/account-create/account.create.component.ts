@@ -9,6 +9,7 @@ import { IAccountsState, getShowCreate, getIsCreating } from "../../../core/redu
 import { Actions, ofType } from "@ngrx/effects";
 import { map } from "rxjs/operators";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { FormControl, Validators, FormGroup } from "@angular/forms";
 
 @Component({
     selector: "moneteer-account-create",
@@ -16,14 +17,22 @@ import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
     styleUrls: ["./account.create.component.scss"]
 })
 export class AccountCreateComponent implements OnInit {
-    public accountName: string;
     public isBudget = true;
-    public initialBalance = 0;
     public budgetId: string;
+    public isBusy = false;
 
     public isOpen$: Observable<boolean>;
     public isCreating$: Observable<boolean>;
-    public error$: Subject<string> = new Subject<string>();
+    public initialBalance: number = 0;
+    public error: string;
+
+    public createAccountForm = new FormGroup({
+        accountName: new FormControl('', [Validators.required, Validators.maxLength(255)])
+    });
+
+    private get accountName(): string {
+        return this.createAccountForm.value['accountName'];
+    }
 
     constructor(private store: Store<IAccountsState>,
                 private actions$: Actions,
@@ -36,14 +45,23 @@ export class AccountCreateComponent implements OnInit {
         this.actions$.pipe(
             ofType(AccountsActionTypes.CreateFailure),
             map((action: CreateAccountFailureAction) => action.payload.error)
-        ).subscribe(error => this.error$.next(error));
+        ).subscribe(error => {
+            this.isBusy = false;
+            this.error = error;
+        });
 
         this.actions$.pipe(
             ofType(AccountsActionTypes.CreateSuccess)
-        ).subscribe(() => this.modal.close());
+        ).subscribe(() => {
+            this.isBusy = false;
+            this.modal.close();
+        });
     }
 
     public create(): void {
+
+        this.isBusy = true;
+
         const account: AccountModel = new AccountModel();
         account.name = this.accountName;
         account.isBudget = this.isBudget;

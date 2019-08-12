@@ -1,10 +1,10 @@
 <span class="first-column">
     <div class="category-name">
-        <i class="fas fa-caret-down"></i>
-        <div class="text-shadow m-0 ml-2">{{envelopeCategory?.name}}</div>
+        <i class="fas fa-caret-down" [@toggled]="isToggled"></i>
+        <div class="text-shadow m-0 ml-2">{{category?.name}}</div>
         <i class="fas fa-plus-circle add-envelope" (click)="addEnvelope($event)"></i>
     </div>
 </span>
 
-<span class="stat-column">{{ balance | budgetCurrency:false | async }}</span>
-<span class="stat-column">{{ spendingLast30Days | budgetCurrency:false | async }}</span>
+<span class="stat-column">{{ balance | budgetCurrency: true | async }}</span>
+<span class="stat-column">{{ spendingLast30Days | budgetCurrency: true | async }}</span>
