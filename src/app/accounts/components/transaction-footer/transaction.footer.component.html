@@ -12,14 +12,14 @@
         <div class="stat-title">
             Uncleared
         </div>
-        <div class="stat-value" [ngClass]="{'is-good-light': uncleared > 0, 'is-bad-light': working < 0 }">
+        <div class="stat-value" [ngClass]="{'is-good-light': uncleared > 0, 'is-bad-light': uncleared < 0 }">
             {{uncleared | budgetCurrency:true | async}}
         </div>
     </div>
     <span class="math-symbol">=</span>
     <div class="stat box-shadow align-items-center">
         <div class="stat-title">
-            Working
+            Balance
         </div>
         <div class="stat-value" [ngClass]="{'is-good-light': working > 0, 'is-bad-light': working < 0 }">
             {{ working | budgetCurrency:true | async }}

@@ -6,7 +6,12 @@ import { Store } from "@ngrx/store";
 import { TransactionsActionTypes, LoadTransactionsAction, LoadTransactionsSuccessAction,
          CreateTransactionAction, CreateTransactionSuccessAction, UpdateTransactionAction, UpdateTransactionSuccessAction, 
          DeleteTransactionsAction, DeleteTransactionsSuccessAction, DeleteTransactionsFailureAction, LoadTransactionsFailureAction, 
-         CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction, SetTransactionClearedFailureAction, DeselectAllTransactionsAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction, LoadTransactionsForAccountAction, LoadTransactionsForAccountSuccessAction, LoadTransactionsForAccountFailureAction, LoadRecentTransactionsByEnvelopeAction, LoadRecentTransactionsByEnvelopeSuccessAction, LoadRecentTransactionsByEnvelopeFailureAction } from "../actions/transactions.actions";
+         CreateTransactionFailureAction, UpdateTransactionFailureAction, SetTransactionClearedAction, SetTransactionClearedSuccessAction,
+         SetTransactionClearedFailureAction, LoadPayeesAction, LoadPayeesSuccessAction, LoadPayeesFailureAction,
+         LoadTransactionsForAccountAction, LoadTransactionsForAccountSuccessAction,
+         LoadTransactionsForAccountFailureAction, LoadRecentTransactionsByEnvelopeAction,
+         LoadRecentTransactionsByEnvelopeSuccessAction, LoadRecentTransactionsByEnvelopeFailureAction, 
+         DeselectAllTransactionsAction } from "../actions/transactions.actions";
 import { switchMap, map, filter, mergeMap, first } from "rxjs/operators";
 import { of } from "rxjs";
 import { catchError } from "rxjs/internal/operators/catchError";
@@ -71,7 +76,8 @@ export class TransactionsEffects {
             switchMap(activeBudget => [
                 new LoadEnvelopesAction({budgetId: activeBudget.id}),
                 new LoadBudgetAction({budgetId: activeBudget.id}),
-                new LoadSingleAccountAction({accountId: action.payload.transaction.account.id})
+                new LoadSingleAccountAction({accountId: action.payload.transaction.account.id}),
+                new DeselectAllTransactionsAction()
             ])
         ))
     );
@@ -92,7 +98,8 @@ export class TransactionsEffects {
             filter((activeBudget: BudgetModel | null): activeBudget is BudgetModel => activeBudget !== null ),
             switchMap(activeBudget => [
                 new LoadEnvelopesAction({budgetId: activeBudget.id}),
-                new LoadBudgetAction({budgetId: activeBudget.id})
+                new LoadBudgetAction({budgetId: activeBudget.id}),
+                new DeselectAllTransactionsAction()
             ])
         ))
     );

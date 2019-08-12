@@ -6,12 +6,14 @@ import { TransactionModel, AccountModel, TransactionAssignmentModel } from "../.
 import { Component, Input, OnInit, EventEmitter, Output } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.reducer";
-import { UpdateTransactionAction, SetTransactionClearedAction, SelectTransactionAction, DeselectTransactionAction } from "../../../core/actions/transactions.actions";
+import { UpdateTransactionAction, SetTransactionClearedAction, SelectTransactionAction, DeselectTransactionAction, TransactionsActionTypes, UpdateTransactionSuccessAction } from "../../../core/actions/transactions.actions";
 import { getEnvelopes } from "../../../core/reducers/envelopes.reducer";
 import { getIsCreating } from "../../../core/reducers/transactions.reducer";
 import { OnChanges } from "@angular/core";
 import { SimpleChanges } from "@angular/core";
 import { getPayees } from "../../../core/reducers/transactions.reducer";
+import { Actions, ofType } from "@ngrx/effects";
+import { map } from "rxjs/operators";
 
 @Component({
     selector: "moneteer-transaction",
@@ -102,7 +104,8 @@ export class TransactionComponent implements OnInit, OnChanges {
     public envelopes$: Observable<Array<EnvelopeModel>>;
 
     constructor(
-        private store: Store<IAccountsState>) {
+        private store: Store<IAccountsState>,
+        private actions$: Actions) {
 
     }
 
@@ -116,6 +119,15 @@ export class TransactionComponent implements OnInit, OnChanges {
         const splitChild: EnvelopeModel = new EnvelopeModel("Multiple Categories");
         splitChild.id = "SplitCategory";
         splitChild.envelopeCategory = splitMaster;
+
+        this.actions$.pipe(
+            ofType(TransactionsActionTypes.UpdateTransactionSuccess),
+            map((t: UpdateTransactionSuccessAction) => t.payload.transaction.id)
+        ).subscribe(id => {
+            if (id === this.transaction.id) {
+                this.isEditing = false;
+            }
+        })
     }
 
     ngOnChanges(changes: SimpleChanges): void {

@@ -1,3 +1,4 @@
-<div class="stat-header text-shadow">Available Income</div>
+<div *ngIf="dataService.available >= 0" class="stat-header text-shadow">Available Income</div>
+<div *ngIf="dataService.available < 0" class="stat-header text-shadow">Overassigned</div>
 <div class="text-shadow" [ngClass]="{'is-good-light': dataService.available > 0, 'is-bad-light': dataService.available < 0}">{{dataService.available | budgetCurrency:true | async}}</div>
 <button class="btn btn-sm btn-primary" [hidden]="dataService.available <= 0" [routerLink]="'../../../assignIncome'">Move to Envelopes</button>

@@ -15,12 +15,12 @@ import { EnvelopesSelectionService } from '../../services/envelopes-selection.se
     }
 })
 export class EnvelopeDetailsBodyRecentTransactionsComponent implements OnInit {
-    public recentTransactions: Observable<RecentTransactionByEnvelope[]>;
+    public recentTransactions$: Observable<RecentTransactionByEnvelope[]>;
 
     constructor(private store: Store<ITransactionsState>, public selectionService: EnvelopesSelectionService) { }
 
     ngOnInit() {
-        this.recentTransactions = combineLatest(this.store.select(getRecentTransactionsByEnvelope), this.selectionService.selectedEnvelope).pipe(
+        this.recentTransactions$ = combineLatest(this.store.select(getRecentTransactionsByEnvelope), this.selectionService.selectedEnvelope).pipe(
             map(([recentTransactions, selectedEnvelope]) => recentTransactions.filter(rt => !!selectedEnvelope && rt.envelopeId === selectedEnvelope.id ))
         );
     }
