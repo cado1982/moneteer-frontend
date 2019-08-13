@@ -169,11 +169,11 @@ export class DropdownListComponent<T> implements OnInit {
                 });
 
                 if (this.groupedItems.length > 0 && this.groupedItems[0].items.length > 0) {
-                    this.selectedItem = this.groupedItems[0].items[0];
+                    //this.selectedItem = this.groupedItems[0].items[0];
                 }
             } else {
                 if (this.filteredItems.length > 0) {
-                    this.selectedItem = this.filteredItems[0];
+                    //this.selectedItem = this.filteredItems[0];
                 }       
             }
         });
