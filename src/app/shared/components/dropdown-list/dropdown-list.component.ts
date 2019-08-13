@@ -42,23 +42,25 @@ export class DropdownListComponent<T> implements OnInit {
             this.searchFilter = this._selectedItem[this.itemDisplayProperty]
         }
 
+        this.scrollToSelectedItem();
+
         this.selectedItemChange.emit(this._selectedItem);
     }
     @Output() public selectedItemChange = new EventEmitter<T | null>();
 
-    private _highlightedItem: T | null = null;
-    public get highlightedItem(): T | null {
-        return this._highlightedItem;
-    }
-    public set highlightedItem(value: T | null) {
-        this._highlightedItem = value;
-        this.scrollToHighlightedItem();
-    }
+    // private _highlightedItem: T | null = null;
+    // public get highlightedItem(): T | null {
+    //     return this._highlightedItem;
+    // }
+    // public set highlightedItem(value: T | null) {
+    //     this._highlightedItem = value;
+    //     this.scrollToHighlightedItem();
+    // }
 
-    private scrollToHighlightedItem(): void {
-        if (!this.highlightedItem || !this.itemElements) return;
+    private scrollToSelectedItem(): void {
+        if (!this.selectedItem || !this.itemElements) return;
 
-        const elements = this.itemElements.filter(e => e.nativeElement.id === this.highlightedItem![this.idProperty]);
+        const elements = this.itemElements.filter(e => e.nativeElement.id === this.selectedItem![this.idProperty]);
 
         if (!!elements && elements.length > 0) {
             elements[0].nativeElement.scrollIntoView(false);
@@ -70,36 +72,46 @@ export class DropdownListComponent<T> implements OnInit {
     }
 
     private onDownPressed(): void {
-        if (this.highlightedItem === null) return;
+        if (this.selectedItem === null) {
+            if (this.filteredItems.length > 0) {
+                this.selectedItem = this.filteredItems[0]
+            }
+            return;
+        }
 
-        const highlightedIndex = this.items.indexOf(this.highlightedItem)
-        const nextIndex = highlightedIndex + 1;
+        const selectedIndex = this.filteredItems.indexOf(this.selectedItem)
+        const nextIndex = selectedIndex + 1;
 
-        if (nextIndex > this.items.length - 1) { return } // Already at end of array
+        if (nextIndex > this.filteredItems.length - 1) { return } // Already at end of array
 
-        const nextItem = this.items[nextIndex];
-        this.highlightedItem = nextItem;
+        const nextItem = this.filteredItems[nextIndex];
+        this.selectedItem = nextItem;
     }
 
     private onUpPressed(): void {
-        if (this.highlightedItem === null) return;
+        if (this.selectedItem === null) {
+            if (this.filteredItems.length > 0) {
+                this.selectedItem = this.filteredItems[0]
+            }
+            return;
+        }
 
-        const highlightedIndex = this.items.indexOf(this.highlightedItem)
+        const highlightedIndex = this.filteredItems.indexOf(this.selectedItem)
         const previousIndex = highlightedIndex - 1;
 
         if (previousIndex < 0) { return } // Already at start of array
 
-        const previousItem = this.items[previousIndex]
-        this.highlightedItem = previousItem;
+        const previousItem = this.filteredItems[previousIndex]
+        this.selectedItem = previousItem;
     }
 
     private onEnterPressed(): void {
-        this.selectedItem = this.highlightedItem;
+        //this.selectedItem = this.highlightedItem;
         this.inputBox.nativeElement.blur();
     }
 
-    public isItemHighlighted(item: T): boolean {
-        return !!this.highlightedItem && item[this.idProperty] === this.highlightedItem[this.idProperty];
+    public isItemSelected(item: T): boolean {
+        return !!this.selectedItem && item[this.idProperty] === this.selectedItem[this.idProperty];
     }
 
     public onSearchInputBlur(): void {
@@ -108,8 +120,6 @@ export class DropdownListComponent<T> implements OnInit {
             this.clickedItem = null;
         } else if (!this.searchFilter) {
             this.selectedItem = null;
-        } else if (!!this.highlightedItem) {
-            this.selectedItem = this.highlightedItem;
         }
     }
 
@@ -123,9 +133,9 @@ export class DropdownListComponent<T> implements OnInit {
         $event.target.select();
 
         this.searchFilterTerm$.next("");
-        if (this.selectedItem !== null) {
-            this.highlightedItem = this.selectedItem
-        }
+        // if (this.selectedItem !== null) {
+        //     this.highlightedItem = this.selectedItem
+        // }
     }
 
     public onSearchInputKeyUp($event: any): void {
@@ -159,11 +169,11 @@ export class DropdownListComponent<T> implements OnInit {
                 });
 
                 if (this.groupedItems.length > 0 && this.groupedItems[0].items.length > 0) {
-                    this.highlightedItem = this.groupedItems[0].items[0];
+                    this.selectedItem = this.groupedItems[0].items[0];
                 }
             } else {
                 if (this.filteredItems.length > 0) {
-                    this.highlightedItem = this.filteredItems[0];
+                    this.selectedItem = this.filteredItems[0];
                 }       
             }
         });
