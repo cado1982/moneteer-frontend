@@ -1,20 +1,22 @@
-import { map, switchMap, mergeMap, tap, filter } from "rxjs/operators";
+import { map, mergeMap, filter, switchMap } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { EnvelopesService } from "../services/envelopes.service";
 import { EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesAction, 
-         CreateEnvelopeCategoryAction, CreateEnvelopeCategorySuccessAction, CreateEnvelopeCategoryFailureAction, AssignIncomeSuccessAction, AssignIncomeFailureAction, AssignIncomeRequestAction, LoadEnvelopesFailureAction, LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesSuccessAction, LoadEnvelopeCategoriesFailureAction, CreateEnvelopeAction, CreateEnvelopeSuccessAction, CreateEnvelopeFailureAction, DeleteEnvelopeAction, DeleteEnvelopeSuccessAction, DeleteEnvelopeFailureAction } from "../actions/envelopes.actions";
+         CreateEnvelopeCategoryAction, CreateEnvelopeCategorySuccessAction, CreateEnvelopeCategoryFailureAction, AssignIncomeSuccessAction, AssignIncomeFailureAction, AssignIncomeRequestAction, LoadEnvelopesFailureAction, LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesSuccessAction, LoadEnvelopeCategoriesFailureAction, CreateEnvelopeAction, CreateEnvelopeSuccessAction, CreateEnvelopeFailureAction, DeleteEnvelopeAction, DeleteEnvelopeSuccessAction, DeleteEnvelopeFailureAction, GetAvailableIncomeFailureAction, GetAvailableIncomeRequestAction, GetAvailableIncomeSuccessAction } from "../actions/envelopes.actions";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
 import { IEnvelopesState } from "../reducers/envelopes.reducer";
 import { getActiveBudget } from "../reducers/budget.reducer";
 import { BudgetModel } from "../models";
 import { Store } from "@ngrx/store";
+import { BudgetService } from "../services";
 
 @Injectable()
 export class EnvelopesEffects {
     constructor(
         private envelopesService: EnvelopesService,
+        private budgetService: BudgetService,
         private actions$: Actions,
         private envelopesStore: Store<IEnvelopesState>
     ) { }
@@ -22,7 +24,7 @@ export class EnvelopesEffects {
     @Effect() load$ = this.actions$.pipe(
         ofType(EnvelopesActionTypes.Load),
         mergeMap((action: LoadEnvelopesAction) => this.envelopesService.getEnvelopesForBudget(action.payload.budgetId).pipe(
-            map(response => new LoadEnvelopesSuccessAction({envelopes: response.envelopes, available: response.available})),
+            map(envelopes => new LoadEnvelopesSuccessAction({envelopes: envelopes})),
             catchError(error => of(new LoadEnvelopesFailureAction(error)))
         )
     ));
@@ -71,7 +73,18 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.AssignIncomeSuccess),
         switchMap(() => this.envelopesStore.select(getActiveBudget).pipe(
             filter((activeBudget: BudgetModel | null): activeBudget is BudgetModel => activeBudget !== null ),
-            map((activeBudget: BudgetModel) => new LoadEnvelopesAction({budgetId: activeBudget.id}))
+            switchMap((activeBudget: BudgetModel) => [
+                new LoadEnvelopesAction({budgetId: activeBudget.id}),
+                new GetAvailableIncomeRequestAction({budgetId: activeBudget.id})
+            ])
+        )
+    ));
+
+    @Effect() getAvailableIncome$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.GetAvailableIncomeRequest),
+        mergeMap((action: GetAvailableIncomeRequestAction) => this.budgetService.getAvailableIncome(action.payload.budgetId).pipe(
+            map(availableIncome => new GetAvailableIncomeSuccessAction({availableIncome: availableIncome})),
+            catchError(error => of(new GetAvailableIncomeFailureAction(error)))
         )
     ));
 }

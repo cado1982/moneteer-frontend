@@ -8,7 +8,7 @@ import { EnvelopeModel } from 'src/app/core/models';
     templateUrl: './envelope-details-body-actions.component.html',
     styleUrls: ['./envelope-details-body-actions.component.scss'],
     host: {
-        "class": "d-inline-flex flex-column align-items-baseline"
+        "class": "d-flex flex-column align-items-stretch border-bottom pb-4 mb-4"
     }
 })
 export class EnvelopeDetailsBodyActionsComponent implements OnInit {

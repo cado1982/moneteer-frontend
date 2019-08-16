@@ -21,10 +21,10 @@
                 <a class="link link-child" *ngFor="let account of budgetAccounts | async" routerLinkActive="active"
                 [routerLink]="['accounts', account.id]">
                 <div class="account-container">
-                    <div class="account-name text-shadow">
+                    <div class="account-name text-shadow text-truncate flex-grow-1 flex-shrink-1">
                         {{account.name}}
                     </div>
-                    <div class="badge badge-pill"
+                    <div class="badge badge-pill flex-grow-0 flex-shrink-0"
                         [ngClass]="{'badge-danger': account.clearedBalance + account.unclearedBalance < 0, 'badge-light': account.clearedBalance + account.unclearedBalance >= 0}">
                         {{account.clearedBalance + account.unclearedBalance | budgetCurrency:true | async}}
                     </div>

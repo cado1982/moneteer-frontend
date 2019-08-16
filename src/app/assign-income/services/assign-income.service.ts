@@ -1,13 +1,13 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IEnvelopesState, getAvailable, getEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
+import { IEnvelopesState, getAvailableIncome, getEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
 import { EnvelopeModel } from 'src/app/core/models';
 import { AssignIncomeRequestAction, EnvelopesActionTypes, AssignIncomeFailureAction } from 'src/app/core/actions/envelopes.actions';
-import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { AssignIncomeRequest, AssignIncome } from 'src/app/core/models/assign.income.request';
 import { Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
-import { Subject, Observable, combineLatest, BehaviorSubject } from 'rxjs';
+import { Subject, Observable, combineLatest } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AssignIncomeService {
@@ -22,10 +22,9 @@ export class AssignIncomeService {
     public envelopes$: Observable<EnvelopeModel[]>;
     public assignments: AssignIncome[] = [];
     public isBusy: boolean = false;
-    public budgetId: string;
 
-    constructor(private store: Store<IEnvelopesState>, private actions$: Actions) {
-        this.availableIncome$ = this.store.select(getAvailable);
+    constructor(private store: Store<IEnvelopesState>, private actions$: Actions, private router: Router) {
+        this.availableIncome$ = this.store.select(getAvailableIncome);
         this.percentageAssigned$ = combineLatest(this.availableIncome$, this.assignedIncome$).pipe(
             map(([availableIncome, assignedIncome]) => availableIncome === 0 ? 0 : (assignedIncome / availableIncome) * 100)
         )
@@ -69,13 +68,14 @@ export class AssignIncomeService {
             ofType(EnvelopesActionTypes.AssignIncomeSuccess)
         ).subscribe(() => {
             this.isBusy = false;
+            this.router.navigate(['../', 'envelopes']);
         })
     }
 
-    submit() {
+    submit(budgetId: string) {
         let request = new AssignIncomeRequest(this.assignments);
 
-        this.store.dispatch(new AssignIncomeRequestAction({ budgetId: this.budgetId, request }));
+        this.store.dispatch(new AssignIncomeRequestAction({ budgetId: budgetId, request }));
         this.isBusy = true;
     }
 

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AssignIncomeService } from '../../services/assign-income.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'moneteer-assign-income-header',
@@ -8,9 +9,14 @@ import { AssignIncomeService } from '../../services/assign-income.service';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor(public service: AssignIncomeService) { }
+    constructor(
+        public service: AssignIncomeService,
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
     }
 
+    submit() {
+        this.service.submit(this.route.snapshot.params.budgetId);
+    }
 }

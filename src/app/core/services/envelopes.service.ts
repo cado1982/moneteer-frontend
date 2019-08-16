@@ -14,8 +14,8 @@ export class EnvelopesService extends ApiBaseService {
         super(http, authService);
     }
 
-    public getEnvelopesForBudget(budgetId: string): Observable<{envelopes: EnvelopeModel[], available: number}> {
-        return this.get<{envelopes: EnvelopeModel[], available: number}>(`budget/${budgetId}/envelopes`);
+    public getEnvelopesForBudget(budgetId: string): Observable<EnvelopeModel[]> {
+        return this.get<EnvelopeModel[]>(`budget/${budgetId}/envelopes`);
     }
 
     public getEnvelopeCategoriesForBudget(budgetId: string): Observable<EnvelopeCategoryModel[]> {

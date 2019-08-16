@@ -1,19 +1,20 @@
-<div *ngIf="(recentTransactions$ | async).length > 0">
-    <header>Recent Transactions</header>
-    <table class="table table-xs">
-        <thead>
-            <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Payee</th>
-                <th scope="col">Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let transaction of recentTransactions | async">
-                <td>{{transaction.date | date:'shortDate'}}</td>
-                <td>{{transaction.payee}}</td>
-                <td>{{transaction.amount | budgetCurrency | async}}</td>
-            </tr>
-        </tbody>
-    </table>
+<h5>Recent Transactions</h5>
+<div *ngIf="(recentTransactions$ | async).length == 0" class="text-muted">
+    No recent transactions
 </div>
+<table *ngIf="(recentTransactions$ | async).length > 0" class="table table-xs">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Payee</th>
+            <th scope="col">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of recentTransactions$ | async">
+            <td>{{transaction.date | date:'shortDate'}}</td>
+            <td>{{transaction.payee}}</td>
+            <td>{{transaction.amount | budgetCurrency | async}}</td>
+        </tr>
+    </tbody>
+</table>

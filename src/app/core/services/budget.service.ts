@@ -28,4 +28,8 @@ export class BudgetService extends ApiBaseService {
     public deleteBudget(budgetId: string): Observable<string> {
         return this.delete("budget/" + budgetId).pipe(map(() => budgetId));
     }
+
+    public getAvailableIncome(budgetId: string): Observable<number> {
+        return this.get<number>(`budget/${budgetId}/availableIncome`)
+    }
 }

@@ -7,19 +7,19 @@ import { EnvelopeModel, EnvelopeCategoryModel } from "../models";
 export interface IEnvelopesState {
     envelopes: Array<EnvelopeModel>;
     envelopeCategories: Array<EnvelopeCategoryModel>;
-    available: number;
+    availableIncome: number;
 }
 
 const initialState: IEnvelopesState = {
     envelopes: [],
     envelopeCategories: [],
-    available: 0
+    availableIncome: 0
 };
 
 export function envelopesReducer(state: IEnvelopesState = initialState, action: EnvelopesActions): IEnvelopesState {
     switch (action.type) {
         case EnvelopesActionTypes.LoadSuccess:
-            return {...state, envelopes: action.payload.envelopes, available: action.payload.available };
+            return {...state, envelopes: action.payload.envelopes };
         case EnvelopesActionTypes.LoadCategoriesSuccess:
             return {...state, envelopeCategories: action.payload.envelopeCategories};
         case EnvelopesActionTypes.CreateEnvelopeCategorySuccess:
@@ -28,6 +28,8 @@ export function envelopesReducer(state: IEnvelopesState = initialState, action: 
             return {...state, envelopes: [...state.envelopes, action.payload.envelope]}
         case EnvelopesActionTypes.DeleteEnvelopeSuccess:
             return {...state, envelopes: [...state.envelopes.filter(e => e.id !== action.payload.envelopeId)]}
+        case EnvelopesActionTypes.GetAvailableIncomeSuccess:
+            return {...state, availableIncome: action.payload.availableIncome}
         default: {
             return state;
         }
@@ -44,9 +46,9 @@ export const getEnvelopes = createSelector(
     state => state.envelopes
 );
 
-export const getAvailable = createSelector(
+export const getAvailableIncome = createSelector(
     envelopesState,
-    state => state.available
+    state => state.availableIncome
 );
 
 export const getEnvelopeCategories = createSelector(

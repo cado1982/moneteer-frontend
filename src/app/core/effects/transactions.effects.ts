@@ -77,6 +77,7 @@ export class TransactionsEffects {
                 new LoadEnvelopesAction({budgetId: activeBudget.id}),
                 new LoadBudgetAction({budgetId: activeBudget.id}),
                 new LoadSingleAccountAction({accountId: action.payload.transaction.account.id}),
+                new LoadRecentTransactionsByEnvelopeAction({budgetId: activeBudget.id}),
                 new DeselectAllTransactionsAction()
             ])
         ))
@@ -93,12 +94,13 @@ export class TransactionsEffects {
 
     @Effect() updateTransactionSuccess$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.UpdateTransactionSuccess),
-        switchMap(() => this.budgetStore.select(getActiveBudget).pipe(
+        switchMap((action: UpdateTransactionSuccessAction) => this.budgetStore.select(getActiveBudget).pipe(
             first(),
             filter((activeBudget: BudgetModel | null): activeBudget is BudgetModel => activeBudget !== null ),
             switchMap(activeBudget => [
                 new LoadEnvelopesAction({budgetId: activeBudget.id}),
                 new LoadBudgetAction({budgetId: activeBudget.id}),
+                new LoadSingleAccountAction({accountId: action.payload.transaction.account.id}),
                 new DeselectAllTransactionsAction()
             ])
         ))

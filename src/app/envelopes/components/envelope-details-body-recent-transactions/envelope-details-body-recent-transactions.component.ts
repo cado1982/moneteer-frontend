@@ -10,9 +10,7 @@ import { EnvelopesSelectionService } from '../../services/envelopes-selection.se
     selector: 'moneteer-envelope-details-body-recent-transactions',
     templateUrl: './envelope-details-body-recent-transactions.component.html',
     styleUrls: ['./envelope-details-body-recent-transactions.component.scss'],
-    host: {
-        'class': 'm-3'
-    }
+    host: { 'class': 'pb-4 mb-4' }
 })
 export class EnvelopeDetailsBodyRecentTransactionsComponent implements OnInit {
     public recentTransactions$: Observable<RecentTransactionByEnvelope[]>;

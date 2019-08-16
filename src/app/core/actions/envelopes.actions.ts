@@ -21,6 +21,9 @@ export enum EnvelopesActionTypes {
     AssignIncomeRequest = "[Envelopes] Assign Income Request",
     AssignIncomeSuccess = "[Envelopes] Assign Income Success",
     AssignIncomeFailure = "[Envelopes] Assign Income Failure",
+    GetAvailableIncomeRequest = "[Envelopes] Get Available Income Request",
+    GetAvailableIncomeSuccess = "[Envelopes] Get Available Income Success",
+    GetAvailableIncomeFailure = "[Envelopes] Get Available Income Failure",
 }
 
 
@@ -30,7 +33,7 @@ export class LoadEnvelopesAction implements Action {
 }
 export class LoadEnvelopesSuccessAction implements Action {
     readonly type = EnvelopesActionTypes.LoadSuccess;
-    constructor(public payload: {envelopes: EnvelopeModel[], available: number}) { }
+    constructor(public payload: {envelopes: EnvelopeModel[]}) { }
 }
 export class LoadEnvelopesFailureAction implements Action {
     readonly type = EnvelopesActionTypes.LoadFailure;
@@ -102,6 +105,19 @@ export class AssignIncomeFailureAction implements Action {
     constructor(public payload: {error: string}) { }
 }
 
+export class GetAvailableIncomeRequestAction implements Action {
+    readonly type = EnvelopesActionTypes.GetAvailableIncomeRequest;
+    constructor(public payload: {budgetId: string}) { }
+}
+export class GetAvailableIncomeSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.GetAvailableIncomeSuccess;
+    constructor(public payload: {availableIncome: number}) { }
+}
+export class GetAvailableIncomeFailureAction implements Action {
+    readonly type = EnvelopesActionTypes.GetAvailableIncomeFailure;
+    constructor(public payload: {error: string}) { }
+}
+
 export type EnvelopesActions =
     | CreateEnvelopeCategoryAction
     | CreateEnvelopeCategorySuccessAction
@@ -120,4 +136,7 @@ export type EnvelopesActions =
     | LoadEnvelopeCategoriesFailureAction
     | AssignIncomeRequestAction
     | AssignIncomeSuccessAction
-    | AssignIncomeFailureAction;
+    | AssignIncomeFailureAction
+    | GetAvailableIncomeRequestAction
+    | GetAvailableIncomeSuccessAction
+    | GetAvailableIncomeFailureAction;

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { EnvelopeModel } from 'src/app/core/models';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { IEnvelopesState, getAvailable, getEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
+import { IEnvelopesState, getAvailableIncome, getEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
 import { AssignIncomeService } from '../../services/assign-income.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -16,10 +16,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-    public currentlyAssigned = 0;
-    public availableIncome = 0;
+    //public currentlyAssigned = 0;
+    //public availableIncome = 0;
 
-    public envelopes$: Observable<EnvelopeModel[]>;
+    //public envelopes$: Observable<EnvelopeModel[]>;
 
     constructor(
         private actions$: Actions,
@@ -31,8 +31,8 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store.select(getAvailable).subscribe(a => this.availableIncome = a);
-        this.envelopes$ = this.store.select(getEnvelopes);
-        this.service.budgetId = this.route.snapshot.params.budgetId;
+        //this.store.select(getAvailableIncome).subscribe(a => this.availableIncome = a);
+        //this.envelopes$ = this.store.select(getEnvelopes);
+        //this.service.budgetId = this.route.snapshot.params.budgetId;
     }
 }

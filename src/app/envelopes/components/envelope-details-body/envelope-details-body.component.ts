@@ -6,7 +6,7 @@ import { EnvelopeModel } from 'src/app/core/models';
     templateUrl: './envelope-details-body.component.html',
     styleUrls: ['./envelope-details-body.component.scss'],
     host: {
-        "class": "d-inline-flex flex-column border-bottom border-right border-left overflow-auto"
+        'class': 'd-flex flex-column border-bottom border-right border-left overflow-auto p-4'
     }
 })
 export class EnvelopeDetailsBodyComponent implements OnInit {

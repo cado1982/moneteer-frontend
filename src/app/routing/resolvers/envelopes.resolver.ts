@@ -6,7 +6,9 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/r
 import { Store } from "@ngrx/store";
 import { Actions, ofType } from "@ngrx/effects";
 import { IEnvelopesState } from "../../core/reducers/envelopes.reducer";
-import { LoadEnvelopesAction, EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesFailureAction, LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesSuccessAction, LoadEnvelopeCategoriesFailureAction } from "../../core/actions/envelopes.actions";
+import { LoadEnvelopesAction, EnvelopesActionTypes, LoadEnvelopesFailureAction, 
+         LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesFailureAction,
+         GetAvailableIncomeRequestAction, GetAvailableIncomeFailureAction } from "../../core/actions/envelopes.actions";
 import { EnvelopeModel } from "../../core/models";
 import { } from "rxjs/internal/operators"
 
@@ -25,6 +27,7 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
         
         this.store.dispatch(new LoadEnvelopesAction({budgetId}));
         this.store.dispatch(new LoadEnvelopeCategoriesAction({budgetId}));
+        this.store.dispatch(new GetAvailableIncomeRequestAction({budgetId}));
 
         const envelopesSuccess = this.actions$.pipe(
             ofType(EnvelopesActionTypes.LoadSuccess),
@@ -35,7 +38,18 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
             ofType(EnvelopesActionTypes.LoadCategoriesSuccess),
             first()
         );
-            
+
+        const availableIncomeSuccess = this.actions$.pipe(
+            ofType(EnvelopesActionTypes.GetAvailableIncomeSuccess),
+            first()
+        );
+        
+        const availableIncomeFailure = this.actions$.pipe(
+            ofType(EnvelopesActionTypes.GetAvailableIncomeFailure),
+            map((action: GetAvailableIncomeFailureAction) => { throw new Error(action.payload.error) }),
+            first()
+        );
+
         const envelopesFailure = this.actions$.pipe(
             ofType(EnvelopesActionTypes.LoadFailure),
             map((action: LoadEnvelopesFailureAction) => { throw new Error(action.payload.error) }),
@@ -48,8 +62,8 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
             first()
         );
 
-        const success = merge(envelopesSuccess, categoriesSuccess);
+        const success = merge(envelopesSuccess, categoriesSuccess, availableIncomeSuccess);
 
-        return race(success, envelopesFailure, categoriesFailure)
+        return race(success, envelopesFailure, categoriesFailure, availableIncomeFailure);
     }
 }

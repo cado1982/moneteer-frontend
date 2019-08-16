@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, ElementRef, Output, EventEmitter, ViewChildren, QueryList, ViewChild, ContentChildren, TemplateRef } from '@angular/core';
-import { DropdownComponent } from '..';
-import { BehaviorSubject, Observable, combineLatest, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Component, OnInit, Input, ElementRef, Output, EventEmitter,
+         ViewChildren, QueryList, ViewChild, TemplateRef } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { groupBy, get } from 'lodash';
-
 
 @Component({
     selector: 'moneteer-dropdown-list',
@@ -47,15 +45,6 @@ export class DropdownListComponent<T> implements OnInit {
         this.selectedItemChange.emit(this._selectedItem);
     }
     @Output() public selectedItemChange = new EventEmitter<T | null>();
-
-    // private _highlightedItem: T | null = null;
-    // public get highlightedItem(): T | null {
-    //     return this._highlightedItem;
-    // }
-    // public set highlightedItem(value: T | null) {
-    //     this._highlightedItem = value;
-    //     this.scrollToHighlightedItem();
-    // }
 
     private scrollToSelectedItem(): void {
         if (!this.selectedItem || !this.itemElements) return;
