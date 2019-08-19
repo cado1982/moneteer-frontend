@@ -7,8 +7,7 @@ import { Store } from "@ngrx/store";
 import { Actions, ofType } from "@ngrx/effects";
 import { IEnvelopesState } from "../../core/reducers/envelopes.reducer";
 import { LoadEnvelopesAction, EnvelopesActionTypes, LoadEnvelopesFailureAction, 
-         LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesFailureAction,
-         GetAvailableIncomeRequestAction, GetAvailableIncomeFailureAction } from "../../core/actions/envelopes.actions";
+         LoadEnvelopeCategoriesAction, LoadEnvelopeCategoriesFailureAction } from "../../core/actions/envelopes.actions";
 import { EnvelopeModel } from "../../core/models";
 import { } from "rxjs/internal/operators"
 
@@ -27,7 +26,6 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
         
         this.store.dispatch(new LoadEnvelopesAction({budgetId}));
         this.store.dispatch(new LoadEnvelopeCategoriesAction({budgetId}));
-        this.store.dispatch(new GetAvailableIncomeRequestAction({budgetId}));
 
         const envelopesSuccess = this.actions$.pipe(
             ofType(EnvelopesActionTypes.LoadSuccess),
@@ -36,17 +34,6 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
 
         const categoriesSuccess = this.actions$.pipe(
             ofType(EnvelopesActionTypes.LoadCategoriesSuccess),
-            first()
-        );
-
-        const availableIncomeSuccess = this.actions$.pipe(
-            ofType(EnvelopesActionTypes.GetAvailableIncomeSuccess),
-            first()
-        );
-        
-        const availableIncomeFailure = this.actions$.pipe(
-            ofType(EnvelopesActionTypes.GetAvailableIncomeFailure),
-            map((action: GetAvailableIncomeFailureAction) => { throw new Error(action.payload.error) }),
             first()
         );
 
@@ -62,8 +49,8 @@ export class EnvelopesResolver implements Resolve<Array<EnvelopeModel>> {
             first()
         );
 
-        const success = merge(envelopesSuccess, categoriesSuccess, availableIncomeSuccess);
+        const success = merge(envelopesSuccess, categoriesSuccess);
 
-        return race(success, envelopesFailure, categoriesFailure, availableIncomeFailure);
+        return race(success, envelopesFailure, categoriesFailure);
     }
 }

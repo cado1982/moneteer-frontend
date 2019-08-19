@@ -1,3 +1,3 @@
 <h5>Actions</h5>
-<button class="btn btn-sm btn-outline-primary mt-2">Move balance</button>
-<button class="btn btn-sm btn-outline-primary mt-2">Set balance to zero</button>
+<button class="btn btn-sm btn-outline-primary mt-2" [disabled]="selectedEnvelope?.balance <= 0">Move balance</button>
+<button class="btn btn-sm btn-outline-primary mt-2" [disabled]="selectedEnvelope?.balance <= 0">Set balance to zero</button>

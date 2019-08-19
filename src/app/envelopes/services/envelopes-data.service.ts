@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IEnvelopesState, getEnvelopes, getAvailableIncome, getEnvelopeCategories } from 'src/app/core/reducers/envelopes.reducer';
+import { IEnvelopesState, getEnvelopes, getAvailableIncomeEnvelope, getEnvelopeCategories } from 'src/app/core/reducers/envelopes.reducer';
 import { EnvelopeModel, EnvelopeCategoryModel } from 'src/app/core/models';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class EnvelopesDataService {
     private searchQuery$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
     constructor(private store: Store<IEnvelopesState>) {
-        this.store.select(getAvailableIncome).subscribe(a => this.available = a);
+        this.store.select(getAvailableIncomeEnvelope).pipe(map(e => !e ? 0 : e.balance)).subscribe(a => this.available = a);
         this.envelopeCategories$ = this.store.select(getEnvelopeCategories);
         this.envelopesByCategory$ = combineLatest(this.store.select(getEnvelopes), this.searchQuery$, this.envelopeCategories$).pipe(
             map(([envelopes, searchFilter, categories]) => {

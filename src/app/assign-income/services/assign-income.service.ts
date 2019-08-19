@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IEnvelopesState, getAvailableIncome, getEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
+import { IEnvelopesState, getAvailableIncomeEnvelope, getEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
 import { EnvelopeModel } from 'src/app/core/models';
-import { AssignIncomeRequestAction, EnvelopesActionTypes, AssignIncomeFailureAction } from 'src/app/core/actions/envelopes.actions';
+import { EnvelopesActionTypes } from 'src/app/core/actions/envelopes.actions';
 import { AssignIncomeRequest, AssignIncome } from 'src/app/core/models/assign.income.request';
 import { Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
@@ -24,7 +24,9 @@ export class AssignIncomeService {
     public isBusy: boolean = false;
 
     constructor(private store: Store<IEnvelopesState>, private actions$: Actions, private router: Router) {
-        this.availableIncome$ = this.store.select(getAvailableIncome);
+        this.availableIncome$ = this.store.select(getAvailableIncomeEnvelope).pipe(
+            map(e => !e ? 0 : e.balance)
+        );
         this.percentageAssigned$ = combineLatest(this.availableIncome$, this.assignedIncome$).pipe(
             map(([availableIncome, assignedIncome]) => availableIncome === 0 ? 0 : (assignedIncome / availableIncome) * 100)
         )
@@ -57,25 +59,25 @@ export class AssignIncomeService {
 
         this.envelopes$ = this.store.select(getEnvelopes)
 
-        this.actions$.pipe(
-            ofType(EnvelopesActionTypes.AssignIncomeFailure),
-            map((action: AssignIncomeFailureAction) => action.payload.error)
-        ).subscribe(error => {
-            console.error(error)
-            this.isBusy = false;
-        })
-        this.actions$.pipe(
-            ofType(EnvelopesActionTypes.AssignIncomeSuccess)
-        ).subscribe(() => {
-            this.isBusy = false;
-            this.router.navigate(['../', 'envelopes']);
-        })
+        // this.actions$.pipe(
+        //     ofType(EnvelopesActionTypes.AssignIncomeFailure),
+        //     map((action: AssignIncomeFailureAction) => action.payload.error)
+        // ).subscribe(error => {
+        //     console.error(error)
+        //     this.isBusy = false;
+        // })
+        // this.actions$.pipe(
+        //     ofType(EnvelopesActionTypes.AssignIncomeSuccess)
+        // ).subscribe(() => {
+        //     this.isBusy = false;
+        //     this.router.navigate(['../', 'envelopes']);
+        // })
     }
 
     submit(budgetId: string) {
         let request = new AssignIncomeRequest(this.assignments);
 
-        this.store.dispatch(new AssignIncomeRequestAction({ budgetId: budgetId, request }));
+        //this.store.dispatch(new AssignIncomeRequestAction({ budgetId: budgetId, request }));
         this.isBusy = true;
     }
 

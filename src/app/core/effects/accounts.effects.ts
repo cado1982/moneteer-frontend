@@ -2,13 +2,13 @@ import { map, switchMap, mergeMap, tap } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { AccountsActionTypes, LoadAllAccountsAction, LoadAllAccountsSuccessAction,
-         CreateAccountAction, CreateAccountSuccessAction, CreateAccountFailureAction, LoadSingleAccountAction, LoadSingleAccountSuccessAction, LoadAllAccountsFailureAction, LoadSingleAccountFailureAction } from "../actions/accounts.actions";
+         CreateAccountAction, CreateAccountSuccessAction, CreateAccountFailureAction,
+         LoadSingleAccountAction, LoadSingleAccountSuccessAction,
+         LoadAllAccountsFailureAction, LoadSingleAccountFailureAction } from "../actions/accounts.actions";
 import { AccountService } from "../../core/services";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
-import { LoadTransactionsForAccountAction } from "../actions/transactions.actions";
-import { LoadBudgetAction } from "../actions/budget.actions";
-import { GetAvailableIncomeRequestAction } from "../actions/envelopes.actions";
+import { LoadEnvelopesAction } from "../actions/envelopes.actions";
 
 @Injectable()
 export class AccountsEffects {
@@ -44,9 +44,8 @@ export class AccountsEffects {
     @Effect() createAccountSuccess$ = this.actions$.pipe(
         ofType(AccountsActionTypes.CreateSuccess),
         switchMap((action: CreateAccountSuccessAction) => [
-            //new LoadTransactionsForAccountAction({ accountId: action.payload.account.id }),
             new LoadSingleAccountAction({ accountId: action.payload.account.id }),
-            new GetAvailableIncomeRequestAction({ budgetId: action.payload.account.budgetId })
+            new LoadEnvelopesAction({ budgetId: action.payload.account.budgetId })
         ])
     )
 }

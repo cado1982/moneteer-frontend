@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store";
 import { EnvelopeModel, EnvelopeCategoryModel } from "../models";
-import { AssignIncomeRequest } from "../models/assign.income.request";
+import { MoveBalanceRequest } from "../models/move.balance.request";
 
 export enum EnvelopesActionTypes {
     Load = "[Envelopes] Load",
@@ -18,12 +18,9 @@ export enum EnvelopesActionTypes {
     DeleteEnvelope = "[Envelopes] Delete Envelope",
     DeleteEnvelopeSuccess = "[Envelopes] Delete Envelope Success",
     DeleteEnvelopeFailure = "[Envelopes] Delete Envelope Failure",
-    AssignIncomeRequest = "[Envelopes] Assign Income Request",
-    AssignIncomeSuccess = "[Envelopes] Assign Income Success",
-    AssignIncomeFailure = "[Envelopes] Assign Income Failure",
-    GetAvailableIncomeRequest = "[Envelopes] Get Available Income Request",
-    GetAvailableIncomeSuccess = "[Envelopes] Get Available Income Success",
-    GetAvailableIncomeFailure = "[Envelopes] Get Available Income Failure",
+    MoveBalanceRequest = "[Envelopes] Move Balance Request",
+    MoveBalanceSuccess = "[Envelopes] Move Balance Success",
+    MoveBalanceFailure = "[Envelopes] Move Balance Failure",
 }
 
 
@@ -93,28 +90,15 @@ export class DeleteEnvelopeFailureAction implements Action {
     constructor(public payload: {error: string}) { }
 }
 
-export class AssignIncomeRequestAction implements Action {
-    readonly type = EnvelopesActionTypes.AssignIncomeRequest;
-    constructor(public payload: {budgetId: string, request: AssignIncomeRequest}) { }
+export class MoveBalanceRequestAction implements Action {
+    readonly type = EnvelopesActionTypes.MoveBalanceRequest;
+    constructor(public payload: {fromEnvelopeId: string, request: MoveBalanceRequest}) { }
 }
-export class AssignIncomeSuccessAction implements Action {
-    readonly type = EnvelopesActionTypes.AssignIncomeSuccess;
+export class MoveBalanceSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.MoveBalanceSuccess;
 }
-export class AssignIncomeFailureAction implements Action {
-    readonly type = EnvelopesActionTypes.AssignIncomeFailure;
-    constructor(public payload: {error: string}) { }
-}
-
-export class GetAvailableIncomeRequestAction implements Action {
-    readonly type = EnvelopesActionTypes.GetAvailableIncomeRequest;
-    constructor(public payload: {budgetId: string}) { }
-}
-export class GetAvailableIncomeSuccessAction implements Action {
-    readonly type = EnvelopesActionTypes.GetAvailableIncomeSuccess;
-    constructor(public payload: {availableIncome: number}) { }
-}
-export class GetAvailableIncomeFailureAction implements Action {
-    readonly type = EnvelopesActionTypes.GetAvailableIncomeFailure;
+export class MoveBalanceFailureAction implements Action {
+    readonly type = EnvelopesActionTypes.MoveBalanceFailure;
     constructor(public payload: {error: string}) { }
 }
 
@@ -134,9 +118,6 @@ export type EnvelopesActions =
     | LoadEnvelopeCategoriesAction
     | LoadEnvelopeCategoriesSuccessAction
     | LoadEnvelopeCategoriesFailureAction
-    | AssignIncomeRequestAction
-    | AssignIncomeSuccessAction
-    | AssignIncomeFailureAction
-    | GetAvailableIncomeRequestAction
-    | GetAvailableIncomeSuccessAction
-    | GetAvailableIncomeFailureAction;
+    | MoveBalanceRequestAction
+    | MoveBalanceSuccessAction
+    | MoveBalanceFailureAction;
