@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EnvelopeModel } from 'src/app/core/models';
+import { EnvelopeModel, EnvelopeBalanceTarget } from 'src/app/core/models';
 import { AssignIncomeService } from '../../services/assign-income.service';
-import { AssignIncome } from 'src/app/core/models/assign.income.request';
-
 
 @Component({
     selector: 'moneteer-assign-income-envelope-list-envelope',
@@ -22,7 +20,7 @@ export class EnvelopeListEnvelopeComponent implements OnInit {
     public set assigned(newValue: number) {
         this._assigned = newValue;
         this.balance = this.envelope.balance + newValue;
-        const model = new AssignIncome(this.envelope, newValue);
+        const model = new EnvelopeBalanceTarget(this.envelope.id, newValue);
         this.service.assignments$.next(model);
     }
     public balance: number;
@@ -33,11 +31,9 @@ export class EnvelopeListEnvelopeComponent implements OnInit {
         this.balance = this.envelope.balance;
     }
 
-    // onAssignedChanged() {
-    //     this.balance = this.envelope.balance + this.assigned;
-    //     const model = new AssignIncome(this.envelope, this.assigned);
-    //     this.service.assignments$.next(model);
-    //     //this.service.updateAssignment(model);
-
-    // }
+    onAssignedChanged() {
+        this.balance = this.envelope.balance + this.assigned;
+        const model = new EnvelopeBalanceTarget(this.envelope.id, this.assigned);
+        this.service.assignments$.next(model);
+    }
 }

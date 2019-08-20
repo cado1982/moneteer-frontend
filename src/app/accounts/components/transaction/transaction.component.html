@@ -33,7 +33,7 @@
     </div>
     <div class="transaction-cell transaction-cell--category">
         <span *ngIf="!isEditing">{{transaction?.envelope?.name}}</span>
-        <moneteer-envelope-select-dropdown *ngIf="isEditing" [disabled]="inflow > 0" [(selectedEnvelope)]="envelope"
+        <moneteer-envelope-select-dropdown *ngIf="isEditing" [(selectedEnvelope)]="envelope"
             [envelopes]="envelopes$ | async"></moneteer-envelope-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--flow">

@@ -69,7 +69,7 @@ export class EnvelopesEffects {
 
     @Effect() moveBalance$ = this.actions$.pipe(
         ofType(EnvelopesActionTypes.MoveBalanceRequest),
-        switchMap((action: MoveBalanceRequestAction) => this.envelopesService.moveBalance(action.payload.fromEnvelopeId, action.payload.request).pipe(
+        switchMap((action: MoveBalanceRequestAction) => this.envelopesService.moveBalance(action.payload.fromEnvelopeId, action.payload.targets).pipe(
             map(() => new MoveBalanceSuccessAction()),
             catchError(error => of(new MoveBalanceFailureAction(error)))
         )

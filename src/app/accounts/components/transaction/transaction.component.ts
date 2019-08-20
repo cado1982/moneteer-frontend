@@ -7,7 +7,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.reducer";
 import { UpdateTransactionAction, SetTransactionClearedAction, SelectTransactionAction, DeselectTransactionAction, TransactionsActionTypes, UpdateTransactionSuccessAction } from "../../../core/actions/transactions.actions";
-import { getEnvelopes } from "../../../core/reducers/envelopes.reducer";
+import { getAllEnvelopes } from "../../../core/reducers/envelopes.reducer";
 import { getIsCreating } from "../../../core/reducers/transactions.reducer";
 import { OnChanges } from "@angular/core";
 import { SimpleChanges } from "@angular/core";
@@ -46,7 +46,6 @@ export class TransactionComponent implements OnInit, OnChanges {
         this._inflow = newValue;
         if (newValue > 0) {
             this.outflow = 0;
-            this.envelope = undefined;
         }
     }
 
@@ -111,7 +110,7 @@ export class TransactionComponent implements OnInit, OnChanges {
 
     public ngOnInit(): void {
         this.accounts$ = this.store.select(getAccounts);
-        this.envelopes$ = this.store.select(getEnvelopes);
+        this.envelopes$ = this.store.select(getAllEnvelopes);
         this.payees$ = this.store.select(getPayees);
         this.isBusy$ = this.store.select(getIsCreating);
 

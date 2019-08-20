@@ -37,14 +37,19 @@ const envelopesState = createSelector(
     state => state.envelopes
 );
 
-export const getEnvelopes = createSelector(
+export const getAllEnvelopes = createSelector(
     envelopesState,
-    state => state.envelopes.filter(e => e.name !== "Available Income" && e.envelopeCategory.name !== "Income")
+    state => state.envelopes
+);
+
+export const getBudgetEnvelopes = createSelector(
+    getAllEnvelopes,
+    envelopes => envelopes.filter(e => e.name !== "Available Income" && e.envelopeCategory.name !== "Income")
 );
 
 export const getAvailableIncomeEnvelope = createSelector(
-    envelopesState,
-    state => state.envelopes.find(e => e.name === "Available Income" && e.envelopeCategory.name === "Income")
+    getAllEnvelopes,
+    envelopes => envelopes.find(e => e.name === "Available Income" && e.envelopeCategory.name === "Income")!
 );
 
 export const getEnvelopeCategories = createSelector(

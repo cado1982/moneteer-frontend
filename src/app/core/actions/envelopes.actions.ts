@@ -1,6 +1,5 @@
 import { Action } from "@ngrx/store";
-import { EnvelopeModel, EnvelopeCategoryModel } from "../models";
-import { MoveBalanceRequest } from "../models/move.balance.request";
+import { EnvelopeModel, EnvelopeCategoryModel, EnvelopeBalanceTarget } from "../models";
 
 export enum EnvelopesActionTypes {
     Load = "[Envelopes] Load",
@@ -92,7 +91,7 @@ export class DeleteEnvelopeFailureAction implements Action {
 
 export class MoveBalanceRequestAction implements Action {
     readonly type = EnvelopesActionTypes.MoveBalanceRequest;
-    constructor(public payload: {fromEnvelopeId: string, request: MoveBalanceRequest}) { }
+    constructor(public payload: {fromEnvelopeId: string, targets: EnvelopeBalanceTarget[]}) { }
 }
 export class MoveBalanceSuccessAction implements Action {
     readonly type = EnvelopesActionTypes.MoveBalanceSuccess;
