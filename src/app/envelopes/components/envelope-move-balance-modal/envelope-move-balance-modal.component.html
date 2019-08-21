@@ -1,0 +1,39 @@
+<form (ngSubmit)="submit()">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="far fa-envelope"></i>
+            <span> Move Envelope Balance</span>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="fromEnvelope">From</label>
+            <input id="fromEnvelope" disabled [value]="fromEnvelope?.name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="toEnvelope">To</label>
+            <moneteer-envelope-select-dropdown inputSize="" [envelopes]="envelopes$ | async" [(selectedEnvelope)]="toEnvelope">
+                </moneteer-envelope-select-dropdown>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount to move</label>
+            <input id="initialBalance" class="form-control" moneteerCurrencyInput [(value)]="amount"
+                allowZeros=true allowNegative=false>
+        </div>
+    </div>
+    <div class="modal-footer flex-column align-items-stretch">
+        <div class="align-self-end">
+            <button type="button" class="btn btn-link" (click)="modal.dismiss('Close click')">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!canSubmit()">
+                <span [hidden]="!isBusy" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                Move Balance
+            </button>
+        </div>
+
+        <moneteer-error-alert [error]="error"></moneteer-error-alert>
+    </div>
+</form>

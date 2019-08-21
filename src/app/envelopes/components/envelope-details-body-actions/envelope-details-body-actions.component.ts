@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EnvelopeDeleteModalComponent } from '../envelope-delete-modal/envelope-delete-modal.component';
 import { EnvelopeModel } from 'src/app/core/models';
+import { EnvelopeMoveBalanceModalComponent } from '../envelope-move-balance-modal/envelope-move-balance-modal.component';
+import { EnvelopeSetBalanceZeroModalComponent } from '../envelope-set-balance-zero-modal/envelope-set-balance-zero-modal.component';
 
 @Component({
     selector: 'moneteer-envelope-details-body-actions',
@@ -18,12 +20,27 @@ export class EnvelopeDetailsBodyActionsComponent implements OnInit {
     constructor(private modal: NgbModal) { }
 
     ngOnInit() {
+
     }
 
     deleteCategory() {
         if (!this.selectedEnvelope) return;
 
         let modalRef = this.modal.open(EnvelopeDeleteModalComponent);
+        modalRef.componentInstance.envelope = this.selectedEnvelope;
+    }
+
+    moveBalance() {
+        if (!this.selectedEnvelope || this.selectedEnvelope.balance <= 0) return;
+
+        let modalRef = this.modal.open(EnvelopeMoveBalanceModalComponent);
+        modalRef.componentInstance.fromEnvelope = this.selectedEnvelope;
+    }
+
+    setBalanceToZero() {
+        if (!this.selectedEnvelope || this.selectedEnvelope.balance <= 0) return;
+
+        let modalRef = this.modal.open(EnvelopeSetBalanceZeroModalComponent);
         modalRef.componentInstance.envelope = this.selectedEnvelope;
     }
 }

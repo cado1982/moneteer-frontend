@@ -18,6 +18,8 @@ import { EnvelopesAddModalComponent } from './components/envelopes-add-modal/env
 import { EnvelopeDetailsBodyRecentTransactionsComponent } from './components/envelope-details-body-recent-transactions/envelope-details-body-recent-transactions.component';
 import { EnvelopeAddCategoryModalComponent } from './components/envelope-add-category-modal/envelope-add-category-modal.component';
 import { EnvelopeDeleteModalComponent } from './components/envelope-delete-modal/envelope-delete-modal.component';
+import { EnvelopeMoveBalanceModalComponent } from './components/envelope-move-balance-modal/envelope-move-balance-modal.component';
+import { EnvelopeSetBalanceZeroModalComponent } from './components/envelope-set-balance-zero-modal/envelope-set-balance-zero-modal.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,9 @@ import { EnvelopeDeleteModalComponent } from './components/envelope-delete-modal
         EnvelopesAddModalComponent,
         EnvelopeDetailsBodyRecentTransactionsComponent,
         EnvelopeAddCategoryModalComponent,
-        EnvelopeDeleteModalComponent
+        EnvelopeDeleteModalComponent,
+        EnvelopeMoveBalanceModalComponent,
+        EnvelopeSetBalanceZeroModalComponent
     ],
     imports: [
         EnvelopesRoutingModule,
@@ -49,7 +53,9 @@ import { EnvelopeDeleteModalComponent } from './components/envelope-delete-modal
     entryComponents: [
         EnvelopeAddCategoryModalComponent,
         EnvelopesAddModalComponent,
-        EnvelopeDeleteModalComponent
+        EnvelopeDeleteModalComponent,
+        EnvelopeMoveBalanceModalComponent,
+        EnvelopeSetBalanceZeroModalComponent
     ]
 })
 export class EnvelopesModule {

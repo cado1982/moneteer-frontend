@@ -1,0 +1,32 @@
+<form (ngSubmit)="submit()">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <i class="far fa-envelope"></i>
+            <span> Set Envelope Balance To Zero</span>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="envelope">Envelope</label>
+            <input id="envelope" disabled [value]="envelope?.name" class="form-control">
+        </div>
+        <div class="mt-3">
+            Are you sure you want to set the envelope balance to zero? The balance will be moved to Available Income.
+        </div>
+    </div>
+    <div class="modal-footer flex-column align-items-stretch">
+        <div class="align-self-end">
+            <button type="button" class="btn btn-link" (click)="modal.dismiss('Close click')">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+                <span [hidden]="!isBusy" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                Set Balance To Zero
+            </button>
+        </div>
+
+        <moneteer-error-alert [error]="error"></moneteer-error-alert>
+    </div>
+</form>

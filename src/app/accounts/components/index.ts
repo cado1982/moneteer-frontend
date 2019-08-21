@@ -9,5 +9,4 @@ export * from "./transaction-assignment/transaction.assignment.component";
 export * from "./transaction/transaction.component";
 export * from "./accounts-detail/accounts.detail.component";
 export * from "./payee-select-dropdown/payee.select.dropdown.component"
-export * from "./envelope-select-dropdown/envelope.select.dropdown.component"
 export * from "./account-select-dropdown/account.select.dropdown.component"

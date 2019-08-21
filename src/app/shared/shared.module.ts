@@ -17,6 +17,7 @@ import { EnvelopeCategorySelectDropdownComponent } from './components/envelope-c
 import { CurrencyInputDirective } from './directives/currency-input.directive';
 import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
 import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
+import { EnvelopeSelectDropdownComponent } from "./components/envelope-select-dropdown/envelope.select.dropdown.component";
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import { ErrorAlertComponent } from './components/error-alert/error-alert.compon
         CurrencyInputDirective,
         DropdownListComponent,
         ReactiveFormsModule,
-        ErrorAlertComponent
+        ErrorAlertComponent,
+        EnvelopeSelectDropdownComponent
     ],
     providers: [
         DatePipe,
@@ -71,7 +73,8 @@ import { ErrorAlertComponent } from './components/error-alert/error-alert.compon
         EnvelopeCategorySelectDropdownComponent,
         CurrencyInputDirective,
         DropdownListComponent,
-        ErrorAlertComponent
+        ErrorAlertComponent,
+        EnvelopeSelectDropdownComponent
     ]
 })
 export class SharedModule {

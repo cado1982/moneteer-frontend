@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnvelopeSelectDropdownComponent } from './envelope.select.dropdown.component';
-import { DropdownComponent } from '../../../shared/components';
+import { DropdownComponent } from '..';
 import { FormsModule } from '@angular/forms';
 
 describe('EnvelopeSelectDropdownComponent', () => {

@@ -9,6 +9,7 @@ import { EnvelopeModel } from '../../../core/models';
 export class EnvelopeSelectDropdownComponent implements OnInit {
     @Input() public disabled: Boolean;
     @Input() envelopes: EnvelopeModel[];
+    @Input() public inputSize: string;
     
     private _selectedEnvelope: EnvelopeModel | null;
     @Input() public get selectedEnvelope() { return this._selectedEnvelope; }

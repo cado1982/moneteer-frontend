@@ -1,6 +1,6 @@
 <div class="info-container">
     <h5>Assign Income</h5>
-    <div class="text-success">{{service.availableIncome$ | async | budgetCurrency:true | async}}</div>
+    <div class="text-success">{{service.availableIncomeEnvelope?.balance | budgetCurrency:true | async}}</div>
     <div id="progress-container">
         <moneteer-assign-income-header-progress class="align-items-center"></moneteer-assign-income-header-progress>
     </div>
