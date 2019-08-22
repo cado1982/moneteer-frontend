@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TransactionDeleteModalComponent } from './transaction-delete-modal.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('TransactionDeleteModalComponent', () => {
   let component: TransactionDeleteModalComponent;
@@ -8,7 +9,10 @@ describe('TransactionDeleteModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransactionDeleteModalComponent ]
+      declarations: [ TransactionDeleteModalComponent ],
+      providers: [
+          { provide: NgbActiveModal, useClass: jasmine.createSpyObj<NgbActiveModal>('NgbActiveModal', []) }
+      ]
     })
     .compileComponents();
   }));

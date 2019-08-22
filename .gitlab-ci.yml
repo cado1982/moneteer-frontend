@@ -1,5 +1,9 @@
 image: node:latest
 
+variables:
+  - S3_BUCKET_NAME: "moneteer-app.s3.amazonaws.com"
+  - AWS_DEFAULT_REGION: "eu-west-1"
+
 cache:
   paths:
     - node_modules/
@@ -16,6 +20,9 @@ build:
   stage: build
   script:
     - "./node_modules/.bin/ng build --prod"
+  artifacts:
+    paths:
+      - dist/
 
 test:
   stage: test
@@ -24,3 +31,9 @@ test:
 
 release:
   stage: release
+  image: python:latest
+  script:
+    - pip install awscli
+    - aws s3 sync ./dist s3://$S3_BUCKET_NAME/ --delete
+  only:
+    - master

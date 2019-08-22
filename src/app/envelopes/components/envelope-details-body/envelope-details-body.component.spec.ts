@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnvelopeDetailsBodyComponent } from './envelope-details-body.component';
+import { EnvelopeDetailsBodyStatsComponent } from '../envelope-details-body-stats/envelope-details-body-stats.component';
+import { EnvelopeDetailsBodyActionsComponent } from '../envelope-details-body-actions/envelope-details-body-actions.component';
+import { EnvelopeDetailsBodyRecentTransactionsComponent } from '../envelope-details-body-recent-transactions/envelope-details-body-recent-transactions.component';
 
 describe('EnvelopeDetailsBodyComponent', () => {
   let component: EnvelopeDetailsBodyComponent;
@@ -8,7 +11,7 @@ describe('EnvelopeDetailsBodyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EnvelopeDetailsBodyComponent ]
+      declarations: [ EnvelopeDetailsBodyComponent, EnvelopeDetailsBodyStatsComponent, EnvelopeDetailsBodyActionsComponent, EnvelopeDetailsBodyRecentTransactionsComponent ]
     })
     .compileComponents();
   }));
