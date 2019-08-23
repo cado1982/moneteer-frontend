@@ -1,5 +1,4 @@
 import { MoneteerPage } from "./app.po";
-import "jasmine";
 
 describe("moneteer App", () => {
   let page: MoneteerPage;

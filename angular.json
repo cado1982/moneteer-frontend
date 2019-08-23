@@ -75,15 +75,16 @@
                 "test": {
                     "builder": "@angular-builders/jest:run",
                     "options": {
-                        "configPath": "../jest.config.js"
+                        "configPath": "jest.config.js",
+                        "tsConfig": "src/tsconfig.spec.json"
                     }
                 },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": [
-                            "tsconfig.app.json",
-                            "tsconfig.spec.json"
+                            "src/tsconfig.app.json",
+                            "src/tsconfig.spec.json"
                         ],
                         "exclude": []
                     }

@@ -1,23 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-
 import { EnvelopesDataService } from './envelopes-data.service';
-import { Store } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { IEnvelopesState } from 'src/app/core/reducers/envelopes.reducer';
 
-describe('EnvelopesDataService', () => {
-    let storeSpy: jasmine.SpyObj<Store<IEnvelopesState>>;
-
+describe('Service: EnvelopesDataService', async () => {
+    let service: EnvelopesDataService;
+    let _store: any;
+    let spy: any;
+    
     beforeEach(() => {
-        const spy = jasmine.createSpyObj("Store", ["select"])
-
         TestBed.configureTestingModule({
-            providers: [
-                EnvelopesDataService, 
-                { provide: Store, useValue: storeSpy }
-            ]
+            imports: [StoreModule.forRoot({})],
+            providers: [EnvelopesDataService, Store]
         });
 
-        storeSpy = TestBed.get(Store);
+        service = TestBed.get(EnvelopesDataService);
+        _store = TestBed.get(Store);
     });
 
     it('should be created', () => {
