@@ -3,7 +3,7 @@ import { EnvelopesDataService } from './envelopes-data.service';
 import { Store, StoreModule } from '@ngrx/store';
 import { IEnvelopesState } from 'src/app/core/reducers/envelopes.reducer';
 
-describe('Service: EnvelopesDataService', async () => {
+describe('Service: EnvelopesDataService', () => {
     let service: EnvelopesDataService;
     let _store: any;
     let spy: any;

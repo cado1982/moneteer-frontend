@@ -11,61 +11,61 @@ import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { By } from "@angular/platform-browser";
 
 describe("TransactionHeaderComponent", () => {
-  let component: TransactionHeaderComponent;
-  let fixture: ComponentFixture<TransactionHeaderComponent>;
-  const actions$: Observable<TransactionsActions> = new Observable();
-  let store: MockStore<ITransactionsState>;
+    let component: TransactionHeaderComponent;
+    let fixture: ComponentFixture<TransactionHeaderComponent>;
+    const actions$: Observable<TransactionsActions> = new Observable();
+    let store: MockStore<ITransactionsState>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TransactionHeaderComponent ],
-      imports: [ 
-        NoopAnimationsModule
-      ],
-      providers: [ 
-        provideMockStore(),
-        provideMockActions(() => actions$)
-      ]
-    }).compileComponents();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [TransactionHeaderComponent],
+            imports: [
+                NoopAnimationsModule
+            ],
+            providers: [
+                provideMockStore(),
+                provideMockActions(() => actions$)
+            ]
+        }).compileComponents();
 
-    store = TestBed.get(Store);
+        store = TestBed.get(Store);
 
-    fixture = TestBed.createComponent(TransactionHeaderComponent);
-    component = fixture.componentInstance;
-  }));
+        fixture = TestBed.createComponent(TransactionHeaderComponent);
+        component = fixture.componentInstance;
+    }));
 
-  test("should be created", () => {
-    expect(component).toBeTruthy();
-  });
+    test("should be created", () => {
+        expect(component).toBeTruthy();
+    });
 
-  test("should allow adding inflow", () => {
-    const spy = jest.spyOn(store, 'dispatch');
-    const action = new ShowCreateTransactionAction({mode: CreateTransactionMode.Inflow});
-    
-    let addInflowButton = fixture.debugElement.query(By.css("#addInflow"));
-    addInflowButton.triggerEventHandler("click", null);
+    test("should allow adding inflow", () => {
+        const spy = jest.spyOn(store, 'dispatch');
+        const action = new ShowCreateTransactionAction({ mode: CreateTransactionMode.Inflow });
 
-    expect(spy).toHaveBeenCalledWith(action);
-  });
+        let addInflowButton = fixture.debugElement.query(By.css("#addInflow"));
+        addInflowButton.triggerEventHandler("click", null);
 
-  test("should allow adding outflow", () => {
-    const spy = jest.spyOn(store, 'dispatch');
-    const action = new ShowCreateTransactionAction({mode: CreateTransactionMode.Outflow});
-    
-    let addOutflowButton = fixture.debugElement.query(By.css("#addOutflow"));
-    addOutflowButton.triggerEventHandler("click", null);
+        expect(spy).toHaveBeenCalledWith(action);
+    });
 
-    expect(spy).toHaveBeenCalledWith(action);
-  });
+    test("should allow adding outflow", () => {
+        const spy = jest.spyOn(store, 'dispatch');
+        const action = new ShowCreateTransactionAction({ mode: CreateTransactionMode.Outflow });
 
-  test("should disable delete transactions button when no transactions selected", () => {
-    store.overrideSelector(getSelectedTransactions, [])
+        let addOutflowButton = fixture.debugElement.query(By.css("#addOutflow"));
+        addOutflowButton.triggerEventHandler("click", null);
 
-    component.ngOnInit();
-    fixture.detectChanges();
+        expect(spy).toHaveBeenCalledWith(action);
+    });
 
-    let deleteTransactionsButton = fixture.debugElement.query(By.css("#deleteTransactions"));
+    test("should disable delete transactions button when no transactions selected", () => {
+        store.overrideSelector(getSelectedTransactions, [])
 
-    expect(deleteTransactionsButton.nativeElement.disabled).toBeTruthy();
-  });
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        let deleteTransactionsButton = fixture.debugElement.query(By.css("#deleteTransactions"));
+
+        expect(deleteTransactionsButton.nativeElement.disabled).toBeTruthy();
+    });
 });

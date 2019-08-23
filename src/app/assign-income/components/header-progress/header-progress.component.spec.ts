@@ -1,7 +1,6 @@
 import { HeaderProgressComponent } from '../header-progress/header-progress.component';
 import { AssignIncomeService } from '../../services/assign-income.service';
-import { createTestComponentFactory } from '@netbasal/spectator/jest/spectator';
-import { Spectator } from '@netbasal/spectator/jest/internals';
+import { Spectator, createTestComponentFactory, mockProvider } from '@netbasal/spectator/jest';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('HeaderProgressComponent', () => {
@@ -10,7 +9,7 @@ describe('HeaderProgressComponent', () => {
         component: HeaderProgressComponent,
         imports: [NgbModule],
         providers: [
-            AssignIncomeService
+            mockProvider(AssignIncomeService)
         ]
     });
 

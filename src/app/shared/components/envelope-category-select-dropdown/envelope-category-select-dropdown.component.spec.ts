@@ -1,26 +1,27 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
 
 import { EnvelopeCategorySelectDropdownComponent } from './envelope-category-select-dropdown.component';
+import { MockComponent } from 'ng-mocks';
 import { DropdownListComponent } from '../dropdown-list/dropdown-list.component';
 
+
 describe('EnvelopeCategorySelectDropdownComponent', () => {
-  let component: EnvelopeCategorySelectDropdownComponent;
-  let fixture: ComponentFixture<EnvelopeCategorySelectDropdownComponent>;
+    let spectator: Spectator<EnvelopeCategorySelectDropdownComponent>;
+    const createComponent = createTestComponentFactory({
+        component: EnvelopeCategorySelectDropdownComponent,
+        declarations: [
+            MockComponent(DropdownListComponent)
+        ]
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EnvelopeCategorySelectDropdownComponent, DropdownListComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EnvelopeCategorySelectDropdownComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });
+
+
+
+
+

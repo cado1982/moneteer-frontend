@@ -1,32 +1,33 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EnvelopeDetailsBodyRecentTransactionsComponent } from './envelope-details-body-recent-transactions.component';
-import { MockBudgetCurrencyPipe } from 'src/app/testing/budget-currency-pipe.mock';
-import { provideMockStore } from '@ngrx/store/testing';
 import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
+import { provideMockStore } from '@ngrx/store/testing';
+import { MockPipe } from 'ng-mocks';
+import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
+
 
 describe('EnvelopeDetailsBodyRecentTransactionsComponent', () => {
-    let component: EnvelopeDetailsBodyRecentTransactionsComponent;
-    let fixture: ComponentFixture<EnvelopeDetailsBodyRecentTransactionsComponent>;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [EnvelopeDetailsBodyRecentTransactionsComponent, MockBudgetCurrencyPipe],
-            providers: [
-                provideMockStore({initialState: {}}),
-                EnvelopesSelectionService
-            ]
-        })
-            .compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(EnvelopeDetailsBodyRecentTransactionsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    let spectator: Spectator<EnvelopeDetailsBodyRecentTransactionsComponent>;
+    const createComponent = createTestComponentFactory({
+        component: EnvelopeDetailsBodyRecentTransactionsComponent,
+        declarations: [
+            MockPipe(BudgetCurrencyPipe)
+        ],
+        providers: [
+            NgbModal,
+            EnvelopesSelectionService,
+            provideMockStore({initialState: {}})
+        ]
     });
+
+    beforeEach(() => spectator = createComponent());
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(spectator.component).toBeTruthy();
     });
 });
+
+
+

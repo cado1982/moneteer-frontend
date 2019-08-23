@@ -1,7 +1,5 @@
 
-import { Component, ViewContainerRef } from "@angular/core";
-import { AuthService } from "../services";
-import { ModalService } from "../services/modal.service";
+import { Component } from "@angular/core";
 
 @Component({
     selector: "moneteer-root",

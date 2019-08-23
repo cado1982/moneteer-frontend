@@ -1,25 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
 
-import { EnvelopeDetailsBodyActionsComponent } from './envelope-details-body-actions.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EnvelopeDetailsBodyActionsComponent } from '../envelope-details-body-actions/envelope-details-body-actions.component';
+
 
 describe('EnvelopeDetailsBodyActionsComponent', () => {
-  let component: EnvelopeDetailsBodyActionsComponent;
-  let fixture: ComponentFixture<EnvelopeDetailsBodyActionsComponent>;
+    let spectator: Spectator<EnvelopeDetailsBodyActionsComponent>;
+    const createComponent = createTestComponentFactory({
+        component: EnvelopeDetailsBodyActionsComponent,
+        providers: [NgbModal]
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EnvelopeDetailsBodyActionsComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EnvelopeDetailsBodyActionsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });
+
+

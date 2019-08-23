@@ -1,6 +1,4 @@
-import { ActionReducerMap, ActionReducer, MetaReducer, createFeatureSelector } from "@ngrx/store";
-import { storeFreeze } from "ngrx-store-freeze";
-import { environment } from "../../environments/environment";
+import { ActionReducerMap, MetaReducer } from "@ngrx/store";
 import * as fromRouter from '@ngrx/router-store';
 import { RouterStateUrl } from "../shared/utils";
 
@@ -11,7 +9,3 @@ export interface IState {
 export const reducers: ActionReducerMap<IState> = {
     router: fromRouter.routerReducer
 };
-
-export const metaReducers: MetaReducer<IState>[] = !environment.production
-  ? [storeFreeze]
-  : [];

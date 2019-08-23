@@ -1,28 +1,29 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
 
-import { EnvelopeDetailsBodyStatsComponent } from './envelope-details-body-stats.component';
-import { MockBudgetCurrencyPipe } from 'src/app/testing/budget-currency-pipe.mock';
 import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
+import { EnvelopeDetailsBodyStatsComponent } from './envelope-details-body-stats.component';
+import { MockPipe } from 'ng-mocks';
+import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
 
 describe('EnvelopeDetailsBodyStatsComponent', () => {
-    let component: EnvelopeDetailsBodyStatsComponent;
-    let fixture: ComponentFixture<EnvelopeDetailsBodyStatsComponent>;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [EnvelopeDetailsBodyStatsComponent, MockBudgetCurrencyPipe],
-            providers: [EnvelopesSelectionService]
-        })
-            .compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(EnvelopeDetailsBodyStatsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    let spectator: Spectator<EnvelopeDetailsBodyStatsComponent>;
+    const createComponent = createTestComponentFactory({
+        component: EnvelopeDetailsBodyStatsComponent,
+        providers: [
+            EnvelopesSelectionService
+        ],
+        declarations: [
+            MockPipe(BudgetCurrencyPipe)
+        ]
     });
+
+    beforeEach(() => spectator = createComponent());
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(spectator.component).toBeTruthy();
     });
 });
+
+
+
+

@@ -5,10 +5,11 @@ import { AccountModel } from "../../../accounts/models";
 import { Component } from "@angular/core";
 import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.reducer";
 import { cold } from 'jest-marbles';
-import { MockBudgetCurrencyPipe } from "src/app/testing/budget-currency-pipe.mock";
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { RouterTestingModule } from "@angular/router/testing";
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { MockPipe } from "ng-mocks";
+import { BudgetCurrencyPipe } from "src/app/shared/pipes/budget.currency.pipe";
 
 @Component({
     selector: 'moneteer-nav',
@@ -53,7 +54,7 @@ describe("Component: BudgetNavComponent", () => {
             ],
             declarations: [
                 BudgetNavComponent,
-                MockBudgetCurrencyPipe,
+                MockPipe(BudgetCurrencyPipe),
                 MockNavComponent,
                 MockAccountCreateComponent
             ]

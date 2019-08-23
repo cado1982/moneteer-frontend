@@ -1,29 +1,33 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory, mockProvider } from '@netbasal/spectator/jest';
 
+import { MockComponent } from 'ng-mocks';
+import { EnvelopesDataService } from '../../services/envelopes-data.service';
 import { EnvelopesBodyComponent } from './envelopes-body.component';
 import { EnvelopesCategoriesComponent } from '../envelopes-categories/envelopes.categories.component';
 import { EnvelopeDetailsComponent } from '../envelope-details/envelope-details.component';
-import { EnvelopesDataService } from '../../services/envelopes-data.service';
+
 
 describe('EnvelopesBodyComponent', () => {
-  let component: EnvelopesBodyComponent;
-  let fixture: ComponentFixture<EnvelopesBodyComponent>;
+    let spectator: Spectator<EnvelopesBodyComponent>;
+    const createComponent = createTestComponentFactory({
+        component: EnvelopesBodyComponent,
+        providers: [
+            mockProvider(EnvelopesDataService)
+        ],
+        declarations: [
+            MockComponent(EnvelopesCategoriesComponent),
+            MockComponent(EnvelopeDetailsComponent)
+        ]
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EnvelopesBodyComponent, EnvelopesCategoriesComponent, EnvelopeDetailsComponent ],
-      providers: [EnvelopesDataService]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EnvelopesBodyComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });
+
+
+
+
+

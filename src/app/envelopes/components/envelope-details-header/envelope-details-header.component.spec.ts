@@ -1,30 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
 
 import { EnvelopeDetailsHeaderComponent } from './envelope-details-header.component';
+import { MockPipe } from 'ng-mocks';
 import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
-import { MockBudgetCurrencyPipe } from 'src/app/testing/budget-currency-pipe.mock';
+
 
 describe('EnvelopeDetailsHeaderComponent', () => {
-    let component: EnvelopeDetailsHeaderComponent;
-    let fixture: ComponentFixture<EnvelopeDetailsHeaderComponent>;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [
-                EnvelopeDetailsHeaderComponent,
-                MockBudgetCurrencyPipe
-            ],
-        })
-        .compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(EnvelopeDetailsHeaderComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    let spectator: Spectator<EnvelopeDetailsHeaderComponent>;
+    const createComponent = createTestComponentFactory({
+        component: EnvelopeDetailsHeaderComponent,
+        declarations: [
+            MockPipe(BudgetCurrencyPipe)
+        ]
     });
+
+    beforeEach(() => spectator = createComponent());
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(spectator.component).toBeTruthy();
     });
 });
+
+
+
+

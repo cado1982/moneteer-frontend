@@ -1,11 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnvelopeSelectDropdownComponent } from './envelope.select.dropdown.component';
-import { DropdownComponent } from '..';
 import { FormsModule } from '@angular/forms';
-import { MockBudgetCurrencyPipe } from 'src/app/testing/budget-currency-pipe.mock';
-import { SharedModule } from '../../shared.module';
 import { DropdownListComponent } from '../dropdown-list/dropdown-list.component';
+import { MockPipe, MockComponent } from 'ng-mocks';
+import { BudgetCurrencyPipe } from '../../pipes/budget.currency.pipe';
 
 describe('EnvelopeSelectDropdownComponent', () => {
     let component: EnvelopeSelectDropdownComponent;
@@ -13,7 +12,11 @@ describe('EnvelopeSelectDropdownComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [EnvelopeSelectDropdownComponent, DropdownComponent, MockBudgetCurrencyPipe, DropdownListComponent],
+            declarations: [
+                EnvelopeSelectDropdownComponent,
+                MockPipe(BudgetCurrencyPipe),
+                MockComponent(DropdownListComponent)
+            ],
             imports: [FormsModule]
         })
             .compileComponents();

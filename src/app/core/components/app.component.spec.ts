@@ -1,29 +1,31 @@
-import { TestBed, async } from "@angular/core/testing";
-import { RouterTestingModule } from "@angular/router/testing";
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { MockComponent } from 'ng-mocks';
 
-import { AppComponent } from "./app.component";
-import { ErrorModalComponent } from "./error-modal/error.modal.component";
-import { ModalService } from "../services";
+import { ErrorAlertComponent } from 'src/app/shared/components/error-alert/error-alert.component';
+import { AppComponent } from './app.component';
+import { LoadingBarComponent } from '@ngx-loading-bar/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ErrorModalComponent } from './error-modal/error.modal.component';
 
-describe("AppComponent", () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent,
-        ErrorModalComponent
-      ],
-      providers: [
-        ModalService
-      ]
-    }).compileComponents();
-  }));
+describe('AppComponent', () => {
+    let spectator: Spectator<AppComponent>;
+    const createComponent = createTestComponentFactory({
+        component: AppComponent,
+        imports: [
+            RouterTestingModule
+        ],
+        declarations: [
+            MockComponent(ErrorAlertComponent),
+            MockComponent(LoadingBarComponent),
+            MockComponent(ErrorModalComponent)
+        ],
+    });
 
-  it("should create the app", async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+    beforeEach(() => spectator = createComponent());
+
+
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });
+

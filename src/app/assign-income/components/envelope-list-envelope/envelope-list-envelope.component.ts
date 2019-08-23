@@ -28,7 +28,7 @@ export class EnvelopeListEnvelopeComponent implements OnInit {
     constructor(private service: AssignIncomeService) { }
 
     ngOnInit() {
-        this.balance = this.envelope.balance;
+        this.balance = !this.envelope ? 0 : this.envelope.balance;
     }
 
     onAssignedChanged() {

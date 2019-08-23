@@ -5,13 +5,13 @@
 
 <div class="actions">
 
-    <button [disabled]="(accounts$ | async).length === 0" id="addInflow" class="btn btn-xs btn-outline-success mr-2"
+    <button [disabled]="(accounts$ | async)?.length === 0" id="addInflow" class="btn btn-xs btn-outline-success mr-2"
         (click)="addInflow()">
         <i class="fas fa-plus-circle"></i><span> Add Income </span>
     </button>
 
 
-    <button [disabled]="(accounts$ | async).length === 0" id="addOutflow" class="btn btn-xs btn-outline-danger mr-2"
+    <button [disabled]="(accounts$ | async)?.length === 0" id="addOutflow" class="btn btn-xs btn-outline-danger mr-2"
         (click)="addOutflow()">
         <i class="fas fa-minus-circle"></i><span> Add Expense </span>
     </button>

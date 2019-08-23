@@ -1,38 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DropdownComponent } from '../../../shared/components';
-import { FormsModule } from '@angular/forms';
-import { AccountSelectDropdownComponent } from 'src/app/accounts/components';
-import { FilterByPipe } from 'src/app/shared/pipes/filter.by.pipe';
-import { PairsPipe } from 'src/app/shared/pipes/pairs.pipe';
-import { GroupByPipe } from 'src/app/shared/pipes/group.by.pipe';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { MockComponent, MockPipe } from 'ng-mocks';
+import { DropdownListComponent } from 'src/app/shared/components/dropdown-list/dropdown-list.component';
+import { AccountSelectDropdownComponent } from './account.select.dropdown.component';
+import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
 
 describe('AccountSelectDropdownComponent', () => {
-  let component: AccountSelectDropdownComponent;
-  let fixture: ComponentFixture<AccountSelectDropdownComponent>;
+    let spectator: Spectator<AccountSelectDropdownComponent>;
+    const createComponent = createTestComponentFactory({
+        component: AccountSelectDropdownComponent,
+        declarations: [
+            MockComponent(DropdownListComponent),
+            MockPipe(BudgetCurrencyPipe)
+        ]
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ 
-        AccountSelectDropdownComponent,
-        DropdownComponent,
-        PairsPipe,
-        FilterByPipe,
-        GroupByPipe
-      ],
-      imports: [ FormsModule ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AccountSelectDropdownComponent);
-    component = fixture.componentInstance;
-    component.accounts = [];
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });

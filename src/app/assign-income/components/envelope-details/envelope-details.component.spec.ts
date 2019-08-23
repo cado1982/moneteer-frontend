@@ -1,6 +1,5 @@
 import { EnvelopeDetailsComponent } from './envelope-details.component';
-import { Spectator } from '@netbasal/spectator/jest/internals';
-import { createTestComponentFactory } from '@netbasal/spectator/jest/spectator';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
 
 describe('EnvelopeDetailsComponent', () => {
     let spectator: Spectator<EnvelopeDetailsComponent>;

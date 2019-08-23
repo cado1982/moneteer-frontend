@@ -4,7 +4,7 @@ import { CoreModule } from "./core/core.module";
 import { AppComponent } from "./core/components/app.component";
 import { SharedModule } from "./shared/shared.module";
 import { StoreModule } from "@ngrx/store";
-import { reducers, metaReducers } from "./reducers";
+import { reducers } from "./reducers";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { EffectsModule } from "@ngrx/effects";
@@ -15,7 +15,14 @@ import { RouterLinkDirectiveStub } from "./testing/router-link-directive.stub";
         HttpClientModule,
         CoreModule,
         SharedModule,
-        StoreModule.forRoot(reducers, {metaReducers}),
+        StoreModule.forRoot(reducers, {
+            runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true,
+                strictStateSerializability: true,
+                strictActionSerializability: true,
+            }
+        }),
         StoreDevtoolsModule.instrument({
             name: "Moneteer",
             logOnly: environment.production

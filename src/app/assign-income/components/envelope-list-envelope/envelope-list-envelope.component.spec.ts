@@ -1,18 +1,21 @@
 import { EnvelopeListEnvelopeComponent } from './envelope-list-envelope.component';
 import { CurrencyInputDirective } from 'src/app/shared/directives/currency-input.directive';
-import { MockBudgetCurrencyPipe } from 'src/app/testing/budget-currency-pipe.mock';
 import { AssignIncomeService } from '../../services/assign-income.service';
-import { Spectator } from '@netbasal/spectator/jest/internals';
-import { createTestComponentFactory } from '@netbasal/spectator/jest/spectator';
+import { Spectator, createTestComponentFactory, mockProvider } from '@netbasal/spectator/jest';
+import { MockDirective, MockPipe } from 'ng-mocks';
+import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
 
 describe('EnvelopeListEnvelopeComponent', () => {
     let spectator: Spectator<EnvelopeListEnvelopeComponent>;
     let createComponent = createTestComponentFactory({
         component: EnvelopeListEnvelopeComponent,
         providers: [
-            AssignIncomeService
+            mockProvider(AssignIncomeService)
         ],
-        declarations: [CurrencyInputDirective, MockBudgetCurrencyPipe]
+        declarations: [
+            MockDirective(CurrencyInputDirective),
+            MockPipe(BudgetCurrencyPipe)
+        ]
     });
 
     beforeEach(() => spectator = createComponent());

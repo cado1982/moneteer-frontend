@@ -1,8 +1,8 @@
 <h5>Recent Transactions</h5>
-<div *ngIf="(recentTransactions$ | async).length == 0" class="text-muted">
+<div *ngIf="(recentTransactions$ | async)?.length == 0" class="text-muted">
     No recent transactions
 </div>
-<table *ngIf="(recentTransactions$ | async).length > 0" class="table table-xs">
+<table *ngIf="(recentTransactions$ | async)?.length > 0" class="table table-xs">
     <thead>
         <tr>
             <th scope="col">Date</th>

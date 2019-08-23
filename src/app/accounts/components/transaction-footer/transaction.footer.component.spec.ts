@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { TransactionFooterComponent } from "./transaction.footer.component";
 import { BudgetCurrencyPipe } from "../../../shared/pipes/budget.currency.pipe";
 import { provideMockStore } from "@ngrx/store/testing";
+import { MockPipe } from "ng-mocks";
 
 describe("TransactionFooterComponent", () => {
     let component: TransactionFooterComponent;
@@ -10,9 +11,11 @@ describe("TransactionFooterComponent", () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TransactionFooterComponent, BudgetCurrencyPipe],
+            declarations: [
+                TransactionFooterComponent, 
+                MockPipe(BudgetCurrencyPipe)
+            ],
             providers: [
-                BudgetCurrencyPipe,
                 provideMockStore({ initialState: {}})
             ]
         }).compileComponents();

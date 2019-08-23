@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
-
-import * as _ from "lodash";
+import { Component, Input } from "@angular/core";
 
 import { AccountModel } from "../../models/index";
 
@@ -9,7 +7,7 @@ import { AccountModel } from "../../models/index";
     templateUrl: "./transaction.footer.component.html",
     styleUrls: ["./transaction.footer.component.scss"]
 })
-export class TransactionFooterComponent implements OnInit {
+export class TransactionFooterComponent {
     @Input() public account: AccountModel;
     @Input() public accounts: AccountModel[];
 
@@ -49,9 +47,5 @@ export class TransactionFooterComponent implements OnInit {
     }
     public get working(): number {
         return this.uncleared + this.cleared;
-    }
-
-    ngOnInit(): void {
-
     }
 }

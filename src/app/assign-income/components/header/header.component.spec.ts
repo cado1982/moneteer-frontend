@@ -1,18 +1,21 @@
 import { HeaderComponent } from './header.component';
 import { HeaderProgressComponent } from '../header-progress/header-progress.component';
 import { AssignIncomeService } from '../../services/assign-income.service';
-import { createTestComponentFactory } from '@netbasal/spectator/jest/spectator';
-import { MockComponent } from "ng-mocks";
-import { Spectator } from '@netbasal/spectator/jest/internals';
+import { MockComponent, MockPipe } from "ng-mocks";
+import { Spectator, createTestComponentFactory, mockProvider } from '@netbasal/spectator/jest';
+import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
 
 describe('HeaderComponent', () => {
     let spectator: Spectator<HeaderComponent>;
     let createComponent = createTestComponentFactory({
         component: HeaderComponent,
         providers: [
-            AssignIncomeService
+            mockProvider(AssignIncomeService)
         ],
-        declarations: [MockComponent(HeaderProgressComponent)]
+        declarations: [
+            MockComponent(HeaderProgressComponent),
+            MockPipe(BudgetCurrencyPipe)
+        ]
     });
 
     beforeEach(() => spectator = createComponent());

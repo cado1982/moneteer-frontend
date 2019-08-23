@@ -1,25 +1,31 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory, mockProvider } from '@netbasal/spectator/jest';
 
+import { MockComponent } from 'ng-mocks';
+import { EnvelopesDataService } from '../../services/envelopes-data.service';
 import { EnvelopesCategoriesListComponent } from './envelopes-categories-list.component';
+import { EnvelopesCategoryComponent } from '../envelopes-category/envelopes.category.component';
+
 
 describe('EnvelopesCategoriesListComponent', () => {
-  let component: EnvelopesCategoriesListComponent;
-  let fixture: ComponentFixture<EnvelopesCategoriesListComponent>;
+    let spectator: Spectator<EnvelopesCategoriesListComponent>;
+    const createComponent = createTestComponentFactory({
+        component: EnvelopesCategoriesListComponent,
+        providers: [
+            mockProvider(EnvelopesDataService)
+        ],
+        declarations: [
+            MockComponent(EnvelopesCategoryComponent)
+        ]
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EnvelopesCategoriesListComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EnvelopesCategoriesListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });
+
+
+
+
+

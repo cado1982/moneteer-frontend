@@ -1,9 +1,9 @@
-<div *ngIf="(dataService.envelopesByCategory$ | async).length > 0">
+<div *ngIf="(dataService.envelopesByCategory$ | async)?.length > 0">
     <moneteer-envelopes-category *ngFor="let category of dataService.envelopesByCategory$ | async" 
         [envelopes]="category.envelopes" [category]="category.category"
         (assignedChanged)="onCategoryAssignedChanged($event)"></moneteer-envelopes-category>
 </div>
-<div class="no-matching-envelopes-container" *ngIf="(dataService.envelopesByCategory$ | async).length === 0">
+<div class="no-matching-envelopes-container" *ngIf="(dataService.envelopesByCategory$ | async)?.length === 0">
     <div>
         No envelopes matching '{{dataService.searchQuery$ | async}}'
     </div>
