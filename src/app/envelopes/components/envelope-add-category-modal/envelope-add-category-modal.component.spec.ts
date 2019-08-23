@@ -1,25 +1,35 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { MockComponent } from 'ng-mocks';
 
+import { provideMockStore } from '@ngrx/store/testing';
+import { empty } from 'rxjs';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { EnvelopeAddCategoryModalComponent } from './envelope-add-category-modal.component';
+import { ErrorAlertComponent } from 'src/app/shared/components/error-alert/error-alert.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('EnvelopeAddCategoryModalComponent', () => {
-  let component: EnvelopeAddCategoryModalComponent;
-  let fixture: ComponentFixture<EnvelopeAddCategoryModalComponent>;
+    let spectator: Spectator<EnvelopeAddCategoryModalComponent>;
+    const createComponent = createTestComponentFactory({
+        imports: [ReactiveFormsModule, FormsModule],
+        component: EnvelopeAddCategoryModalComponent,
+        declarations: [
+            MockComponent(ErrorAlertComponent)
+        ],
+        providers: [
+            provideMockStore({initialState: {}}),
+            provideMockActions(() => empty()),
+            NgbActiveModal
+        ]
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EnvelopeAddCategoryModalComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EnvelopeAddCategoryModalComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });
+

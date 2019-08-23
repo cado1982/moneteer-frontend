@@ -1,29 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { HeaderProgressComponent } from './header-progress.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderProgressComponent } from '../header-progress/header-progress.component';
 import { AssignIncomeService } from '../../services/assign-income.service';
+import { createTestComponentFactory } from '@netbasal/spectator/jest/spectator';
+import { Spectator } from '@netbasal/spectator/jest/internals';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('HeaderProgressComponent', () => {
-    let component: HeaderProgressComponent;
-    let fixture: ComponentFixture<HeaderProgressComponent>;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [HeaderProgressComponent],
-            providers: [AssignIncomeService],
-            imports: [NgbModule]
-        })
-            .compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(HeaderProgressComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    let spectator: Spectator<HeaderProgressComponent>;
+    let createComponent = createTestComponentFactory({
+        component: HeaderProgressComponent,
+        imports: [NgbModule],
+        providers: [
+            AssignIncomeService
+        ]
     });
 
+    beforeEach(() => spectator = createComponent());
+
+
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(spectator.component).toBeTruthy();
     });
 });

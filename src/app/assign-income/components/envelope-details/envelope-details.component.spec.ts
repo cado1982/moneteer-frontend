@@ -1,25 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EnvelopeDetailsComponent } from './envelope-details.component';
+import { Spectator } from '@netbasal/spectator/jest/internals';
+import { createTestComponentFactory } from '@netbasal/spectator/jest/spectator';
 
 describe('EnvelopeDetailsComponent', () => {
-    let component: EnvelopeDetailsComponent;
-    let fixture: ComponentFixture<EnvelopeDetailsComponent>;
+    let spectator: Spectator<EnvelopeDetailsComponent>;
+    const createComponent = createTestComponentFactory(EnvelopeDetailsComponent);
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [EnvelopeDetailsComponent]
-        })
-            .compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(EnvelopeDetailsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+    beforeEach(() => spectator = createComponent());
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(spectator.component).toBeTruthy();
     });
 });

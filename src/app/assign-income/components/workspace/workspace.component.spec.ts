@@ -1,38 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { WorkspaceComponent } from './workspace.component';
-import { Component } from '@angular/core';
-
-@Component({
-    selector: 'moneteer-assign-income-envelope-list',
-    template: '<p>Mock Assign Income Envelope List Component</p>'
-})
-class MockAssignIncomeEnvelopeListComponent { }
-
-@Component({
-    selector: 'moneteer-assign-income-envelope-details',
-    template: '<p>Mock Assign Income Envelope Details Component</p>'
-})
-class MockAssignIncomeEnvelopeDetailsComponent { }
+import { createTestComponentFactory } from '@netbasal/spectator/jest/spectator';
+import { Spectator } from '@netbasal/spectator/jest/internals';
+import { MockComponent } from 'ng-mocks';
+import { WorkspaceComponent } from '../workspace/workspace.component';
+import { EnvelopeListComponent } from '../envelope-list/envelope-list.component';
+import { EnvelopeDetailsComponent } from '../envelope-details/envelope-details.component';
 
 describe('WorkspaceComponent', () => {
-    let component: WorkspaceComponent;
-    let fixture: ComponentFixture<WorkspaceComponent>;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [WorkspaceComponent, MockAssignIncomeEnvelopeListComponent, MockAssignIncomeEnvelopeDetailsComponent]
-        })
-            .compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(WorkspaceComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    let spectator: Spectator<WorkspaceComponent>;
+    let createComponent = createTestComponentFactory({
+        component: WorkspaceComponent,
+        declarations: [MockComponent(EnvelopeListComponent), MockComponent(EnvelopeDetailsComponent)]
     });
 
+    beforeEach(() => spectator = createComponent());
+
+
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(spectator.component).toBeTruthy();
     });
 });
