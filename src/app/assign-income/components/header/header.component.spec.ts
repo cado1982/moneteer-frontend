@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { MockBudgetCurrencyPipe } from 'src/app/testing/budget-currency-pipe.mock';
+import { HeaderProgressComponent } from '../header-progress/header-progress.component';
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -8,9 +10,9 @@ describe('HeaderComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HeaderComponent]
+            declarations: [HeaderComponent, HeaderProgressComponent, MockBudgetCurrencyPipe]
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {

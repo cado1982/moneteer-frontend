@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnvelopeListComponent } from './envelope-list.component';
+import { EnvelopeListCategoryComponent } from '../envelope-list-category/envelope-list-category.component';
 
 describe('EnvelopeListComponent', () => {
     let component: EnvelopeListComponent;
@@ -8,7 +9,7 @@ describe('EnvelopeListComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [EnvelopeListComponent]
+            declarations: [EnvelopeListComponent, EnvelopeListCategoryComponent]
         })
             .compileComponents();
     }));

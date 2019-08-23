@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnvelopeCategorySelectDropdownComponent } from './envelope-category-select-dropdown.component';
+import { DropdownListComponent } from '../dropdown-list/dropdown-list.component';
 
 describe('EnvelopeCategorySelectDropdownComponent', () => {
   let component: EnvelopeCategorySelectDropdownComponent;
@@ -8,7 +9,7 @@ describe('EnvelopeCategorySelectDropdownComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EnvelopeCategorySelectDropdownComponent ]
+      declarations: [ EnvelopeCategorySelectDropdownComponent, DropdownListComponent ]
     })
     .compileComponents();
   }));

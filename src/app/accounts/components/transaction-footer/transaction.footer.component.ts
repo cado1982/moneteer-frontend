@@ -12,17 +12,22 @@ import { AccountModel } from "../../models/index";
 export class TransactionFooterComponent implements OnInit {
     @Input() public account: AccountModel;
     @Input() public accounts: AccountModel[];
+
     public get uncleared(): number {
         let uncleared = 0;
 
         if (!!this.account) {
             uncleared = this.account.unclearedBalance;
         } else {
-            this.accounts.forEach(account => {
-                uncleared = uncleared + account.unclearedBalance
-            });
+            if (!this.accounts) {
+                uncleared = 0;
+            } else {
+                this.accounts.forEach(account => {
+                    uncleared = uncleared + account.unclearedBalance
+                });
+            }
         }
- 
+
         return uncleared;
     }
     public get cleared(): number {
@@ -31,11 +36,15 @@ export class TransactionFooterComponent implements OnInit {
         if (!!this.account) {
             cleared = this.account.clearedBalance;
         } else {
-            this.accounts.forEach(account => {
-                cleared = cleared + account.clearedBalance
-            });
+            if (!this.accounts) {
+                cleared = 0;
+            } else {
+                this.accounts.forEach(account => {
+                    cleared = cleared + account.clearedBalance
+                });
+            }
         }
- 
+
         return cleared;
     }
     public get working(): number {

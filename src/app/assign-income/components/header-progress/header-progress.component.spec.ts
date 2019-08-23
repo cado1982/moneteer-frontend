@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderProgressComponent } from './header-progress.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AssignIncomeService } from '../../services/assign-income.service';
 
 describe('HeaderProgressComponent', () => {
     let component: HeaderProgressComponent;
@@ -8,7 +10,9 @@ describe('HeaderProgressComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HeaderProgressComponent]
+            declarations: [HeaderProgressComponent],
+            providers: [AssignIncomeService],
+            imports: [NgbModule]
         })
             .compileComponents();
     }));

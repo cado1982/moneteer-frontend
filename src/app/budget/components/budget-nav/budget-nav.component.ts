@@ -17,7 +17,6 @@ import { sortBy } from "lodash";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BudgetNavComponent implements OnInit {
-    //public offBudgetAccounts: Observable<Array<AccountModel>>;
     public budgetAccounts: Observable<Array<AccountModel>>;
 
     constructor(
@@ -29,7 +28,6 @@ export class BudgetNavComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        //this.offBudgetAccounts = this.store.pipe(select(getOffBudgetAccounts));
         this.budgetAccounts = this.store.pipe(
             select(getBudgetAccounts),
             map(accounts => sortBy(accounts, "name"))

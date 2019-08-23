@@ -1,25 +1,36 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 
 import { AssignIncomeService } from './assign-income.service';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { Actions } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { IEnvelopesState } from 'src/app/core/reducers/envelopes.reducer';
+import { provideMockStore } from '@ngrx/store/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Observable } from 'rxjs';
 
 describe('AssignIncomeService', () => {
-    beforeEach(() => {
-        const storeSpy = jasmine.createSpyObj<Store<IEnvelopesState>>('Store', ['select']);
-        const actionsSpy = jasmine.createSpyObj<Actions>('Actions', []);
-        const routerSpy = jasmine.createSpyObj<Router>('Router', []);
-    
+    let store: Store<IEnvelopesState>;
+    let actions$: Observable<Action>;
+    const initialStoreState: IEnvelopesState = {
+        envelopeCategories: [],
+        envelopes: []
+    }
+
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [RouterTestingModule],
             providers: [
                 AssignIncomeService,
-                { provide: Store, useClass: storeSpy },
-                { provide: Actions, useClass: actionsSpy },
-                { provide: Router, useClass: routerSpy }
+                provideMockStore({ initialState: initialStoreState}),
+                provideMockActions(() => actions$)
             ]
-        });
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+
     });
     
 

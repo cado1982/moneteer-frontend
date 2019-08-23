@@ -2,21 +2,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnvelopeDetailsHeaderComponent } from './envelope-details-header.component';
 import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
+import { MockBudgetCurrencyPipe } from 'src/app/testing/budget-currency-pipe.mock';
 
 describe('EnvelopeDetailsHeaderComponent', () => {
     let component: EnvelopeDetailsHeaderComponent;
     let fixture: ComponentFixture<EnvelopeDetailsHeaderComponent>;
 
     beforeEach(async(() => {
-        const pipe = jasmine.createSpyObj<BudgetCurrencyPipe>('BudgetCurrencyPipe', []);
-
         TestBed.configureTestingModule({
-            declarations: [EnvelopeDetailsHeaderComponent],
-            providers: [
-                { provide: BudgetCurrencyPipe, useClass: pipe }
-            ]
+            declarations: [
+                EnvelopeDetailsHeaderComponent,
+                MockBudgetCurrencyPipe
+            ],
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {

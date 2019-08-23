@@ -1,25 +1,29 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
 
 import { EnvelopeListCategoryComponent } from './envelope-list-category.component';
+import { MockComponent } from 'ng-mocks';
+import { EnvelopeListEnvelopeComponent } from '../envelope-list-envelope/envelope-list-envelope.component';
+import { EnvelopeCategoryModel } from 'src/app/core/models';
 
-describe('EnvelopeListCategoryComponent', () => {
-  let component: EnvelopeListCategoryComponent;
-  let fixture: ComponentFixture<EnvelopeListCategoryComponent>;
+fdescribe('EnvelopeListCategoryComponent', () => {
+    let spectator: Spectator<EnvelopeListCategoryComponent>;
+    const createComponent = createTestComponentFactory({
+        component: EnvelopeListCategoryComponent,
+        declarations: [
+            MockComponent(EnvelopeListEnvelopeComponent)
+        ]
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EnvelopeListCategoryComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EnvelopeListCategoryComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('category name should be displayed', () => {
+        spectator.component.category = new EnvelopeCategoryModel("CategoryName");
+        spectator.detectChanges();
+        const element = spectator.query(".category-header");
+        expect(element).toHaveText("CategoryName");
+    });
 });

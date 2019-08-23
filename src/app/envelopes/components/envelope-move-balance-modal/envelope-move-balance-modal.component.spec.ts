@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnvelopeMoveBalanceModalComponent } from './envelope-move-balance-modal.component';
+import { EnvelopeSelectDropdownComponent } from 'src/app/shared/components/envelope-select-dropdown/envelope.select.dropdown.component';
 
 describe('EnvelopeMoveBalanceModalComponent', () => {
   let component: EnvelopeMoveBalanceModalComponent;
@@ -8,7 +9,7 @@ describe('EnvelopeMoveBalanceModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EnvelopeMoveBalanceModalComponent ]
+      declarations: [ EnvelopeMoveBalanceModalComponent, EnvelopeSelectDropdownComponent ]
     })
     .compileComponents();
   }));
