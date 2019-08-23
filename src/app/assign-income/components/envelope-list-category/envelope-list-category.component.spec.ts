@@ -1,11 +1,11 @@
 import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { MockComponent } from 'ng-mocks';
 
 import { EnvelopeListCategoryComponent } from './envelope-list-category.component';
-import { MockComponent } from 'ng-mocks';
 import { EnvelopeListEnvelopeComponent } from '../envelope-list-envelope/envelope-list-envelope.component';
 import { EnvelopeCategoryModel } from 'src/app/core/models';
 
-fdescribe('EnvelopeListCategoryComponent', () => {
+describe('EnvelopeListCategoryComponent', () => {
     let spectator: Spectator<EnvelopeListCategoryComponent>;
     const createComponent = createTestComponentFactory({
         component: EnvelopeListCategoryComponent,

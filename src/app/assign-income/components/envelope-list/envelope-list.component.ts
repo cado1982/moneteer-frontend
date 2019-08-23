@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EnvelopeModel, EnvelopeCategoryModel } from 'src/app/core/models';
 import { AssignIncomeService } from '../../services/assign-income.service';
 import { Observable } from 'rxjs';
-import { map, reduce } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { groupBy, sortBy } from 'lodash';
 
 @Component({
