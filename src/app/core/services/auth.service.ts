@@ -3,13 +3,14 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpRequest, HttpHeaders } from "@angular/common/http";
 import { NotificationsService } from "./notifications.service";
 import { UserManager, UserManagerSettings, User } from "oidc-client";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class AuthService {
     private config: UserManagerSettings = {
-        authority: "http://localhost:4400",
+        authority: environment.auth_url,
         client_id: "moneteer-spa",
-        redirect_uri: "http://localhost:4200/auth-callback",
+        redirect_uri: environment.auth_redirect_url,
         response_type: "id_token token",
         scope: "openid profile email moneteer-api"
     };

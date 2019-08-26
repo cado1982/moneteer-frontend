@@ -3,7 +3,6 @@ import { Observable } from "rxjs";
 
 import { environment } from "./../../../environments/environment";
 import { AuthService } from "./../services/auth.service";
-import { UrlHandlingStrategy } from "@angular/router";
 
 export class ApiBaseService {
     private baseApiUrl: string = environment.api_url;
