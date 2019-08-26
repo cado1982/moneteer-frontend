@@ -8,7 +8,6 @@ import { NgbActiveModal, NgbAlertModule, NgbModalModule, NgbDropdownModule,
 } from "@ng-bootstrap/ng-bootstrap";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NavComponent } from "./components/nav/nav.component";
 import { PairsPipe } from "./pipes/pairs.pipe";
 import { GroupByPipe } from "./pipes/group.by.pipe";
@@ -45,7 +44,6 @@ import { EnvelopeSelectDropdownComponent } from "./components/envelope-select-dr
         TypeAheadComponent,
         NavComponent,
         DropdownComponent,
-        CurrencyMaskModule,
         FormsModule,
         CommonModule,
         EnvelopeCategorySelectDropdownComponent,
