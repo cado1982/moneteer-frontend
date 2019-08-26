@@ -27,6 +27,9 @@ test:
   stage: test
   script:
     - "npm run test:ci"
+  artifacts:
+    paths:
+      - dist/
 
 release:
   stage: release
