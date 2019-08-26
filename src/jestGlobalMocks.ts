@@ -1,7 +1,3 @@
-// ng s is complaining about global, so doing this "hackishly"
-declare var global: NodeJS.Global;
-global['CSS'] = null;
-
 const mock = () => {
   let storage = {};
   return {
@@ -12,6 +8,7 @@ const mock = () => {
   };
 };
 
+Object.defineProperty(window, 'CSS', { value: null });
 Object.defineProperty(window, 'localStorage', { value: mock() });
 Object.defineProperty(window, 'sessionStorage', { value: mock() });
 Object.defineProperty(document, 'doctype', {
