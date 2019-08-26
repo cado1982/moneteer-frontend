@@ -1,7 +1,7 @@
 image: node:latest
 
 variables:
-  S3_BUCKET_NAME: "moneteer-app.s3.amazonaws.com"
+  S3_BUCKET_NAME: "moneteer-app"
 
 cache:
   paths:
