@@ -1,8 +1,7 @@
 image: node:latest
 
 variables:
-  - S3_BUCKET_NAME: "moneteer-app.s3.amazonaws.com"
-  - AWS_DEFAULT_REGION: "eu-west-1"
+  S3_BUCKET_NAME: "moneteer-app.s3.amazonaws.com"
 
 cache:
   paths:
