@@ -7,17 +7,15 @@ cache:
   paths:
     - node_modules/
 
-stages:
+stages
   - build
   - test
   - release
 
-before_script:
-  - "npm install"  
-  
 build:
   stage: build
   script:
+    - "npm install"
     - "./node_modules/.bin/ng build --prod"
   artifacts:
     paths:
@@ -27,9 +25,6 @@ test:
   stage: test
   script:
     - "npm run test:ci"
-  artifacts:
-    paths:
-      - dist/
 
 release:
   stage: release
