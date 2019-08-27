@@ -18,9 +18,7 @@ import { RouterLinkDirectiveStub } from "./testing/router-link-directive.stub";
         StoreModule.forRoot(reducers, {
             runtimeChecks: {
                 strictStateImmutability: true,
-                strictActionImmutability: true,
-                strictStateSerializability: true,
-                strictActionSerializability: true,
+                strictActionImmutability: true
             }
         }),
         StoreDevtoolsModule.instrument({
