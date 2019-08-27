@@ -103,12 +103,20 @@ body {
     text-overflow: ellipsis;
 }
 
-.text-shadow {
-    text-shadow: 0 0.05em 0.2em $shadow-color;
+.text-shadow-dark {
+    text-shadow: 0 0.05em 0.2em $shadow-color-dark;
 }
 
-.box-shadow {
-    box-shadow: 0 0.2em 0.3em $shadow-color;
+.box-shadow-dark {
+    box-shadow: 0 0.2em 0.3em $shadow-color-dark;
+}
+
+.text-shadow-light {
+    text-shadow: 0 0.05em 0.2em $shadow-color-light;
+}
+
+.box-shadow-light {
+    box-shadow: 0 0.2em 0.3em $shadow-color-light;
 }
 
 // Make sure the drop downs always show on top of modals

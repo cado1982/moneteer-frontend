@@ -2,7 +2,7 @@
     <div class="nav-body d-flex flex-column">
         <a class="link link-parent" routerLink="envelopes" routerLinkActive="active">
             <span class="align-middle"><i class="fas fa-piggy-bank"></i></span>
-            <span class="text-shadow"> ENVELOPES</span>
+            <span> ENVELOPES</span>
         </a>
 
         <div class="link-container" routerLink="accounts" routerLinkActive="active"
@@ -10,7 +10,7 @@
             <a class="link link-parent" routerLink="accounts" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
                 <i class="fas fa-university"></i>
-                <span class="text-shadow"> ACCOUNTS</span>
+                <span> ACCOUNTS</span>
             </a>
             <button title="Add Account" (click)="openCreateAccount($event)">
                 <i class="fas fa-plus-circle"></i>
@@ -21,7 +21,7 @@
                 <a class="link link-child" *ngFor="let account of budgetAccounts | async" routerLinkActive="active"
                 [routerLink]="['accounts', account.id]">
                 <div class="account-container">
-                    <div class="account-name text-shadow text-truncate flex-grow-1 flex-shrink-1">
+                    <div class="account-name text-truncate flex-grow-1 flex-shrink-1">
                         {{account.name}}
                     </div>
                     <div class="badge badge-pill flex-grow-0 flex-shrink-0"

@@ -60,10 +60,11 @@ h6 {
     color: $theme-light-text;
 }
 
-.link:hover, .link.active, .link-container:hover, .link-container:hover a, .link-container.active {
+.link:hover, .link.active, .link-container:hover, .link-container:hover a, .link-container:hover button, .link-container.active button, .link-container.active, .link:hover span {
     background-color: $theme-accent !important;
-    color: $theme-light-text !important;
+    color: $theme-dark-text !important;
     border-color: $theme-light-text !important;
+    text-shadow: none;
 }
 
 // .link-container:hover button {
