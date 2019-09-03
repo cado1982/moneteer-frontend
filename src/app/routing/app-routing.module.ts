@@ -9,9 +9,11 @@ import { TransactionsResolver } from "./resolvers/transactions.resolver";
 import { PayeesResolver } from "./resolvers/payees.resolver";
 import { EnvelopesResolver } from "./resolvers/envelopes.resolver";
 import { RecentTransactionsResolver } from "./resolvers/recent.transactions.resolver";
+import { ForbiddenComponent } from "../core/components/forbidden/forbidden.component";
 
 export const routes: Routes = [
     { path: "auth-callback", component: AuthCallbackComponent },
+    { path: "forbidden", component: ForbiddenComponent },
     { path: "budget", loadChildren: "./../budget/budget.module#BudgetModule", canActivate: [AuthGuard] },
     { path: "**", redirectTo: "budget" }
 ];

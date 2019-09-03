@@ -7,5 +7,6 @@ export const environment: any = {
     production: false,
     api_url: "http://localhost:4300/api/",
     auth_url: "http://localhost:4400",
-    auth_redirect_url: "http://localhost:4200/auth-callback"
+    auth_redirect_url: "http://localhost:4200/auth-callback",
+    landing_url: "http://localhost:4500"
 };

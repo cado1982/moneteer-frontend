@@ -28,6 +28,8 @@ import { ErrorsHandler } from "./errors.handler";
 import { RetryInterceptor } from "./interceptors/retry.interceptor";
 import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarModule } from "@ngx-loading-bar/core";
+import { ForbiddenInterceptor } from "./interceptors/forbidden.interceptor";
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 @NgModule({
     imports: [
@@ -47,8 +49,9 @@ import { LoadingBarModule } from "@ngx-loading-bar/core";
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: RetryInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: UnauthorizedInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ForbiddenInterceptor, multi: true },
+        //{ provide: HTTP_INTERCEPTORS, useClass: RetryInterceptor, multi: true },
         { provide: ErrorHandler, useClass: ErrorsHandler },
         LoadingSpinnerService,
         MediaQueryService,
@@ -65,7 +68,8 @@ import { LoadingBarModule } from "@ngx-loading-bar/core";
     declarations: [
         AppComponent,
         ErrorModalComponent,
-        AuthCallbackComponent
+        AuthCallbackComponent,
+        ForbiddenComponent
     ]
 })
 export class CoreModule {
