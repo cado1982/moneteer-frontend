@@ -4,10 +4,11 @@ import { TransactionModel, AccountModel, TransactionAssignmentModel } from "../.
 import { TransactionComponent } from "../transaction/transaction.component";
 import { PayeeModel, EnvelopeModel } from "../../../core/models";
 import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { TransactionCreateComponent } from "../transaction.create.component";
 import { CreateTransactionAction, HideCreateTransactionAction } from "../../../core/actions/transactions.actions";
 import { ITransactionsState } from "../../../core/reducers/transactions.reducer";
+import { getAvailableIncomeEnvelope } from "src/app/core/reducers/envelopes.reducer";
 
 @Component({
     selector: "moneteer-transaction-inflow-create",
@@ -16,21 +17,28 @@ import { ITransactionsState } from "../../../core/reducers/transactions.reducer"
 })
 export class TransactionCreateInflowComponent extends TransactionCreateComponent {
     public inflow: number = 0;
+    private _availableIncomeEnvelope: EnvelopeModel | undefined = undefined;
 
     constructor(protected store: Store<ITransactionsState>) {
         super(store);
+        store.select(getAvailableIncomeEnvelope).subscribe(e => this._availableIncomeEnvelope = e);
     }
 
     public create(): void {
+        if (!this._availableIncomeEnvelope) return;
+
         const newTransaction = new TransactionModel();
         newTransaction.date = this.date;
-        newTransaction.payee = this.payee;
+        newTransaction.payee = undefined;
         newTransaction.description = this.description;
         newTransaction.envelope = undefined;
         newTransaction.outflow = 0;
         newTransaction.inflow = this.inflow;
         newTransaction.isCleared = this.isCleared;
-        newTransaction.assignments = [];
+        var assignment = new TransactionAssignmentModel();
+        assignment.inflow = this.inflow;
+        assignment.envelope = this._availableIncomeEnvelope;
+        newTransaction.assignments = [assignment];
 
         if (this.currentAccountId) {
             newTransaction.account = new AccountModel();

@@ -21,6 +21,7 @@ export class DropdownListComponent<T> implements OnInit {
 
     @Input() public itemTemplate: TemplateRef<any>;
     @Input() public headerTemplate: TemplateRef<any>;
+    @Input() public noItemsTemplate: TemplateRef<any>;
 
     public searchFilterTerm$ = new BehaviorSubject<string>("");
     public filteredItems: T[] = [];

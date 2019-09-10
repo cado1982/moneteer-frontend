@@ -6,13 +6,7 @@
     <div class="transaction-cell transaction-cell--date">
         <span *ngIf="!isEditing">{{transaction?.date | date:'shortDate'}}</span>
         <div class="input-group" *ngIf="isEditing">
-            <input class="form-control form-control-xs" placeholder="yyyy-mm-dd" name="date" [(ngModel)]="date" ngbDatepicker
-                #d="ngbDatepicker" container="body">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary btn-xs" (click)="d.toggle()" type="button">
-                    <i class="fas fa-calendar"></i>
-                </button>
-            </div>
+            <input class="form-control form-control-xs" type="date" name="date" [ngModel]="date | date:'yyyy-MM-dd'" (ngModelChange)="date = $event" >
         </div>
     </div>
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
@@ -21,11 +15,11 @@
             [(selectedAccount)]="account"></moneteer-account-select-dropdown>
     </div>
 
-    <div class="transaction-cell transaction-cell--payee">
+    <!-- <div class="transaction-cell transaction-cell--payee">
         <span *ngIf="!isEditing">{{transaction?.payee?.name}}</span>
         <moneteer-payee-select-dropdown *ngIf="isEditing" [payees]="payees$ | async" [(selectedPayee)]="payee">
         </moneteer-payee-select-dropdown>
-    </div>
+    </div> -->
     <div class="transaction-cell transaction-cell--description">
         <span *ngIf="!isEditing">{{transaction?.description}}</span>
         <input *ngIf="isEditing" class="form-control form-control-xs" type="text" [(ngModel)]="description"

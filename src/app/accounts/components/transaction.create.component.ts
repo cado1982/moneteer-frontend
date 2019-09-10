@@ -14,12 +14,12 @@ export abstract class TransactionCreateComponent implements OnInit {
     @Input() public currentAccountId: string;
     public date: Date = new Date();
     public account: AccountModel | undefined;
-    public payee: PayeeModel | undefined;
+    //public payee: PayeeModel | undefined;
     public description: string = "";
     public isCleared: boolean = false;
 
     public accounts$: Observable<Array<AccountModel>>;
-    public payees$: Observable<Array<PayeeModel>>;
+    //public payees$: Observable<Array<PayeeModel>>;
     public envelopes$: Observable<Array<EnvelopeModel>>;
 
     public isBusy$: Observable<boolean>;
@@ -31,7 +31,7 @@ export abstract class TransactionCreateComponent implements OnInit {
     ngOnInit(): void {
         this.accounts$ = this.store.select(getAccounts);
         this.envelopes$ = this.store.select(getAllEnvelopes);
-        this.payees$ = this.store.select(getPayees);
+        //this.payees$ = this.store.select(getPayees);
         this.isBusy$ = this.store.select(getIsCreating);
 
     }

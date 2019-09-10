@@ -34,7 +34,7 @@ export class TransactionComponent implements OnInit, OnChanges {
     // Individual transaction properties
     public date: Date = new Date();
     public account: AccountModel = new AccountModel();
-    public payee: PayeeModel | undefined;
+    //public payee: PayeeModel | undefined;
     public description: string = "";
     public envelope: EnvelopeModel | undefined;
 
@@ -99,7 +99,7 @@ export class TransactionComponent implements OnInit, OnChanges {
     public isBusy$: Observable<boolean>;
 
     public accounts$: Observable<Array<AccountModel>>;
-    public payees$: Observable<Array<PayeeModel>>;
+    //public payees$: Observable<Array<PayeeModel>>;
     public envelopes$: Observable<Array<EnvelopeModel>>;
 
     constructor(
@@ -111,7 +111,7 @@ export class TransactionComponent implements OnInit, OnChanges {
     public ngOnInit(): void {
         this.accounts$ = this.store.select(getAccounts);
         this.envelopes$ = this.store.select(getAllEnvelopes);
-        this.payees$ = this.store.select(getPayees);
+        //this.payees$ = this.store.select(getPayees);
         this.isBusy$ = this.store.select(getIsCreating);
 
         const splitMaster: EnvelopeCategoryModel = new EnvelopeCategoryModel("SplitMaster");
@@ -133,7 +133,7 @@ export class TransactionComponent implements OnInit, OnChanges {
         if (changes.transaction && changes.transaction.currentValue) {
             this.date = this.transaction.date;
             this.account = this.transaction.account;
-            this.payee = this.transaction.payee;
+            //this.payee = this.transaction.payee;
             this.description = this.transaction.description;
             this.envelope = this.transaction.envelope;
             this.outflow = this.transaction.outflow;
@@ -178,7 +178,7 @@ export class TransactionComponent implements OnInit, OnChanges {
         // Set the old values back
         this.date = this.transaction.date;
         this.account = this.transaction.account;
-        this.payee = this.transaction.payee;
+        //this.payee = this.transaction.payee;
         this.description = this.transaction.description;
         this.envelope = this.transaction.envelope;
         this.outflow = this.transaction.outflow;
@@ -206,7 +206,7 @@ export class TransactionComponent implements OnInit, OnChanges {
         const newTransaction = new TransactionModel();
         newTransaction.date = this.date;
         newTransaction.account = this.account;
-        newTransaction.payee = this.payee;
+        //newTransaction.payee = this.payee;
         newTransaction.description = this.description;
         newTransaction.envelope = this.envelope;
         newTransaction.outflow = this.outflow;

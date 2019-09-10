@@ -43,7 +43,7 @@ export class TransactionCreateOutflowComponent extends TransactionCreateComponen
 
         const newTransaction = new TransactionModel();
         newTransaction.date = this.date;
-        newTransaction.payee = this.payee;
+        //newTransaction.payee = this.payee;
         newTransaction.description = this.description;
         newTransaction.envelope = this.envelope;
         newTransaction.outflow = this.outflow;

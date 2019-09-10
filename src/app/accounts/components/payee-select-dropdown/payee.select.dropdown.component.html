@@ -3,9 +3,13 @@
 </ng-template>
 
 <ng-template #header>
-    
+    <h5>Payees</h5>
+</ng-template>
+
+<ng-template #noPayees>
+    <div>Enter a new payee.</div>
 </ng-template>
 
 <moneteer-dropdown-list [items]="payees" [disabled]="disabled" [(selectedItem)]="selectedPayee"
-    [itemTemplate]="payee" [headerTemplate]="header">
+    [itemTemplate]="payee" [headerTemplate]="header" [noItemsTemplate]="noPayees">
 </moneteer-dropdown-list>
