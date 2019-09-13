@@ -8,7 +8,7 @@
         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
     </div>
 
-    <div *ngIf="!!groupProperty ? groupedItems.length === 0 : items.length === 0" class="body mt-2">
+    <div *ngIf="!!groupByProperty ? groupedItems.length === 0 : items.length === 0" class="body mt-2">
         <ng-container *ngTemplateOutlet="noItemsTemplate"></ng-container>
     </div>
 
