@@ -1,50 +1,7 @@
 @import "./../../../../styles.scss";
 
 :host {
-    display: flex;
-    background-color: $theme-light;
-    color: $theme-light-text;
-    padding: 5px;
-    font-weight: bold;
-    height: 2.2em;
-    border-radius: 0.2em;
-    cursor: pointer;
-}
-
-h5 {
-    color: $theme-light-text;
-    margin-left: 0.3em;
-}
-
-.category-name {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: -5px;
-    padding-left: 5px;
-    white-space: nowrap;
-    text-overflow: clip;
-    flex: 1 0 auto;
-}
-
-.first-column {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size: 0.9em;
-}
-
-.btn {
-    margin: 0 0 0 5px;
-    padding: 0 0.25em;
-}
-
-.create-button {
-    flex: 0 1 auto;
-}
-
-.stat-column {
-    font-size: 0.9em;
+    color: $theme-medium;
 }
 
 .add-envelope {
@@ -54,5 +11,4 @@ h5 {
 
 :host:hover .add-envelope {
     visibility: visible;
-    
 }

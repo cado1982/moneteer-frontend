@@ -33,17 +33,11 @@ export class EnvelopesCategoryComponent implements OnChanges {
     public isToggled: boolean = true;
 
     public balance: number = 0;
-    public spendingLast30Days: number = 0;
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.envelopes) {
-            this.updateSpendingLast30Days();
             this.updateBalance();
         }
-    }
-
-    private updateSpendingLast30Days(): void {
-        this.spendingLast30Days = this.envelopes.length === 0 ? 0 : this.envelopes.map(e => e.spendingLast30Days).reduce((a, b) => a + b);
     }
 
     private updateBalance(): void {

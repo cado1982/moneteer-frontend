@@ -26,7 +26,7 @@ export class EnvelopesColumnHeaderComponent implements AfterViewInit {
         const searchInputValues$ = fromEvent<any>(this.searchInput.nativeElement, 'keyup').pipe(
             map(event => event.target.value),
             startWith(''),
-            debounceTime(200),
+            debounceTime(100),
             distinctUntilChanged()
         )
 

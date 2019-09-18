@@ -1,10 +1,9 @@
-<div class="first-column ellipsis-text">
-    {{envelope?.name}}
+<div class="d-flex flex-row cursor-pointer ml-4">
+    <div class="ellipsis-text font-weight-bold px-2 py-1 flex-shrink-0 flex-grow-1">
+        {{envelope?.name}}
+    </div>
+    <div class="px-1 ml-3 py-1 flex-shrink-1 flex-grow-0">
+        <span class="badge badge-pill" style="font-size: 1em"
+            [ngClass]="{'badge-success': envelope.balance > 0, 'badge-danger': envelope.balance < 0, 'badge-light': envelope.balance === 0}">{{envelope.balance | budgetCurrency:true | async}}</span>
+    </div>
 </div>
-
-<div class="stat-column ellipsis-text">
-    <span [ngClass]="{'is-good': envelope.balance > 0, 'is-bad': envelope.balance < 0, 'is-neutral': envelope.balance === 0}">{{envelope.balance | budgetCurrency:true | async}}</span>
-</div> 
-<div class="stat-column spending-column ellipsis-text">
-    <span [ngClass]="{'is-neutral': envelope.spendingLast30Days === 0}">{{envelope.spendingLast30Days | budgetCurrency:true | async}}</span>
-</div> 

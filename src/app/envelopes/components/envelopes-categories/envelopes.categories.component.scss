@@ -8,15 +8,15 @@
     padding-bottom: 0;
 }
 
-::ng-deep .first-column {
+.first-column {
     flex: 0 0 200px;
 }
 
-::ng-deep .stat-column {
+.stat-column {
     flex: 0 1 50%;
     text-align: center;
 }
 
-::ng-deep h5 {
+h5 {
     margin-top: 0;
 }

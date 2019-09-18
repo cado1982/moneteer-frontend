@@ -19,14 +19,12 @@ import { ActivatedRoute } from "@angular/router";
     ],
     host: {
         "(mouseenter)": "showCreateCategoryButton = true",
-        "(mouseleave)": "showCreateCategoryButton = false",
-        "class": "align-items-center"
+        "(mouseleave)": "showCreateCategoryButton = false"
     }
 })
 export class EnvelopesCategoryHeaderComponent {
     @Input() public category: EnvelopeCategoryModel;
     @Input() public balance: number;
-    @Input() public spendingLast30Days: number;
 
     @HostListener('click') click() {
         this.isToggled = !this.isToggled;

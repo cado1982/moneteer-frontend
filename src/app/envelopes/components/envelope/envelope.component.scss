@@ -1,36 +1,9 @@
 @import "./../../../../styles.scss";
 
-:host {
-    display: flex;
-    border-bottom: 1px solid $theme-divider-color;
-    flex: 0 0 auto;
-    font-size: 0.8em;
-    cursor: pointer;
-}
-
 :host:hover {
     background-color: $theme-hover;
-    .first-column {
-        font-weight: 600;
-    }
 }
 
 :host.selected {
     background-color: $theme-accent;
-    //color: $theme-light-text;
-    .stat-column, .first-column {
-        border-right: 1px solid $theme-light-text;
-    }
-    .first-column {
-        font-weight: 600;
-    }
-}
-
-.stat-column, .first-column {
-    padding: 0.2em 0.4em;
-    border-right: 1px solid $theme-divider-color;
-}
-
-.spending-column {
-    border-right: none;
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges,
-         Output, EventEmitter, OnInit, HostBinding, HostListener, } from "@angular/core";
+         Output, EventEmitter, OnInit, HostBinding, HostListener } from "@angular/core";
 
 import { EnvelopeModel } from "../../../core/models";
 import { EnvelopesSelectionService } from "../../services/envelopes-selection.service";
@@ -8,8 +8,7 @@ import { EnvelopesSelectionService } from "../../services/envelopes-selection.se
 @Component({
     selector: "moneteer-envelope",
     templateUrl: "./envelope.component.html",
-    styleUrls: ["./envelope.component.scss"],
-    host: { "class": "py-1" }
+    styleUrls: ["./envelope.component.scss"]
 })
 export class EnvelopeComponent implements OnChanges, OnInit {
     @Input() public envelope: EnvelopeModel;
