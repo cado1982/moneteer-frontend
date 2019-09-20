@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import { Observable } from "rxjs";
 
 import { EnvelopeModel, PayeeModel, EnvelopeCategoryModel, GuidModel } from "../../../core/models/index";
-import { TransactionModel, AccountModel, TransactionAssignmentModel } from "../../models/index";
+import { TransactionModel, AccountModel } from "../../models/index";
 import { Component, Input, OnInit, EventEmitter, Output } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.reducer";
@@ -14,6 +14,7 @@ import { SimpleChanges } from "@angular/core";
 import { getPayees } from "../../../core/reducers/transactions.reducer";
 import { Actions, ofType } from "@ngrx/effects";
 import { map } from "rxjs/operators";
+import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
 
 @Component({
     selector: "moneteer-transaction",
@@ -99,7 +100,6 @@ export class TransactionComponent implements OnInit, OnChanges {
     public isBusy$: Observable<boolean>;
 
     public accounts$: Observable<Array<AccountModel>>;
-    //public payees$: Observable<Array<PayeeModel>>;
     public envelopes$: Observable<Array<EnvelopeModel>>;
 
     constructor(
@@ -111,7 +111,6 @@ export class TransactionComponent implements OnInit, OnChanges {
     public ngOnInit(): void {
         this.accounts$ = this.store.select(getAccounts);
         this.envelopes$ = this.store.select(getAllEnvelopes);
-        //this.payees$ = this.store.select(getPayees);
         this.isBusy$ = this.store.select(getIsCreating);
 
         const splitMaster: EnvelopeCategoryModel = new EnvelopeCategoryModel("SplitMaster");
@@ -135,7 +134,6 @@ export class TransactionComponent implements OnInit, OnChanges {
             this.account = this.transaction.account;
             //this.payee = this.transaction.payee;
             this.description = this.transaction.description;
-            this.envelope = this.transaction.envelope;
             this.outflow = this.transaction.outflow;
             this.inflow = this.transaction.inflow;
             this.isCleared = this.transaction.isCleared;
@@ -180,7 +178,6 @@ export class TransactionComponent implements OnInit, OnChanges {
         this.account = this.transaction.account;
         //this.payee = this.transaction.payee;
         this.description = this.transaction.description;
-        this.envelope = this.transaction.envelope;
         this.outflow = this.transaction.outflow;
         this.inflow = this.transaction.inflow;
         this.isCleared = this.transaction.isCleared;
@@ -208,7 +205,6 @@ export class TransactionComponent implements OnInit, OnChanges {
         newTransaction.account = this.account;
         //newTransaction.payee = this.payee;
         newTransaction.description = this.description;
-        newTransaction.envelope = this.envelope;
         newTransaction.outflow = this.outflow;
         newTransaction.inflow = this.inflow;
         newTransaction.isCleared = this.isCleared;

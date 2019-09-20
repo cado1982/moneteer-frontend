@@ -4,22 +4,19 @@
 </div>
 <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
 </div>
-
-<!-- <div class="transaction-cell transaction-cell--payee">
-</div> -->
 <div class="transaction-cell transaction-cell--description">
 </div>
 <div class="transaction-cell transaction-cell--category">
-    <span *ngIf="!isEditing" style="margin-left: 15px;">{{assignment.category.name}}</span>
-    <moneteer-type-ahead *ngIf="isEditing" [(ngModel)]="assignment.category" [values]="categories | async" [display-property]="'name'" [group-by]="'masterCategory.name'"></moneteer-type-ahead>
+    <moneteer-envelope-select-dropdown [(selectedEnvelope)]="assignment.envelope"
+        [hideEnvelopeIds]="inUseEnvelopeIds"
+        [envelopes]="envelopes" inputSize="xs"></moneteer-envelope-select-dropdown>
 </div>
 <div class="transaction-cell transaction-cell--flow" >
-    <span *ngIf="!isEditing">{{assignment.outflow | budgetCurrency | async }}</span>
-    <input *ngIf="isEditing" moneteerCurrencyInput [(value)]="assignment.outflow" (change)="onOutflowChanged($event)" name="outflow" class="input-control form-control" allowZeros=false allowNegative=false>
+    <input moneteerCurrencyInput [(value)]="assignment.outflow" (change)="onOutflowChanged($event)" name="outflow" class="form-control form-control-xs" [allowZeros]="false" [allowNegative]="false">
 </div>
 <div class="transaction-cell transaction-cell--flow">
-    <span *ngIf="!isEditing">{{assignment.inflow | budgetCurrency | async }}</span>
-    <input *ngIf="isEditing" moneteerCurrencyInput [(value)]="assignment.inflow" (change)="onInflowChanged($event)" name="outflow" class="input-control form-control" allowZeros=false allowNegative=false>
+    <input moneteerCurrencyInput [(value)]="assignment.inflow" (change)="onInflowChanged($event)" name="inflow" class="form-control form-control-xs" [allowZeros]="false" [allowNegative]="false">
 </div>
 <div class="transaction-cell transaction-cell--cleared">
+    <button class="btn" aria-label="delete assignment" (click)="delete()"><i class="fas fa-minus-circle text-danger"></i></button>
 </div>

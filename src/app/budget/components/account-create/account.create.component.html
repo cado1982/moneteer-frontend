@@ -21,7 +21,7 @@
         <div class="form-group">
             <label for="initialBalance">Current Balance</label>
             <input id="initialBalance" class="form-control" moneteerCurrencyInput [(value)]="initialBalance"
-                allowZeros=true allowNegative=true>
+                [allowZeros]="true" [allowNegative]="true">
             <small id="nameHelp" class="form-text text-muted">How much is in the account at the moment?</small>
         </div>
 

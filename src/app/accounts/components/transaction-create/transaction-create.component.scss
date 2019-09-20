@@ -1,0 +1,29 @@
+@import "./../../../../styles.scss";
+
+:host {
+    position: relative;
+    font-size: 0.8em;
+    border-bottom: 1px solid $theme-divider-color;
+    display: flex;
+    flex-direction: column;
+}
+
+.editing input {
+    color: $theme-light-text;
+}
+
+.transaction-actions {
+    padding: 5px;
+    align-self: flex-end;
+}
+
+.transaction-cell {
+    padding: 0px 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.transaction-cell, input {
+    width: 100%;
+}

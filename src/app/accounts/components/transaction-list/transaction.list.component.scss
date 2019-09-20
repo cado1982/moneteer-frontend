@@ -8,12 +8,6 @@
     user-select: none;
 }
 
-.transactions-container {
-    overflow: auto;
-    display: grid;
-    height: 100%;
-}
-
 .transaction-header {
     background-color: $theme-medium;
     color: $theme-light-text;

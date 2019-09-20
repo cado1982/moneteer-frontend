@@ -1,16 +1,15 @@
 import { Component, OnInit, Input, ViewChildren, QueryList } from "@angular/core";
 import { Observable } from "rxjs";
-import { trigger, state, style, animate, transition, query } from "@angular/animations";
+import { trigger, state, style, animate, transition } from "@angular/animations";
 
 import { TransactionComponent } from "./../transaction/transaction.component";
 import { ActivatedRoute } from "@angular/router";
 
 import { TransactionModel, AccountModel } from "../../models/index";
 import { Store } from "@ngrx/store";
-import { ITransactionsState, getIsCreateInflowTransactionOpen, getIsCreateOutflowTransactionOpen } from "../../../core/reducers/transactions.reducer";
+import { ITransactionsState, getIsCreateTransactionOpen } from "../../../core/reducers/transactions.reducer";
 import { TransactionsActionTypes } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
-import { tap } from "rxjs/operators";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 
 
@@ -35,8 +34,7 @@ import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 })
 export class TransactionListComponent implements OnInit {
 
-    public isCreateInflowTransactionOpen$: Observable<boolean>;
-    public isCreateOutflowTransactionOpen$: Observable<boolean>;
+    public isCreateTransactionOpen$: Observable<boolean>;
     @Input() public transactions$: Observable<TransactionModel[]>;
     public currentAccountId: string;
     public isAnimationDisabled: boolean = true;
@@ -56,8 +54,7 @@ export class TransactionListComponent implements OnInit {
             this.currentAccountId = r ? r.accountId : undefined;
         });
 
-        this.isCreateInflowTransactionOpen$ = this.store.select(getIsCreateInflowTransactionOpen);
-        this.isCreateOutflowTransactionOpen$ = this.store.select(getIsCreateOutflowTransactionOpen);
+        this.isCreateTransactionOpen$ = this.store.select(getIsCreateTransactionOpen);
         this.accounts$ = this.store.select(getAccounts);
 
         this.actions$.pipe(

@@ -4,13 +4,12 @@ import { Observable , Subject } from "rxjs";
 import { Store, select } from "@ngrx/store";
 
 import { TransactionModel, AccountModel } from "../../models/index";
-import { ITransactionsState, getIsDeleting,
-         getSelectedTransactions, CreateTransactionMode 
-} from "../../../core/reducers/transactions.reducer";
+import { ITransactionsState, getIsDeleting, getSelectedTransactions } from "../../../core/reducers/transactions.reducer";
 import { ShowCreateTransactionAction } from "../../../core/actions/transactions.actions";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TransactionDeleteModalComponent } from "../transaction-delete-modal/transaction-delete-modal.component";
+import { ShowCreateAccountAction } from "src/app/core/actions/accounts.actions";
 
 @Component({
   selector: "moneteer-transaction-header",
@@ -42,12 +41,8 @@ export class TransactionHeaderComponent implements OnInit {
         this.accounts$ = this.store.pipe(select(getAccounts));      
     }
 
-    public addInflow(): void {
-        this.store.dispatch(new ShowCreateTransactionAction({mode: CreateTransactionMode.Inflow}));
-    }
-
-    public addOutflow(): void {
-        this.store.dispatch(new ShowCreateTransactionAction({mode: CreateTransactionMode.Outflow}));
+    public addTransaction(): void {
+        this.store.dispatch(new ShowCreateTransactionAction());
     }
 
     public tryDeleteTransactions(): void {

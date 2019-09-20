@@ -43,19 +43,15 @@ export class DropdownComponent implements AfterViewInit, OnDestroy {
                 constraints: [
                     {
                         to: 'window'
-                        //attachment: 'together',
-                        //pin: true
                     }
                 ]
-            },
-            //constrainToScrollParent: false,
-            //constrainToWindow: false
+            }
         });
         this.dropDown.on("open", () => this.onDropdownOpen());
     }
 
     ngOnDestroy(): void {
-        this.dropDown.off("open");
+        if (this.dropDown) { this.dropDown.off("open"); }
     }
 
     private onDropdownOpen(): void {
@@ -63,10 +59,10 @@ export class DropdownComponent implements AfterViewInit, OnDestroy {
     }
 
     public open(): void {
-        this.dropDown.open();
+        if (this.dropDown) { this.dropDown.open(); }
     }
 
     public close(): void {
-        this.dropDown.close();
+        if (this.dropDown) { this.dropDown.close(); }
     }
 }

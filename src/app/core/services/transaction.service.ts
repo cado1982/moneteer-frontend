@@ -88,15 +88,6 @@ export class TransactionService extends ApiBaseService {
     private processTransaction(transaction: TransactionModel): TransactionModel {
         if (!transaction) { throw new Error("transaction must be provided"); }
         transaction.date = new Date(transaction.date);
-        
-        if (!transaction.assignments || transaction.assignments.length === 0) {
-            transaction.envelope = undefined;
-        } else if (transaction.assignments.length === 1) {
-            transaction.envelope = transaction.assignments[0].envelope;
-        } else if (transaction.assignments.length > 1) {
-            transaction.envelope = new EnvelopeModel("Multiple Categories");
-            transaction.envelope.id = "SplitCategory";
-        }
 
         return transaction;
     }
@@ -104,13 +95,28 @@ export class TransactionService extends ApiBaseService {
     private validateTransaction(model: TransactionModel): void {
         if (!model) { throw new Error("transactionModel must be set"); }
         if (!model.account) { throw new Error("transaction.account must be set"); }
-        if (!model.account.id) { throw new Error("transaction.account.uuid must be set"); }
-        if (model.inflow && model.outflow) {
-            throw new Error("Cannot have a transaction as both inflow and outflow");
-        }
+        if (!model.account.id) { throw new Error("transaction.account.id must be set"); }
+        if (model.inflow && model.outflow) { throw new Error("Cannot have a transaction as both inflow and outflow"); }
         if (!model.inflow && !model.outflow) { throw new Error("Must specify either inflow or outflow"); }
         if (model.account && model.targetAccount && model.account.id === model.targetAccount.id) {
             throw new Error("Cannot transfer to the same account");
         }
+        if (!model.assignments || model.assignments.length === 0) { throw new Error("Transaction assignments must be provided") }
+        if (this.getAssignmentsTotalInflow(model) > 0 && this.getAssignmentsTotalOutflow(model) > 0) {
+            throw new Error("Cannot provide both inflow and outflow in transaction");
+        }
+
+    }
+
+    private getAssignmentsTotalInflow(model: TransactionModel): number {
+        if (!model || !model.assignments || model.assignments.length === 0) return 0;
+        
+        return model.assignments.reduce((total, a) => total + a.inflow, 0);
+    }
+
+    private getAssignmentsTotalOutflow(model: TransactionModel): number {
+        if (!model || !model.assignments || model.assignments.length === 0) return 0;
+        
+        return model.assignments.reduce((total, a) => total + a.outflow, 0);
     }
 }

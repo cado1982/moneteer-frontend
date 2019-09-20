@@ -1,6 +1,6 @@
-
 import { AccountModel } from "./account.model";
 import { EnvelopeModel, PayeeModel } from "../../core/models/index";
+import { TransactionAssignmentModel } from "./transaction.assignment.model";
 
 export class TransactionModel {
     public id: string;
@@ -11,7 +11,6 @@ export class TransactionModel {
     public targetAccount: AccountModel;
     public date: Date;
     public description: string;
-    public envelope: EnvelopeModel | undefined;
     public isCleared: boolean;
     public isReconciled: boolean;
     public assignments: Array<TransactionAssignmentModel>;
@@ -21,11 +20,4 @@ export class TransactionModel {
             this.id = "00000000-0000-0000-0000-000000000000";
         }
     }
-}
-
-export class TransactionAssignmentModel {
-    public id: string;
-    public inflow: number;
-    public outflow: number;
-    public envelope: EnvelopeModel;
 }

@@ -21,7 +21,7 @@
         <div class="form-group">
             <label for="amount">Amount to move</label>
             <input id="initialBalance" class="form-control" moneteerCurrencyInput [(value)]="amount"
-                allowZeros=true allowNegative=false>
+                [allowZeros]="true" [allowNegative]="false">
         </div>
     </div>
     <div class="modal-footer flex-column align-items-stretch">

@@ -1,6 +1,3 @@
-<moneteer-transaction-inflow-create [@.disabled]="isAnimationDisabled" [@createTransactionVisible]="isCreateInflowTransactionOpen$ | async" [currentAccountId]="currentAccountId"></moneteer-transaction-inflow-create>
-<moneteer-transaction-outflow-create [@.disabled]="isAnimationDisabled" [@createTransactionVisible]="isCreateOutflowTransactionOpen$ | async" [currentAccountId]="currentAccountId"></moneteer-transaction-outflow-create>
-
 <div class="transaction-row transaction-header-row">
     <div class="transaction-header transaction-cell--selected">
         <input type="checkbox" class="form-input-check" ngModel (ngModelChange)="onSelectAll($event)" />
@@ -15,10 +12,10 @@
     <div class="transaction-header transaction-cell--cleared">Cleared</div>
 </div>
 
-<div class="transactions-container" *ngIf="(accounts$ | async).length > 0">
-    <div class="transactions-list">
-            <moneteer-transaction [@.disabled]="isAnimationDisabled" (editing)="onTransactionEditing($event)" [currentAccountId]="currentAccountId" [transaction]="transaction" *ngFor="let transaction of transactions$ | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy"></moneteer-transaction>
-    </div>
+
+<div class="d-flex flex-column h-100 overflow-auto" *ngIf="(accounts$ | async).length > 0">
+    <moneteer-transaction-create [hidden]="!(isCreateTransactionOpen$ | async)" [currentAccountId]="currentAccountId"></moneteer-transaction-create>    
+    <moneteer-transaction [@.disabled]="isAnimationDisabled" (editing)="onTransactionEditing($event)" [currentAccountId]="currentAccountId" [transaction]="transaction" *ngFor="let transaction of transactions$ | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy"></moneteer-transaction>
 </div>
 
 <moneteer-transaction-list-no-accounts *ngIf="(accounts$ | async).length === 0">

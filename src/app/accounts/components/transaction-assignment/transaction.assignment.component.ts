@@ -1,8 +1,7 @@
-import { Component, Input } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
-import { EnvelopeModel } from "../../../core/models/index";
-import { TransactionAssignmentModel } from "../../models/index";
+import { EnvelopeModel, GuidModel } from "../../../core/models/index";
+import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
 
 @Component({
     selector: "moneteer-transaction-assignment",
@@ -11,21 +10,34 @@ import { TransactionAssignmentModel } from "../../models/index";
     host: {"class": "transaction-row" }
 })
 export class TransactionAssignmentComponent {
+    
     @Input() public assignment: TransactionAssignmentModel;
-    @Input() public isEditing: boolean;
     @Input() public currentAccountId: string;
+    @Input() public envelopes: EnvelopeModel[];
+    @Output() public onDelete: EventEmitter<void> = new EventEmitter<void>();
+    @Input() public inUseEnvelopeIds: string[] = [];
 
-    public envelopes: Observable<Array<EnvelopeModel>>;
-
-    private onInflowChanged(newValue: number): void {
+    public onInflowChanged(newValue: number): void {
         if (newValue !== 0) {
             this.assignment.outflow = 0;
         }
     }
 
-    private onOutflowChanged(newValue: number): void {
+    public onOutflowChanged(newValue: number): void {
         if (newValue !== 0) {
             this.assignment.inflow = 0;
         }
+    }
+
+    public delete(): void {
+        this.onDelete.emit();
+    }
+
+    public isValid(): boolean {
+        return !!this.assignment &&
+               (this.assignment.inflow > 0 || this.assignment.outflow > 0) &&
+               !(this.assignment.inflow > 0 && this.assignment.outflow > 0) &&
+               !!this.assignment.envelope && 
+               this.assignment.envelope.id !== GuidModel.empty;
     }
 }

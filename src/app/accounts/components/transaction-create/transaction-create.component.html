@@ -1,0 +1,52 @@
+<div class="transaction-row">
+    <div class="transaction-cell transaction-cell--selected">
+
+    </div>
+    <div class="transaction-cell transaction-cell--date">
+        <div class="input-group">
+            <input class="form-control form-control-xs" type="date" name="date"
+                [ngModel]="transaction.date | date:'yyyy-MM-dd'" (ngModelChange)="transaction.date = $event">
+        </div>
+    </div>
+    <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
+        <moneteer-account-select-dropdown [accounts]="accounts$ | async" [(selectedAccount)]="transaction.account">
+        </moneteer-account-select-dropdown>
+    </div>
+
+    <div class="transaction-cell transaction-cell--description">
+        <input class="form-control form-control-xs" type="text" [(ngModel)]="transaction.description"
+            name="description">
+    </div>
+    <div class="transaction-cell transaction-cell--category">
+        <div *ngIf="transaction.assignments.length > 1">Multiple Envelopes</div>
+        <moneteer-envelope-select-dropdown *ngIf="transaction.assignments.length === 1"
+            [(selectedEnvelope)]="transaction.assignments[0].envelope" allowMultiple="true"
+            (onMultipleEnvelopes)="onAllowMultiple()" [envelopes]="envelopes$ | async" inputSize="xs">
+        </moneteer-envelope-select-dropdown>
+    </div>
+    <div class="transaction-cell transaction-cell--flow">
+        <input class="form-control form-control-xs" moneteerCurrencyInput [(value)]="outflow"
+            autocomplete="off" type="text">
+    </div>
+    <div class="transaction-cell transaction-cell--flow">
+        <input class="form-control form-control-xs" moneteerCurrencyInput [(value)]="inflow"
+            autocomplete="off" type="text">
+    </div>
+    <div class="transaction-cell transaction-cell--cleared">
+        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="transaction.isCleared" name="isCleared"
+            id="isCleared">
+    </div>
+</div>
+
+<div *ngIf="transaction.assignments.length > 1">
+    <moneteer-transaction-assignment [currentAccountId]="currentAccountId" [assignment]="assignment"
+        *ngFor="let assignment of transaction.assignments" [envelopes]="envelopes$ | async"
+        (onDelete)="onAssignmentDelete(assignment)" [inUseEnvelopeIds]="inUseEnvelopeIds">
+    </moneteer-transaction-assignment>
+    <button class="transaction-row text-right btn btn-xs btn-primary" (click)="addEnvelope()">Add envelope</button>
+</div>
+
+<div class="transaction-actions">
+    <button type="button" class="btn btn-link btn-xs mr-3" (click)="cancel()">Cancel</button>
+    <button [disabled]="!canCreate()" type="button" class="btn btn-success btn-xs" (click)="create()">Create</button>
+</div>

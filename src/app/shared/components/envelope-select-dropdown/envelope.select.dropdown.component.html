@@ -8,6 +8,12 @@
     </div>
 </ng-template>
 
+<ng-template #header>
+    <div *ngIf="allowMultiple">
+        <button class="btn btn-xs btn-primary" (click)="multipleEnvelopes()">Multiple Envelopes</button>
+    </div>
+</ng-template>
+
 <moneteer-dropdown-list [inputSize]="inputSize" [items]="envelopes" [disabled]="disabled" [(selectedItem)]="selectedEnvelope"
-    [itemTemplate]="envelope" groupBy="envelopeCategory.name">
+    [itemTemplate]="envelope" groupBy="envelopeCategory.name" [headerTemplate]="header" [hideIds]="hideEnvelopeIds">
 </moneteer-dropdown-list>

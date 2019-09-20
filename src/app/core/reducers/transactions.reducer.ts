@@ -5,18 +5,12 @@ import { coreFeatureSelector } from "./feature.selector";
 import { PayeeModel } from "../models";
 import { RecentTransactionByEnvelope } from "../models/recent.transaction.by.envelope.model";
 
-export enum CreateTransactionMode {
-    Inflow = "INFLOW",
-    Outflow = "OUTFLOW"
-}
-
 export interface ITransactionsState {
     loading: boolean;
     creating: boolean;
     deleting: boolean;
     confirmingDelete: boolean;
-    createTransactionInflowOpen: boolean;
-    createTransactionOutflowOpen: boolean;
+    createTransactionOpen: boolean;
     transactions: TransactionModel[];
     payees: PayeeModel[];
     selectedTransactionIds: string[];
@@ -28,8 +22,7 @@ export const initialState: ITransactionsState = {
     creating: false,
     deleting: false,
     confirmingDelete: false,
-    createTransactionInflowOpen: false,
-    createTransactionOutflowOpen: false,
+    createTransactionOpen: false,
     transactions: [],
     payees: [],
     selectedTransactionIds: [],
@@ -81,12 +74,11 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
         case TransactionsActionTypes.ShowCreateTransaction: {
             return {
                 ...state,
-                createTransactionInflowOpen: action.payload.mode === CreateTransactionMode.Inflow,
-                createTransactionOutflowOpen: action.payload.mode === CreateTransactionMode.Outflow
+                createTransactionOpen: true
             }
         }
         case TransactionsActionTypes.HideCreateTransaction: {
-            return {...state, createTransactionInflowOpen: false, createTransactionOutflowOpen: false}
+            return {...state, createTransactionOpen: false}
         }
         case TransactionsActionTypes.CreateTransaction: {
             return {...state, creating: true};
@@ -108,8 +100,7 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
                 ],
                 payees: payees,
                 creating: false,
-                createTransactionInflowOpen: false,
-                createTransactionOutflowOpen: false
+                createTransactionOpen: false
             };
         }
         case TransactionsActionTypes.CreateTransactionFailure: {
@@ -120,7 +111,7 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
             return {...state, creating: true};
         }
         case TransactionsActionTypes.UpdateTransactionSuccess: {
-            return {...state, transactions: [...state.transactions.filter(t => t.id !== action.payload.transaction.id), action.payload.transaction], creating: false, createTransactionInflowOpen: false, createTransactionOutflowOpen: false};
+            return {...state, transactions: [...state.transactions.filter(t => t.id !== action.payload.transaction.id), action.payload.transaction], creating: false, createTransactionOpen: false};
         }
         case TransactionsActionTypes.UpdateTransactionFailure: {
             return {...state, creating: false};
@@ -197,14 +188,9 @@ export const getRecentTransactionsByEnvelope = createSelector(
     state => state.recentTransactionsByEnvelopes
 );
 
-export const getIsCreateInflowTransactionOpen = createSelector(
+export const getIsCreateTransactionOpen = createSelector(
     transactionsState,
-    state => state.createTransactionInflowOpen
-);
-
-export const getIsCreateOutflowTransactionOpen = createSelector(
-    transactionsState,
-    state => state.createTransactionOutflowOpen
+    state => state.createTransactionOpen
 );
 
 export const getIsDeleting = createSelector(

@@ -19,15 +19,11 @@
 
 input {
     width: 100%;
-    color: $theme-light-text !important;
 }
 
-.transaction-actions {
-    position: absolute;
-    padding: 5px;    
-    top: 100%;
-    right: 30px;
-    z-index: 1;
-    color: $theme-light-text !important;
-    background-color: $theme-accent !important;
+.transaction-cell {
+    padding: 0px 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

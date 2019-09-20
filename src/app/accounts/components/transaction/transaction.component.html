@@ -26,7 +26,7 @@
             name="description">
     </div>
     <div class="transaction-cell transaction-cell--category">
-        <span *ngIf="!isEditing">{{transaction?.envelope?.name}}</span>
+        <span *ngIf="!isEditing">{{transaction?.assignments.length === 1 ? transaction?.assignments[0].envelope?.name : 'Multiple envelopes'}}</span>
         <moneteer-envelope-select-dropdown *ngIf="isEditing" [(selectedEnvelope)]="envelope"
             [envelopes]="envelopes$ | async" inputSize="xs"></moneteer-envelope-select-dropdown>
     </div>
@@ -46,10 +46,9 @@
     </div>
 </div>
 
-<div *ngIf="transaction.assignments?.length > 1" (click)="click($event)">
+<div *ngIf="transaction.assignments.length > 1 && isEditing" (click)="click($event)">
     <moneteer-transaction-assignment [currentAccountId]="currentAccountId" [assignment]="assignment"
-        [isEditing]="isEditing" *ngFor="let assignment of transaction.assignments">
-
+        *ngFor="let assignment of transaction.assignments">
     </moneteer-transaction-assignment>
 </div>
 

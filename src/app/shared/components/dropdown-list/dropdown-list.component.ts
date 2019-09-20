@@ -23,6 +23,8 @@ export class DropdownListComponent<T> implements OnInit {
     @Input() public headerTemplate: TemplateRef<any>;
     @Input() public noItemsTemplate: TemplateRef<any>;
 
+    @Input() public hideIds: string[] = [];
+
     public searchFilterTerm$ = new BehaviorSubject<string>("");
     public filteredItems: T[] = [];
     public groupedItems: { groupName: string, items: T[] }[]
@@ -147,7 +149,9 @@ export class DropdownListComponent<T> implements OnInit {
 
     ngOnInit() {
         this.searchFilterTerm$.subscribe(searchTerm => {
-            this.filteredItems = this.items.filter(p => searchTerm === "" || p[this.itemDisplayProperty].toLowerCase().includes(searchTerm.toLowerCase()))
+            this.filteredItems = this.items.filter(p => 
+                (!this.hideIds || this.hideIds.indexOf(p[this.idProperty]) === -1) &&
+                (searchTerm === "" || p[this.itemDisplayProperty].toLowerCase().includes(searchTerm.toLowerCase())))
 
             if (!!this.groupByProperty) {
                 const grouped = groupBy(this.filteredItems, n => get(n, this.groupByProperty))
@@ -155,7 +159,9 @@ export class DropdownListComponent<T> implements OnInit {
                 this.groupedItems = toArray.map(([groupName, items]) => {
                     return {
                         groupName,
-                        items: items.filter(p => searchTerm === "" || p[this.itemDisplayProperty].toLowerCase().includes(searchTerm.toLowerCase()))
+                        items: items.filter(p => 
+                            (!this.hideIds || this.hideIds.indexOf(p[this.idProperty]) === -1) &&
+                            (searchTerm === "" || p[this.itemDisplayProperty].toLowerCase().includes(searchTerm.toLowerCase())))
                     }
                 });
 

@@ -1,6 +1,5 @@
 import { Action } from "@ngrx/store";
 import { TransactionModel } from "../../accounts/models";
-import { CreateTransactionMode } from "../reducers/transactions.reducer";
 import { PayeeModel } from "../models";
 import { RecentTransactionByEnvelope } from "../models/recent.transaction.by.envelope.model";
 
@@ -106,7 +105,6 @@ export class LoadPayeesFailureAction implements Action {
 // Create
 export class ShowCreateTransactionAction implements Action {
     readonly type = TransactionsActionTypes.ShowCreateTransaction;
-    constructor(public payload: {mode: CreateTransactionMode}) { }
 }
 export class HideCreateTransactionAction implements Action {
     readonly type = TransactionsActionTypes.HideCreateTransaction;
