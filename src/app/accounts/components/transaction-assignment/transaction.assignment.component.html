@@ -8,14 +8,14 @@
 </div>
 <div class="transaction-cell transaction-cell--category">
     <moneteer-envelope-select-dropdown [(selectedEnvelope)]="assignment.envelope"
-        [hideEnvelopeIds]="inUseEnvelopeIds"
+        [hideEnvelopeIds]="inUseEnvelopeIds" [allowMultiple]="false" [hideEnvelopeIds]="inUseEnvelopeIds"
         [envelopes]="envelopes" inputSize="xs"></moneteer-envelope-select-dropdown>
 </div>
 <div class="transaction-cell transaction-cell--flow" >
-    <input moneteerCurrencyInput [(value)]="assignment.outflow" (change)="onOutflowChanged($event)" name="outflow" class="form-control form-control-xs" [allowZeros]="false" [allowNegative]="false">
+    <input moneteerCurrencyInput [(value)]="outflow" name="outflow" class="form-control form-control-xs" [allowZeros]="false" [allowNegative]="false">
 </div>
 <div class="transaction-cell transaction-cell--flow">
-    <input moneteerCurrencyInput [(value)]="assignment.inflow" (change)="onInflowChanged($event)" name="inflow" class="form-control form-control-xs" [allowZeros]="false" [allowNegative]="false">
+    <input moneteerCurrencyInput [(value)]="inflow" name="inflow" class="form-control form-control-xs" [allowZeros]="false" [allowNegative]="false">
 </div>
 <div class="transaction-cell transaction-cell--cleared">
     <button class="btn" aria-label="delete assignment" (click)="delete()"><i class="fas fa-minus-circle text-danger"></i></button>

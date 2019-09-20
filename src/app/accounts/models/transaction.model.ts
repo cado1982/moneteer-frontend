@@ -5,8 +5,6 @@ import { TransactionAssignmentModel } from "./transaction.assignment.model";
 export class TransactionModel {
     public id: string;
     public account: AccountModel;
-    public inflow: number;
-    public outflow: number;
     public payee: PayeeModel | undefined;
     public targetAccount: AccountModel;
     public date: Date;

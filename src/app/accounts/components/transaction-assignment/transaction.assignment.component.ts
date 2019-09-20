@@ -6,8 +6,7 @@ import { TransactionAssignmentModel } from "../../models/transaction.assignment.
 @Component({
     selector: "moneteer-transaction-assignment",
     templateUrl: "./transaction.assignment.component.html",
-    styleUrls: ["./transaction.assignment.component.scss"],
-    host: {"class": "transaction-row" }
+    styleUrls: ["./transaction.assignment.component.scss", './../../styles/transaction.scss']
 })
 export class TransactionAssignmentComponent {
     
@@ -17,15 +16,23 @@ export class TransactionAssignmentComponent {
     @Output() public onDelete: EventEmitter<void> = new EventEmitter<void>();
     @Input() public inUseEnvelopeIds: string[] = [];
 
-    public onInflowChanged(newValue: number): void {
+    public get inflow(): number {
+        return this.assignment.inflow;
+    }
+    public set inflow(newValue: number) {
+        this.assignment.inflow = newValue;
         if (newValue !== 0) {
-            this.assignment.outflow = 0;
+            this.outflow = 0;
         }
     }
 
-    public onOutflowChanged(newValue: number): void {
+    public get outflow(): number {
+        return this.assignment.outflow;
+    }
+    public set outflow(newValue: number) {
+        this.assignment.outflow = newValue;
         if (newValue !== 0) {
-            this.assignment.inflow = 0;
+            this.inflow = 0;
         }
     }
 

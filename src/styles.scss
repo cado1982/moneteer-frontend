@@ -39,49 +39,6 @@ body {
   margin: 40px;
 }
 
-/* TRANSACTION TABLE */
-.transaction-row {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    flex-shrink: 0;
-    padding: 0.4em;
-}
-
-.transaction-cell--date {
-    flex: 1 1 120px;
-}
-
-.transaction-cell--account {
-    flex: 1 1 120px;
-}
-
-.transaction-cell--category {
-    flex: 1 1 120px;
-}
-
-.transaction-cell--flow {
-    flex: 0 1 100px;
-    text-align: right;
-}
-
-.transaction-cell--cleared {
-    flex: 0 1 60px;
-}
-
-.transaction-cell--description {
-    flex: 1 1 120px;
-}
-
-.transaction-cell--payee {
-    flex: 1 1 120px;
-}
-
-.transaction-cell--selected {
-    flex: 0 1 30px;
-    padding-left: 8px;
-}
-
 .money-label {
     height: 0.75rem;
     border-radius: 0.5rem;

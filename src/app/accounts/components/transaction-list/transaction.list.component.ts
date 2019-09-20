@@ -11,12 +11,13 @@ import { ITransactionsState, getIsCreateTransactionOpen } from "../../../core/re
 import { TransactionsActionTypes } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
+import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
 
 
 @Component({
     selector: "moneteer-transaction-list",
     templateUrl: "./transaction.list.component.html",
-    styleUrls: ["./transaction.list.component.scss"],
+    styleUrls: ["./transaction.list.component.scss", './../../styles/transaction.scss'],
     animations: [
         trigger("createTransactionVisible", [
             state("true", style({
@@ -72,6 +73,14 @@ export class TransactionListComponent implements OnInit {
         })        
     }
 
+    private createNewTransaction(): TransactionModel {
+        let transaction = new TransactionModel();
+        transaction.date = new Date();
+        transaction.assignments = [new TransactionAssignmentModel()];
+
+        return transaction;
+    }
+
     public onSelectAll(isSelected: boolean): void {
         for (let i = 0; i < this.transactionComponents.length; i++) {
             const transaction: TransactionComponent = this.transactionComponents.toArray()[i];
@@ -85,10 +94,10 @@ export class TransactionListComponent implements OnInit {
 
     public onTransactionEditing(transactionId: string) {
         for (let i = 0; i < this.transactionComponents.length; i++) {
-            const transaction: TransactionComponent = this.transactionComponents.toArray()[i];
-            if (transaction.transaction.id !== transactionId) {
-                transaction.isEditing = false;
-                transaction.isChecked = false;
+            const transactionComponent: TransactionComponent = this.transactionComponents.toArray()[i];
+            if (transactionComponent.transaction && transactionComponent.transaction.id !== transactionId) {
+                transactionComponent.isEditing = false;
+                transactionComponent.isChecked = false;
             }
         }
     }

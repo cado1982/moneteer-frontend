@@ -1,0 +1,26 @@
+<div class="transaction-row" (click)="click()">
+    <div class="transaction-cell transaction-cell--selected">
+        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isChecked" name="isChecked" id="isChecked">
+    </div>
+    <div class="transaction-cell transaction-cell--date">
+        {{transaction.date | date:'shortDate'}}
+    </div>
+    <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
+        {{transaction.account?.name}}
+    </div>
+    <div class="transaction-cell transaction-cell--description">
+        {{transaction.description}}
+    </div>
+    <div class="transaction-cell transaction-cell--category">
+        {{envelopeName}}
+    </div>
+    <div class="transaction-cell transaction-cell--flow">
+        {{outflow | budgetCurrency | async }}
+    </div>
+    <div class="transaction-cell transaction-cell--flow">
+        {{inflow | budgetCurrency | async }}
+    </div>
+    <div class="transaction-cell transaction-cell--cleared">
+        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isCleared" name="isCleared" id="isCleared">
+    </div>
+</div>

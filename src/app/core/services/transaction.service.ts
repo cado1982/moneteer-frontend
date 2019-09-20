@@ -96,8 +96,6 @@ export class TransactionService extends ApiBaseService {
         if (!model) { throw new Error("transactionModel must be set"); }
         if (!model.account) { throw new Error("transaction.account must be set"); }
         if (!model.account.id) { throw new Error("transaction.account.id must be set"); }
-        if (model.inflow && model.outflow) { throw new Error("Cannot have a transaction as both inflow and outflow"); }
-        if (!model.inflow && !model.outflow) { throw new Error("Must specify either inflow or outflow"); }
         if (model.account && model.targetAccount && model.account.id === model.targetAccount.id) {
             throw new Error("Cannot transfer to the same account");
         }

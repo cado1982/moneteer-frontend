@@ -4,7 +4,6 @@
     </div>
     <div class="transaction-header transaction-cell--date">Date</div>
     <div [hidden]="currentAccountId" class="transaction-header transaction-cell--account">Account</div>
-    <!-- <div class="transaction-header transaction-cell--payee">Payee</div> -->
     <div class="transaction-header transaction-cell--description">Memo</div>
     <div class="transaction-header transaction-cell--category">Envelope</div>
     <div class="transaction-header transaction-cell--flow">Outflow</div>
@@ -12,10 +11,12 @@
     <div class="transaction-header transaction-cell--cleared">Cleared</div>
 </div>
 
-
 <div class="d-flex flex-column h-100 overflow-auto" *ngIf="(accounts$ | async).length > 0">
     <moneteer-transaction-create [hidden]="!(isCreateTransactionOpen$ | async)" [currentAccountId]="currentAccountId"></moneteer-transaction-create>    
-    <moneteer-transaction [@.disabled]="isAnimationDisabled" (editing)="onTransactionEditing($event)" [currentAccountId]="currentAccountId" [transaction]="transaction" *ngFor="let transaction of transactions$ | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy"></moneteer-transaction>
+    <moneteer-transaction [@.disabled]="isAnimationDisabled" (editing)="onTransactionEditing($event)"
+        [currentAccountId]="currentAccountId" [transaction]="transaction" 
+        *ngFor="let transaction of transactions$ | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy">
+    </moneteer-transaction>
 </div>
 
 <moneteer-transaction-list-no-accounts *ngIf="(accounts$ | async).length === 0">
