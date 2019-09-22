@@ -34,36 +34,18 @@ export class TransactionComponent {
     }
 
     public save(): void {
-        let updatedTransaction = new TransactionModel();
-        updatedTransaction.id = this.transaction.id;
-        updatedTransaction.date = this.transactionEditComponent.date;
-        updatedTransaction.description = this.transactionEditComponent.description;
-        updatedTransaction.isCleared = this.transactionEditComponent.isCleared;
-
-        updatedTransaction.account = new AccountModel();
-
-        if (this.currentAccountId) {
-            updatedTransaction.account.id = this.currentAccountId;
-        } else {
-            updatedTransaction.account.id = this.transactionEditComponent.account.id;
-        }
-        
-        updatedTransaction.assignments = [];
-        this.transactionEditComponent.assignments.forEach(a => {
-            let newAssignment = new TransactionAssignmentModel();
-            newAssignment.inflow = a.inflow;
-            newAssignment.outflow = a.outflow;
-            if (a.envelope) {
-                newAssignment.envelope = new EnvelopeModel();
-                newAssignment.envelope.id = a.envelope.id;
-            }
-        })
-
+        const updatedTransaction = this.transactionEditComponent.getEditedTransaction();
 
         this.store.dispatch(new UpdateTransactionAction({ transaction: updatedTransaction }));
     }
 
     public cancel(): void {
         this.isEditing = false;
+        this.isChecked = false;
+    }
+
+    public beginEdit(): void {
+        this.isEditing = true;
+        this.editing.emit();
     }
 }

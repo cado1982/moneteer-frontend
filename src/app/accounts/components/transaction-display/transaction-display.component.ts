@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { TransactionModel } from '../../models';
 import { Store } from '@ngrx/store';
 import { ITransactionsState } from 'src/app/core/reducers/transactions.reducer';
@@ -12,6 +12,7 @@ import { SetTransactionClearedAction } from 'src/app/core/actions/transactions.a
 export class TransactionDisplayComponent implements OnInit, OnChanges {
     @Input() public transaction: TransactionModel;
     @Input() public currentAccountId: string;
+    @Output() public requestEdit: EventEmitter<void> = new EventEmitter<void>();
 
     @Input() public isChecked: boolean;
 
@@ -45,7 +46,11 @@ export class TransactionDisplayComponent implements OnInit, OnChanges {
     }
 
     public click(): void {
-        this.isChecked = true;
+        if (this.isChecked) {
+            this.requestEdit.emit();
+        } else {
+            this.isChecked = true;
+        }
     }
 
     constructor(public store: Store<ITransactionsState>) { }

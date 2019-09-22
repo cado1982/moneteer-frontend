@@ -6,12 +6,13 @@
     flex: 1 1 auto;
     overflow: hidden;
     user-select: none;
+    font-size: 0.8rem;
 }
 
 .transaction-header {
     background-color: $theme-medium;
     color: $theme-light-text;
-    font-size: 0.7em;
+    font-size: 0.7rem;
     padding: 2px 5px;
     white-space: nowrap;
     text-overflow: ellipsis;

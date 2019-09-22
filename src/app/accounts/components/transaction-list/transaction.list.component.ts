@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { TransactionModel, AccountModel } from "../../models/index";
 import { Store } from "@ngrx/store";
 import { ITransactionsState, getIsCreateTransactionOpen } from "../../../core/reducers/transactions.reducer";
-import { TransactionsActionTypes } from "../../../core/actions/transactions.actions";
+import { TransactionsActionTypes, HideCreateTransactionAction } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
@@ -73,14 +73,6 @@ export class TransactionListComponent implements OnInit {
         })        
     }
 
-    private createNewTransaction(): TransactionModel {
-        let transaction = new TransactionModel();
-        transaction.date = new Date();
-        transaction.assignments = [new TransactionAssignmentModel()];
-
-        return transaction;
-    }
-
     public onSelectAll(isSelected: boolean): void {
         for (let i = 0; i < this.transactionComponents.length; i++) {
             const transaction: TransactionComponent = this.transactionComponents.toArray()[i];
@@ -100,6 +92,7 @@ export class TransactionListComponent implements OnInit {
                 transactionComponent.isChecked = false;
             }
         }
+        this.store.dispatch(new HideCreateTransactionAction());
     }
 
     private deselectAllTransactions(): void {

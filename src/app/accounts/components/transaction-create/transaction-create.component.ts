@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { TransactionModel, AccountModel } from '../../models';
 import { TransactionAssignmentModel } from '../../models/transaction.assignment.model';
 import { Store } from '@ngrx/store';
 import { ITransactionsState } from 'src/app/core/reducers/transactions.reducer';
 import { HideCreateTransactionAction, CreateTransactionAction } from 'src/app/core/actions/transactions.actions';
+import { TransactionEditComponent } from '../transaction-edit/transaction-edit.component';
 
 @Component({
     selector: 'moneteer-transaction-create',
@@ -14,6 +15,8 @@ export class TransactionCreateComponent implements OnInit {
     @Input() public currentAccountId: string;
     public transaction: TransactionModel;
 
+    @ViewChild(TransactionEditComponent, { static: true }) public transactionEditComponent: TransactionEditComponent;
+    
     constructor(public store: Store<ITransactionsState>) {
         this.resetTransaction();
     }
@@ -28,12 +31,9 @@ export class TransactionCreateComponent implements OnInit {
     }
 
     public create(): void {
-        if (this.currentAccountId) {
-            this.transaction.account = new AccountModel();
-            this.transaction.account.id = this.currentAccountId;
-        }
+        const transaction = this.transactionEditComponent.getEditedTransaction();
 
-        this.store.dispatch(new CreateTransactionAction({ transaction: this.transaction }));
+        this.store.dispatch(new CreateTransactionAction({ transaction: transaction }));
     }
 
     public cancel(): void {

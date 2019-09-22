@@ -69,6 +69,37 @@ export class TransactionEditComponent implements OnInit, OnChanges {
         this.assignments.splice(index, 1);
     }
 
+    public getEditedTransaction(): TransactionModel {
+        let updatedTransaction = new TransactionModel();
+        updatedTransaction.id = this.transaction.id;
+        updatedTransaction.date = this.date;
+        updatedTransaction.description = this.description;
+        updatedTransaction.isCleared = this.isCleared;
+
+        updatedTransaction.account = new AccountModel();
+
+        if (this.currentAccountId) {
+            updatedTransaction.account.id = this.currentAccountId;
+        } else if (this.account) {
+            updatedTransaction.account.id = this.account.id;
+        }
+        
+        updatedTransaction.assignments = [];
+        this.assignments.forEach(a => {
+            let newAssignment = new TransactionAssignmentModel();
+            newAssignment.inflow = a.inflow;
+            newAssignment.outflow = a.outflow;
+            newAssignment.envelope = a.envelope;
+            // if (a.envelope) {
+            //     newAssignment.envelope = new EnvelopeModel();
+            //     newAssignment.envelope.id = a.envelope.id;
+            // }
+            updatedTransaction.assignments.push(newAssignment);
+        })
+
+        return updatedTransaction;
+    }
+
     public isBusy$: Observable<boolean>;
 
     public accounts$: Observable<Array<AccountModel>>;

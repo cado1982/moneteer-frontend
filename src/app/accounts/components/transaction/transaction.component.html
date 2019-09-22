@@ -1,3 +1,3 @@
-<moneteer-transaction-display [hidden]="isEditing" [isChecked]="isChecked" [transaction]="transaction" [currentAccountId]="currentAccountId"></moneteer-transaction-display>
+<moneteer-transaction-display (requestEdit)="beginEdit()" [hidden]="isEditing" [isChecked]="isChecked" [transaction]="transaction" [currentAccountId]="currentAccountId"></moneteer-transaction-display>
 <moneteer-transaction-edit [hidden]="!isEditing" [transaction]="transaction"></moneteer-transaction-edit>
 <moneteer-transaction-actions [hidden]="!isEditing" (save)="save()" (cancel)="cancel()"></moneteer-transaction-actions>
