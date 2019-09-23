@@ -8,5 +8,6 @@ export const environment: any = {
     api_url: "http://localhost:4300/api/",
     auth_url: "http://localhost:4400",
     auth_redirect_url: "http://localhost:4200/auth-callback",
-    landing_url: "http://localhost:4500"
+    landing_url: "http://localhost:4500",
+    silent_refresh_url: "http://localhost:4200/assets/silent-refresh.html"
 };

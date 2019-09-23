@@ -27,9 +27,6 @@
                             "src/styles.scss"
                         ],
                         "scripts": [
-                            "node_modules/jquery/dist/jquery.min.js",
-                            "node_modules/bootstrap/dist/js/bootstrap.min.js",
-                            "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
                             "node_modules/tether/dist/js/tether.min.js",
                             "node_modules/tether-drop/dist/js/drop.min.js"
                         ]

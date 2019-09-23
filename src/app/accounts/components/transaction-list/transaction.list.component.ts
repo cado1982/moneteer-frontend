@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { TransactionModel, AccountModel } from "../../models/index";
 import { Store } from "@ngrx/store";
 import { ITransactionsState, getIsCreateTransactionOpen } from "../../../core/reducers/transactions.reducer";
-import { TransactionsActionTypes, HideCreateTransactionAction } from "../../../core/actions/transactions.actions";
+import { TransactionsActionTypes, HideCreateTransactionAction, SelectAllTransactionsAction, DeselectAllTransactionsAction } from "../../../core/actions/transactions.actions";
 import { Actions, ofType } from "@ngrx/effects";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
@@ -38,7 +38,6 @@ export class TransactionListComponent implements OnInit {
     public isCreateTransactionOpen$: Observable<boolean>;
     @Input() public transactions$: Observable<TransactionModel[]>;
     public currentAccountId: string;
-    public isAnimationDisabled: boolean = true;
     public accounts$: Observable<AccountModel[]>;
 
     @ViewChildren(TransactionComponent) public transactionComponents: QueryList<TransactionComponent>;
@@ -58,25 +57,25 @@ export class TransactionListComponent implements OnInit {
         this.isCreateTransactionOpen$ = this.store.select(getIsCreateTransactionOpen);
         this.accounts$ = this.store.select(getAccounts);
 
-        this.actions$.pipe(
-            ofType(TransactionsActionTypes.LoadTransactionsSuccess)
-        ).subscribe(() => {
-            //Why isn't this getting called?
-            this.isAnimationDisabled = false;
-            console.log("Animations disabled")
-        });
+        // this.actions$.pipe(
+        //     ofType(TransactionsActionTypes.LoadTransactionsSuccess)
+        // ).subscribe(() => {
+        //     //Why isn't this getting called?
+        //     this.isAnimationDisabled = false;
+        // });
 
-        this.actions$.pipe(
-            ofType(TransactionsActionTypes.ShowCreateTransaction)
-        ).subscribe(() => {
-            this.deselectAllTransactions();
-        })        
+        // this.actions$.pipe(
+        //     ofType(TransactionsActionTypes.ShowCreateTransaction)
+        // ).subscribe(() => {
+        //     this.deselectAllTransactions();
+        // })        
     }
 
     public onSelectAll(isSelected: boolean): void {
-        for (let i = 0; i < this.transactionComponents.length; i++) {
-            const transaction: TransactionComponent = this.transactionComponents.toArray()[i];
-            transaction.isChecked = isSelected;
+        if (isSelected) {
+            this.store.dispatch(new SelectAllTransactionsAction());
+        } else {
+            this.store.dispatch(new DeselectAllTransactionsAction());
         }
     }
 
@@ -84,22 +83,22 @@ export class TransactionListComponent implements OnInit {
         return item.id;
     }
 
-    public onTransactionEditing(transactionId: string) {
-        for (let i = 0; i < this.transactionComponents.length; i++) {
-            const transactionComponent: TransactionComponent = this.transactionComponents.toArray()[i];
-            if (transactionComponent.transaction && transactionComponent.transaction.id !== transactionId) {
-                transactionComponent.isEditing = false;
-                transactionComponent.isChecked = false;
-            }
-        }
-        this.store.dispatch(new HideCreateTransactionAction());
-    }
+    // public onTransactionEditing(transactionId: string) {
+    //     for (let i = 0; i < this.transactionComponents.length; i++) {
+    //         const transactionComponent: TransactionComponent = this.transactionComponents.toArray()[i];
+    //         if (transactionComponent.transaction && transactionComponent.transaction.id !== transactionId) {
+    //             transactionComponent.isEditing = false;
+    //             transactionComponent.isChecked = false;
+    //         }
+    //     }
+    //     this.store.dispatch(new HideCreateTransactionAction());
+    // }
 
-    private deselectAllTransactions(): void {
-        for (let i = 0; i < this.transactionComponents.length; i++) {
-            const transaction: TransactionComponent = this.transactionComponents.toArray()[i];
-            transaction.isEditing = false;
-            transaction.isChecked = false;
-        }
-    }
+    // private deselectAllTransactions(): void {
+    //     for (let i = 0; i < this.transactionComponents.length; i++) {
+    //         const transaction: TransactionComponent = this.transactionComponents.toArray()[i];
+    //         transaction.isEditing = false;
+    //         transaction.isChecked = false;
+    //     }
+    // }
 }

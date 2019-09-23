@@ -13,7 +13,7 @@
 
 <div class="d-flex flex-column h-100 overflow-auto" *ngIf="(accounts$ | async).length > 0">
     <moneteer-transaction-create [hidden]="!(isCreateTransactionOpen$ | async)" [currentAccountId]="currentAccountId"></moneteer-transaction-create>    
-    <moneteer-transaction [@.disabled]="isAnimationDisabled" (editing)="onTransactionEditing(transaction.id)"
+    <moneteer-transaction (editing)="onTransactionEditing(transaction.id)"
         [currentAccountId]="currentAccountId" [transaction]="transaction" 
         *ngFor="let transaction of transactions$ | async | filterBy:['account.id']:currentAccountId;trackBy: transactionTrackBy">
     </moneteer-transaction>

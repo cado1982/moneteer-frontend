@@ -44,7 +44,10 @@ export enum TransactionsActionTypes {
     SelectTransaction = "[Transactions] Select",
     DeselectTransaction = "[Transactions] Deselect",
     SelectAllTransactions = "[Transactions] Select All",
-    DeselectAllTransactions = "[Transactions] Deselect All"
+    DeselectAllTransactions = "[Transactions] Deselect All",
+
+    BeginEditTransaction = "[Transactions] Begin Edit",
+    EndEditTransaction = "[Transactions] End Edit" 
 }
 // Load
 export class LoadTransactionsAction implements Action {
@@ -186,6 +189,15 @@ export class DeselectAllTransactionsAction implements Action {
     readonly type = TransactionsActionTypes.DeselectAllTransactions;
 }
 
+// Editing
+export class BeginEditTransactionAction implements Action {
+    readonly type = TransactionsActionTypes.BeginEditTransaction;
+    constructor(public payload: {transactionId: string}) { }
+}
+export class EndEditTransactionAction implements Action {
+    readonly type = TransactionsActionTypes.EndEditTransaction;
+}
+
 export type TransactionsActions =
     | LoadTransactionsAction
     | LoadTransactionsSuccessAction
@@ -218,4 +230,6 @@ export type TransactionsActions =
     | SelectTransactionAction
     | DeselectTransactionAction
     | SelectAllTransactionsAction
-    | DeselectAllTransactionsAction;
+    | DeselectAllTransactionsAction
+    | BeginEditTransactionAction
+    | EndEditTransactionAction;

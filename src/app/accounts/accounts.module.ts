@@ -10,7 +10,6 @@ import { AccountsRoutingModule } from "./accounts.routing.module";
 import { TransactionDeleteModalComponent } from './components/transaction-delete-modal/transaction-delete-modal.component';
 import { TransactionEditComponent } from './components/transaction-edit/transaction-edit.component';
 import { TransactionDisplayComponent } from './components/transaction-display/transaction-display.component';
-import { TransactionActionsComponent } from './components/transaction-actions/transaction-actions.component';
 import { TransactionCreateComponent } from './components/transaction-create/transaction-create.component';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { TransactionCreateComponent } from './components/transaction-create/tran
         TransactionDeleteModalComponent,
         TransactionEditComponent,
         TransactionDisplayComponent,
-        TransactionActionsComponent,
         TransactionCreateComponent
     ],
     providers: [

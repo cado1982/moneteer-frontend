@@ -8,6 +8,12 @@
     font-size: 0.8rem;
 }
 
+.transaction-actions {
+    padding: 5px;
+    background-color: $theme-hover;
+    align-self: flex-end;
+}
+
 /* TRANSACTION TABLE */
 .transaction-row {
     display: flex;

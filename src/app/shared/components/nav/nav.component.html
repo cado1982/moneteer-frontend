@@ -7,12 +7,13 @@
 
 <div style="flex: 1 0 auto;"></div>
 
-<div ngbDropdown placement="top-right" class="d-inline-block">
-    <button type="button" class="w-100 btn btn-sm text-light text-shadow-dark dropdown-toggle text-truncate" ngbDropdownToggle>
+<div ngbDropdown display="dynamic" placement="top-right" class="d-inline-block">
+    <button type="button" id="profileDropdown" class="w-100 btn btn-sm text-light text-shadow-dark dropdown-toggle text-truncate" ngbDropdownToggle>
         <i class="far fa-user"></i>
         {{user?.profile.email}}
     </button>
     <div ngbDropdownMenu container="body" aria-labelledby="profileDropdown" >
         <button class="btn btn-link" (click)="logOut()" ngbDropdownItem>Log Out</button>
+        <a class="btn btn-link" href="{{landingUrl}}/Identity/Account/Manage" ngbDropdownItem>Account</a>
     </div>
 </div>

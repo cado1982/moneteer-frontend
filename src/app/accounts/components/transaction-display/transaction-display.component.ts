@@ -1,31 +1,20 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { TransactionModel } from '../../models';
 import { Store } from '@ngrx/store';
-import { ITransactionsState } from 'src/app/core/reducers/transactions.reducer';
-import { SetTransactionClearedAction } from 'src/app/core/actions/transactions.actions';
+import { ITransactionsState, getIsTransactionSelected } from 'src/app/core/reducers/transactions.reducer';
+import { SetTransactionClearedAction, SelectTransactionAction, DeselectTransactionAction } from 'src/app/core/actions/transactions.actions';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'moneteer-transaction-display',
     templateUrl: './transaction-display.component.html',
     styleUrls: ['./transaction-display.component.scss', './../../styles/transaction.scss']
 })
-export class TransactionDisplayComponent implements OnInit, OnChanges {
+export class TransactionDisplayComponent implements OnInit {
     @Input() public transaction: TransactionModel;
     @Input() public currentAccountId: string;
-    @Output() public requestEdit: EventEmitter<void> = new EventEmitter<void>();
 
-    @Input() public isChecked: boolean;
-
-    private _isCleared: boolean;
-    public get isCleared(): boolean {
-        return this._isCleared;
-    }
-    public set isCleared(newValue: boolean) {
-        if (this._isCleared === newValue) return;
-
-        this._isCleared = newValue;
-        this.store.dispatch(new SetTransactionClearedAction({ transaction: this.transaction, isCleared: newValue }));
-    }
+    public isSelected$: Observable<boolean>;
 
     public get inflow(): number {
         return this.transaction.assignments.reduce((total, a) => total += a.inflow, 0);
@@ -46,22 +35,36 @@ export class TransactionDisplayComponent implements OnInit, OnChanges {
     }
 
     public click(): void {
-        if (this.isChecked) {
-            this.requestEdit.emit();
-        } else {
-            this.isChecked = true;
+        this.store.dispatch(new SelectTransactionAction({transactionId: this.transaction.id}));
+    }
+
+    public selected(event: any): void {
+        event.stopPropagation();
+
+        if (event && event.target) {
+            const isChecked = event.target.checked;
+
+            if (isChecked) {
+                this.store.dispatch(new SelectTransactionAction({transactionId: this.transaction.id}));
+            } else {
+                this.store.dispatch(new DeselectTransactionAction({transactionId: this.transaction.id}));
+            }
+        }
+    }
+
+    public cleared(event: any): void {
+        event.stopPropagation();
+
+        if (event && event.target) {
+            const isChecked = event.target.checked;
+
+            this.store.dispatch(new SetTransactionClearedAction({ transaction: this.transaction, isCleared: isChecked}));
         }
     }
 
     constructor(public store: Store<ITransactionsState>) { }
 
     ngOnInit() {
+        this.isSelected$ = this.store.select(getIsTransactionSelected, {transactionId: this.transaction.id});
     }
-
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.transaction) {
-            this.isCleared = this.transaction.isCleared;
-        }
-    }
-
 }

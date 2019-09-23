@@ -14,6 +14,7 @@ export interface ITransactionsState {
     transactions: TransactionModel[];
     payees: PayeeModel[];
     selectedTransactionIds: string[];
+    editingTransactionId: string | null;
     recentTransactionsByEnvelopes: RecentTransactionByEnvelope[];
 }
 
@@ -26,6 +27,7 @@ export const initialState: ITransactionsState = {
     transactions: [],
     payees: [],
     selectedTransactionIds: [],
+    editingTransactionId: null,
     recentTransactionsByEnvelopes: []
 };
 
@@ -146,8 +148,12 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
         }
 
         case TransactionsActionTypes.SelectTransaction: {
-            if (state.selectedTransactionIds.indexOf(action.payload.transactionId) > -1) return state;
-            return {...state, selectedTransactionIds: [...state.selectedTransactionIds, action.payload.transactionId]}
+            // If a transaction is already selected, we want to edit it.
+            if (state.selectedTransactionIds.indexOf(action.payload.transactionId) > -1) {
+                return {...state, editingTransactionId: action.payload.transactionId};
+            } else {
+                return {...state, selectedTransactionIds: [...state.selectedTransactionIds, action.payload.transactionId]}
+            }
         }
         case TransactionsActionTypes.DeselectTransaction: {
             if (state.selectedTransactionIds.indexOf(action.payload.transactionId) === -1) return state;
@@ -158,6 +164,13 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
         }
         case TransactionsActionTypes.DeselectAllTransactions: {
             return {...state, selectedTransactionIds: []}
+        }
+
+        case TransactionsActionTypes.BeginEditTransaction: {
+            return {...state, editingTransactionId: action.payload.transactionId, selectedTransactionIds: []}
+        }
+        case TransactionsActionTypes.EndEditTransaction: {
+            return {...state, editingTransactionId: null}
         }
 
         default: {
@@ -217,3 +230,18 @@ export const getPayees = createSelector(
     transactionsState,
     state => state.payees
 );
+
+export const getIsTransactionSelected = createSelector(
+    transactionsState,
+    (state: ITransactionsState, props: {transactionId: string}) => state.selectedTransactionIds.indexOf(props.transactionId) > -1
+);
+
+export const getEditingTransaction = createSelector(
+    transactionsState,
+    state => state.editingTransactionId
+);
+
+export const getIsEditingTransaction = createSelector(
+    getEditingTransaction,
+    (state: string | null, props: {transactionId: string}) => state !== null && state === props.transactionId
+)

@@ -1,2 +1,5 @@
 <moneteer-transaction-edit [transaction]="transaction" [currentAccountId]="currentAccountId"></moneteer-transaction-edit>
-<moneteer-transaction-actions class="mb-2" (save)="create()" (cancel)="cancel()"></moneteer-transaction-actions>
+<div class="transaction-actions">
+    <button type="button" class="btn btn-link btn-xs mr-3" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn btn-success btn-xs" (click)="create())">Create</button>
+</div>

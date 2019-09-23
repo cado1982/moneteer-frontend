@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../../core/services/index";
 import { User } from "oidc-client";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "moneteer-nav",
@@ -21,6 +22,10 @@ export class NavComponent implements OnInit {
 
     public logOut(): void {
         this.authService.logout();
+    }
+
+    public get landingUrl(): string {
+        return environment.landing_url;
     }
 
     public switchBudget(): void {

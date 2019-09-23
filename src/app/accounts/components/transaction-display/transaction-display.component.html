@@ -1,6 +1,6 @@
 <div class="transaction-row" (click)="click()">
     <div class="transaction-cell transaction-cell--selected">
-        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isChecked" name="isChecked" id="isChecked">
+        <input type="checkbox" (change)="selected($event)" [checked]="isSelected$ | async" name="isSelected" id="isSelected">
     </div>
     <div class="transaction-cell transaction-cell--date">
         {{transaction.date | date:'shortDate'}}
@@ -21,6 +21,6 @@
         {{inflow | budgetCurrency | async }}
     </div>
     <div class="transaction-cell transaction-cell--cleared">
-        <input type="checkbox" (click)="$event.stopPropagation()" [(ngModel)]="isCleared" name="isCleared" id="isCleared">
+        <input type="checkbox" (click)="cleared($event)" [checked]="transaction.isCleared" name="isCleared" id="isCleared">
     </div>
 </div>

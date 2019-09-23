@@ -12,7 +12,9 @@ export class AuthService {
         client_id: "moneteer-spa",
         redirect_uri: environment.auth_redirect_url,
         response_type: "id_token token",
-        scope: "openid profile email moneteer-api"
+        scope: "openid profile email moneteer-api",
+        automaticSilentRenew: true,
+        silent_redirect_uri: environment.silent_refresh_url
     };
     private manager: UserManager = new UserManager(this.config);
 
