@@ -7,8 +7,9 @@ import { RecentTransactionByEnvelope } from "../models/recent.transaction.by.env
 
 export interface ITransactionsState {
     loading: boolean;
-    creating: boolean;
-    deleting: boolean;
+    isCreating: boolean;
+    isSaving: boolean;
+    isDeleting: boolean;
     confirmingDelete: boolean;
     createTransactionOpen: boolean;
     transactions: TransactionModel[];
@@ -20,8 +21,9 @@ export interface ITransactionsState {
 
 export const initialState: ITransactionsState = {
     loading: false,
-    creating: false,
-    deleting: false,
+    isCreating: false,
+    isSaving: false,
+    isDeleting: false,
     confirmingDelete: false,
     createTransactionOpen: false,
     transactions: [],
@@ -85,50 +87,52 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
             return {...state, createTransactionOpen: false}
         }
         case TransactionsActionTypes.CreateTransaction: {
-            return {...state, creating: true};
+            return {...state, isCreating: true};
         }
         case TransactionsActionTypes.CreateTransactionSuccess: {
-            //let payees: PayeeModel[];
-            // If there's a payee on the new transaction and we don't have it yet, save it.
-            // if (!!action.payload.transaction.payee && !state.payees.find(p => p.id === action.payload.transaction.payee!.id)) {
-            //     payees = [...state.payees, action.payload.transaction.payee];
-            // } else {
-            //     payees = state.payees;                
-            // }
-            
             return {
                 ...state,
                 transactions: [
                     ...state.transactions,
                     action.payload.transaction
                 ],
-                //payees: payees,
-                creating: false,
+                isCreating: false,
                 createTransactionOpen: false
             };
         }
         case TransactionsActionTypes.CreateTransactionFailure: {
-            return {...state, creating: false};
+            return {...state, isCreating: false};
         }
 
         case TransactionsActionTypes.UpdateTransaction: {
-            return {...state, creating: true};
+            return {...state, isSaving: true};
         }
         case TransactionsActionTypes.UpdateTransactionSuccess: {
-            return {...state, transactions: [...state.transactions.filter(t => t.id !== action.payload.transaction.id), action.payload.transaction], creating: false, createTransactionOpen: false};
+            return {
+                ...state,
+                transactions: [...state.transactions.filter(t => t.id !== action.payload.transaction.id), action.payload.transaction],
+                isSaving: false,
+                createTransactionOpen: false,
+                editingTransactionId: null
+            };
         }
         case TransactionsActionTypes.UpdateTransactionFailure: {
-            return {...state, creating: false};
+            return {...state, isSaving: false};
         }
 
         case TransactionsActionTypes.DeleteTransactions: {
-            return {...state, deleting: true};
+            return {...state, isDeleting: true};
         }
         case TransactionsActionTypes.DeleteTransactionsSuccess: {
-            return {...state, transactions: state.transactions.filter(t => !action.payload.transactions.some(ts => ts.id === t.id)), deleting: false, confirmingDelete: false};
+            return {
+                ...state,
+                transactions: state.transactions.filter(t => !action.payload.transactions.some(ts => ts.id === t.id)),
+                isDeleting: false,
+                confirmingDelete: false
+            };
         }
         case TransactionsActionTypes.DeleteTransactionsFailure: {
-            return {...state, deleting: false};
+            return {...state, isDeleting: false};
         }
 
         case TransactionsActionTypes.ConfirmTransactionsDelete: {
@@ -210,7 +214,7 @@ export const getIsCreateTransactionOpen = createSelector(
 
 export const getIsDeleting = createSelector(
     transactionsState,
-    state => state.deleting
+    state => state.isDeleting
 );
 
 export const getIsConfirmingDelete = createSelector(
@@ -220,7 +224,12 @@ export const getIsConfirmingDelete = createSelector(
 
 export const getIsCreating = createSelector(
     transactionsState,
-    state => state.creating
+    state => state.isCreating
+);
+
+export const getIsSaving = createSelector(
+    transactionsState,
+    state => state.isSaving
 );
 
 export const getSelectedTransactions = createSelector(

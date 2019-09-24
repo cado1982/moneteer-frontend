@@ -2,9 +2,10 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { TransactionModel, AccountModel } from '../../models';
 import { TransactionAssignmentModel } from '../../models/transaction.assignment.model';
 import { Store } from '@ngrx/store';
-import { ITransactionsState } from 'src/app/core/reducers/transactions.reducer';
+import { ITransactionsState, getIsCreating } from 'src/app/core/reducers/transactions.reducer';
 import { HideCreateTransactionAction, CreateTransactionAction } from 'src/app/core/actions/transactions.actions';
 import { TransactionEditComponent } from '../transaction-edit/transaction-edit.component';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'moneteer-transaction-create',
@@ -14,6 +15,7 @@ import { TransactionEditComponent } from '../transaction-edit/transaction-edit.c
 export class TransactionCreateComponent implements OnInit {
     @Input() public currentAccountId: string;
     public transaction: TransactionModel;
+    public isCreating$: Observable<boolean>;
 
     @ViewChild(TransactionEditComponent, { static: true }) public transactionEditComponent: TransactionEditComponent;
     
@@ -22,6 +24,7 @@ export class TransactionCreateComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isCreating$ = this.store.select(getIsCreating);
     }
 
     private resetTransaction(): void {

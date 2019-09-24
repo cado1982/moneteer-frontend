@@ -1,6 +1,9 @@
 <moneteer-transaction-display [hidden]="isEditing" [transaction]="transaction" [currentAccountId]="currentAccountId"></moneteer-transaction-display>
 <moneteer-transaction-edit [hidden]="!isEditing" [transaction]="transaction" [currentAccountId]="currentAccountId"></moneteer-transaction-edit>
-<div class="transaction-actions" [hidden]="!isEditing">
+<div class="my-2 mx-3 align-self-end" [hidden]="!isEditing">
     <button type="button" class="btn btn-link btn-xs mr-3" (click)="cancel()">Cancel</button>
-    <button type="button" class="btn btn-success btn-xs" (click)="save()">Save</button>
+    <button type="button" class="btn btn-success btn-xs" (click)="save()" [disabled]="isBusy$ | async">
+        <span [hidden]="!(isBusy$ | async)" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Save
+    </button>
 </div>

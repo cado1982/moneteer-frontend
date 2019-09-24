@@ -34,7 +34,9 @@ export class TransactionDisplayComponent implements OnInit {
         }
     }
 
-    public click(): void {
+    public click(event: any): void {
+        event.stopPropagation();
+        
         this.store.dispatch(new SelectTransactionAction({transactionId: this.transaction.id}));
     }
 

@@ -1,6 +1,6 @@
-<div class="transaction-row" (click)="click()">
+<div class="transaction-row" (click)="click($event)">
     <div class="transaction-cell transaction-cell--selected">
-        <input type="checkbox" (change)="selected($event)" [checked]="isSelected$ | async" name="isSelected" id="isSelected">
+        <input type="checkbox" (click)="selected($event)" [checked]="isSelected$ | async" name="isSelected" id="isSelected">
     </div>
     <div class="transaction-cell transaction-cell--date">
         {{transaction.date | date:'shortDate'}}

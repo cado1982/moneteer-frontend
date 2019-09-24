@@ -17,26 +17,12 @@ import { TransactionAssignmentModel } from "../../models/transaction.assignment.
 @Component({
     selector: "moneteer-transaction-list",
     templateUrl: "./transaction.list.component.html",
-    styleUrls: ["./transaction.list.component.scss", './../../styles/transaction.scss'],
-    animations: [
-        trigger("createTransactionVisible", [
-            state("true", style({
-                height: "*",
-                opacity: 1
-            })),
-            state("false", style({
-                height: "0",
-                opacity: 0,
-                display: "none"
-            })),
-            transition("* <=> *", animate("150ms ease-out"))
-        ])
-    ]
+    styleUrls: ["./transaction.list.component.scss", './../../styles/transaction.scss']
 })
 export class TransactionListComponent implements OnInit {
+    @Input() public transactions$: Observable<TransactionModel[]>;
 
     public isCreateTransactionOpen$: Observable<boolean>;
-    @Input() public transactions$: Observable<TransactionModel[]>;
     public currentAccountId: string;
     public accounts$: Observable<AccountModel[]>;
 
@@ -44,7 +30,6 @@ export class TransactionListComponent implements OnInit {
 
     constructor(
         private store: Store<ITransactionsState>,
-        private actions$: Actions,
         private activatedRoute: ActivatedRoute) {
 
     }
@@ -55,20 +40,7 @@ export class TransactionListComponent implements OnInit {
         });
 
         this.isCreateTransactionOpen$ = this.store.select(getIsCreateTransactionOpen);
-        this.accounts$ = this.store.select(getAccounts);
-
-        // this.actions$.pipe(
-        //     ofType(TransactionsActionTypes.LoadTransactionsSuccess)
-        // ).subscribe(() => {
-        //     //Why isn't this getting called?
-        //     this.isAnimationDisabled = false;
-        // });
-
-        // this.actions$.pipe(
-        //     ofType(TransactionsActionTypes.ShowCreateTransaction)
-        // ).subscribe(() => {
-        //     this.deselectAllTransactions();
-        // })        
+        this.accounts$ = this.store.select(getAccounts);    
     }
 
     public onSelectAll(isSelected: boolean): void {
@@ -82,23 +54,4 @@ export class TransactionListComponent implements OnInit {
     public transactionTrackBy(index: number, item: TransactionModel): string {
         return item.id;
     }
-
-    // public onTransactionEditing(transactionId: string) {
-    //     for (let i = 0; i < this.transactionComponents.length; i++) {
-    //         const transactionComponent: TransactionComponent = this.transactionComponents.toArray()[i];
-    //         if (transactionComponent.transaction && transactionComponent.transaction.id !== transactionId) {
-    //             transactionComponent.isEditing = false;
-    //             transactionComponent.isChecked = false;
-    //         }
-    //     }
-    //     this.store.dispatch(new HideCreateTransactionAction());
-    // }
-
-    // private deselectAllTransactions(): void {
-    //     for (let i = 0; i < this.transactionComponents.length; i++) {
-    //         const transaction: TransactionComponent = this.transactionComponents.toArray()[i];
-    //         transaction.isEditing = false;
-    //         transaction.isChecked = false;
-    //     }
-    // }
 }

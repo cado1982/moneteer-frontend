@@ -1,19 +1,17 @@
-import { Component, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from "@angular/core";
+import { Component, Input, ViewChild, OnInit } from "@angular/core";
 import * as _ from "lodash";
-
-import { TransactionModel, AccountModel } from "../../models/index";
-import { TransactionEditComponent } from "../transaction-edit/transaction-edit.component";
 import { Store } from "@ngrx/store";
-import { ITransactionsState, getIsTransactionSelected, getEditingTransaction, getIsEditingTransaction } from "src/app/core/reducers/transactions.reducer";
-import { UpdateTransactionAction, DeselectTransactionAction, BeginEditTransactionAction, EndEditTransactionAction } from "src/app/core/actions/transactions.actions";
-import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
-import { EnvelopeModel } from "src/app/core/models";
+
+import { TransactionModel } from "../../models/index";
+import { TransactionEditComponent } from "../transaction-edit/transaction-edit.component";
+import { ITransactionsState, getIsTransactionSelected, getIsEditingTransaction, getIsSaving } from "src/app/core/reducers/transactions.reducer";
+import { UpdateTransactionAction, DeselectTransactionAction, EndEditTransactionAction } from "src/app/core/actions/transactions.actions";
 import { Observable } from "rxjs";
 
 @Component({
     selector: "moneteer-transaction",
     templateUrl: "./transaction.component.html",
-    styleUrls: ["./transaction.component.scss"],
+    styleUrls: ["./transaction.component.scss", './../../styles/transaction.scss'],
     host: {
         "[class.selected]": "this.isSelected",
         "[class.editing]": "this.isEditing",
@@ -26,6 +24,7 @@ export class TransactionComponent implements OnInit {
 
     public isEditing: boolean;
     public isSelected: boolean;
+    public isSaving$: Observable<boolean>;
 
     @ViewChild(TransactionEditComponent, { static: true }) public transactionEditComponent: TransactionEditComponent;
 
@@ -52,5 +51,7 @@ export class TransactionComponent implements OnInit {
         this.store.select(getIsEditingTransaction, { transactionId: this.transaction.id }).subscribe(t => {
             this.isEditing = t;
         })
+
+        this.isSaving$ = this.store.select(getIsSaving);
     }
 }

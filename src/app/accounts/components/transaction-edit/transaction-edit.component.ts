@@ -1,18 +1,14 @@
 import * as _ from "lodash";
 import { Observable } from "rxjs";
 
-import { EnvelopeModel, PayeeModel, EnvelopeCategoryModel, GuidModel } from "../../../core/models/index";
+import { EnvelopeModel } from "../../../core/models/index";
 import { TransactionModel, AccountModel } from "../../models/index";
-import { Component, Input, OnInit, EventEmitter, Output } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.reducer";
-import { UpdateTransactionAction, SetTransactionClearedAction, SelectTransactionAction, DeselectTransactionAction, TransactionsActionTypes, UpdateTransactionSuccessAction, HideCreateTransactionAction, CreateTransactionAction } from "../../../core/actions/transactions.actions";
 import { getAllEnvelopes } from "../../../core/reducers/envelopes.reducer";
-import { getIsCreating } from "../../../core/reducers/transactions.reducer";
 import { OnChanges } from "@angular/core";
 import { SimpleChanges } from "@angular/core";
-import { Actions, ofType } from "@ngrx/effects";
-import { map } from "rxjs/operators";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
 
 @Component({
@@ -90,31 +86,23 @@ export class TransactionEditComponent implements OnInit, OnChanges {
             newAssignment.inflow = a.inflow;
             newAssignment.outflow = a.outflow;
             newAssignment.envelope = a.envelope;
-            // if (a.envelope) {
-            //     newAssignment.envelope = new EnvelopeModel();
-            //     newAssignment.envelope.id = a.envelope.id;
-            // }
             updatedTransaction.assignments.push(newAssignment);
         })
 
         return updatedTransaction;
     }
 
-    public isBusy$: Observable<boolean>;
-
     public accounts$: Observable<Array<AccountModel>>;
     public envelopes$: Observable<Array<EnvelopeModel>>;
 
     constructor(
-        private store: Store<IAccountsState>,
-        private actions$: Actions) {
+        private store: Store<IAccountsState>) {
 
     }
 
     public ngOnInit(): void {
         this.accounts$ = this.store.select(getAccounts);
         this.envelopes$ = this.store.select(getAllEnvelopes);
-        this.isBusy$ = this.store.select(getIsCreating);
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -134,12 +122,4 @@ export class TransactionEditComponent implements OnInit, OnChanges {
             });
         }
     }
-
-    // public click(): void {
-    //     if (this.isChecked && !this.isEditing) {
-    //         this.isEditing = true;
-    //     } else if (!this.isChecked) {
-    //         this.isChecked = true;
-    //     }
-    // }
 }

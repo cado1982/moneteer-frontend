@@ -1,5 +1,8 @@
 <moneteer-transaction-edit [transaction]="transaction" [currentAccountId]="currentAccountId"></moneteer-transaction-edit>
-<div class="transaction-actions">
+<div class="my-2 mx-3 align-self-end">
     <button type="button" class="btn btn-link btn-xs mr-3" (click)="cancel()">Cancel</button>
-    <button type="button" class="btn btn-success btn-xs" (click)="create()">Create</button>
+    <button type="button" class="btn btn-success btn-xs" (click)="create()" [disabled]="isCreating$ | async">
+        <span [hidden]="!(isCreating$ | async)" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Create
+    </button>
 </div>

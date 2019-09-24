@@ -51,15 +51,15 @@ export class TransactionService extends ApiBaseService {
     }
 
     public createTransaction(transactionModel: TransactionModel): Observable<TransactionModel> {
-        this.validateTransaction(transactionModel);
+        //this.validateTransaction(transactionModel);
 
-        return this.post<TransactionModel ,TransactionModel>(`transaction`, transactionModel).pipe(
+        return this.post<TransactionModel, TransactionModel>(`transaction`, transactionModel).pipe(
             map(t => this.processTransaction(t))
         );
     }
 
     public editTransaction(transactionModel: TransactionModel): Observable<TransactionModel> {
-        this.validateTransaction(transactionModel);
+        //this.validateTransaction(transactionModel);
 
         return this.put<TransactionModel, TransactionModel>(`transaction`, transactionModel).pipe(
             map(t => this.processTransaction(t))
