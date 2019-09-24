@@ -76,7 +76,9 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
         case TransactionsActionTypes.ShowCreateTransaction: {
             return {
                 ...state,
-                createTransactionOpen: true
+                createTransactionOpen: true,
+                selectedTransactionIds: [],
+                editingTransactionId: null
             }
         }
         case TransactionsActionTypes.HideCreateTransaction: {
@@ -86,13 +88,13 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
             return {...state, creating: true};
         }
         case TransactionsActionTypes.CreateTransactionSuccess: {
-            let payees: PayeeModel[];
+            //let payees: PayeeModel[];
             // If there's a payee on the new transaction and we don't have it yet, save it.
-            if (!!action.payload.transaction.payee && !state.payees.find(p => p.id === action.payload.transaction.payee!.id)) {
-                payees = [...state.payees, action.payload.transaction.payee];
-            } else {
-                payees = state.payees;                
-            }
+            // if (!!action.payload.transaction.payee && !state.payees.find(p => p.id === action.payload.transaction.payee!.id)) {
+            //     payees = [...state.payees, action.payload.transaction.payee];
+            // } else {
+            //     payees = state.payees;                
+            // }
             
             return {
                 ...state,
@@ -100,7 +102,7 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
                     ...state.transactions,
                     action.payload.transaction
                 ],
-                payees: payees,
+                //payees: payees,
                 creating: false,
                 createTransactionOpen: false
             };
@@ -150,7 +152,7 @@ export function transactionsReducer(state: ITransactionsState = initialState, ac
         case TransactionsActionTypes.SelectTransaction: {
             // If a transaction is already selected, we want to edit it.
             if (state.selectedTransactionIds.indexOf(action.payload.transactionId) > -1) {
-                return {...state, editingTransactionId: action.payload.transactionId};
+                return {...state, editingTransactionId: action.payload.transactionId, selectedTransactionIds: [], createTransactionOpen: false};
             } else {
                 return {...state, selectedTransactionIds: [...state.selectedTransactionIds, action.payload.transactionId]}
             }

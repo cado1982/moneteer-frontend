@@ -5,7 +5,7 @@ import { TransactionModel, AccountModel } from "../../models/index";
 import { TransactionEditComponent } from "../transaction-edit/transaction-edit.component";
 import { Store } from "@ngrx/store";
 import { ITransactionsState, getIsTransactionSelected, getEditingTransaction, getIsEditingTransaction } from "src/app/core/reducers/transactions.reducer";
-import { UpdateTransactionAction, DeselectTransactionAction, BeginEditTransactionAction } from "src/app/core/actions/transactions.actions";
+import { UpdateTransactionAction, DeselectTransactionAction, BeginEditTransactionAction, EndEditTransactionAction } from "src/app/core/actions/transactions.actions";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
 import { EnvelopeModel } from "src/app/core/models";
 import { Observable } from "rxjs";
@@ -41,6 +41,7 @@ export class TransactionComponent implements OnInit {
 
     public cancel(): void {
         this.store.dispatch(new DeselectTransactionAction({ transactionId: this.transaction.id }));
+        this.store.dispatch(new EndEditTransactionAction());
     }
 
     ngOnInit(): void {

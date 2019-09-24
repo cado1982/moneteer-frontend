@@ -1,6 +1,6 @@
 <moneteer-transaction-display [hidden]="isEditing" [transaction]="transaction" [currentAccountId]="currentAccountId"></moneteer-transaction-display>
-<moneteer-transaction-edit [hidden]="!isEditing" [transaction]="transaction"></moneteer-transaction-edit>
-<div class="transaction-actions" [hidden="!isEditing"]>
+<moneteer-transaction-edit [hidden]="!isEditing" [transaction]="transaction" [currentAccountId]="currentAccountId"></moneteer-transaction-edit>
+<div class="transaction-actions" [hidden]="!isEditing">
     <button type="button" class="btn btn-link btn-xs mr-3" (click)="cancel()">Cancel</button>
     <button type="button" class="btn btn-success btn-xs" (click)="save()">Save</button>
 </div>
