@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/core/services';
 import * as moment from "moment";
 import { environment } from 'src/environments/environment';
@@ -13,17 +13,26 @@ import { SubscriptionStatusService } from 'src/app/core/services/subscription-st
     }
 })
 export class NavTrialStatusComponent implements OnInit {
-    public trialExpiry: moment.Moment | null = null;
+    @Input() public days: number;
+    public trialExpiryMessage: string;
 
     public get LandingUrl(): string {
         return environment.landing_url;
     }
 
-    constructor(public subscriptionStatusService: SubscriptionStatusService) {
+    constructor() {
 
     }
 
     ngOnInit() {
-        this.trialExpiry = this.subscriptionStatusService.getTrialExpiry();
+        if (this.days === 0) {
+            this.trialExpiryMessage = "today";
+        } else if (this.days === 1) {
+            this.trialExpiryMessage = "tomorrow";
+        } else if (this.days > 1) {
+            this.trialExpiryMessage = `in ${this.days} days`;
+        } else {
+            this.trialExpiryMessage = "";
+        }
     }
 }

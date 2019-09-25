@@ -1,7 +1,4 @@
-<div *ngIf="trialExpiry">
-    <div>Your trial expires {{trialExpiry.fromNow()}}</div>
-    <a href="{{LandingUrl}}/Identity/Account/PurchaseSubscription" class="btn btn-sm btn-warning my-2">Purchase subscription</a>
-    <div class="text-muted">$2.99 per month</div>
-    <div class="text-muted">Cancel any time</div>
-</div>
-
+<div>Your trial expires {{trialExpiryMessage}}</div>
+<a href="{{LandingUrl}}/Identity/Account/PurchaseSubscription" class="btn btn-sm btn-warning my-2">Purchase subscription</a>
+<div class="text-muted">$2.99 per month</div>
+<div class="text-muted">Cancel any time</div>
