@@ -28,8 +28,8 @@ import { ErrorsHandler } from "./errors.handler";
 import { RetryInterceptor } from "./interceptors/retry.interceptor";
 import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarModule } from "@ngx-loading-bar/core";
-import { ForbiddenInterceptor } from "./interceptors/forbidden.interceptor";
-import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { PaymentRequiredInterceptor } from "./interceptors/payment-required.interceptor";
+import { PaymentRequiredComponent } from './components/payment-required/payment-required.component';
 
 @NgModule({
     imports: [
@@ -50,8 +50,7 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: UnauthorizedInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ForbiddenInterceptor, multi: true },
-        //{ provide: HTTP_INTERCEPTORS, useClass: RetryInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: PaymentRequiredInterceptor, multi: true },
         { provide: ErrorHandler, useClass: ErrorsHandler },
         LoadingSpinnerService,
         MediaQueryService,
@@ -69,7 +68,7 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
         AppComponent,
         ErrorModalComponent,
         AuthCallbackComponent,
-        ForbiddenComponent
+        PaymentRequiredComponent
     ]
 })
 export class CoreModule {

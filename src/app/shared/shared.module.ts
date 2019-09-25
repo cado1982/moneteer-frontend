@@ -17,6 +17,7 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
 import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
 import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
 import { EnvelopeSelectDropdownComponent } from "./components/envelope-select-dropdown/envelope.select.dropdown.component";
+import { NavTrialStatusComponent } from './components/nav-trial-status/nav-trial-status.component';
 
 @NgModule({
     imports: [
@@ -72,7 +73,8 @@ import { EnvelopeSelectDropdownComponent } from "./components/envelope-select-dr
         CurrencyInputDirective,
         DropdownListComponent,
         ErrorAlertComponent,
-        EnvelopeSelectDropdownComponent
+        EnvelopeSelectDropdownComponent,
+        NavTrialStatusComponent
     ]
 })
 export class SharedModule {

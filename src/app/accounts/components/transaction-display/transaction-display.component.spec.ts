@@ -1,25 +1,37 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TransactionDisplayComponent } from './transaction-display.component';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { MockPipe } from 'ng-mocks';
+import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TransactionModel } from '../../models';
+import { TransactionAssignmentModel } from '../../models/transaction.assignment.model';
+import { EnvelopeModel } from 'src/app/core/models';
 
 describe('TransactionDisplayComponent', () => {
-  let component: TransactionDisplayComponent;
-  let fixture: ComponentFixture<TransactionDisplayComponent>;
+    let spectator: Spectator<TransactionDisplayComponent>;
+    const createComponent = createTestComponentFactory({
+        component: TransactionDisplayComponent,
+        declarations: [
+            MockPipe(BudgetCurrencyPipe)
+        ],
+        providers: [
+            provideMockStore({ initialState: {} })
+        ],
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TransactionDisplayComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        let transaction = new TransactionModel();
+        let assignment = new TransactionAssignmentModel();
+        assignment.envelope = new EnvelopeModel();
+        transaction.assignments = [
+            assignment
+        ];
+        spectator = createComponent({
+            transaction: transaction
+        });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TransactionDisplayComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });

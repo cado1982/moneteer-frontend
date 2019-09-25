@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { TransactionHeaderComponent } from "./transaction.header.component";
 import { Store } from "@ngrx/store";
 import { MockStore, provideMockStore } from "@ngrx/store/testing";
-import { ITransactionsState, CreateTransactionMode, getSelectedTransactions } from "../../../core/reducers/transactions.reducer";
+import { ITransactionsState, getSelectedTransactions } from "../../../core/reducers/transactions.reducer";
 import { TransactionsActions, ShowCreateTransactionAction } from "../../../core/actions/transactions.actions";
 import { Observable } from "rxjs";
 import { provideMockActions } from "@ngrx/effects/testing";
@@ -38,22 +38,12 @@ describe("TransactionHeaderComponent", () => {
         expect(component).toBeTruthy();
     });
 
-    test("should allow adding inflow", () => {
+    test("should allow adding transaction", () => {
         const spy = jest.spyOn(store, 'dispatch');
-        const action = new ShowCreateTransactionAction({ mode: CreateTransactionMode.Inflow });
+        const action = new ShowCreateTransactionAction();
 
-        let addInflowButton = fixture.debugElement.query(By.css("#addInflow"));
-        addInflowButton.triggerEventHandler("click", null);
-
-        expect(spy).toHaveBeenCalledWith(action);
-    });
-
-    test("should allow adding outflow", () => {
-        const spy = jest.spyOn(store, 'dispatch');
-        const action = new ShowCreateTransactionAction({ mode: CreateTransactionMode.Outflow });
-
-        let addOutflowButton = fixture.debugElement.query(By.css("#addOutflow"));
-        addOutflowButton.triggerEventHandler("click", null);
+        let addTransactionButton = fixture.debugElement.query(By.css("#addTransaction"));
+        addTransactionButton.triggerEventHandler("click", null);
 
         expect(spy).toHaveBeenCalledWith(action);
     });

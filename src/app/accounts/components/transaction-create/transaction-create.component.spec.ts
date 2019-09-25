@@ -1,25 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TransactionCreateComponent } from './transaction-create.component';
+import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { provideMockStore } from '@ngrx/store/testing';
+import { MockComponent } from 'ng-mocks';
+import { TransactionEditComponent } from '../transaction-edit/transaction-edit.component';
 
 describe('TransactionCreateComponent', () => {
-  let component: TransactionCreateComponent;
-  let fixture: ComponentFixture<TransactionCreateComponent>;
+    let spectator: Spectator<TransactionCreateComponent>;
+    const createComponent = createTestComponentFactory({
+        component: TransactionCreateComponent,
+        declarations: [
+            MockComponent(TransactionEditComponent)
+        ],
+        providers: [
+            provideMockStore({initialState: {}})
+        ]
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TransactionCreateComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TransactionCreateComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(spectator.component).toBeTruthy();
+    });
 });

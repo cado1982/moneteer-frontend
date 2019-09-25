@@ -26,7 +26,6 @@ describe('EnvelopeListComponent', () => {
 
     beforeEach(() => spectator = createComponent());
 
-
     it('should create', () => {
         expect(spectator.component).toBeTruthy();
     });

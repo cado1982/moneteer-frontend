@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForbiddenComponent } from './forbidden.component';
+import { NavTrialStatusComponent } from './nav-trial-status.component';
 
-describe('ForbiddenComponent', () => {
-  let component: ForbiddenComponent;
-  let fixture: ComponentFixture<ForbiddenComponent>;
+describe('NavTrialStatusComponent', () => {
+  let component: NavTrialStatusComponent;
+  let fixture: ComponentFixture<NavTrialStatusComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForbiddenComponent ]
+      declarations: [ NavTrialStatusComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ForbiddenComponent);
+    fixture = TestBed.createComponent(NavTrialStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

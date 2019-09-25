@@ -14,7 +14,9 @@ export class AuthService {
         response_type: "id_token token",
         scope: "openid profile email moneteer-api",
         automaticSilentRenew: true,
-        silent_redirect_uri: environment.silent_refresh_url
+        silent_redirect_uri: environment.silent_refresh_url,
+        loadUserInfo: true,
+        includeIdTokenInSilentRenew: true
     };
     private manager: UserManager = new UserManager(this.config);
 
@@ -28,6 +30,9 @@ export class AuthService {
         http: HttpClient,
         private router: Router,
         private notificationService: NotificationsService) {
+            this.manager.events.addUserLoaded(user => {
+                this.user = user;
+            })
     }
 
     private getCookie(cname: string): string {

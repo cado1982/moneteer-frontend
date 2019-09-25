@@ -4,7 +4,7 @@
 </div>
 
 <div class="actions">
-    <button [disabled]="(accounts$ | async)?.length === 0" class="btn btn-xs btn-primary mr-2"
+    <button id="addTransaction" [disabled]="(accounts$ | async)?.length === 0" class="btn btn-xs btn-primary mr-2"
         (click)="addTransaction()">
         <i class="fas fa-plus-circle"></i><span> Add Transaction </span>
     </button>

@@ -6,9 +6,10 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { empty } from 'rxjs';
 import { provideMockStore } from '@ngrx/store/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MockComponent } from 'ng-mocks';
+import { MockComponent, MockDirective } from 'ng-mocks';
 import { ErrorAlertComponent } from 'src/app/shared/components/error-alert/error-alert.component';
 import { EnvelopeSelectDropdownComponent } from 'src/app/shared/components/envelope-select-dropdown/envelope.select.dropdown.component';
+import { CurrencyInputDirective } from 'src/app/shared/directives/currency-input.directive';
 
 
 describe('EnvelopeMoveBalanceModalComponent', () => {
@@ -26,7 +27,8 @@ describe('EnvelopeMoveBalanceModalComponent', () => {
         ],
         declarations: [
             MockComponent(ErrorAlertComponent),
-            MockComponent(EnvelopeSelectDropdownComponent)
+            MockComponent(EnvelopeSelectDropdownComponent),
+            MockDirective(CurrencyInputDirective)
         ]
     });
 
