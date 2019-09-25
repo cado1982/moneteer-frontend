@@ -1,4 +1,4 @@
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 
 import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
 import { EnvelopeDetailsBodyStatsComponent } from './envelope-details-body-stats.component';

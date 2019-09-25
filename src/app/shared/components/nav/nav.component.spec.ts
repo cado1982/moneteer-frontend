@@ -1,85 +1,63 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-
 import { NavComponent } from "./nav.component";
 import { AuthService } from "../../../core/services";
 import { User } from "oidc-client";
-import { Router } from "@angular/router";
-import { DropdownComponent } from "../dropdown-component/dropdown.component";
+import { Spectator, createComponentFactory, mockProvider } from "@ngneat/spectator/jest";
+import { MockComponent } from "ng-mocks";
+import { NavTrialStatusComponent } from "../nav-trial-status/nav-trial-status.component";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe("NavComponent", () => {
-  let component: NavComponent;
-  let fixture: ComponentFixture<NavComponent>;
-  let authService: AuthService;
-  let router: Router;
-  const exampleUser: User = {
-    id_token: "",
-    access_token: "",
-    refresh_token: "",
-    expired: false,
-    expires_at: 0,
-    profile: {
-      email: ""
-    },
-    state: null,
-    scope: "",
-    token_type: "",
-    session_state: "",
-    toStorageString: jest.fn(),
-    expires_in: 0,
-    scopes: []
-  };
+    let spectator: Spectator<NavComponent>;
+    const createComponent = createComponentFactory({
+        component: NavComponent,
+        imports: [
+            RouterTestingModule
+        ],
+        declarations: [
+            MockComponent(NavTrialStatusComponent)
+        ],
+        providers: [
+            mockProvider(AuthService, {
+                getUser: () => exampleUser
+            })
+        ]
+    })
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NavComponent, DropdownComponent ],
-      providers: [
-        { 
-          provide: AuthService,
-          useValue: {
-            getUser: jest.fn(() => exampleUser),
-            logout: jest.fn()
-          } 
+    const exampleUser: User = {
+        id_token: "",
+        access_token: "",
+        refresh_token: "",
+        expired: false,
+        expires_at: 0,
+        profile: {
+            email: ""
         },
-        {
-          provide: Router,
-          useValue: {
-            navigateByUrl: jest.fn()
-          }
-        }
-      ]
+        state: null,
+        scope: "",
+        token_type: "",
+        session_state: "",
+        toStorageString: jest.fn(),
+        expires_in: 0,
+        scopes: []
+    };
+
+    beforeEach(() => spectator = createComponent())
+
+    test("should create", () => {
+        expect(spectator.component).toBeTruthy();
     });
 
-    fixture = TestBed.createComponent(NavComponent);
-    component = fixture.componentInstance;
-    authService = TestBed.get(AuthService);
-    router = TestBed.get(Router);
-  });
+    test("should get user", () => {
+        spectator.component.ngOnInit();
 
-  test("should create", () => {
-    expect(component).toBeTruthy();
-  });
+        expect(spectator.component.user).toEqual(exampleUser);
+    });
 
-  test("should get user", () => {
-    jest.spyOn(authService, "getUser");
-    
-    component.ngOnInit();
-    
-    expect(component.user).toEqual(exampleUser);
-  });
+    test("should logout", () => {
+        const authService = spectator.get(AuthService);
 
-  test("should logout", () => {
-    const spy = jest.spyOn(authService, 'logout');
-    
-    component.logOut();
+        spectator.component.logOut();
 
-    expect(spy).toHaveBeenCalled();
-  });
-
-  test("should allow switching budgets", () => {
-    const spy = jest.spyOn(router, 'navigateByUrl');
-
-    component.switchBudget();
-
-    expect(spy).toHaveBeenCalledWith("/budget");
-  });
+        expect(authService.logout).toHaveBeenCalledTimes(1);
+    });
 });

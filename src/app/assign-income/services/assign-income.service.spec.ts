@@ -4,7 +4,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { empty } from 'rxjs';
-import { createService } from '@netbasal/spectator/jest';
+import { createService } from '@ngneat/spectator/jest';
 
 describe('AssignIncomeService', () => {
     const spectator = createService<AssignIncomeService>({

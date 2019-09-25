@@ -1,4 +1,4 @@
-import { Spectator, createTestComponentFactory, mockProvider } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory, mockProvider } from '@ngneat/spectator/jest';
 
 import { MockComponent } from 'ng-mocks';
 import { EnvelopesDataService } from '../../services/envelopes-data.service';

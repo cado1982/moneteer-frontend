@@ -1,7 +1,7 @@
 import { EnvelopeListEnvelopeComponent } from './envelope-list-envelope.component';
 import { CurrencyInputDirective } from 'src/app/shared/directives/currency-input.directive';
 import { AssignIncomeService } from '../../services/assign-income.service';
-import { Spectator, createTestComponentFactory, mockProvider } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory, mockProvider } from '@ngneat/spectator/jest';
 import { MockDirective, MockPipe } from 'ng-mocks';
 import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
 

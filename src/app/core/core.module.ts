@@ -30,6 +30,7 @@ import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarModule } from "@ngx-loading-bar/core";
 import { PaymentRequiredInterceptor } from "./interceptors/payment-required.interceptor";
 import { PaymentRequiredComponent } from './components/payment-required/payment-required.component';
+import { SubscriptionStatusService } from "./services/subscription-status/subscription-status.service";
 
 @NgModule({
     imports: [
@@ -62,7 +63,8 @@ import { PaymentRequiredComponent } from './components/payment-required/payment-
         EnvelopesService,
         PayeeService,
         TransactionService,
-        ModalService
+        ModalService,
+        SubscriptionStatusService
     ],
     declarations: [
         AppComponent,

@@ -1,5 +1,5 @@
 import { TransactionDisplayComponent } from './transaction-display.component';
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { MockPipe } from 'ng-mocks';
 import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -9,7 +9,7 @@ import { EnvelopeModel } from 'src/app/core/models';
 
 describe('TransactionDisplayComponent', () => {
     let spectator: Spectator<TransactionDisplayComponent>;
-    const createComponent = createTestComponentFactory({
+    const createComponent = createComponentFactory({
         component: TransactionDisplayComponent,
         declarations: [
             MockPipe(BudgetCurrencyPipe)
@@ -27,7 +27,9 @@ describe('TransactionDisplayComponent', () => {
             assignment
         ];
         spectator = createComponent({
-            transaction: transaction
+            props: {
+                transaction: transaction
+            }
         });
     });
 

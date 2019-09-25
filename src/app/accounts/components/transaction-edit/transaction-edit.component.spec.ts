@@ -1,5 +1,5 @@
 import { TransactionEditComponent } from './transaction-edit.component';
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MockComponent, MockDirective, MockPipe } from 'ng-mocks';
 import { AccountSelectDropdownComponent } from '../account-select-dropdown/account.select.dropdown.component';

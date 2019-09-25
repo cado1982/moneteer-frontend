@@ -1,4 +1,4 @@
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 import { MockComponent } from 'ng-mocks';
 import { WorkspaceComponent } from '../workspace/workspace.component';
 import { EnvelopeListComponent } from '../envelope-list/envelope-list.component';

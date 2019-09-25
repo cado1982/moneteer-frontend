@@ -1,0 +1,9 @@
+@import "./../../../../styles.scss";
+
+:host {
+    background-color: $theme-background;
+    color: $theme-dark-text;
+    padding: 1em;
+    text-align: center;
+    font-size: 0.8rem;
+}

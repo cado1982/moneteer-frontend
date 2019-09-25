@@ -1,4 +1,4 @@
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 
 import { EnvelopeCategorySelectDropdownComponent } from './envelope-category-select-dropdown.component';
 import { MockComponent } from 'ng-mocks';

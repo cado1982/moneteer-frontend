@@ -1,5 +1,5 @@
 
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockActions } from '@ngrx/effects/testing';

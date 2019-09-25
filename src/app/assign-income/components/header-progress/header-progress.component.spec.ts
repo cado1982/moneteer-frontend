@@ -1,6 +1,6 @@
 import { HeaderProgressComponent } from '../header-progress/header-progress.component';
 import { AssignIncomeService } from '../../services/assign-income.service';
-import { Spectator, createTestComponentFactory, mockProvider } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory, mockProvider } from '@ngneat/spectator/jest';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('HeaderProgressComponent', () => {

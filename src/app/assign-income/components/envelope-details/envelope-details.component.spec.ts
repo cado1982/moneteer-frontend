@@ -1,5 +1,5 @@
 import { EnvelopeDetailsComponent } from './envelope-details.component';
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 
 describe('EnvelopeDetailsComponent', () => {
     let spectator: Spectator<EnvelopeDetailsComponent>;

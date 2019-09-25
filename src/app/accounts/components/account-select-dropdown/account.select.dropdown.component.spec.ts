@@ -1,4 +1,4 @@
-import { Spectator, createTestComponentFactory } from '@netbasal/spectator/jest';
+import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 import { MockComponent, MockPipe } from 'ng-mocks';
 import { DropdownListComponent } from 'src/app/shared/components/dropdown-list/dropdown-list.component';
 import { AccountSelectDropdownComponent } from './account.select.dropdown.component';
