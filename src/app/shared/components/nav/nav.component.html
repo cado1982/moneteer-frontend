@@ -9,7 +9,7 @@
 
 <moneteer-nav-trial-status *ngIf="trialExpiryDays !== null" [days]="trialExpiryDays"></moneteer-nav-trial-status>
 
-<div ngbDropdown display="dynamic" placement="top-right" class="d-inline-block">
+<div ngbDropdown display="dynamic" placement="top-right" class="d-inline-block my-1">
     <button type="button" id="profileDropdown" class="w-100 btn btn-sm text-light text-shadow-dark dropdown-toggle text-truncate" ngbDropdownToggle>
         <i class="far fa-user"></i>
         {{user?.profile.email}}
