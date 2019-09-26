@@ -5,6 +5,7 @@ import { Spectator, createComponentFactory, mockProvider } from "@ngneat/spectat
 import { MockComponent } from "ng-mocks";
 import { NavTrialStatusComponent } from "../nav-trial-status/nav-trial-status.component";
 import { RouterTestingModule } from "@angular/router/testing";
+import { SubscriptionStatusService } from "src/app/core/services/subscription-status/subscription-status.service";
 
 describe("NavComponent", () => {
     let spectator: Spectator<NavComponent>;
@@ -20,8 +21,11 @@ describe("NavComponent", () => {
             mockProvider(AuthService, {
                 getUser: () => exampleUser
             })
+        ],
+        mocks: [
+            SubscriptionStatusService
         ]
-    })
+    });
 
     const exampleUser: User = {
         id_token: "",

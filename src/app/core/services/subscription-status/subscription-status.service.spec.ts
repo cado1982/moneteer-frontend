@@ -1,6 +1,6 @@
 import { SubscriptionStatusService } from './subscription-status.service';
 import { AuthService } from '../auth.service';
-import { SpectatorService, createServiceFactory, mockProvider } from '@ngneat/spectator/jest';
+import { SpectatorService, createServiceFactory } from '@ngneat/spectator/jest';
 import { User, UserSettings } from 'oidc-client';
 import moment = require('moment');
 
@@ -10,96 +10,71 @@ describe('SubscriptionStatusService', () => {
         service: SubscriptionStatusService,
         mocks: [AuthService]
     });
+    const mockedNow = 1569502186; // This is just a random unix timestamp representing "now" in the tests
+    const oneDay = 60 * 60 * 24;
 
     beforeEach(() => {
         spectator = createService();
-        moment.now = () => {
-            return +new Date("2019/09/10 00:00:00");
-        }
+        moment.now = () => mockedNow * 1000;
+
     });
 
-    it('when user is null should return null trial expiry', () => {
+    it('when user is null', () => {
         const authService = spectator.get(AuthService);
         authService.getUser.andReturn(undefined);
 
-        const trialExpiry = spectator.service.getTrialExpiry();
+        const trialExpiry = spectator.service.getTrialExpiryDays();
 
         expect(trialExpiry).toBeNull();
-    }); 
+    });
 
-    it('when subscription expiry is present then should return null trial expiry', () => {
+    it('when subscription expiry is present', () => {
+        configureUser({trial_expiry: mockedNow + oneDay, subscription_expiry: mockedNow + oneDay});
+
+        const trialExpiry = spectator.service.getTrialExpiryDays();
+
+        expect(trialExpiry).toBeNull();
+    });
+
+    it('when trial expires in 1 day', () => {
+        configureUser({trial_expiry: mockedNow + oneDay});
+        
+        const trialExpiry = spectator.service.getTrialExpiryDays();
+
+        expect(trialExpiry).toBe(1);
+    });
+
+    it('when trial expires in 1 second', () => {
+        configureUser({trial_expiry: mockedNow + 1});
+        
+        const trialExpiry = spectator.service.getTrialExpiryDays();
+
+        expect(trialExpiry).toBe(0);
+    });
+
+    it('when trial is expired', () => {
+       configureUser({trial_expiry: mockedNow - 1});
+
+        const trialExpiry = spectator.service.getTrialExpiryDays();
+
+        expect(trialExpiry).toBeNull();
+    });
+
+    // Helper function to set profile on AuthService
+    const configureUser = (profile: any): void => {
         const authService = spectator.get(AuthService);
-
-        const userSettings: UserSettings = {
+        let userSettings: UserSettings = {
             access_token: '',
             expires_at: 0,
             id_token: "",
-            profile: {
-                trial_expiry: "08/09/2019 00:00:00",
-                subscription_expiry: "08/09/2019 10:00:00"
-            },
+            profile: profile,
             refresh_token: "",
             scope: "",
             session_state: "",
             state: "",
             token_type: ""
         };
-        const exampleUser = new User(userSettings);
-
-        authService.getUser.andReturn(exampleUser);
-
-        const trialExpiry = spectator.service.getTrialExpiry();
-
-        expect(trialExpiry).toBeNull();
-    });
-
-    it('when subscription expiry is null and trial is in date should return trial expiry', () => {
-        const authService = spectator.get(AuthService);
-
-        const userSettings: UserSettings = {
-            access_token: '',
-            expires_at: 0,
-            id_token: "",
-            profile: {
-                trial_expiry: "11/09/2019 00:00:00"
-            },
-            refresh_token: "",
-            scope: "",
-            session_state: "",
-            state: "",
-            token_type: ""
-        };
-        const exampleUser = new User(userSettings);
-
-        authService.getUser.andReturn(exampleUser);
-
-        const trialExpiry = spectator.service.getTrialExpiry();
-
-        expect(trialExpiry).toBeTruthy();
-    });
-
-    it('when subscription expiry is null and trial is expired then should return null', () => {
-        const authService = spectator.get(AuthService);
-
-        const userSettings: UserSettings = {
-            access_token: '',
-            expires_at: 0,
-            id_token: "",
-            profile: {
-                trial_expiry: "09/09/2019 00:00:00"
-            },
-            refresh_token: "",
-            scope: "",
-            session_state: "",
-            state: "",
-            token_type: ""
-        };
-        const exampleUser = new User(userSettings);
-
-        authService.getUser.andReturn(exampleUser);
-
-        const trialExpiry = spectator.service.getTrialExpiry();
-
-        expect(trialExpiry).toBeNull();
-    });
+        const user = new User(userSettings);
+        authService.getUser.andReturn(user);
+    }
 });
