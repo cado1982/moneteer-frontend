@@ -3,13 +3,14 @@ import { Observable } from "rxjs";
 
 import { EnvelopeModel } from "../../../core/models/index";
 import { TransactionModel, AccountModel } from "../../models/index";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewChildren, QueryList } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.reducer";
 import { getAllEnvelopes } from "../../../core/reducers/envelopes.reducer";
 import { OnChanges } from "@angular/core";
 import { SimpleChanges } from "@angular/core";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
+import { TransactionAssignmentComponent } from "../transaction-assignment/transaction.assignment.component";
 
 @Component({
     selector: 'moneteer-transaction-edit',
@@ -20,6 +21,8 @@ export class TransactionEditComponent implements OnInit, OnChanges {
 
     @Input() public transaction: TransactionModel;
     @Input() public currentAccountId: string;
+
+    @ViewChildren(TransactionAssignmentComponent) public assignmentComponents: QueryList<TransactionAssignmentComponent>;
 
     public date: Date;
     public account: AccountModel;
@@ -45,6 +48,18 @@ export class TransactionEditComponent implements OnInit, OnChanges {
         if (newValue > 0) {
             this.assignments[0].inflow = 0;
         }
+    }
+
+    private get allAssignmentsValid(): boolean {
+        if (!this.assignmentComponents) return false;
+
+        return this.assignmentComponents.toArray().every(a => a.isValid);
+    }
+
+    public get isValid(): boolean {
+        const totalTransactionValueIsNotZero = this.inflow !== 0 && this.outflow !== 0;
+
+        return this.allAssignmentsValid && totalTransactionValueIsNotZero;
     }
 
     public get inUseEnvelopeIds(): string[] {

@@ -8,6 +8,9 @@ import { TransactionEditComponent } from '../transaction-edit/transaction-edit.c
 import { Observable } from 'rxjs';
 import { TransactionCreateModel } from 'src/app/core/models/transaction.create.model';
 import { Actions, ofType } from '@ngrx/effects';
+import { getAccounts } from 'src/app/core/reducers/accounts.reducer';
+import { getAllEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
+import { EnvelopeModel } from 'src/app/core/models';
 
 @Component({
     selector: 'moneteer-transaction-create',
@@ -17,29 +20,37 @@ import { Actions, ofType } from '@ngrx/effects';
 export class TransactionCreateComponent implements OnInit {
     @Input() public currentAccountId: string;
     public transaction: TransactionModel;
-    public isCreating$: Observable<boolean>;
     public errorMessage: string = "";
+    @Input() public accounts: AccountModel[];
+    @Input() public envelopes: EnvelopeModel[];
 
     @ViewChild(TransactionEditComponent, { static: true }) public transactionEditComponent: TransactionEditComponent;
     
     constructor(public store: Store<ITransactionsState>, public actions$: Actions) {
-        this.resetTransaction();
+        
     }
 
     ngOnInit() {
-        this.isCreating$ = this.store.select(getIsCreating);
-
         this.actions$.pipe(
             ofType(TransactionsActionTypes.CreateTransactionFailure)
         ).subscribe((action: CreateTransactionFailureAction) => {
             this.errorMessage = action.payload.error
-        })
+        });
+
+        this.resetTransaction();
     }
 
     private resetTransaction(): void {
         this.transaction = new TransactionModel();
-        this.transaction.assignments = [new TransactionAssignmentModel()];
+        this.transaction.account = this.accounts[0];
+        var assignment = new TransactionAssignmentModel();
+        assignment.envelope = this.envelopes[0];
+        this.transaction.assignments = [assignment];
         this.transaction.date = new Date();
+    }
+
+    public canCreate(): boolean {
+        return this.transactionEditComponent.isValid;
     }
 
     public create(): void {

@@ -40,11 +40,29 @@ export class TransactionAssignmentComponent {
         this.onDelete.emit();
     }
 
-    public isValid(): boolean {
+    public get errors(): string[] {
+        let errors: string[] = [];
+
+        if (!this.inflowOrOutflowGreaterThanZero()) {
+            errors.push("Inflow or outflow must be set");
+        }
+
+        return errors;
+    }
+
+    public get isValid(): boolean {
         return !!this.assignment &&
-               (this.assignment.inflow > 0 || this.assignment.outflow > 0) &&
-               !(this.assignment.inflow > 0 && this.assignment.outflow > 0) &&
-               !!this.assignment.envelope && 
-               this.assignment.envelope.id !== GuidModel.empty;
+               this.inflowOrOutflowGreaterThanZero() &&
+               this.envelopeIsSet();
+    }
+
+    private inflowOrOutflowGreaterThanZero(): boolean {
+        return this.assignment.inflow > 0 || this.assignment.outflow > 0;
+            
+    }
+
+    private envelopeIsSet(): boolean {
+        return !!this.assignment.envelope && 
+            this.assignment.envelope.id !== GuidModel.empty;
     }
 }

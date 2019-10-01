@@ -12,6 +12,8 @@ import { TransactionsActionTypes, HideCreateTransactionAction, SelectAllTransact
 import { Actions, ofType } from "@ngrx/effects";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
+import { EnvelopeModel } from "src/app/core/models";
+import { getAllEnvelopes } from "src/app/core/reducers/envelopes.reducer";
 
 
 @Component({
@@ -25,6 +27,7 @@ export class TransactionListComponent implements OnInit {
     public isCreateTransactionOpen$: Observable<boolean>;
     public currentAccountId: string;
     public accounts$: Observable<AccountModel[]>;
+    public envelopes$: Observable<EnvelopeModel[]>;
 
     @ViewChildren(TransactionComponent) public transactionComponents: QueryList<TransactionComponent>;
 
@@ -41,6 +44,7 @@ export class TransactionListComponent implements OnInit {
 
         this.isCreateTransactionOpen$ = this.store.select(getIsCreateTransactionOpen);
         this.accounts$ = this.store.select(getAccounts);    
+        this.envelopes$ = this.store.select(getAllEnvelopes);
     }
 
     public onSelectAll(isSelected: boolean): void {
