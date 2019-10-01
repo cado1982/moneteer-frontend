@@ -1,23 +1,22 @@
 
-import {empty as observableEmpty, of as observableOf,  Observable, of } from 'rxjs';
+import {empty as observableEmpty, of as observableOf,  Observable, of, throwError } from 'rxjs';
 
-import {map, retry} from "rxjs/operators";
+import {map, retry, catchError} from "rxjs/operators";
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
-import { EnvelopeModel, PayeeModel } from "./../../core/models";
+import { PayeeModel } from "./../../core/models";
  
 import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
 import { TransactionModel } from "../../accounts/models/index";
-import { Store } from "@ngrx/store";
-import { ITransactionsState } from "../reducers/transactions.reducer";
 import { RecentTransactionByEnvelope } from '../models/recent.transaction.by.envelope.model';
+import { TransactionCreateModel } from '../models/transaction.create.model';
 
 @Injectable()
 export class TransactionService extends ApiBaseService {
 
-    constructor(http: HttpClient, authService: AuthService, private store: Store<ITransactionsState>) {
+    constructor(http: HttpClient, authService: AuthService) {
         super(http, authService);
     }
 
@@ -50,17 +49,13 @@ export class TransactionService extends ApiBaseService {
         );
     }
 
-    public createTransaction(transactionModel: TransactionModel): Observable<TransactionModel> {
-        //this.validateTransaction(transactionModel);
-
-        return this.post<TransactionModel, TransactionModel>(`transaction`, transactionModel).pipe(
+    public createTransaction(transactionCreateModel: TransactionCreateModel): Observable<TransactionModel> {
+        return this.post<TransactionCreateModel, TransactionModel>(`transaction`, transactionCreateModel).pipe(
             map(t => this.processTransaction(t))
         );
     }
 
     public editTransaction(transactionModel: TransactionModel): Observable<TransactionModel> {
-        //this.validateTransaction(transactionModel);
-
         return this.put<TransactionModel, TransactionModel>(`transaction`, transactionModel).pipe(
             map(t => this.processTransaction(t))
         );
@@ -92,29 +87,15 @@ export class TransactionService extends ApiBaseService {
         return transaction;
     }
 
-    private validateTransaction(model: TransactionModel): void {
-        if (!model) { throw new Error("transactionModel must be set"); }
-        if (!model.account) { throw new Error("transaction.account must be set"); }
-        if (!model.account.id) { throw new Error("transaction.account.id must be set"); }
-        if (model.account && model.targetAccount && model.account.id === model.targetAccount.id) {
-            throw new Error("Cannot transfer to the same account");
-        }
-        if (!model.assignments || model.assignments.length === 0) { throw new Error("Transaction assignments must be provided") }
-        if (this.getAssignmentsTotalInflow(model) > 0 && this.getAssignmentsTotalOutflow(model) > 0) {
-            throw new Error("Cannot provide both inflow and outflow in transaction");
-        }
-
-    }
-
-    private getAssignmentsTotalInflow(model: TransactionModel): number {
-        if (!model || !model.assignments || model.assignments.length === 0) return 0;
+    // private getAssignmentsTotalInflow(model: TransactionModel): number {
+    //     if (!model || !model.assignments || model.assignments.length === 0) return 0;
         
-        return model.assignments.reduce((total, a) => total + a.inflow, 0);
-    }
+    //     return model.assignments.reduce((total, a) => total + a.inflow, 0);
+    // }
 
-    private getAssignmentsTotalOutflow(model: TransactionModel): number {
-        if (!model || !model.assignments || model.assignments.length === 0) return 0;
+    // private getAssignmentsTotalOutflow(model: TransactionModel): number {
+    //     if (!model || !model.assignments || model.assignments.length === 0) return 0;
         
-        return model.assignments.reduce((total, a) => total + a.outflow, 0);
-    }
+    //     return model.assignments.reduce((total, a) => total + a.outflow, 0);
+    // }
 }

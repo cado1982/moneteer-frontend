@@ -1,7 +1,11 @@
 @import "./../../../../colors.scss";
 
-.item:hover, .item.selected {
-    background-color: $theme-accent;
+.item.selected {
+    background-color: $theme-accent !important;
+}
+
+.item:hover {
+    background-color: $theme-hover;
 }
 
 .item {

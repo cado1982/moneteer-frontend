@@ -88,6 +88,7 @@
         "popper.js": "^1.14.7",
         "redux": "^4.0.1",
         "rxjs": "^6.5.2",
+        "scroll-into-view-if-needed": "^2.2.20",
         "tether-drop": "^1.4.2",
         "web-animations-js": "^2.3.2",
         "zone.js": "^0.9.1"

@@ -3,9 +3,11 @@ import { TransactionModel, AccountModel } from '../../models';
 import { TransactionAssignmentModel } from '../../models/transaction.assignment.model';
 import { Store } from '@ngrx/store';
 import { ITransactionsState, getIsCreating } from 'src/app/core/reducers/transactions.reducer';
-import { HideCreateTransactionAction, CreateTransactionAction } from 'src/app/core/actions/transactions.actions';
+import { HideCreateTransactionAction, CreateTransactionAction, TransactionsActionTypes, CreateTransactionFailureAction } from 'src/app/core/actions/transactions.actions';
 import { TransactionEditComponent } from '../transaction-edit/transaction-edit.component';
 import { Observable } from 'rxjs';
+import { TransactionCreateModel } from 'src/app/core/models/transaction.create.model';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
     selector: 'moneteer-transaction-create',
@@ -16,15 +18,22 @@ export class TransactionCreateComponent implements OnInit {
     @Input() public currentAccountId: string;
     public transaction: TransactionModel;
     public isCreating$: Observable<boolean>;
+    public errorMessage: string = "";
 
     @ViewChild(TransactionEditComponent, { static: true }) public transactionEditComponent: TransactionEditComponent;
     
-    constructor(public store: Store<ITransactionsState>) {
+    constructor(public store: Store<ITransactionsState>, public actions$: Actions) {
         this.resetTransaction();
     }
 
     ngOnInit() {
         this.isCreating$ = this.store.select(getIsCreating);
+
+        this.actions$.pipe(
+            ofType(TransactionsActionTypes.CreateTransactionFailure)
+        ).subscribe((action: CreateTransactionFailureAction) => {
+            this.errorMessage = action.payload.error
+        })
     }
 
     private resetTransaction(): void {
@@ -36,7 +45,18 @@ export class TransactionCreateComponent implements OnInit {
     public create(): void {
         const transaction = this.transactionEditComponent.getEditedTransaction();
 
-        this.store.dispatch(new CreateTransactionAction({ transaction: transaction }));
+        if (!transaction.account) throw new Error("Transaction must have an account");
+
+        let request = new TransactionCreateModel();
+        request.accountId = transaction.account.id;
+        request.assignments = transaction.assignments;
+        request.date = transaction.date;
+        request.isCleared = transaction.isCleared;
+        request.description = transaction.description;
+
+        this.errorMessage = "";
+
+        this.store.dispatch(new CreateTransactionAction({ request }));
     }
 
     public cancel(): void {

@@ -2,6 +2,7 @@ import { Action } from "@ngrx/store";
 import { TransactionModel } from "../../accounts/models";
 import { PayeeModel } from "../models";
 import { RecentTransactionByEnvelope } from "../models/recent.transaction.by.envelope.model";
+import { TransactionCreateModel } from "../models/transaction.create.model";
 
 export enum TransactionsActionTypes {
     LoadTransactions = "[Transactions] Load",
@@ -114,7 +115,7 @@ export class HideCreateTransactionAction implements Action {
 }
 export class CreateTransactionAction implements Action {
     readonly type = TransactionsActionTypes.CreateTransaction;
-    constructor(public payload: {transaction: TransactionModel}) { }
+    constructor(public payload: {request: TransactionCreateModel}) { }
 }
 export class CreateTransactionSuccessAction implements Action {
     readonly type = TransactionsActionTypes.CreateTransactionSuccess;
@@ -122,7 +123,7 @@ export class CreateTransactionSuccessAction implements Action {
 }
 export class CreateTransactionFailureAction implements Action {
     readonly type = TransactionsActionTypes.CreateTransactionFailure;
-    constructor(public payload: {error: string, transaction: TransactionModel}) { }
+    constructor(public payload: {error: string}) { }
 }
 
 // Edit

@@ -5,7 +5,9 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
 }
 
 /* TRANSACTION TABLE */

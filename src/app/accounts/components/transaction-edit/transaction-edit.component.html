@@ -8,7 +8,7 @@
         </div>
     </div>
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
-        <moneteer-account-select-dropdown [accounts]="accounts$ | async" [(selectedAccount)]="account">
+        <moneteer-account-select-dropdown class="w-100" [accounts]="accounts$ | async" [(selectedAccount)]="account">
         </moneteer-account-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--description">
@@ -16,19 +16,19 @@
     </div>
     <div class="transaction-cell transaction-cell--category">
         <div *ngIf="assignments.length > 1">Multiple Envelopes</div>
-        <moneteer-envelope-select-dropdown *ngIf="assignments.length === 1"
+        <moneteer-envelope-select-dropdown class="w-100" *ngIf="assignments.length === 1"
             [(selectedEnvelope)]="assignments[0].envelope" [envelopes]="envelopes$ | async" [allowMultiple]="true"
             (onMultipleEnvelopes)="addEnvelope()" inputSize="xs">
         </moneteer-envelope-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--flow">
-        <div *ngIf="assignments.length > 1">{{outflow | budgetCurrency | async}}</div>
-        <input *ngIf="assignments.length === 1" class="form-control form-control-xs" moneteerCurrencyInput
+        <div class="text-right" *ngIf="assignments.length > 1">{{outflow | budgetCurrency | async}}</div>
+        <input *ngIf="assignments.length === 1" class="form-control form-control-xs text-right" moneteerCurrencyInput
             [(value)]="outflow" autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--flow">
-        <div *ngIf="assignments.length > 1">{{inflow | budgetCurrency | async}}</div>
-        <input *ngIf="assignments.length === 1" class="form-control form-control-xs" moneteerCurrencyInput
+        <div class="text-right" *ngIf="assignments.length > 1">{{inflow | budgetCurrency | async}}</div>
+        <input *ngIf="assignments.length === 1" class="form-control form-control-xs text-right" moneteerCurrencyInput
             [(value)]="inflow" autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--cleared">
@@ -37,10 +37,10 @@
     </div>
 </div>
 
-<div *ngIf="assignments.length > 1">
+<div class="d-flex flex-column" *ngIf="assignments.length > 1">
     <moneteer-transaction-assignment class="transaction-row" [currentAccountId]="currentAccountId"
         [assignment]="assignment" *ngFor="let assignment of assignments" [envelopes]="envelopes$ | async"
         (onDelete)="onAssignmentDelete(assignment)" [inUseEnvelopeIds]="inUseEnvelopeIds">
     </moneteer-transaction-assignment>
-    <button class="transaction-row text-right btn btn-xs btn-primary" (click)="addEnvelope()">Add envelope</button>
+    <button class="align-self-end mr-3 transaction-row text-right btn btn-xs btn-primary" (click)="addEnvelope()">Add envelope</button>
 </div>
