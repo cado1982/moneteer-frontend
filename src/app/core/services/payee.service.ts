@@ -5,12 +5,13 @@ import { Observable } from "rxjs";
 import { PayeeModel } from "./../../core/models";
 import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
+import { Store } from "@ngrx/store";
+import { IUIState } from "../reducers/ui.state.reducer";
 
 @Injectable()
 export class PayeeService extends ApiBaseService {
-
-    constructor(http: HttpClient, authService: AuthService) {
-        super(http, authService);
+    constructor(public http: HttpClient, public store: Store<IUIState>) {
+        super(http, store);
     }
 
     public deletePayee(payeeId: string): Observable<void> {

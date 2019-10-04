@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { DatePipe, CommonModule } from "@angular/common";
 import { LoadingComponent, TypeAheadComponent, DropdownComponent } from "./components";
-import { CustomDatePipe } from "./pipes/date.pipe";
+import { CustomDatePipe, WindowRef } from "./pipes/date.pipe";
 import { BudgetCurrencyPipe } from "./pipes/budget.currency.pipe";
 import { NgbActiveModal, NgbAlertModule, NgbModalModule, NgbDropdownModule,
          NgbDatepickerModule, NgbDateNativeAdapter, NgbDateAdapter, NgbProgressbarModule 
@@ -57,7 +57,8 @@ import { NavTrialStatusComponent } from './components/nav-trial-status/nav-trial
     providers: [
         DatePipe,
         NgbActiveModal ,
-        {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}
+        {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
+        WindowRef
     ],
     declarations: [
         CustomDatePipe,

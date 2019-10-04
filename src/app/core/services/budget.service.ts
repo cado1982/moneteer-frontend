@@ -6,11 +6,13 @@ import { Observable } from "rxjs";
 import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
 import { BudgetModel } from "../../core/models/index";
+import { IUIState } from "../reducers/ui.state.reducer";
+import { Store } from "@ngrx/store";
 
 @Injectable()
 export class BudgetService extends ApiBaseService {
-    constructor(http: HttpClient, authService: AuthService) {
-        super(http, authService);
+    constructor(public http: HttpClient, public store: Store<IUIState>) {
+        super(http, store);
     }
 
     public getBudget(budgetId: string): Observable<BudgetModel> {

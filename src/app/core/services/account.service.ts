@@ -5,11 +5,13 @@ import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
 import { AccountModel } from "../../accounts/models/index";
 import { map } from "rxjs/operators";
+import { Store } from "@ngrx/store";
+import { IUIState } from "../reducers/ui.state.reducer";
 
 @Injectable()
 export class AccountService extends ApiBaseService {
-    constructor(http: HttpClient, authService: AuthService) {
-        super(http, authService);
+    constructor(public http: HttpClient, public store: Store<IUIState>) {
+        super(http, store);
     }
 
     public getAccounts(budgetId: string): Observable<Array<AccountModel>> {

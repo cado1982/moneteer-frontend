@@ -3,7 +3,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { throwIfAlreadyLoaded } from "./module.import.guard";
 import { TokenInterceptor } from "./interceptors/token.interceptor";
-import { UnauthorizedInterceptor } from "./interceptors/unauthorized.interceptor";
 import { AppComponent } from "./components/app.component";
 import { ErrorModalComponent } from "./components/error-modal/error.modal.component";
 import { LoadingSpinnerService, MediaQueryService, NotificationsService,
@@ -28,9 +27,9 @@ import { ErrorsHandler } from "./errors.handler";
 import { RetryInterceptor } from "./interceptors/retry.interceptor";
 import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarModule } from "@ngx-loading-bar/core";
-import { PaymentRequiredInterceptor } from "./interceptors/payment-required.interceptor";
 import { PaymentRequiredComponent } from './components/payment-required/payment-required.component';
 import { SubscriptionStatusService } from "./services/subscription-status/subscription-status.service";
+import { HttpErrorInterceptor } from "./interceptors/http.error.interceptor";
 
 @NgModule({
     imports: [
@@ -50,8 +49,7 @@ import { SubscriptionStatusService } from "./services/subscription-status/subscr
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: UnauthorizedInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: PaymentRequiredInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
         { provide: ErrorHandler, useClass: ErrorsHandler },
         LoadingSpinnerService,
         MediaQueryService,

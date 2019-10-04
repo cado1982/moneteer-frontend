@@ -123,7 +123,7 @@ export class CreateTransactionSuccessAction implements Action {
 }
 export class CreateTransactionFailureAction implements Action {
     readonly type = TransactionsActionTypes.CreateTransactionFailure;
-    constructor(public payload: {error: string}) { }
+    constructor(public payload: {error:  string}) { }
 }
 
 // Edit

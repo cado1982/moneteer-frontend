@@ -58,8 +58,9 @@ export class TransactionEditComponent implements OnInit, OnChanges {
 
     public get isValid(): boolean {
         const totalTransactionValueIsNotZero = this.inflow !== 0 && this.outflow !== 0;
+        const accountNotNull = !!this.account;
 
-        return this.allAssignmentsValid && totalTransactionValueIsNotZero;
+        return this.allAssignmentsValid && totalTransactionValueIsNotZero && accountNotNull;
     }
 
     public get inUseEnvelopeIds(): string[] {

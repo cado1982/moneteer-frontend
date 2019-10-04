@@ -3,21 +3,21 @@ import {empty as observableEmpty, of as observableOf,  Observable, of, throwErro
 
 import {map, retry, catchError} from "rxjs/operators";
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 import { PayeeModel } from "./../../core/models";
  
 import { ApiBaseService } from "./api.base.service";
-import { AuthService } from "./auth.service";
 import { TransactionModel } from "../../accounts/models/index";
 import { RecentTransactionByEnvelope } from '../models/recent.transaction.by.envelope.model';
 import { TransactionCreateModel } from '../models/transaction.create.model';
+import { Store } from '@ngrx/store';
+import { IUIState } from '../reducers/ui.state.reducer';
 
 @Injectable()
 export class TransactionService extends ApiBaseService {
-
-    constructor(http: HttpClient, authService: AuthService) {
-        super(http, authService);
+    constructor(public http: HttpClient, public store: Store<IUIState>) {
+        super(http, store);
     }
 
     public getTransactionsForBudget(budgetId: string): Observable<Array<TransactionModel>> {

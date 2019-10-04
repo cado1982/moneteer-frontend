@@ -84,6 +84,7 @@
         "jquery": "^3.4.1",
         "lodash": "^4.17.15",
         "moment": "^2.24.0",
+        "ngx-currency": "^2.0.0",
         "oidc-client": "^1.8.2",
         "popper.js": "^1.14.7",
         "redux": "^4.0.1",

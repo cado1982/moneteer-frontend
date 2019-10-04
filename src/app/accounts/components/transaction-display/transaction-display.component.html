@@ -3,7 +3,7 @@
         <input type="checkbox" (click)="selected($event)" [checked]="isSelected$ | async" name="isSelected" id="isSelected">
     </div>
     <div class="transaction-cell transaction-cell--date">
-        {{transaction.date | date:'shortDate'}}
+        {{transaction.date | customDate}}
     </div>
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
         {{transaction.account?.name}}

@@ -1,14 +1,12 @@
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">
-            <h3>{{modalService.title}}</h3>
-            <h4>Something went wrong</h4>
-        </h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<div class="modal-body">
+    <div class="text-center mb-3">
+        <i class="far fa-times-circle text-danger" style="font-size: 3em;"></i>
     </div>
-    <div class="modal-body">
-        <p>{{modalService.message}}</p>
-    </div>
-</ng-template>
+    <div style="white-space: pre-wrap">{{message}}</div>
+    <div class="mt-3" *ngIf="traceId">Trace Id: <code>{{traceId}}</code></div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" (click)="modal.dismiss('click close')">
+        Close
+    </button>
+</div>

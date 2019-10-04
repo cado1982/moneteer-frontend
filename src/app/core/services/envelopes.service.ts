@@ -6,11 +6,13 @@ import { Observable } from "rxjs";
 import { EnvelopeModel, EnvelopeCategoryModel, EnvelopeBalanceTarget } from "../../core/models/index";
 import { ApiBaseService } from "./api.base.service";
 import { AuthService } from "./auth.service";
+import { Store } from "@ngrx/store";
+import { IUIState } from "../reducers/ui.state.reducer";
 
 @Injectable()
 export class EnvelopesService extends ApiBaseService {
-    constructor(http: HttpClient, authService: AuthService) {
-        super(http, authService);
+    constructor(public http: HttpClient, public store: Store<IUIState>) {
+        super(http, store);
     }
 
     public getEnvelopesForBudget(budgetId: string): Observable<EnvelopeModel[]> {

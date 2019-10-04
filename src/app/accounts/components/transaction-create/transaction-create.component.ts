@@ -20,9 +20,9 @@ import { EnvelopeModel } from 'src/app/core/models';
 export class TransactionCreateComponent implements OnInit {
     @Input() public currentAccountId: string;
     public transaction: TransactionModel;
-    public errorMessage: string = "";
     @Input() public accounts: AccountModel[];
     @Input() public envelopes: EnvelopeModel[];
+    public isCreating$: Observable<boolean>;
 
     @ViewChild(TransactionEditComponent, { static: true }) public transactionEditComponent: TransactionEditComponent;
     
@@ -34,8 +34,10 @@ export class TransactionCreateComponent implements OnInit {
         this.actions$.pipe(
             ofType(TransactionsActionTypes.CreateTransactionFailure)
         ).subscribe((action: CreateTransactionFailureAction) => {
-            this.errorMessage = action.payload.error
+            //this.errorMessage = action.payload.error
         });
+
+        this.isCreating$ = this.store.select(getIsCreating);
 
         this.resetTransaction();
     }
@@ -64,8 +66,6 @@ export class TransactionCreateComponent implements OnInit {
         request.date = transaction.date;
         request.isCleared = transaction.isCleared;
         request.description = transaction.description;
-
-        this.errorMessage = "";
 
         this.store.dispatch(new CreateTransactionAction({ request }));
     }

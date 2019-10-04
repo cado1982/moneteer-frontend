@@ -1,6 +1,9 @@
 import { ErrorHandler, Injectable, Injector } from "@angular/core";
 import { NotificationsService } from "./services";
 import { HttpErrorResponse } from "@angular/common/http";
+import { Store } from "@ngrx/store";
+import { IUIState } from "./reducers/ui.state.reducer";
+import { ShowErrorModalAction } from "./actions/ui.state.actions";
 
 @Injectable()
 export class ErrorsHandler implements ErrorHandler {
@@ -10,18 +13,12 @@ export class ErrorsHandler implements ErrorHandler {
     }
 
     handleError(error: Error | HttpErrorResponse) {
-        const notificationService = this.injector.get(NotificationsService);
+        const store = this.injector.get(Store);
 
-        if (error instanceof HttpErrorResponse) {
-            if (!navigator.onLine) {
-                return notificationService.error("No internet connection");
-            } else {
-                return notificationService.error(`${error.status} - ${error.message}`);
-            }
-        } else {
-            console.error(error);
-            return notificationService.errorModal(`${error.name}\r\n${error.message}\r\n${error.stack}`);
+        console.error(error);
+
+        if (!(error instanceof HttpErrorResponse)) {
+            store.dispatch(new ShowErrorModalAction({message: `Oops! Something bad happpened.\n\nPlease try again later.`, title: "", traceId: ""}))
         }
-
     }
 }

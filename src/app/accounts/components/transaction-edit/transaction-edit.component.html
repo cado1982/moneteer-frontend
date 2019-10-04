@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<div class="d-flex flex-column" *ngIf="assignments.length > 1">
+<div class="d-flex flex-column" [hidden]="assignments.length === 1">
     <moneteer-transaction-assignment class="transaction-row" [currentAccountId]="currentAccountId"
         [assignment]="assignment" *ngFor="let assignment of assignments" [envelopes]="envelopes$ | async"
         (onDelete)="onAssignmentDelete(assignment)" [inUseEnvelopeIds]="inUseEnvelopeIds">

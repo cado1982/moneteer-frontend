@@ -9,6 +9,11 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { EffectsModule } from "@ngrx/effects";
 import { RouterLinkDirectiveStub } from "./testing/router-link-directive.stub";
+import { ErrorModalComponent } from "./core/components/error-modal/error.modal.component";
+import localeEn from "@angular/common/locales/en";
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEn);
 
 @NgModule({
     imports: [
@@ -36,6 +41,9 @@ import { RouterLinkDirectiveStub } from "./testing/router-link-directive.stub";
     ],
     declarations: [
         RouterLinkDirectiveStub
+    ],
+    entryComponents: [
+        ErrorModalComponent
     ]
 })
 export class AppModule {
