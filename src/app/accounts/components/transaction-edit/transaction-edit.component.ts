@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import { Observable } from "rxjs";
 
-import { EnvelopeModel } from "../../../core/models/index";
+import { EnvelopeModel, GuidModel } from "../../../core/models/index";
 import { TransactionModel, AccountModel } from "../../models/index";
 import { Component, Input, OnInit, ViewChildren, QueryList } from "@angular/core";
 import { Store } from "@ngrx/store";
@@ -21,8 +21,6 @@ export class TransactionEditComponent implements OnInit, OnChanges {
 
     @Input() public transaction: TransactionModel;
     @Input() public currentAccountId: string;
-
-    @ViewChildren(TransactionAssignmentComponent) public assignmentComponents: QueryList<TransactionAssignmentComponent>;
 
     public date: Date;
     public account: AccountModel;
@@ -50,17 +48,24 @@ export class TransactionEditComponent implements OnInit, OnChanges {
         }
     }
 
-    private get allAssignmentsValid(): boolean {
-        if (!this.assignmentComponents) return false;
-
-        return this.assignmentComponents.toArray().every(a => a.isValid);
+    private assignmentIsValid(assignment: TransactionAssignmentModel): boolean {
+        return !!assignment &&
+            (assignment.inflow > 0 || assignment.outflow > 0) &&
+            !(assignment.inflow > 0 && assignment.outflow > 0) &&
+            (!!assignment.envelope && assignment.envelope.id !== GuidModel.empty);
     }
 
-    public get isValid(): boolean {
-        const totalTransactionValueIsNotZero = this.inflow !== 0 && this.outflow !== 0;
+    private allAssignmentsValid(): boolean {
+        return this.assignments && 
+            this.assignments.length >= 1 &&
+            this.assignments.every(a => this.assignmentIsValid(a));
+    }
+
+    public transactionIsValid(): boolean {
+        const totalTransactionValueIsNotZero = this.inflow !== 0 || this.outflow !== 0;
         const accountNotNull = !!this.account;
 
-        return this.allAssignmentsValid && totalTransactionValueIsNotZero && accountNotNull;
+        return this.allAssignmentsValid() && totalTransactionValueIsNotZero && accountNotNull;
     }
 
     public get inUseEnvelopeIds(): string[] {

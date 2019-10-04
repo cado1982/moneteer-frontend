@@ -13,7 +13,7 @@ import { PairsPipe } from "./pipes/pairs.pipe";
 import { GroupByPipe } from "./pipes/group.by.pipe";
 import { FilterByPipe } from "./pipes/filter.by.pipe";
 import { EnvelopeCategorySelectDropdownComponent } from './components/envelope-category-select-dropdown/envelope-category-select-dropdown.component';
-import { CurrencyInputDirective } from './directives/currency-input.directive';
+import { NgxCurrencyModule } from "ngx-currency";
 import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
 import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
 import { EnvelopeSelectDropdownComponent } from "./components/envelope-select-dropdown/envelope.select.dropdown.component";
@@ -28,7 +28,8 @@ import { NavTrialStatusComponent } from './components/nav-trial-status/nav-trial
         NgbDatepickerModule,
         NgbProgressbarModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxCurrencyModule
     ],
     exports: [
         CustomDatePipe,
@@ -48,11 +49,11 @@ import { NavTrialStatusComponent } from './components/nav-trial-status/nav-trial
         FormsModule,
         CommonModule,
         EnvelopeCategorySelectDropdownComponent,
-        CurrencyInputDirective,
         DropdownListComponent,
         ReactiveFormsModule,
         ErrorAlertComponent,
-        EnvelopeSelectDropdownComponent
+        EnvelopeSelectDropdownComponent,
+        NgxCurrencyModule
     ],
     providers: [
         DatePipe,
@@ -71,7 +72,6 @@ import { NavTrialStatusComponent } from './components/nav-trial-status/nav-trial
         DropdownComponent,
         NavComponent,
         EnvelopeCategorySelectDropdownComponent,
-        CurrencyInputDirective,
         DropdownListComponent,
         ErrorAlertComponent,
         EnvelopeSelectDropdownComponent,

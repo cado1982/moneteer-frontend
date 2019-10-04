@@ -12,7 +12,6 @@ export class CustomDatePipe extends DatePipe implements PipeTransform {
 
     public transform(value: string): string | null {
         const language = navigator.language;
-        console.log(language);
         return (value == "" || value == null) ? "" : formatDate(value, 'shortDate', language);
     }
 }

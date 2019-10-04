@@ -2,9 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { ApiBaseService } from "./api.base.service";
-import { AuthService } from "./auth.service";
 import { AccountModel } from "../../accounts/models/index";
-import { map } from "rxjs/operators";
 import { Store } from "@ngrx/store";
 import { IUIState } from "../reducers/ui.state.reducer";
 

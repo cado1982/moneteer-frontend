@@ -25,10 +25,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             }
             else {
                 if (err.status === 400) {
-                    message = "Oops! Something unexpected happened.\nPlease try again later.";
-                    traceId = err.error.traceId;
-    
+                    // We want 400 errors to be picked up by the UI sending the action
+                    // So don't show the generic modal
                     console.error(`Backend returned code ${err.status}. TraceId: ${traceId}. Error: ${err.error.title}. Details: ${JSON.stringify(err.error.errors)}`);  
+                    return throwError(err);
                 } else if (err.status === 401) {
                     this.authService.startAuthentication("");
                 } else if (err.status === 402) {

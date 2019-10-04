@@ -33,9 +33,11 @@ export class TransactionComponent implements OnInit {
     }
 
     public save(): void {
-        const updatedTransaction = this.transactionEditComponent.getEditedTransaction();
+        const transaction = this.transactionEditComponent.getEditedTransaction();
 
-        this.store.dispatch(new UpdateTransactionAction({ transaction: updatedTransaction }));
+        if (!transaction.account) throw new Error("Transaction must have an account");
+
+        this.store.dispatch(new UpdateTransactionAction({ transaction }));
     }
 
     public cancel(): void {

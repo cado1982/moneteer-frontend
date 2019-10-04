@@ -12,10 +12,16 @@
         [envelopes]="envelopes" inputSize="xs"></moneteer-envelope-select-dropdown>
 </div>
 <div class="transaction-cell transaction-cell--flow" >
-    <input moneteerCurrencyInput [(value)]="outflow" name="outflow" class="form-control form-control-xs" [allowZeros]="false" [allowNegative]="false">
+    <input currencyMask [(ngModel)]="outflow" name="outflow" 
+        [options]="{ nullable: 'true', allowNegative: 'false' }"
+        (focus)="$event.target.select()"
+        class="form-control form-control-xs">
 </div>
 <div class="transaction-cell transaction-cell--flow">
-    <input moneteerCurrencyInput [(value)]="inflow" name="inflow" class="form-control form-control-xs" [allowZeros]="false" [allowNegative]="false">
+    <input currencyMask [(ngModel)]="inflow" name="inflow" 
+        [options]="{ nullable: 'true', allowNegative: 'false' }"
+        (focus)="$event.target.select()"
+        class="form-control form-control-xs">
 </div>
 <div class="transaction-cell transaction-cell--cleared">
     <button class="btn" aria-label="delete assignment" (click)="delete()"><i class="fas fa-minus-circle text-danger"></i></button>

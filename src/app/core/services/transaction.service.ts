@@ -1,7 +1,7 @@
 
-import {empty as observableEmpty, of as observableOf,  Observable, of, throwError } from 'rxjs';
+import { empty as observableEmpty, of as observableOf,  Observable } from 'rxjs';
 
-import {map, retry, catchError} from "rxjs/operators";
+import { map, retry } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
@@ -10,7 +10,6 @@ import { PayeeModel } from "./../../core/models";
 import { ApiBaseService } from "./api.base.service";
 import { TransactionModel } from "../../accounts/models/index";
 import { RecentTransactionByEnvelope } from '../models/recent.transaction.by.envelope.model';
-import { TransactionCreateModel } from '../models/transaction.create.model';
 import { Store } from '@ngrx/store';
 import { IUIState } from '../reducers/ui.state.reducer';
 
@@ -49,8 +48,8 @@ export class TransactionService extends ApiBaseService {
         );
     }
 
-    public createTransaction(transactionCreateModel: TransactionCreateModel): Observable<TransactionModel> {
-        return this.post<TransactionCreateModel, TransactionModel>(`transaction`, transactionCreateModel).pipe(
+    public createTransaction(transactionModel: TransactionModel): Observable<TransactionModel> {
+        return this.post<TransactionModel, TransactionModel>(`transaction`, transactionModel).pipe(
             map(t => this.processTransaction(t))
         );
     }

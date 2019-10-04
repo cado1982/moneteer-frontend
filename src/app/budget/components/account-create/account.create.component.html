@@ -20,9 +20,8 @@
 
         <div class="form-group">
             <label for="initialBalance">Current Balance</label>
-            <input id="initialBalance" class="form-control" moneteerCurrencyInput [(value)]="initialBalance"
-                [allowZeros]="true" [allowNegative]="true">
-            <small id="nameHelp" class="form-text text-muted">How much is in the account at the moment?</small>
+            <input id="initialBalance" class="form-control" currencyMask formControlName="initialBalance">
+            <small id="initialBalanceHelp" class="form-text text-muted">How much is in the account at the moment?</small>
         </div>
 
         <!-- <div class="form-group">
@@ -40,6 +39,9 @@
 
     </div>
     <div class="modal-footer flex-column align-items-stretch">
+        <div class="text-danger" *ngIf="error">
+            {{error}}
+        </div>
         <div class="align-self-end">
             <button type="button" class="btn btn-link" (click)="modal.dismiss('Cancel click')">Cancel</button>
             <button type="submit" class="btn btn-success" [disabled]="!createAccountForm.valid">
@@ -48,7 +50,6 @@
                 Create
             </button>
         </div>
-
-        <moneteer-error-alert [error]="error"></moneteer-error-alert>
+        <pre>{{initialBalance}}</pre>
     </div>
 </form>

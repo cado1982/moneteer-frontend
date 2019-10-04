@@ -17,21 +17,24 @@ import { FormControl, Validators, FormGroup } from "@angular/forms";
     styleUrls: ["./account.create.component.scss"]
 })
 export class AccountCreateComponent implements OnInit {
-    public isBudget = true;
     public budgetId: string;
     public isBusy = false;
 
     public isOpen$: Observable<boolean>;
     public isCreating$: Observable<boolean>;
-    public initialBalance: number = 0;
     public error: string;
 
     public createAccountForm = new FormGroup({
-        accountName: new FormControl('', [Validators.required, Validators.maxLength(255)])
+        accountName: new FormControl('', [Validators.required, Validators.maxLength(250)]),
+        initialBalance: new FormControl(0)
     });
 
     private get accountName(): string {
         return this.createAccountForm.value['accountName'];
+    }
+
+    private get initialBalance(): number {
+        return this.createAccountForm.value['initialBalance'];
     }
 
     constructor(private store: Store<IAccountsState>,
@@ -59,12 +62,11 @@ export class AccountCreateComponent implements OnInit {
     }
 
     public create(): void {
-
         this.isBusy = true;
 
         const account: AccountModel = new AccountModel();
         account.name = this.accountName;
-        account.isBudget = this.isBudget;
+        account.isBudget = true;
         account.initialBalance = this.initialBalance;
         account.budgetId = this.budgetId;
 

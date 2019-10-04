@@ -1,5 +1,5 @@
 <div class="envelope-name">{{envelope?.name}}</div>
 <div class="envelope-details">
-    <input moneteerCurrencyInput [(value)]="assigned" name="assigned" class="form-control form-control-sm" [allowZeros]="true" [allowNegative]="false">
+    <input currencyMask [(ngModel)]="assigned" [options]="{ allowNegative: 'false' }" name="assigned" class="form-control form-control-sm">
     <div class="envelope-details-balance" [ngClass]="{'is-good': balance > 0, 'is-bad': balance < 0}">{{balance | budgetCurrency:true | async}}</div>
 </div>

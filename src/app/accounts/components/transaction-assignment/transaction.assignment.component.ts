@@ -16,23 +16,23 @@ export class TransactionAssignmentComponent {
     @Output() public onDelete: EventEmitter<void> = new EventEmitter<void>();
     @Input() public inUseEnvelopeIds: string[] = [];
 
-    public get inflow(): number {
-        return this.assignment.inflow;
+    public get inflow(): number | null {
+        return this.assignment.inflow === 0 ? null : this.assignment.inflow;
     }
-    public set inflow(newValue: number) {
-        this.assignment.inflow = newValue;
+    public set inflow(newValue: number | null) {
+        this.assignment.inflow = newValue === null ? 0 : newValue;
         if (newValue !== 0) {
             this.outflow = 0;
         }
     }
 
-    public get outflow(): number {
-        return this.assignment.outflow;
+    public get outflow(): number | null {
+        return this.assignment.outflow === 0 ? null : this.assignment.outflow;
     }
-    public set outflow(newValue: number) {
-        this.assignment.outflow = newValue;
+    public set outflow(newValue: number | null) {
+        this.assignment.outflow = newValue === null ? 0 : newValue;
         if (newValue !== 0) {
-            this.inflow = 0;
+            this.inflow = null;
         }
     }
 
@@ -40,29 +40,4 @@ export class TransactionAssignmentComponent {
         this.onDelete.emit();
     }
 
-    public get errors(): string[] {
-        let errors: string[] = [];
-
-        if (!this.inflowOrOutflowGreaterThanZero()) {
-            errors.push("Inflow or outflow must be set");
-        }
-
-        return errors;
-    }
-
-    public get isValid(): boolean {
-        return !!this.assignment &&
-               this.inflowOrOutflowGreaterThanZero() &&
-               this.envelopeIsSet();
-    }
-
-    private inflowOrOutflowGreaterThanZero(): boolean {
-        return this.assignment.inflow > 0 || this.assignment.outflow > 0;
-            
-    }
-
-    private envelopeIsSet(): boolean {
-        return !!this.assignment.envelope && 
-            this.assignment.envelope.id !== GuidModel.empty;
-    }
 }

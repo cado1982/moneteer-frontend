@@ -61,7 +61,7 @@ export class TransactionsEffects {
     @Effect() createTransaction$ = this.actions$.pipe(
         ofType(TransactionsActionTypes.CreateTransaction),
         map((action: CreateTransactionAction) => action.payload),
-        mergeMap(payload => this.transactionService.createTransaction(payload.request).pipe(
+        mergeMap(payload => this.transactionService.createTransaction(payload.transaction).pipe(
             map(transaction => new CreateTransactionSuccessAction({transaction})),
             catchError(error => of(new CreateTransactionFailureAction({error})))    
         )  
