@@ -6,13 +6,15 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TransactionModel } from '../../models';
 import { TransactionAssignmentModel } from '../../models/transaction.assignment.model';
 import { EnvelopeModel } from 'src/app/core/models';
+import { CustomDatePipe } from 'src/app/shared/pipes/date.pipe';
 
 describe('TransactionDisplayComponent', () => {
     let spectator: Spectator<TransactionDisplayComponent>;
     const createComponent = createComponentFactory({
         component: TransactionDisplayComponent,
         declarations: [
-            MockPipe(BudgetCurrencyPipe)
+            MockPipe(BudgetCurrencyPipe),
+            MockPipe(CustomDatePipe)
         ],
         providers: [
             provideMockStore({ initialState: {} })

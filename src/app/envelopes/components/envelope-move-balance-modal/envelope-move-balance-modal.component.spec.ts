@@ -9,8 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MockComponent, MockDirective } from 'ng-mocks';
 import { ErrorAlertComponent } from 'src/app/shared/components/error-alert/error-alert.component';
 import { EnvelopeSelectDropdownComponent } from 'src/app/shared/components/envelope-select-dropdown/envelope.select.dropdown.component';
-import { CurrencyInputDirective } from 'src/app/shared/directives/currency-input.directive';
-
+import { CurrencyMaskDirective } from 'ngx-currency';
 
 describe('EnvelopeMoveBalanceModalComponent', () => {
     let spectator: Spectator<EnvelopeMoveBalanceModalComponent>;
@@ -28,7 +27,7 @@ describe('EnvelopeMoveBalanceModalComponent', () => {
         declarations: [
             MockComponent(ErrorAlertComponent),
             MockComponent(EnvelopeSelectDropdownComponent),
-            MockDirective(CurrencyInputDirective)
+            MockDirective(CurrencyMaskDirective)
         ]
     });
 

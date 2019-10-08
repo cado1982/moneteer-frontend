@@ -36,9 +36,17 @@ export class TransactionCreateComponent implements OnInit {
 
     private resetTransaction(): void {
         this.transaction = new TransactionModel();
-        this.transaction.account = this.accounts[0];
+
+        if (this.accounts && this.accounts.length > 0) {
+            this.transaction.account = this.accounts[0];
+        }
+
         var assignment = new TransactionAssignmentModel();
-        assignment.envelope = this.envelopes[0];
+
+        if (this.envelopes && this.envelopes.length > 0) {
+            assignment.envelope = this.envelopes[0];
+        }
+
         this.transaction.assignments = [assignment];
         this.transaction.date = new Date();
     }
