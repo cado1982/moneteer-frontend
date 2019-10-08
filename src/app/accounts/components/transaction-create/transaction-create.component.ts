@@ -8,6 +8,7 @@ import { TransactionEditComponent } from '../transaction-edit/transaction-edit.c
 import { Observable } from 'rxjs';
 import { Actions, ofType } from '@ngrx/effects';
 import { EnvelopeModel } from 'src/app/core/models';
+import { ShowErrorModalAction } from 'src/app/core/actions/ui.state.actions';
 
 @Component({
     selector: 'moneteer-transaction-create',
@@ -28,12 +29,6 @@ export class TransactionCreateComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.actions$.pipe(
-            ofType(TransactionsActionTypes.CreateTransactionFailure)
-        ).subscribe((action: CreateTransactionFailureAction) => {
-            //this.errorMessage = action.payload.error
-        });
-
         this.isCreating$ = this.store.select(getIsCreating);
 
         this.resetTransaction();

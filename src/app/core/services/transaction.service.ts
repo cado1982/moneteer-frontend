@@ -1,7 +1,7 @@
 
-import { empty as observableEmpty, of as observableOf,  Observable } from 'rxjs';
+import { empty as observableEmpty, of as observableOf,  Observable, throwError } from 'rxjs';
 
-import { map, retry } from "rxjs/operators";
+import { map, retry, catchError } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 

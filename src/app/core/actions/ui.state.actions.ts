@@ -6,7 +6,7 @@ export enum UIStateActionTypes {
 
 export class ShowErrorModalAction implements Action {
     readonly type = UIStateActionTypes.ShowErrorModal;
-    constructor(public payload: {message: string, title: string, traceId: string}) { }
+    constructor(public payload: {message: string, title: string, traceId?: string}) { }
 }
 
 export type UIStateActions =

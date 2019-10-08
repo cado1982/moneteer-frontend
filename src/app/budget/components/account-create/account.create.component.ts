@@ -33,7 +33,7 @@ export class AccountCreateComponent implements OnInit {
         return this.createAccountForm.value['accountName'];
     }
 
-    private get initialBalance(): number {
+    public get initialBalance(): number {
         return this.createAccountForm.value['initialBalance'];
     }
 
