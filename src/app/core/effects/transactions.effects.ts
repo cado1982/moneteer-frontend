@@ -76,7 +76,7 @@ export class TransactionsEffects {
             switchMap(activeBudget => [
                 new LoadEnvelopesAction({budgetId: activeBudget.id}),
                 new LoadBudgetAction({budgetId: activeBudget.id}),
-                new LoadSingleAccountAction({accountId: action.payload.transaction.account.id}),
+                new LoadAllAccountsAction({budgetId: activeBudget.id}),
                 new LoadRecentTransactionsByEnvelopeAction({budgetId: activeBudget.id}),
                 new DeselectAllTransactionsAction()
             ])
