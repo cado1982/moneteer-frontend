@@ -34,7 +34,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 } else if (err.status === 402) {
                     this.router.navigateByUrl("/payment-required");
                 } else {
-                    message = "Something went wrong on our end, sorry about that.\nPlease refresh your screen and try your last action again."
+                    message = "Something went wrong on our end, sorry about that.\n\nPlease refresh your screen and try your last action again."
                     console.error(JSON.stringify(err))
                 }
             }

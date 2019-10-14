@@ -27,9 +27,7 @@ export class ApiBaseService {
     }
 
     protected post<TPayload, TResponse>(url: string, payload: TPayload): Observable<TResponse> {
-        return this.http.post<TResponse>(this.baseApiUrl + url, payload).pipe(
-            catchError(err => this.handleHttpResponseError(err))
-        );
+        return this.http.post<TResponse>(this.baseApiUrl + url, payload);
     }
 
     protected delete(url: string): Observable<any> {
@@ -52,4 +50,8 @@ export class ApiBaseService {
 
         return throwError(message);
     }
+
+    // .pipe(
+    //     catchError(err => this.handleHttpResponseError(err))
+    // );
 }

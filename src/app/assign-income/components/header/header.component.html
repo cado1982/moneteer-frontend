@@ -1,10 +1,20 @@
-<div class="info-container">
-    <h5>Assign Income</h5>
-    <div class="text-success">{{service.availableIncomeEnvelope?.balance | budgetCurrency:true | async}}</div>
-    <div id="progress-container">
-        <moneteer-assign-income-header-progress class="align-items-center"></moneteer-assign-income-header-progress>
+<div class="container-fluid px-0">
+    <div class="row">
+        <div class="col-12 col-lg-9">
+            <h5 [hidden]="(service.leftToAssign$ | async) >= 0">Overassigned: <span
+                    class="text-danger">{{+(service.leftToAssign$ | async) | budgetCurrency:true | async}}</span></h5>
+            <h5 [hidden]="(service.leftToAssign$ | async) < 0">Available Income: <span
+                    class="text-success">{{(service.leftToAssign$ | async) | budgetCurrency:true | async}}</span></h5>
+
+            <div class="text-muted">Assign available income to your envelopes below.</div>
+        </div>
+        <div class="col-12 col-lg-3 mt-3 mt-lg-0 d-flex align-items-center justify-content-end">
+            <button (click)="cancel()" class="btn btn-outline-warning mr-3">Back</button>
+            <button [disabled]="!(service.canSubmit$ | async)" (click)="service.submit()" class="btn btn-primary">
+                <span [hidden]="!service.isBusy" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                Done
+            </button>
+        </div>
     </div>
-</div>
-<div class="actions-container">
-    <button [disabled]="!(service.canSubmit$ | async)" (click)="submit()" class="btn btn-primary">Done</button>
 </div>

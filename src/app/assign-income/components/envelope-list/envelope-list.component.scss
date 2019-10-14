@@ -1,20 +1,12 @@
 @import "./../../../../styles.scss";
 
-:host {
-    flex: 0 0 50%;
-    margin-right: 0.5em;
-    overflow-y: auto;
-}
-
 .envelope-list-header {
     display: flex;
-    
     
     .spacer {
         flex: 0 0 160px;
     }
 }
-
 
 .header-labels {
     display: flex;
