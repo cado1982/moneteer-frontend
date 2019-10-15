@@ -2,7 +2,7 @@
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">
             <i class="far fa-envelope"></i>
-            <span> Move Envelope Balance</span>
+            <span> Assign Income</span>
         </h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
@@ -10,17 +10,17 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <label for="fromEnvelope">From</label>
-            <input id="fromEnvelope" disabled [value]="fromEnvelope?.name" class="form-control">
+            <label for="fromEnvelope">Available Income</label>
+            <input disabled id="amount" class="form-control" name="amount" [value]="availableIncomeEnvelope.balance | budgetCurrency:true | async">
         </div>
         <div class="form-group">
-            <label for="toEnvelope">To</label>
-            <moneteer-envelope-select-dropdown inputSize="" [envelopes]="envelopes$ | async" [(selectedEnvelope)]="toEnvelope">
-                </moneteer-envelope-select-dropdown>
+            <label for="toEnvelope">Assign To</label>
+            <input id="fromEnvelope" disabled [value]="toEnvelope?.name" class="form-control">
         </div>
         <div class="form-group">
-            <label for="amount">Amount to move</label>
-            <input id="initialBalance" class="form-control" name="initialBalance" currencyMask [(ngModel)]="amount" [options]="{ allowNegative: false }">
+            <label for="amount">Amount to assign</label>
+            <input id="amount" class="form-control" name="amount" currencyMask [(ngModel)]="amount"
+                [options]="{ allowNegative: false }">
         </div>
     </div>
     <div class="modal-footer flex-column align-items-stretch">
@@ -29,7 +29,7 @@
             <button type="submit" class="btn btn-primary" [disabled]="!canSubmit()">
                 <span [hidden]="!isBusy" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
-                Move Balance
+                Assign Income
             </button>
         </div>
 

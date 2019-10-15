@@ -11,6 +11,7 @@ import { EnvelopeModel } from 'src/app/core/models';
 })
 export class EnvelopeDetailsBodyComponent implements OnInit {
     @Input() public selectedEnvelope: EnvelopeModel;
+    @Input() public availableIncomeEnvelope: EnvelopeModel;
 
     constructor() { }
 

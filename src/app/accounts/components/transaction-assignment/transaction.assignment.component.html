@@ -13,13 +13,13 @@
 </div>
 <div class="transaction-cell transaction-cell--flow" >
     <input currencyMask [(ngModel)]="outflow" name="outflow" 
-        [options]="{ nullable: 'true', allowNegative: 'false' }"
+        [options]="{ nullable: true, allowNegative: false }"
         (focus)="$event.target.select()"
         class="form-control form-control-xs">
 </div>
 <div class="transaction-cell transaction-cell--flow">
     <input currencyMask [(ngModel)]="inflow" name="inflow" 
-        [options]="{ nullable: 'true', allowNegative: 'false' }"
+        [options]="{ nullable: true, allowNegative: false }"
         (focus)="$event.target.select()"
         class="form-control form-control-xs">
 </div>

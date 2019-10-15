@@ -20,6 +20,7 @@ import { EnvelopeAddCategoryModalComponent } from './components/envelope-add-cat
 import { EnvelopeDeleteModalComponent } from './components/envelope-delete-modal/envelope-delete-modal.component';
 import { EnvelopeMoveBalanceModalComponent } from './components/envelope-move-balance-modal/envelope-move-balance-modal.component';
 import { EnvelopeSetBalanceZeroModalComponent } from './components/envelope-set-balance-zero-modal/envelope-set-balance-zero-modal.component';
+import { EnvelopeAssignIncomeModalComponent } from './components/envelope-assign-income-modal/envelope-assign-income-modal.component';
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import { EnvelopeSetBalanceZeroModalComponent } from './components/envelope-set-
         EnvelopeAddCategoryModalComponent,
         EnvelopeDeleteModalComponent,
         EnvelopeMoveBalanceModalComponent,
-        EnvelopeSetBalanceZeroModalComponent
+        EnvelopeSetBalanceZeroModalComponent,
+        EnvelopeAssignIncomeModalComponent
     ],
     imports: [
         EnvelopesRoutingModule,
@@ -55,7 +57,8 @@ import { EnvelopeSetBalanceZeroModalComponent } from './components/envelope-set-
         EnvelopesAddModalComponent,
         EnvelopeDeleteModalComponent,
         EnvelopeMoveBalanceModalComponent,
-        EnvelopeSetBalanceZeroModalComponent
+        EnvelopeSetBalanceZeroModalComponent,
+        EnvelopeAssignIncomeModalComponent
     ]
 })
 export class EnvelopesModule {

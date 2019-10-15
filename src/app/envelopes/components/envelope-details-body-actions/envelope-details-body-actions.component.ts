@@ -4,6 +4,7 @@ import { EnvelopeDeleteModalComponent } from '../envelope-delete-modal/envelope-
 import { EnvelopeModel } from 'src/app/core/models';
 import { EnvelopeMoveBalanceModalComponent } from '../envelope-move-balance-modal/envelope-move-balance-modal.component';
 import { EnvelopeSetBalanceZeroModalComponent } from '../envelope-set-balance-zero-modal/envelope-set-balance-zero-modal.component';
+import { EnvelopeAssignIncomeModalComponent } from '../envelope-assign-income-modal/envelope-assign-income-modal.component';
 
 @Component({
     selector: 'moneteer-envelope-details-body-actions',
@@ -16,6 +17,7 @@ import { EnvelopeSetBalanceZeroModalComponent } from '../envelope-set-balance-ze
 export class EnvelopeDetailsBodyActionsComponent implements OnInit {
 
     @Input() public selectedEnvelope: EnvelopeModel | undefined;
+    @Input() public availableIncomeEnvelope: EnvelopeModel;
 
     constructor(private modal: NgbModal) { }
 
@@ -42,5 +44,13 @@ export class EnvelopeDetailsBodyActionsComponent implements OnInit {
 
         let modalRef = this.modal.open(EnvelopeSetBalanceZeroModalComponent);
         modalRef.componentInstance.envelope = this.selectedEnvelope;
+    }
+
+    assignIncome() {
+        if (!this.selectedEnvelope || this.availableIncomeEnvelope.balance <= 0) return;
+
+        let modalRef = this.modal.open(EnvelopeAssignIncomeModalComponent);
+        modalRef.componentInstance.availableIncomeEnvelope = this.availableIncomeEnvelope;
+        modalRef.componentInstance.toEnvelope = this.selectedEnvelope;
     }
 }

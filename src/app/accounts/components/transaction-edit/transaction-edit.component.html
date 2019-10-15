@@ -24,14 +24,14 @@
     <div class="transaction-cell transaction-cell--flow">
         <div class="text-right" *ngIf="assignments.length > 1">{{outflow | budgetCurrency | async}}</div>
         <input *ngIf="assignments.length === 1" class="form-control form-control-xs text-right" currencyMask
-            [options]="{ nullable: 'true', allowNegative: 'false' }"
+            [options]="{ nullable: true, allowNegative: false }"
             (focus)="$event.target.select()"
             [(ngModel)]="outflow" autocomplete="off" type="text">
     </div>
     <div class="transaction-cell transaction-cell--flow">
         <div class="text-right" *ngIf="assignments.length > 1">{{inflow | budgetCurrency | async}}</div>
         <input *ngIf="assignments.length === 1" class="form-control form-control-xs text-right" currencyMask
-            [options]="{ nullable: 'true', allowNegative: 'false' }"
+            [options]="{ nullable: true, allowNegative: false }"
             (focus)="$event.target.select()"
             [(ngModel)]="inflow" autocomplete="off" type="text">
     </div>
