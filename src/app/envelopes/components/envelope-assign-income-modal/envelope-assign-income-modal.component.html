@@ -1,4 +1,4 @@
-<form (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">
             <i class="far fa-envelope"></i>
@@ -19,8 +19,11 @@
         </div>
         <div class="form-group">
             <label for="amount">Amount to assign</label>
-            <input id="amount" ngbAutoFocus class="form-control" name="amount" currencyMask [(ngModel)]="amount"
-                [options]="{ allowNegative: false }">
+            <input id="amount" min="0.01" max="50" formControlName="amount" 
+                ngbAutoFocus class="form-control" currencyMask [options]="{ allowNegative: false }">
+            <div class="invalid-feedback">
+                Amount must be higher than zero but not more than Available Income.
+            </div>
         </div>
     </div>
     <div class="modal-footer flex-column align-items-stretch">
