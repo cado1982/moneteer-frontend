@@ -1,4 +1,4 @@
 <h5>Actions</h5>
-<button class="btn btn-sm btn-outline-primary mt-2" [disabled]="availableIncomeEnvelope.balance <= 0" (click)="assignIncome()">Assign income</button>
+<button class="btn btn-sm btn-outline-primary mt-2" [disabled]="availableIncomeEnvelope?.balance <= 0" (click)="assignIncome()">Assign income</button>
 <button class="btn btn-sm btn-outline-primary mt-2" [disabled]="selectedEnvelope?.balance <= 0" (click)="moveBalance()">Move balance</button>
 <button class="btn btn-sm btn-outline-primary mt-2" [disabled]="selectedEnvelope?.balance <= 0" (click)="setBalanceToZero()">Set balance to zero</button>

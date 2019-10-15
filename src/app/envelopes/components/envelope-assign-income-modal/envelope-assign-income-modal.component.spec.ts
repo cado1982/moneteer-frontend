@@ -5,10 +5,11 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { empty } from 'rxjs';
 import { provideMockStore } from '@ngrx/store/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MockComponent, MockDirective } from 'ng-mocks';
+import { MockComponent, MockDirective, MockPipe } from 'ng-mocks';
 import { ErrorAlertComponent } from 'src/app/shared/components/error-alert/error-alert.component';
 import { CurrencyMaskDirective } from 'ngx-currency';
 import { EnvelopeAssignIncomeModalComponent } from './envelope-assign-income-modal.component';
+import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
 
 describe('EnvelopeAssignIncomeModalComponent', () => {
     let spectator: Spectator<EnvelopeAssignIncomeModalComponent>;
@@ -25,7 +26,8 @@ describe('EnvelopeAssignIncomeModalComponent', () => {
         ],
         declarations: [
             MockComponent(ErrorAlertComponent),
-            MockDirective(CurrencyMaskDirective)
+            MockDirective(CurrencyMaskDirective),
+            MockPipe(BudgetCurrencyPipe)
         ]
     });
 
