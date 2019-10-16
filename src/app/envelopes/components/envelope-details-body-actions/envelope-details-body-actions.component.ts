@@ -7,7 +7,7 @@ import { EnvelopeSetBalanceZeroModalComponent } from '../envelope-set-balance-ze
 import { EnvelopeAssignIncomeModalComponent } from '../envelope-assign-income-modal/envelope-assign-income-modal.component';
 import { Store } from '@ngrx/store';
 import { IEnvelopesState } from 'src/app/core/reducers/envelopes.reducer';
-import { HideEnvelopeRequestAction, ShowEnvelopeRequestAction } from 'src/app/core/actions/envelopes.actions';
+import { HideEnvelopeRequestAction, ShowEnvelopeRequestAction, DeleteEnvelopeAction } from 'src/app/core/actions/envelopes.actions';
 
 @Component({
     selector: 'moneteer-envelope-details-body-actions',
@@ -28,28 +28,28 @@ export class EnvelopeDetailsBodyActionsComponent implements OnInit {
 
     }
 
-    deleteCategory() {
+    public deleteCategory(): void {
         if (!this.selectedEnvelope) return;
 
         let modalRef = this.modal.open(EnvelopeDeleteModalComponent);
         modalRef.componentInstance.envelope = this.selectedEnvelope;
     }
 
-    moveBalance() {
+    public moveBalance(): void {
         if (!this.selectedEnvelope || this.selectedEnvelope.balance <= 0) return;
 
         let modalRef = this.modal.open(EnvelopeMoveBalanceModalComponent);
         modalRef.componentInstance.fromEnvelope = this.selectedEnvelope;
     }
 
-    setBalanceToZero() {
+    public setBalanceToZero(): void {
         if (!this.selectedEnvelope || this.selectedEnvelope.balance <= 0) return;
 
         let modalRef = this.modal.open(EnvelopeSetBalanceZeroModalComponent);
         modalRef.componentInstance.envelope = this.selectedEnvelope;
     }
 
-    assignIncome() {
+    public assignIncome(): void {
         if (!this.selectedEnvelope || this.availableIncomeEnvelope.balance <= 0) return;
 
         let modalRef = this.modal.open(EnvelopeAssignIncomeModalComponent);
@@ -57,15 +57,26 @@ export class EnvelopeDetailsBodyActionsComponent implements OnInit {
         modalRef.componentInstance.toEnvelope = this.selectedEnvelope;
     }
 
-    hide() {
+    public hide(): void {
         if (!this.selectedEnvelope) return;
 
         this.store.dispatch(new HideEnvelopeRequestAction({ envelopeId: this.selectedEnvelope.id}));
     }
 
-    show() {
+    public show(): void {
         if (!this.selectedEnvelope) return;
 
         this.store.dispatch(new ShowEnvelopeRequestAction({ envelopeId: this.selectedEnvelope.id}));
+    }
+
+    public delete(): void {
+        if (!this.canDelete()) return;
+
+        let modalRef = this.modal.open(EnvelopeDeleteModalComponent);
+        modalRef.componentInstance.envelope = this.selectedEnvelope;
+    }
+
+    public canDelete(): boolean {
+        return !!this.selectedEnvelope && this.selectedEnvelope.balance >= 0;
     }
 }

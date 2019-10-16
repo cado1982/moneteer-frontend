@@ -28,7 +28,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     // We want 400 errors to be picked up by the UI sending the action
                     // So don't show the generic modal
                     console.error(`Backend returned code ${err.status}. TraceId: ${traceId}. Error: ${err.error.title}. Details: ${JSON.stringify(err.error.errors)}`);  
-                    return throwError(err);
+
+                    if (typeof err === "string") {
+                        return throwError(err);
+                    } else if (err.error && typeof(err.error) === "string") {
+                        return throwError(err.error)
+                    } else if (err.error && err.error.title && typeof err.error.title === "string") {
+                        return throwError(err.error.title);
+                    }
                 } else if (err.status === 401) {
                     this.authService.startAuthentication("");
                 } else if (err.status === 402) {

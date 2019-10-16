@@ -8,9 +8,12 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="text-danger">
-        Are you sure you want to delete the '{{envelope?.name}}' envelope?
-    </div>
+    <p>
+        Are you sure you want to delete the <em>{{envelope?.name}}</em> envelope?
+    </p>
+    <p *ngIf="envelope?.balance > 0">
+        The remaining balance of <span class="text-success"><strong>{{envelope?.balance | budgetCurrency | async}}</strong></span> will be moved to Available Income.
+    </p>
 </div>
 <div class="modal-footer flex-column align-items-stretch">
     <div class="align-self-end">
