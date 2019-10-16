@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IEnvelopesState, getAvailableIncomeEnvelope, getBudgetEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
+import { IEnvelopesState, getAvailableIncomeEnvelope, getVisibleEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
 import { EnvelopeModel, EnvelopeBalanceTarget } from 'src/app/core/models';
 import { EnvelopesActionTypes, MoveBalanceFailureAction, MoveBalanceRequestAction } from 'src/app/core/actions/envelopes.actions';
 import { Actions, ofType } from '@ngrx/effects';
@@ -54,7 +54,7 @@ export class AssignIncomeService {
             this.assignedIncome$.next(total);
         });
 
-        this.envelopes$ = this.store.select(getBudgetEnvelopes)
+        this.envelopes$ = this.store.select(getVisibleEnvelopes)
 
         this.actions$.pipe(
             ofType(EnvelopesActionTypes.MoveBalanceFailure),

@@ -3,7 +3,7 @@
         Average Spend
     </div>
     <div class="flex-grow-0">
-        <strong>{{(selectionService.selectedEnvelope | async)?.averageSpend | budgetCurrency:true | async }}</strong>
+        <strong>{{selectedEnvelope?.averageSpend | budgetCurrency:true | async }}</strong>
     </div>
 </div>
 <div class="d-flex flex-row">
@@ -11,6 +11,6 @@
         Last 30 days spending
     </div>
     <div class="flex-grow-0">
-        <strong>{{(selectionService.selectedEnvelope | async)?.averageSpend | budgetCurrency:true | async }}</strong>
+        <strong>{{selectedEnvelope?.averageSpend | budgetCurrency:true | async }}</strong>
     </div>
 </div>

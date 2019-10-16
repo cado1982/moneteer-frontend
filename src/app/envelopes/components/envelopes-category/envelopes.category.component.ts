@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, EventEmitter, Output, } fro
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import * as _ from "lodash";
 
-import { EnvelopeCategoryModel, EnvelopeModel } from "../../../core/models";
+import { EnvelopeCategoryModel, EnvelopeModel, GuidModel } from "../../../core/models";
 
 @Component({
     selector: "moneteer-envelopes-category",
@@ -30,14 +30,17 @@ export class EnvelopesCategoryComponent implements OnChanges {
     @Input() public envelopes: Array<EnvelopeModel>;
     @Output() public assignedChanged = new EventEmitter<{oldValue: number, newValue: number}>();
 
-    public isToggled: boolean = true;
+    public isToggled: boolean;
 
     public balance: number = 0;
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.envelopes) {
             this.updateBalance();
-        }
+        } 
+        // if (changes.category) {
+        //     this.isToggled = this.category && !!this.category.id;
+        // }
     }
 
     private updateBalance(): void {

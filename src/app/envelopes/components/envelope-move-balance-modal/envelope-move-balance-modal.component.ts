@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IEnvelopesState, getAllEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
+import { IEnvelopesState, getVisibleEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { EnvelopeModel, EnvelopeBalanceTarget } from 'src/app/core/models';
@@ -28,7 +28,7 @@ export class EnvelopeMoveBalanceModalComponent implements OnInit {
         private actions$: Actions) { }
 
     ngOnInit() {
-        this.envelopes$ = this.store.select(getAllEnvelopes);
+        this.envelopes$ = this.store.select(getVisibleEnvelopes);
 
         this.actions$.pipe(
             ofType(EnvelopesActionTypes.MoveBalanceFailure),

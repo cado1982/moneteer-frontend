@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { IEnvelopesState, getAllEnvelopes } from 'src/app/core/reducers/envelopes.reducer';
+import { IEnvelopesState } from 'src/app/core/reducers/envelopes.reducer';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { EnvelopeModel, EnvelopeBalanceTarget } from 'src/app/core/models';

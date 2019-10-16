@@ -1,17 +1,19 @@
 import { createSelector } from "@ngrx/store";
 import { coreFeatureSelector } from "./feature.selector";
-import { EnvelopesActions, EnvelopesActionTypes } from "../actions/envelopes.actions";
+import { EnvelopesActions, EnvelopesActionTypes, HideEnvelopeSuccessAction, ShowEnvelopeSuccessAction, MoveBalanceSuccessAction } from "../actions/envelopes.actions";
 import * as _ from "lodash";
 import { EnvelopeModel, EnvelopeCategoryModel } from "../models";
 
 export interface IEnvelopesState {
     envelopes: Array<EnvelopeModel>;
     envelopeCategories: Array<EnvelopeCategoryModel>
+    selectedEnvelopeId: string | undefined
 }
 
 const initialState: IEnvelopesState = {
     envelopes: [],
-    envelopeCategories: []
+    envelopeCategories: [],
+    selectedEnvelopeId: undefined
 };
 
 export function envelopesReducer(state: IEnvelopesState = initialState, action: EnvelopesActions): IEnvelopesState {
@@ -26,9 +28,71 @@ export function envelopesReducer(state: IEnvelopesState = initialState, action: 
             return {...state, envelopes: [...state.envelopes, action.payload.envelope]}
         case EnvelopesActionTypes.DeleteEnvelopeSuccess:
             return {...state, envelopes: [...state.envelopes.filter(e => e.id !== action.payload.envelopeId)]}
+        case EnvelopesActionTypes.HideEnvelopeSuccess:
+            return hideEnvelopeSuccessMutator(state, action);
+        case EnvelopesActionTypes.ShowEnvelopeSuccess:
+            return showEnvelopeSuccessMutator(state, action);
+        case EnvelopesActionTypes.SelectEnvelope:
+            return {...state, selectedEnvelopeId: action.payload.envelopeId};
+        case EnvelopesActionTypes.MoveBalanceSuccess:
+            return moveBalanceSuccessMutator(state, action);
         default: {
             return state;
         }
+    }
+}
+
+function moveBalanceSuccessMutator(state: IEnvelopesState, action: MoveBalanceSuccessAction): IEnvelopesState {
+    const payload = action.payload;
+
+    const totalAmount = payload.targets.map(e => e.amount).reduce((total, amount) => {
+        return total + amount;
+    }, 0);
+
+    const fromEnvelope = state.envelopes.find(e => e.id === payload.fromEnvelopeId);
+
+    if (!fromEnvelope) {
+        return state;
+    }
+
+    const targets: EnvelopeModel[] = []; 
+    const targetIds = payload.targets.map(t => t.envelopeId);
+    payload.targets.forEach(t => {
+        const targetEnvelope = state.envelopes.find(e => e.id === t.envelopeId);
+
+        if (targetEnvelope) {
+            targets.push({...targetEnvelope, balance: targetEnvelope.balance + t.amount});
+        }
+    });
+
+    return {
+        ...state,
+        envelopes: [
+            ...state.envelopes.filter(e => e.id !== fromEnvelope.id && targetIds.indexOf(e.id) === -1),
+            {...fromEnvelope, balance: fromEnvelope.balance - totalAmount},
+            ...targets]
+        }
+}
+
+function hideEnvelopeSuccessMutator(state: IEnvelopesState, action: HideEnvelopeSuccessAction): IEnvelopesState {
+    const hiddenEnvelopeId = action.payload.envelopeId;
+    const hiddenEnvelope = state.envelopes.find(e => e.id === hiddenEnvelopeId);
+
+    if (!hiddenEnvelope) {
+        return state;
+    } else {
+        return {...state, selectedEnvelopeId: undefined, envelopes: [...state.envelopes.filter(e => e.id !== hiddenEnvelopeId), {...hiddenEnvelope, isHidden: true}]}
+    }
+}
+
+function showEnvelopeSuccessMutator(state: IEnvelopesState, action: ShowEnvelopeSuccessAction): IEnvelopesState {
+    const shownEnvelopeId = action.payload.envelopeId;
+    const shownEnvelope = state.envelopes.find(e => e.id === shownEnvelopeId);
+
+    if (!shownEnvelope) {
+        return state;
+    } else {
+        return {...state, envelopes: [...state.envelopes.filter(e => e.id !== shownEnvelopeId), {...shownEnvelope, isHidden: false}]}
     }
 }
 
@@ -39,20 +103,25 @@ const envelopesState = createSelector(
 
 export const getAllEnvelopes = createSelector(
     envelopesState,
-    state => state.envelopes
+    state => state.envelopes.filter(e => e.name !== "Available Income" && e.envelopeCategory.name !== "Income")
 );
 
-export const getBudgetEnvelopes = createSelector(
+export const getVisibleEnvelopes = createSelector(
     getAllEnvelopes,
-    envelopes => envelopes.filter(e => e.name !== "Available Income" && e.envelopeCategory.name !== "Income")
+    envelopes => envelopes.filter(e => !e.isHidden)
 );
 
 export const getAvailableIncomeEnvelope = createSelector(
-    getAllEnvelopes,
-    envelopes => envelopes.find(e => e.name === "Available Income" && e.envelopeCategory.name === "Income")!
+    envelopesState,
+    state => state.envelopes.find(e => e.name === "Available Income" && e.envelopeCategory.name === "Income")!
 );
 
 export const getEnvelopeCategories = createSelector(
     envelopesState,
     state => state.envelopeCategories.filter(e => e.name !== "Income")
 );
+
+export const getSelectedEnvelope = createSelector(
+    envelopesState,
+    state => state.envelopes.find(e => e.id === state.selectedEnvelopeId)
+)

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EnvelopesDataService } from '../../services/envelopes-data.service';
 
 @Component({
   selector: 'moneteer-envelopes-body',
@@ -8,7 +7,7 @@ import { EnvelopesDataService } from '../../services/envelopes-data.service';
 })
 export class EnvelopesBodyComponent implements OnInit {
 
-  constructor(public dataService: EnvelopesDataService) { }
+  constructor() { }
 
   ngOnInit() {
       

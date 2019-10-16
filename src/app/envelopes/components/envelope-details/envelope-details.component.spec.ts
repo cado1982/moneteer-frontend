@@ -2,7 +2,6 @@ import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 import { MockComponent } from 'ng-mocks';
 
 import { EnvelopeDetailsComponent } from './envelope-details.component';
-import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
 import { EnvelopeDetailsHeaderComponent } from '../envelope-details-header/envelope-details-header.component';
 import { EnvelopeDetailsBodyComponent } from '../envelope-details-body/envelope-details-body.component';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -16,7 +15,6 @@ describe('EnvelopeDetailsComponent', () => {
             MockComponent(EnvelopeDetailsBodyComponent)
         ],
         providers: [
-            EnvelopesSelectionService,
             provideMockStore({initialState: {}})
         ]
     });

@@ -1,8 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IEnvelopesState, getAvailableIncomeEnvelope } from 'src/app/core/reducers/envelopes.reducer';
+import { IEnvelopesState, getAvailableIncomeEnvelope, getSelectedEnvelope } from 'src/app/core/reducers/envelopes.reducer';
 import { EnvelopeModel } from 'src/app/core/models';
 
 @Component({
@@ -11,15 +10,13 @@ import { EnvelopeModel } from 'src/app/core/models';
     styleUrls: ['./envelope-details.component.scss']
 })
 export class EnvelopeDetailsComponent implements OnInit {
-
-    @HostBinding('class.hidden') get isHidden() { return !this.selectionService.selectedEnvelope.value; }
-
     public availableIncomeEnvelope$: Observable<EnvelopeModel>;
+    public selectedEnvelope$: Observable<EnvelopeModel | undefined>;
 
-    constructor(public selectionService: EnvelopesSelectionService, private store: Store<IEnvelopesState>) { }
+    constructor(private store: Store<IEnvelopesState>) { }
 
     ngOnInit() {
         this.availableIncomeEnvelope$ = this.store.select(getAvailableIncomeEnvelope);
+        this.selectedEnvelope$ = this.store.select(getSelectedEnvelope);
     }
-
 }

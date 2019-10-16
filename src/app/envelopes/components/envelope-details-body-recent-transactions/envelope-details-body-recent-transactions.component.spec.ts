@@ -2,7 +2,6 @@ import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EnvelopeDetailsBodyRecentTransactionsComponent } from './envelope-details-body-recent-transactions.component';
-import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MockPipe } from 'ng-mocks';
 import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
@@ -17,7 +16,6 @@ describe('EnvelopeDetailsBodyRecentTransactionsComponent', () => {
         ],
         providers: [
             NgbModal,
-            EnvelopesSelectionService,
             provideMockStore({initialState: {}})
         ]
     });

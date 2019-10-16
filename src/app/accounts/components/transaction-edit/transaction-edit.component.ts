@@ -6,11 +6,11 @@ import { TransactionModel, AccountModel } from "../../models/index";
 import { Component, Input, OnInit, ViewChildren, QueryList } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.reducer";
-import { getAllEnvelopes } from "../../../core/reducers/envelopes.reducer";
 import { OnChanges } from "@angular/core";
 import { SimpleChanges } from "@angular/core";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
 import { TransactionAssignmentComponent } from "../transaction-assignment/transaction.assignment.component";
+import { getVisibleEnvelopes } from "src/app/core/reducers/envelopes.reducer";
 
 @Component({
     selector: 'moneteer-transaction-edit',
@@ -123,7 +123,7 @@ export class TransactionEditComponent implements OnInit, OnChanges {
 
     public ngOnInit(): void {
         this.accounts$ = this.store.select(getAccounts);
-        this.envelopes$ = this.store.select(getAllEnvelopes);
+        this.envelopes$ = this.store.select(getVisibleEnvelopes);
     }
 
     public ngOnChanges(changes: SimpleChanges): void {

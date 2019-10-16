@@ -1,5 +1,5 @@
 <div class="d-flex flex-row px-2 py-1 cursor-pointer align-items-center">
     <i class="fas fa-caret-down" [@toggled]="isToggled"></i>
     <span class="m-0 ml-2"><small>{{category?.name}}</small></span>
-    <i class="fas fa-plus-circle add-envelope" (click)="addEnvelope($event)"></i>
+    <i *ngIf="category?.id" class="fas fa-plus-circle add-envelope" (click)="addEnvelope($event)"></i>
 </div>

@@ -1,2 +1,6 @@
-<moneteer-envelope-details-header [selectedEnvelope]="selectionService.selectedEnvelope | async"></moneteer-envelope-details-header>
-<moneteer-envelope-details-body [selectedEnvelope]="selectionService.selectedEnvelope | async" [availableIncomeEnvelope]="availableIncomeEnvelope$ | async"></moneteer-envelope-details-body>
+<div *ngIf="selectedEnvelope$ | async">
+    <moneteer-envelope-details-header [selectedEnvelope]="selectedEnvelope$ | async">
+    </moneteer-envelope-details-header>
+    <moneteer-envelope-details-body [selectedEnvelope]="selectedEnvelope$ | async"
+        [availableIncomeEnvelope]="availableIncomeEnvelope$ | async"></moneteer-envelope-details-body>
+</div>

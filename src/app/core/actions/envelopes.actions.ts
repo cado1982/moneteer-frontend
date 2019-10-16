@@ -20,8 +20,14 @@ export enum EnvelopesActionTypes {
     MoveBalanceRequest = "[Envelopes] Move Balance Request",
     MoveBalanceSuccess = "[Envelopes] Move Balance Success",
     MoveBalanceFailure = "[Envelopes] Move Balance Failure",
+    HideEnvelopeRequest = "[Envelopes] Hide",
+    HideEnvelopeSuccess = "[Envelopes] Hide Success",
+    HideEnvelopeFailure = "[Envelopes] Hide Failure",
+    ShowEnvelopeRequest = "[Envelopes] Show",
+    ShowEnvelopeSuccess = "[Envelopes] Show Success",
+    ShowEnvelopeFailure = "[Envelopes] Show Failure",
+    SelectEnvelope = "[Envelopes] Select"
 }
-
 
 export class LoadEnvelopesAction implements Action {
     readonly type = EnvelopesActionTypes.Load;
@@ -95,10 +101,42 @@ export class MoveBalanceRequestAction implements Action {
 }
 export class MoveBalanceSuccessAction implements Action {
     readonly type = EnvelopesActionTypes.MoveBalanceSuccess;
+    constructor(public payload: {fromEnvelopeId: string, targets: EnvelopeBalanceTarget[]}) { }
 }
 export class MoveBalanceFailureAction implements Action {
     readonly type = EnvelopesActionTypes.MoveBalanceFailure;
     constructor(public payload: {error: string}) { }
+}
+
+export class HideEnvelopeRequestAction implements Action {
+    readonly type = EnvelopesActionTypes.HideEnvelopeRequest;
+    constructor(public payload: {envelopeId: string}) { }
+}
+export class HideEnvelopeSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.HideEnvelopeSuccess;
+    constructor(public payload: {envelopeId: string}) { }
+}
+export class HideEnvelopeFailureAction implements Action {
+    readonly type = EnvelopesActionTypes.HideEnvelopeFailure;
+    constructor(public payload: {error: string}) { }
+}
+
+export class ShowEnvelopeRequestAction implements Action {
+    readonly type = EnvelopesActionTypes.ShowEnvelopeRequest;
+    constructor(public payload: {envelopeId: string}) { }
+}
+export class ShowEnvelopeSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.ShowEnvelopeSuccess;
+    constructor(public payload: {envelopeId: string}) { }
+}
+export class ShowEnvelopeFailureAction implements Action {
+    readonly type = EnvelopesActionTypes.ShowEnvelopeFailure;
+    constructor(public payload: {error: string}) { }
+}
+
+export class SelectEnvelopeAction implements Action {
+    readonly type = EnvelopesActionTypes.SelectEnvelope;
+    constructor(public payload: {envelopeId: string}) { }
 }
 
 export type EnvelopesActions =
@@ -119,4 +157,11 @@ export type EnvelopesActions =
     | LoadEnvelopeCategoriesFailureAction
     | MoveBalanceRequestAction
     | MoveBalanceSuccessAction
-    | MoveBalanceFailureAction;
+    | MoveBalanceFailureAction
+    | HideEnvelopeRequestAction
+    | HideEnvelopeSuccessAction
+    | HideEnvelopeFailureAction
+    | ShowEnvelopeRequestAction
+    | ShowEnvelopeSuccessAction
+    | ShowEnvelopeFailureAction
+    | SelectEnvelopeAction;

@@ -1,4 +1,4 @@
-import { map, mergeMap, filter, switchMap } from "rxjs/operators";
+import { map, mergeMap, switchMap } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { EnvelopesService } from "../services/envelopes.service";
@@ -9,22 +9,17 @@ import { EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesAction,
          LoadEnvelopeCategoriesFailureAction, CreateEnvelopeAction, CreateEnvelopeSuccessAction,
          CreateEnvelopeFailureAction, DeleteEnvelopeAction, DeleteEnvelopeSuccessAction,
          DeleteEnvelopeFailureAction, MoveBalanceRequestAction, MoveBalanceSuccessAction, 
-         MoveBalanceFailureAction } from "../actions/envelopes.actions";
+         MoveBalanceFailureAction, HideEnvelopeRequestAction, HideEnvelopeSuccessAction,
+         HideEnvelopeFailureAction, ShowEnvelopeRequestAction, ShowEnvelopeSuccessAction,
+         ShowEnvelopeFailureAction} from "../actions/envelopes.actions";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
-import { IEnvelopesState } from "../reducers/envelopes.reducer";
-import { getActiveBudget } from "../reducers/budget.reducer";
-import { BudgetModel } from "../models";
-import { Store } from "@ngrx/store";
-import { BudgetService } from "../services";
 
 @Injectable()
 export class EnvelopesEffects {
     constructor(
         private envelopesService: EnvelopesService,
-        private budgetService: BudgetService,
-        private actions$: Actions,
-        private envelopesStore: Store<IEnvelopesState>
+        private actions$: Actions
     ) { }
 
     @Effect() load$ = this.actions$.pipe(
@@ -70,18 +65,24 @@ export class EnvelopesEffects {
     @Effect() moveBalance$ = this.actions$.pipe(
         ofType(EnvelopesActionTypes.MoveBalanceRequest),
         switchMap((action: MoveBalanceRequestAction) => this.envelopesService.moveBalance(action.payload.fromEnvelopeId, action.payload.targets).pipe(
-            map(() => new MoveBalanceSuccessAction()),
+            map(() => new MoveBalanceSuccessAction({fromEnvelopeId: action.payload.fromEnvelopeId, targets: action.payload.targets})),
             catchError(error => of(new MoveBalanceFailureAction(error)))
         )
     ));
 
-    @Effect() moveBalanceSuccess$ = this.actions$.pipe(
-        ofType(EnvelopesActionTypes.MoveBalanceSuccess),
-        switchMap(() => this.envelopesStore.select(getActiveBudget).pipe(
-            filter((activeBudget: BudgetModel | null): activeBudget is BudgetModel => activeBudget !== null ),
-            switchMap((activeBudget: BudgetModel) => [
-                new LoadEnvelopesAction({budgetId: activeBudget.id})
-            ])
+    @Effect() hideEnvelope$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.HideEnvelopeRequest),
+        switchMap((action: HideEnvelopeRequestAction) => this.envelopesService.hideEnvelope(action.payload.envelopeId).pipe(
+            map(() => new HideEnvelopeSuccessAction({envelopeId: action.payload.envelopeId})),
+            catchError(error => of(new HideEnvelopeFailureAction(error)))
+        )
+    ));
+
+    @Effect() showEnvelope$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.ShowEnvelopeRequest),
+        switchMap((action: ShowEnvelopeRequestAction) => this.envelopesService.showEnvelope(action.payload.envelopeId).pipe(
+            map(() => new ShowEnvelopeSuccessAction({envelopeId: action.payload.envelopeId})),
+            catchError(error => of(new ShowEnvelopeFailureAction(error)))
         )
     ));
 }

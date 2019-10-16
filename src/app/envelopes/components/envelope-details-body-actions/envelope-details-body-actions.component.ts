@@ -5,6 +5,9 @@ import { EnvelopeModel } from 'src/app/core/models';
 import { EnvelopeMoveBalanceModalComponent } from '../envelope-move-balance-modal/envelope-move-balance-modal.component';
 import { EnvelopeSetBalanceZeroModalComponent } from '../envelope-set-balance-zero-modal/envelope-set-balance-zero-modal.component';
 import { EnvelopeAssignIncomeModalComponent } from '../envelope-assign-income-modal/envelope-assign-income-modal.component';
+import { Store } from '@ngrx/store';
+import { IEnvelopesState } from 'src/app/core/reducers/envelopes.reducer';
+import { HideEnvelopeRequestAction, ShowEnvelopeRequestAction } from 'src/app/core/actions/envelopes.actions';
 
 @Component({
     selector: 'moneteer-envelope-details-body-actions',
@@ -19,7 +22,7 @@ export class EnvelopeDetailsBodyActionsComponent implements OnInit {
     @Input() public selectedEnvelope: EnvelopeModel | undefined;
     @Input() public availableIncomeEnvelope: EnvelopeModel;
 
-    constructor(private modal: NgbModal) { }
+    constructor(private modal: NgbModal, private store: Store<IEnvelopesState>) { }
 
     ngOnInit() {
 
@@ -52,5 +55,17 @@ export class EnvelopeDetailsBodyActionsComponent implements OnInit {
         let modalRef = this.modal.open(EnvelopeAssignIncomeModalComponent);
         modalRef.componentInstance.availableIncomeEnvelope = this.availableIncomeEnvelope;
         modalRef.componentInstance.toEnvelope = this.selectedEnvelope;
+    }
+
+    hide() {
+        if (!this.selectedEnvelope) return;
+
+        this.store.dispatch(new HideEnvelopeRequestAction({ envelopeId: this.selectedEnvelope.id}));
+    }
+
+    show() {
+        if (!this.selectedEnvelope) return;
+
+        this.store.dispatch(new ShowEnvelopeRequestAction({ envelopeId: this.selectedEnvelope.id}));
     }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
 import { EnvelopeModel } from 'src/app/core/models';
 
 @Component({
@@ -17,5 +16,4 @@ export class EnvelopeDetailsHeaderComponent implements OnInit {
 
     ngOnInit() {
     }
-
 }

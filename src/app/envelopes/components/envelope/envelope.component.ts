@@ -2,7 +2,9 @@ import { Component, Input, OnChanges, SimpleChanges,
          Output, EventEmitter, OnInit, HostBinding, HostListener } from "@angular/core";
 
 import { EnvelopeModel } from "../../../core/models";
-import { EnvelopesSelectionService } from "../../services/envelopes-selection.service";
+import { Store } from "@ngrx/store";
+import { IEnvelopesState, getSelectedEnvelope } from "src/app/core/reducers/envelopes.reducer";
+import { SelectEnvelopeAction } from "src/app/core/actions/envelopes.actions";
 
 
 @Component({
@@ -16,9 +18,7 @@ export class EnvelopeComponent implements OnChanges, OnInit {
     @Output() public assignedChanged: EventEmitter<{oldValue: number, newValue: number}> =
         new EventEmitter<{oldValue: number, newValue: number}>();
 
-    @HostBinding('class.selected') get selected() {
-        return this.isSelected();
-    }
+    @HostBinding('class.selected') private isSelected: boolean; 
 
     public get balanceDisplayClass(): string {
         if (this.envelope.balance > 0) {
@@ -32,7 +32,7 @@ export class EnvelopeComponent implements OnChanges, OnInit {
 
     public assignedValue: number;
 
-    constructor(public selectionService: EnvelopesSelectionService) {
+    constructor(private store: Store<IEnvelopesState>) {
 
     }
 
@@ -46,17 +46,12 @@ export class EnvelopeComponent implements OnChanges, OnInit {
     }
 
     ngOnInit(): void {
+        this.store.select(getSelectedEnvelope).subscribe(e => this.isSelected = !!e && this.envelope.id === e.id)
     }
 
     @HostListener('click') click() {
-        this.selectionService.selectedEnvelope.next(this.envelope);
-    }
+        if (!this.envelope) return;
 
-    public showTransactions(): void {
-        console.log("Show transactions is not implemented.");
-    }
-
-    private isSelected(): boolean {
-        return !!this.selectionService.selectedEnvelope.value && this.selectionService.selectedEnvelope.value.id === this.envelope.id;
+        this.store.dispatch(new SelectEnvelopeAction({envelopeId: this.envelope.id}))
     }
 }

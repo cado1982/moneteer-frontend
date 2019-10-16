@@ -13,7 +13,7 @@ import { Actions, ofType } from "@ngrx/effects";
 import { getAccounts } from "src/app/core/reducers/accounts.reducer";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
 import { EnvelopeModel } from "src/app/core/models";
-import { getAllEnvelopes } from "src/app/core/reducers/envelopes.reducer";
+import { getVisibleEnvelopes } from "src/app/core/reducers/envelopes.reducer";
 
 
 @Component({
@@ -44,7 +44,7 @@ export class TransactionListComponent implements OnInit {
 
         this.isCreateTransactionOpen$ = this.store.select(getIsCreateTransactionOpen);
         this.accounts$ = this.store.select(getAccounts);    
-        this.envelopes$ = this.store.select(getAllEnvelopes);
+        this.envelopes$ = this.store.select(getVisibleEnvelopes);
     }
 
     public onSelectAll(isSelected: boolean): void {

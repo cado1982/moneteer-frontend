@@ -1,8 +1,8 @@
-import { Component, Input, EventEmitter, Output, HostListener, OnInit, } from "@angular/core";
+import { Component, Input, EventEmitter, Output, HostListener, SimpleChanges, OnChanges, } from "@angular/core";
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { EnvelopesAddModalComponent } from "../envelopes-add-modal/envelopes-add-modal.component";
-import { EnvelopeCategoryModel } from "src/app/core/models";
+import { EnvelopeCategoryModel, GuidModel } from "src/app/core/models";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -22,13 +22,12 @@ import { ActivatedRoute } from "@angular/router";
         "(mouseleave)": "showCreateCategoryButton = false"
     }
 })
-export class EnvelopesCategoryHeaderComponent {
+export class EnvelopesCategoryHeaderComponent implements OnChanges {
     @Input() public category: EnvelopeCategoryModel;
     @Input() public balance: number;
 
     @HostListener('click') click() {
         this.isToggled = !this.isToggled;
-        this.toggled.emit(this.isToggled);
     }
 
     constructor(
@@ -36,12 +35,23 @@ export class EnvelopesCategoryHeaderComponent {
         private route: ActivatedRoute
     ) { }
 
-    public isToggled: boolean = true;
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.category && changes.category.firstChange) {
+            this.isToggled = this.category && !!this.category.id
+        }
+    }
+
+    private _isToggled: boolean;
+    public get isToggled() { return this._isToggled };
+    public set isToggled(newValue: boolean) { this._isToggled = newValue; this.toggled.emit(newValue) };
 
     @Output() public toggled = new EventEmitter<boolean>();
 
     addEnvelope($event: any): void {
         $event.stopPropagation();
+
+        if (this.category.id === GuidModel.empty) return;
+
         const budgetId = this.route.snapshot.params.budgetId;
 
         if (!budgetId) throw Error("Budget id is missing");

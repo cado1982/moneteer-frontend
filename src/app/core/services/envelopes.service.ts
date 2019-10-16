@@ -40,4 +40,12 @@ export class EnvelopesService extends ApiBaseService {
             map(() => envelopeId)
         );
     }
+
+    public hideEnvelope(envelopeId: string): Observable<void> {
+        return this.putNoBody(`envelopes/${envelopeId}/hide`);
+    }
+
+    public showEnvelope(envelopeId: string): Observable<void> {
+        return this.putNoBody(`envelopes/${envelopeId}/show`);
+    }
 }

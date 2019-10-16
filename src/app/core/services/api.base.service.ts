@@ -22,6 +22,10 @@ export class ApiBaseService {
         return this.http.put<TResponse>(this.baseApiUrl + url, payload, { headers: { 'Content-Type': "application/json" } });
     }
 
+    protected putNoBody<TPayload, TResponse>(url: string): Observable<TResponse> {
+        return this.http.put<TResponse>(this.baseApiUrl + url, { headers: { 'Content-Type': "application/json" } });
+    }
+
     protected putWithHeaders<TPayload, TResponse>(url: string, payload: TPayload, headers: HttpHeaders): Observable<TResponse> {
         return this.http.put<TResponse>(this.baseApiUrl + url, payload, { headers: headers });
     }

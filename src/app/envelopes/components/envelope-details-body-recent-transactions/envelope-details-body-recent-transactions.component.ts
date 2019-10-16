@@ -4,7 +4,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ITransactionsState, getRecentTransactionsByEnvelope } from 'src/app/core/reducers/transactions.reducer';
 import { map } from 'rxjs/operators';
-import { EnvelopesSelectionService } from '../../services/envelopes-selection.service';
+import { getSelectedEnvelope } from 'src/app/core/reducers/envelopes.reducer';
 
 @Component({
     selector: 'moneteer-envelope-details-body-recent-transactions',
@@ -15,10 +15,10 @@ import { EnvelopesSelectionService } from '../../services/envelopes-selection.se
 export class EnvelopeDetailsBodyRecentTransactionsComponent implements OnInit {
     public recentTransactions$: Observable<RecentTransactionByEnvelope[]>;
 
-    constructor(private store: Store<ITransactionsState>, public selectionService: EnvelopesSelectionService) { }
+    constructor(private store: Store<ITransactionsState>) { }
 
     ngOnInit() {
-        this.recentTransactions$ = combineLatest(this.store.select(getRecentTransactionsByEnvelope), this.selectionService.selectedEnvelope).pipe(
+        this.recentTransactions$ = combineLatest(this.store.select(getRecentTransactionsByEnvelope), this.store.select(getSelectedEnvelope)).pipe(
             map(([recentTransactions, selectedEnvelope]) => recentTransactions.filter(rt => !!selectedEnvelope && rt.envelopeId === selectedEnvelope.id ))
         );
     }
