@@ -84,11 +84,11 @@ export class CreateEnvelopeFailureAction implements Action {
 
 export class DeleteEnvelopeAction implements Action {
     readonly type = EnvelopesActionTypes.DeleteEnvelope;
-    constructor(public payload: {envelopeId: string}) { }
+    constructor(public payload: {envelopeId: string, balance: number}) { }
 }
 export class DeleteEnvelopeSuccessAction implements Action {
     readonly type = EnvelopesActionTypes.DeleteEnvelopeSuccess;
-    constructor(public payload: {envelopeId: string}) { }
+    constructor(public payload: {envelopeId: string, balance: number}) { }
 }
 export class DeleteEnvelopeFailureAction implements Action {
     readonly type = EnvelopesActionTypes.DeleteEnvelopeFailure;

@@ -49,8 +49,9 @@ export class EnvelopeDeleteModalComponent implements OnInit {
         this.isBusy = true;
 
         this.store.dispatch(new DeleteEnvelopeAction({
-            envelopeId: this.envelope.id
-        }))
+            envelopeId: this.envelope.id,
+            balance: this.envelope.balance
+        }));
     }
 
 }

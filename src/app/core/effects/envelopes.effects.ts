@@ -57,7 +57,7 @@ export class EnvelopesEffects {
     @Effect() deleteEnvelope$ = this.actions$.pipe(
         ofType(EnvelopesActionTypes.DeleteEnvelope),
         switchMap((action: DeleteEnvelopeAction) => this.envelopesService.deleteEnvelope(action.payload.envelopeId).pipe(
-            map(envelopeId => new DeleteEnvelopeSuccessAction({envelopeId})),
+            map(envelopeId => new DeleteEnvelopeSuccessAction({envelopeId, balance: action.payload.balance})),
             catchError(error => of(new DeleteEnvelopeFailureAction({error})))
         )
     ));

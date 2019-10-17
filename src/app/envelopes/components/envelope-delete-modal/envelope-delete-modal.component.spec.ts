@@ -1,5 +1,5 @@
 import { Spectator, createTestComponentFactory } from '@ngneat/spectator/jest';
-import { MockComponent } from 'ng-mocks';
+import { MockComponent, MockPipe } from 'ng-mocks';
 
 import { provideMockStore } from '@ngrx/store/testing';
 import { empty } from 'rxjs';
@@ -8,6 +8,7 @@ import { ErrorAlertComponent } from 'src/app/shared/components/error-alert/error
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EnvelopeDeleteModalComponent } from './envelope-delete-modal.component';
+import { BudgetCurrencyPipe } from 'src/app/shared/pipes/budget.currency.pipe';
 
 describe('EnvelopeDeleteModalComponent', () => {
     let spectator: Spectator<EnvelopeDeleteModalComponent>;
@@ -15,7 +16,8 @@ describe('EnvelopeDeleteModalComponent', () => {
         imports: [ReactiveFormsModule, FormsModule],
         component: EnvelopeDeleteModalComponent,
         declarations: [
-            MockComponent(ErrorAlertComponent)
+            MockComponent(ErrorAlertComponent),
+            MockPipe(BudgetCurrencyPipe)
         ],
         providers: [
             provideMockStore({initialState: {}}),

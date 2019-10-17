@@ -1,6 +1,6 @@
 import { createSelector } from "@ngrx/store";
 import { coreFeatureSelector } from "./feature.selector";
-import { EnvelopesActions, EnvelopesActionTypes, HideEnvelopeSuccessAction, ShowEnvelopeSuccessAction, MoveBalanceSuccessAction } from "../actions/envelopes.actions";
+import { EnvelopesActions, EnvelopesActionTypes, HideEnvelopeSuccessAction, ShowEnvelopeSuccessAction, MoveBalanceSuccessAction, DeleteEnvelopeSuccessAction } from "../actions/envelopes.actions";
 import * as _ from "lodash";
 import { EnvelopeModel, EnvelopeCategoryModel } from "../models";
 
@@ -25,9 +25,9 @@ export function envelopesReducer(state: IEnvelopesState = initialState, action: 
         case EnvelopesActionTypes.CreateEnvelopeCategorySuccess:
             return {...state, envelopeCategories: [...state.envelopeCategories, action.payload.envelopeCategory]}
         case EnvelopesActionTypes.CreateEnvelopeSuccess:
-            return {...state, envelopes: [...state.envelopes, action.payload.envelope]}
+            return {...state, envelopes: [...state.envelopes, action.payload.envelope], selectedEnvelopeId: action.payload.envelope.id}
         case EnvelopesActionTypes.DeleteEnvelopeSuccess:
-            return {...state, envelopes: [...state.envelopes.filter(e => e.id !== action.payload.envelopeId)]}
+            return deleteEnvelopeSuccesMutator(state, action);
         case EnvelopesActionTypes.HideEnvelopeSuccess:
             return hideEnvelopeSuccessMutator(state, action);
         case EnvelopesActionTypes.ShowEnvelopeSuccess:
@@ -39,6 +39,19 @@ export function envelopesReducer(state: IEnvelopesState = initialState, action: 
         default: {
             return state;
         }
+    }
+}
+
+function deleteEnvelopeSuccesMutator(state: IEnvelopesState, action: DeleteEnvelopeSuccessAction): IEnvelopesState {
+    const payload = action.payload;
+
+    const availableIncomeEnvelope = state.envelopes.find(e => e.name === "Available Income" && e.envelopeCategory.name === "Income")!;
+
+    if (payload.balance > 0) {
+        const otherEnvelopes = state.envelopes.filter(e => e.id !== action.payload.envelopeId && e.id !== availableIncomeEnvelope.id);
+        return {...state, envelopes: [...otherEnvelopes, {...availableIncomeEnvelope, balance: availableIncomeEnvelope.balance + payload.balance}]}
+    } else {
+        return {...state, envelopes: [...state.envelopes.filter(e => e.id !== action.payload.envelopeId)]}
     }
 }
 
