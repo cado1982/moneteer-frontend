@@ -26,7 +26,7 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.Load),
         mergeMap((action: LoadEnvelopesAction) => this.envelopesService.getEnvelopesForBudget(action.payload.budgetId).pipe(
             map(envelopes => new LoadEnvelopesSuccessAction({envelopes: envelopes})),
-            catchError(error => of(new LoadEnvelopesFailureAction(error)))
+            catchError(error => of(new LoadEnvelopesFailureAction({error})))
         )
     ));
 
@@ -34,7 +34,7 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.LoadCategories),
         mergeMap((action: LoadEnvelopeCategoriesAction) => this.envelopesService.getEnvelopeCategoriesForBudget(action.payload.budgetId).pipe(
             map(envelopeCategories => new LoadEnvelopeCategoriesSuccessAction({envelopeCategories: envelopeCategories})),
-            catchError(error => of(new LoadEnvelopeCategoriesFailureAction(error)))
+            catchError(error => of(new LoadEnvelopeCategoriesFailureAction({error})))
         )
     ));
 
@@ -42,7 +42,7 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.CreateEnvelopeCategory),
         switchMap((action: CreateEnvelopeCategoryAction) => this.envelopesService.createEnvelopeCategory(action.payload.budgetId, action.payload.envelopeCategory).pipe(
             map(envelopeCategory => new CreateEnvelopeCategorySuccessAction({envelopeCategory})),
-            catchError(error => of(new CreateEnvelopeCategoryFailureAction(error)))
+            catchError(error => of(new CreateEnvelopeCategoryFailureAction({error})))
         )
     ));
 
@@ -50,7 +50,7 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.CreateEnvelope),
         switchMap((action: CreateEnvelopeAction) => this.envelopesService.createEnvelope(action.payload.budgetId, action.payload.envelope).pipe(
             map(envelope => new CreateEnvelopeSuccessAction({envelope})),
-            catchError(error => of(new CreateEnvelopeFailureAction(error)))
+            catchError(error => of(new CreateEnvelopeFailureAction({error})))
         )
     ));
 
@@ -58,7 +58,7 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.DeleteEnvelope),
         switchMap((action: DeleteEnvelopeAction) => this.envelopesService.deleteEnvelope(action.payload.envelopeId).pipe(
             map(envelopeId => new DeleteEnvelopeSuccessAction({envelopeId})),
-            catchError(error => of(new DeleteEnvelopeFailureAction(error)))
+            catchError(error => of(new DeleteEnvelopeFailureAction({error})))
         )
     ));
 
@@ -66,7 +66,7 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.MoveBalanceRequest),
         switchMap((action: MoveBalanceRequestAction) => this.envelopesService.moveBalance(action.payload.fromEnvelopeId, action.payload.targets).pipe(
             map(() => new MoveBalanceSuccessAction({fromEnvelopeId: action.payload.fromEnvelopeId, targets: action.payload.targets})),
-            catchError(error => of(new MoveBalanceFailureAction(error)))
+            catchError(error => of(new MoveBalanceFailureAction({error})))
         )
     ));
 
@@ -74,7 +74,7 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.HideEnvelopeRequest),
         switchMap((action: HideEnvelopeRequestAction) => this.envelopesService.hideEnvelope(action.payload.envelopeId).pipe(
             map(() => new HideEnvelopeSuccessAction({envelopeId: action.payload.envelopeId})),
-            catchError(error => of(new HideEnvelopeFailureAction(error)))
+            catchError(error => of(new HideEnvelopeFailureAction({error})))
         )
     ));
 
@@ -82,7 +82,7 @@ export class EnvelopesEffects {
         ofType(EnvelopesActionTypes.ShowEnvelopeRequest),
         switchMap((action: ShowEnvelopeRequestAction) => this.envelopesService.showEnvelope(action.payload.envelopeId).pipe(
             map(() => new ShowEnvelopeSuccessAction({envelopeId: action.payload.envelopeId})),
-            catchError(error => of(new ShowEnvelopeFailureAction(error)))
+            catchError(error => of(new ShowEnvelopeFailureAction({error})))
         )
     ));
 }

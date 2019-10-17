@@ -24,5 +24,5 @@
         </button>
     </div>
 
-    <moneteer-error-alert [error]="error"></moneteer-error-alert>
+    <div class="mt-2 text-danger" *ngIf="error"><small>{{error}}</small></div>
 </div>
