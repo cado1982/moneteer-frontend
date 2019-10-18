@@ -11,7 +11,8 @@ import { EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesAction,
          DeleteEnvelopeFailureAction, MoveBalanceRequestAction, MoveBalanceSuccessAction, 
          MoveBalanceFailureAction, HideEnvelopeRequestAction, HideEnvelopeSuccessAction,
          HideEnvelopeFailureAction, ShowEnvelopeRequestAction, ShowEnvelopeSuccessAction,
-         ShowEnvelopeFailureAction} from "../actions/envelopes.actions";
+         ShowEnvelopeFailureAction, EnvelopeCategoryToggleRequestAction, EnvelopeCategoryToggleSuccessAction
+} from "../actions/envelopes.actions";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
 
@@ -83,6 +84,13 @@ export class EnvelopesEffects {
         switchMap((action: ShowEnvelopeRequestAction) => this.envelopesService.showEnvelope(action.payload.envelopeId).pipe(
             map(() => new ShowEnvelopeSuccessAction({envelopeId: action.payload.envelopeId})),
             catchError(error => of(new ShowEnvelopeFailureAction({error})))
+        )
+    ));
+
+    @Effect() envelopeCategoryToggle$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.EnvelopeCategoryToggleRequest),
+        switchMap((action: EnvelopeCategoryToggleRequestAction) => this.envelopesService.updateEnvelopeCategoryIsToggled(action.payload.envelopeCategory.id, !action.payload.envelopeCategory.isToggled).pipe(
+            map(() => new EnvelopeCategoryToggleSuccessAction({envelopeCategory: {...action.payload.envelopeCategory, isToggled: !action.payload.envelopeCategory.isToggled}}))
         )
     ));
 }

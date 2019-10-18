@@ -26,7 +26,9 @@ export enum EnvelopesActionTypes {
     ShowEnvelopeRequest = "[Envelopes] Show",
     ShowEnvelopeSuccess = "[Envelopes] Show Success",
     ShowEnvelopeFailure = "[Envelopes] Show Failure",
-    SelectEnvelope = "[Envelopes] Select"
+    SelectEnvelope = "[Envelopes] Select",
+    EnvelopeCategoryToggleRequest = "[Envelopes] Toggle Category Request",
+    EnvelopeCategoryToggleSuccess = "[Envelopes] Toggle Category Success"
 }
 
 export class LoadEnvelopesAction implements Action {
@@ -121,6 +123,17 @@ export class HideEnvelopeFailureAction implements Action {
     constructor(public payload: {error: string}) { }
 }
 
+export class EnvelopeCategoryToggleRequestAction implements Action {
+    readonly type = EnvelopesActionTypes.EnvelopeCategoryToggleRequest;
+    constructor(public payload: {envelopeCategory: EnvelopeCategoryModel}) { }
+}
+export class EnvelopeCategoryToggleSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.EnvelopeCategoryToggleSuccess;
+    constructor(public payload: {envelopeCategory: EnvelopeCategoryModel}) { }
+}
+
+
+
 export class ShowEnvelopeRequestAction implements Action {
     readonly type = EnvelopesActionTypes.ShowEnvelopeRequest;
     constructor(public payload: {envelopeId: string}) { }
@@ -161,6 +174,8 @@ export type EnvelopesActions =
     | HideEnvelopeRequestAction
     | HideEnvelopeSuccessAction
     | HideEnvelopeFailureAction
+    | EnvelopeCategoryToggleRequestAction
+    | EnvelopeCategoryToggleSuccessAction
     | ShowEnvelopeRequestAction
     | ShowEnvelopeSuccessAction
     | ShowEnvelopeFailureAction

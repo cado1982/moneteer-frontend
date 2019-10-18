@@ -1,6 +1,8 @@
 import { createSelector } from "@ngrx/store";
 import { coreFeatureSelector } from "./feature.selector";
-import { EnvelopesActions, EnvelopesActionTypes, HideEnvelopeSuccessAction, ShowEnvelopeSuccessAction, MoveBalanceSuccessAction, DeleteEnvelopeSuccessAction } from "../actions/envelopes.actions";
+import { EnvelopesActions, EnvelopesActionTypes, HideEnvelopeSuccessAction,
+    ShowEnvelopeSuccessAction, MoveBalanceSuccessAction, DeleteEnvelopeSuccessAction,
+    EnvelopeCategoryToggleRequestAction } from "../actions/envelopes.actions";
 import * as _ from "lodash";
 import { EnvelopeModel, EnvelopeCategoryModel } from "../models";
 
@@ -32,6 +34,8 @@ export function envelopesReducer(state: IEnvelopesState = initialState, action: 
             return hideEnvelopeSuccessMutator(state, action);
         case EnvelopesActionTypes.ShowEnvelopeSuccess:
             return showEnvelopeSuccessMutator(state, action);
+        case EnvelopesActionTypes.EnvelopeCategoryToggleRequest:
+            return updateEnvelopeCategoryToggleMutator(state, action);
         case EnvelopesActionTypes.SelectEnvelope:
             return {...state, selectedEnvelopeId: action.payload.envelopeId};
         case EnvelopesActionTypes.MoveBalanceSuccess:
@@ -106,6 +110,16 @@ function showEnvelopeSuccessMutator(state: IEnvelopesState, action: ShowEnvelope
         return state;
     } else {
         return {...state, envelopes: [...state.envelopes.filter(e => e.id !== shownEnvelopeId), {...shownEnvelope, isHidden: false}]}
+    }
+}
+
+function updateEnvelopeCategoryToggleMutator(state: IEnvelopesState, action: EnvelopeCategoryToggleRequestAction): IEnvelopesState {
+    const envelopeCategory = action.payload.envelopeCategory;
+
+    if (!envelopeCategory) {
+        return state;
+    } else {
+        return {...state, envelopeCategories: [...state.envelopeCategories.filter(e => e.id !== envelopeCategory.id), {...envelopeCategory, isToggled: !action.payload.envelopeCategory.isToggled}]}
     }
 }
 

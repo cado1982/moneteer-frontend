@@ -14,7 +14,7 @@ import { ActivatedRoute } from "@angular/router";
             state("0", style({
                 transform: "rotate(-90deg)"
             })),
-            transition("* <=> 0", animate("200ms ease-out"))
+            //transition("* <=> 0", animate("0ms ease-out"))
         ])
     ],
     host: {
@@ -27,7 +27,7 @@ export class EnvelopesCategoryHeaderComponent implements OnChanges {
     @Input() public balance: number;
 
     @HostListener('click') click() {
-        this.isToggled = !this.isToggled;
+        this.clicked.emit();
     }
 
     constructor(
@@ -36,16 +36,19 @@ export class EnvelopesCategoryHeaderComponent implements OnChanges {
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.category && changes.category.firstChange) {
-            this.isToggled = this.category && !!this.category.id
-        }
+        // if (changes.category && changes.category.firstChange) {
+        //     this._isToggled = this.category && !!this.category.id
+        // }
     }
 
-    private _isToggled: boolean;
-    public get isToggled() { return this._isToggled };
-    public set isToggled(newValue: boolean) { this._isToggled = newValue; this.toggled.emit(newValue) };
+    // private _isToggled: boolean;
+    // public get isToggled() { return this._isToggled };
+    // public set isToggled(newValue: boolean) { 
+    //     this._isToggled = newValue;
+    //     this.toggled.emit(newValue)
+    // };
 
-    @Output() public toggled = new EventEmitter<boolean>();
+    @Output() public clicked = new EventEmitter<boolean>();
 
     addEnvelope($event: any): void {
         $event.stopPropagation();

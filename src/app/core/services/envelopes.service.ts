@@ -48,4 +48,12 @@ export class EnvelopesService extends ApiBaseService {
     public showEnvelope(envelopeId: string): Observable<void> {
         return this.putNoBody(`envelopes/${envelopeId}/show`);
     }
+
+    public updateEnvelopeCategoryIsToggled(envelopeCategoryId: string, isToggled: boolean): Observable<void> {
+        if (isToggled) {
+            return this.putNoBody(`envelopeCategories/${envelopeCategoryId}/show`);
+        } else {
+            return this.putNoBody(`envelopeCategories/${envelopeCategoryId}/hide`);
+        }
+    }
 }

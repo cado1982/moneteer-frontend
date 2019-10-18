@@ -1,7 +1,7 @@
-<moneteer-envelopes-category-header (toggled)="isToggled = $event" [category]="category" [balance]="balance">
+<moneteer-envelopes-category-header (clicked)="headerClicked()" [category]="category" [balance]="balance">
 </moneteer-envelopes-category-header>
 
-<section id="child-categories" [@categoryVisible]="isToggled">
+<section id="child-categories" [@categoryVisible]="category?.isToggled">
     <moneteer-envelope *ngFor="let envelope of envelopes"
         (assignedChanged)="onChildCategoryAssignedChanged($event)"
         [envelope]="envelope"></moneteer-envelope>
