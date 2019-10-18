@@ -2,10 +2,10 @@ import { Component, Input, OnChanges, SimpleChanges, EventEmitter, Output, } fro
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import * as _ from "lodash";
 
-import { EnvelopeCategoryModel, EnvelopeModel, GuidModel } from "../../../core/models";
+import { EnvelopeCategoryModel, EnvelopeModel } from "../../../core/models";
 import { Store } from "@ngrx/store";
 import { IEnvelopesState } from "src/app/core/reducers/envelopes.reducer";
-import { UpdateEnvelopeCategoryIsToggledRequestAction, EnvelopeCategoryToggleRequestAction } from "src/app/core/actions/envelopes.actions";
+import { EnvelopeCategoryToggleRequestAction } from "src/app/core/actions/envelopes.actions";
 
 @Component({
     selector: "moneteer-envelopes-category",
@@ -23,7 +23,7 @@ import { UpdateEnvelopeCategoryIsToggledRequestAction, EnvelopeCategoryToggleReq
                 opacity: 0,
                 display: "none"
             })),
-            transition("1 <=> 0", animate("200ms ease-out"))
+            //transition("1 <=> 0", animate("200ms ease-out"))
         ])
     ]
 })
@@ -42,9 +42,6 @@ export class EnvelopesCategoryComponent implements OnChanges {
         if (changes.envelopes) {
             this.updateBalance();
         } 
-        // if (changes.category) {
-        //     this.isToggled = this.category.isToggled;
-        // }
     }
 
     private updateBalance(): void {

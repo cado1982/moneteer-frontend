@@ -5,3 +5,4 @@
 <button class="btn btn-sm btn-outline-warning mt-2" [hidden]="selectedEnvelope?.isHidden" (click)="hide()">Hide</button>
 <button class="btn btn-sm btn-outline-primary mt-2" [hidden]="!selectedEnvelope?.isHidden" (click)="show()">Unhide</button>
 <button class="btn btn-sm btn-outline-danger mt-2" [disabled]="!canDelete()" (click)="delete()">Delete</button>
+<button class="btn btn-sm btn-outline-primary mt-2" (click)="edit()">Edit</button>

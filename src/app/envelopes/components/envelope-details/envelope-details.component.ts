@@ -1,8 +1,8 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IEnvelopesState, getAvailableIncomeEnvelope, getSelectedEnvelope } from 'src/app/core/reducers/envelopes.reducer';
-import { EnvelopeModel } from 'src/app/core/models';
+import { IEnvelopesState, getAvailableIncomeEnvelope, getSelectedEnvelope, getEnvelopeCategories } from 'src/app/core/reducers/envelopes.reducer';
+import { EnvelopeModel, EnvelopeCategoryModel } from 'src/app/core/models';
 
 @Component({
     selector: 'moneteer-envelope-details',

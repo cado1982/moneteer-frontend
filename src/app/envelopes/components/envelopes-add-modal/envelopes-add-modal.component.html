@@ -1,8 +1,8 @@
-<form [formGroup]="addEnvelopeForm" (ngSubmit)="create()">
+<form [formGroup]="addEnvelopeForm" (ngSubmit)="submit()">
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">
             <i class="far fa-envelope"></i>
-            <span> Add Envelope</span>
+            <span> {{isCreating ? 'Add' : 'Edit'}} Envelope</span>
         </h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
@@ -11,7 +11,9 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="envelopeCategory">Category</label>
-            <input id="envelopeCategory" disabled [value]="envelopeCategory?.name" class="form-control">
+            <moneteer-envelope-category-select-dropdown class="w-100" [disabled]="!id"
+                [(selectedEnvelopeCategory)]="envelopeCategory" [envelopeCategories]="envelopeCategories$ | async">
+            </moneteer-envelope-category-select-dropdown>
         </div>
         <div class="form-group">
             <label for="envelopeName">Name</label>
@@ -27,7 +29,7 @@
             <button type="submit" class="btn btn-primary" [disabled]="!addEnvelopeForm.valid">
                 <span [hidden]="!isBusy" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
-                Create
+                {{isCreating ? 'Create' : 'Save'}}
             </button>
         </div>
 

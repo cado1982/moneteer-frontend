@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EnvelopeModel } from 'src/app/core/models';
+import { EnvelopeModel, EnvelopeCategoryModel } from 'src/app/core/models';
 
 @Component({
     selector: 'moneteer-envelope-details-body',

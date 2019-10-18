@@ -14,6 +14,9 @@ export enum EnvelopesActionTypes {
     CreateEnvelope = "[Envelopes] Create Envelope",
     CreateEnvelopeSuccess = "[Envelopes] Create Envelope Success",
     CreateEnvelopeFailure = "[Envelopes] Create Envelope Failure",
+    EditEnvelopeRequest = "[Envelopes] Edit Envelope Request",
+    EditEnvelopeSuccess = "[Envelopes] Edit Envelope Success",
+    EditEnvelopeFailure = "[Envelopes] Edit Envelope Failure",
     DeleteEnvelope = "[Envelopes] Delete Envelope",
     DeleteEnvelopeSuccess = "[Envelopes] Delete Envelope Success",
     DeleteEnvelopeFailure = "[Envelopes] Delete Envelope Failure",
@@ -73,7 +76,7 @@ export class CreateEnvelopeCategoryFailureAction implements Action {
 
 export class CreateEnvelopeAction implements Action {
     readonly type = EnvelopesActionTypes.CreateEnvelope;
-    constructor(public payload: {budgetId: string, envelope: EnvelopeModel}) { }
+    constructor(public payload: {envelope: EnvelopeModel}) { }
 }
 export class CreateEnvelopeSuccessAction implements Action {
     readonly type = EnvelopesActionTypes.CreateEnvelopeSuccess;
@@ -81,6 +84,19 @@ export class CreateEnvelopeSuccessAction implements Action {
 }
 export class CreateEnvelopeFailureAction implements Action {
     readonly type = EnvelopesActionTypes.CreateEnvelopeFailure;
+    constructor(public payload: {error: string}) { }
+}
+
+export class EditEnvelopeRequestAction implements Action {
+    readonly type = EnvelopesActionTypes.EditEnvelopeRequest;
+    constructor(public payload: {envelope: EnvelopeModel}) { }
+}
+export class EditEnvelopeSuccessAction implements Action {
+    readonly type = EnvelopesActionTypes.EditEnvelopeSuccess;
+    constructor(public payload: {envelope: EnvelopeModel}) { }
+}
+export class EditEnvelopeFailureAction implements Action {
+    readonly type = EnvelopesActionTypes.EditEnvelopeFailure;
     constructor(public payload: {error: string}) { }
 }
 
@@ -159,6 +175,9 @@ export type EnvelopesActions =
     | CreateEnvelopeAction
     | CreateEnvelopeSuccessAction
     | CreateEnvelopeFailureAction
+    | EditEnvelopeRequestAction
+    | EditEnvelopeSuccessAction
+    | EditEnvelopeFailureAction
     | DeleteEnvelopeAction
     | DeleteEnvelopeSuccessAction
     | DeleteEnvelopeFailureAction

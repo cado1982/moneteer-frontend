@@ -20,7 +20,7 @@ export class DropdownListComponent<T> implements OnInit {
     @Input() public searchFilter: string;
     @Input() public disabled: boolean = false;
     @Input() public allowsNewItems: boolean = false;
-    @Input() public inputSize: string = "xs";
+    @Input() public inputSize: string = "";
 
     @Input() public itemTemplate: TemplateRef<any>;
     @Input() public headerTemplate: TemplateRef<any>;

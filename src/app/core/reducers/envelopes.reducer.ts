@@ -2,7 +2,8 @@ import { createSelector } from "@ngrx/store";
 import { coreFeatureSelector } from "./feature.selector";
 import { EnvelopesActions, EnvelopesActionTypes, HideEnvelopeSuccessAction,
     ShowEnvelopeSuccessAction, MoveBalanceSuccessAction, DeleteEnvelopeSuccessAction,
-    EnvelopeCategoryToggleRequestAction } from "../actions/envelopes.actions";
+    EnvelopeCategoryToggleRequestAction, 
+    EditEnvelopeSuccessAction} from "../actions/envelopes.actions";
 import * as _ from "lodash";
 import { EnvelopeModel, EnvelopeCategoryModel } from "../models";
 
@@ -40,10 +41,27 @@ export function envelopesReducer(state: IEnvelopesState = initialState, action: 
             return {...state, selectedEnvelopeId: action.payload.envelopeId};
         case EnvelopesActionTypes.MoveBalanceSuccess:
             return moveBalanceSuccessMutator(state, action);
+        case EnvelopesActionTypes.EditEnvelopeSuccess:
+            return editEnvelopeSuccessMutator(state, action);
         default: {
             return state;
         }
     }
+}
+
+function editEnvelopeSuccessMutator(state: IEnvelopesState, action: EditEnvelopeSuccessAction): IEnvelopesState {
+    const payload = action.payload;
+    const envelope = state.envelopes.find(e => e.id === payload.envelope.id);
+
+    if (!envelope) return state;
+    
+    return {
+        ...state,
+        envelopes: [
+            ...state.envelopes.filter(e => e.id !== payload.envelope.id),
+            {...envelope, name: payload.envelope.name, envelopeCategory: payload.envelope.envelopeCategory}
+        ]
+    };
 }
 
 function deleteEnvelopeSuccesMutator(state: IEnvelopesState, action: DeleteEnvelopeSuccessAction): IEnvelopesState {

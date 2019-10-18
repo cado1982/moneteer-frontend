@@ -11,7 +11,8 @@ import { EnvelopesActionTypes, LoadEnvelopesSuccessAction, LoadEnvelopesAction,
          DeleteEnvelopeFailureAction, MoveBalanceRequestAction, MoveBalanceSuccessAction, 
          MoveBalanceFailureAction, HideEnvelopeRequestAction, HideEnvelopeSuccessAction,
          HideEnvelopeFailureAction, ShowEnvelopeRequestAction, ShowEnvelopeSuccessAction,
-         ShowEnvelopeFailureAction, EnvelopeCategoryToggleRequestAction, EnvelopeCategoryToggleSuccessAction
+         ShowEnvelopeFailureAction, EnvelopeCategoryToggleRequestAction, EnvelopeCategoryToggleSuccessAction,
+         EditEnvelopeSuccessAction, EditEnvelopeFailureAction, EditEnvelopeRequestAction
 } from "../actions/envelopes.actions";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { of } from "rxjs";
@@ -49,9 +50,17 @@ export class EnvelopesEffects {
 
     @Effect() createEnvelope$ = this.actions$.pipe(
         ofType(EnvelopesActionTypes.CreateEnvelope),
-        switchMap((action: CreateEnvelopeAction) => this.envelopesService.createEnvelope(action.payload.budgetId, action.payload.envelope).pipe(
+        switchMap((action: CreateEnvelopeAction) => this.envelopesService.createEnvelope(action.payload.envelope).pipe(
             map(envelope => new CreateEnvelopeSuccessAction({envelope})),
             catchError(error => of(new CreateEnvelopeFailureAction({error})))
+        )
+    ));
+
+    @Effect() editEnvelope$ = this.actions$.pipe(
+        ofType(EnvelopesActionTypes.EditEnvelopeRequest),
+        switchMap((action: EditEnvelopeRequestAction) => this.envelopesService.editEnvelope(action.payload.envelope).pipe(
+            map(() => new EditEnvelopeSuccessAction({envelope: action.payload.envelope})),
+            catchError(error => of(new EditEnvelopeFailureAction({error})))
         )
     ));
 

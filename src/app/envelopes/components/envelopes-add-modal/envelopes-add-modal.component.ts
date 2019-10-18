@@ -5,8 +5,10 @@ import { EnvelopeCategoryModel, EnvelopeModel } from 'src/app/core/models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ITransactionsState } from 'src/app/core/reducers/transactions.reducer';
-import { CreateEnvelopeCategoryAction, EnvelopesActionTypes, CreateEnvelopeCategoryFailureAction, CreateEnvelopeFailureAction, CreateEnvelopeAction } from 'src/app/core/actions/envelopes.actions';
+import { EnvelopesActionTypes, CreateEnvelopeFailureAction, CreateEnvelopeAction, EditEnvelopeRequestAction, EditEnvelopeFailureAction } from 'src/app/core/actions/envelopes.actions';
 import { map } from 'rxjs/operators';
+import { getEnvelopeCategories } from 'src/app/core/reducers/envelopes.reducer';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'moneteer-envelopes-add-modal',
@@ -16,14 +18,20 @@ import { map } from 'rxjs/operators';
 export class EnvelopesAddModalComponent implements OnInit {
     public isBusy: boolean;
     public error: string;
-    public budgetId: string;
     public envelopeCategory: EnvelopeCategoryModel;
+    public envelopeCategories$: Observable<EnvelopeCategoryModel[]>;
+    public id: string | undefined;
+    public isHidden: boolean;
+
+    public get isCreating(): boolean {
+        return !this.id;
+    }
 
     public addEnvelopeForm = new FormGroup({
         envelopeName: new FormControl('', [Validators.required, Validators.maxLength(255)])
     });
 
-    private get categoryName(): string {
+    private get envelopeName(): string {
         return this.addEnvelopeForm.value['envelopeName'];
     }
 
@@ -42,28 +50,43 @@ export class EnvelopesAddModalComponent implements OnInit {
         });
 
         this.actions$.pipe(
-            ofType(EnvelopesActionTypes.CreateEnvelopeSuccess)
+            ofType(EnvelopesActionTypes.CreateEnvelopeFailure),
+            map((action: EditEnvelopeFailureAction) => action.payload.error)
+        ).subscribe(error => {
+            this.isBusy = false;
+            this.error = error;
+        });
+
+        this.actions$.pipe(
+            ofType(EnvelopesActionTypes.EditEnvelopeSuccess || EnvelopesActionTypes.CreateEnvelopeSuccess),
         ).subscribe(() => {
             this.isBusy = false;
             this.modal.close();
-        })
+        });
+
+        this.envelopeCategories$ = this.store.select(getEnvelopeCategories);
     }
 
-    public create(): void {
-        this.error = "";
-
-        if (!this.budgetId || !this.categoryName) {
+    public submit(): void {
+        if (!this.envelopeName) {
             return;
         }
 
+        this.error = "";
         this.isBusy = true;
 
-        let envelope = new EnvelopeModel(this.categoryName);
-        envelope.envelopeCategory = this.envelopeCategory;
+        if (this.isCreating) {
+            let envelope = new EnvelopeModel(this.envelopeName);
+            envelope.envelopeCategory = this.envelopeCategory;
+    
+            this.store.dispatch(new CreateEnvelopeAction({envelope}))
+        } else {
+            let envelope = new EnvelopeModel(this.envelopeName);
+            envelope.id = this.id!;
+            envelope.isHidden = this.isHidden;
+            envelope.envelopeCategory = this.envelopeCategory;
 
-        this.store.dispatch(new CreateEnvelopeAction({
-            budgetId: this.budgetId,
-            envelope: envelope
-        }))
+            this.store.dispatch(new EditEnvelopeRequestAction({envelope}));
+        }    
     }
 }

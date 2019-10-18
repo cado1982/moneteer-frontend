@@ -23,8 +23,8 @@ export class EnvelopesService extends ApiBaseService {
         return this.get<EnvelopeCategoryModel[]>(`budget/${budgetId}/envelopes/categories`);
     }
 
-    public createEnvelope(budgetId: string, envelope: EnvelopeModel): Observable<EnvelopeModel> {
-        return this.post(`budget/${budgetId}/envelopes`, envelope);
+    public createEnvelope(envelope: EnvelopeModel): Observable<EnvelopeModel> {
+        return this.post(`envelopes`, envelope);
     }
 
     public createEnvelopeCategory(budgetId: string, envelopeCategory: EnvelopeCategoryModel): Observable<EnvelopeCategoryModel> {
@@ -39,6 +39,10 @@ export class EnvelopesService extends ApiBaseService {
         return this.delete(`envelopes/${envelopeId}`).pipe(
             map(() => envelopeId)
         );
+    }
+
+    public editEnvelope(envelope: EnvelopeModel): Observable<void> {
+        return this.put(`envelopes`, envelope);
     }
 
     public hideEnvelope(envelopeId: string): Observable<void> {

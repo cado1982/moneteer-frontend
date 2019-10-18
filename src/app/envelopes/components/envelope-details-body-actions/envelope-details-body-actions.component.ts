@@ -8,6 +8,7 @@ import { EnvelopeAssignIncomeModalComponent } from '../envelope-assign-income-mo
 import { Store } from '@ngrx/store';
 import { IEnvelopesState } from 'src/app/core/reducers/envelopes.reducer';
 import { HideEnvelopeRequestAction, ShowEnvelopeRequestAction, DeleteEnvelopeAction } from 'src/app/core/actions/envelopes.actions';
+import { EnvelopesAddModalComponent } from '../envelopes-add-modal/envelopes-add-modal.component';
 
 @Component({
     selector: 'moneteer-envelope-details-body-actions',
@@ -74,6 +75,17 @@ export class EnvelopeDetailsBodyActionsComponent implements OnInit {
 
         let modalRef = this.modal.open(EnvelopeDeleteModalComponent);
         modalRef.componentInstance.envelope = this.selectedEnvelope;
+    }
+
+    public edit(): void {
+        if (!this.selectedEnvelope) return;
+        
+        let modalRef = this.modal.open(EnvelopesAddModalComponent);
+        modalRef.componentInstance.envelopeCategory = this.selectedEnvelope.envelopeCategory;
+        modalRef.componentInstance.envelopeCategories = this.store.select
+        modalRef.componentInstance.id = this.selectedEnvelope.id;
+        modalRef.componentInstance.isHidden = this.selectedEnvelope.isHidden;
+        modalRef.componentInstance.addEnvelopeForm.setValue({'envelopeName': this.selectedEnvelope.name});
     }
 
     public canDelete(): boolean {
