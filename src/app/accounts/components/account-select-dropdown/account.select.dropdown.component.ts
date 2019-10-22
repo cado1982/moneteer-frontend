@@ -10,6 +10,7 @@ import { AccountModel } from '../../models';
 export class AccountSelectDropdownComponent {
     @Input() public disabled: boolean;
     @Input() public accounts: AccountModel[];
+    @Input() public inputSize: string;
 
     private _selectedAccount: AccountModel | null;
     @Input() public get selectedAccount() { return this._selectedAccount; }

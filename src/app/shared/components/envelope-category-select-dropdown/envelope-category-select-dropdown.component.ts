@@ -9,7 +9,8 @@ import { EnvelopeCategoryModel } from 'src/app/core/models';
 export class EnvelopeCategorySelectDropdownComponent {
     @Input() public disabled: boolean;
     @Input() public envelopeCategories: EnvelopeCategoryModel[];
-    
+    @Input() public inputSize: string;
+
     private _selectedEnvelopeCategory: EnvelopeCategoryModel | null;
     @Input() public get selectedEnvelopeCategory() { return this._selectedEnvelopeCategory; }
     public set selectedEnvelopeCategory(value: EnvelopeCategoryModel | null) {
@@ -18,9 +19,4 @@ export class EnvelopeCategorySelectDropdownComponent {
         this.selectedEnvelopeCategoryChange.emit(this._selectedEnvelopeCategory);
     }
     @Output() public selectedEnvelopeCategoryChange = new EventEmitter<EnvelopeCategoryModel | null>();
-
-    public addNewCategory(): void {
-
-    }
-
 }

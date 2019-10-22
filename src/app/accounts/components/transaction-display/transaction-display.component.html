@@ -8,6 +8,9 @@
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
         {{transaction.account?.name}}
     </div>
+    <div class="transaction-cell transaction-cell--payee">
+        {{transaction.payee?.name}}
+    </div>
     <div class="transaction-cell transaction-cell--description">
         {{transaction.description}}
     </div>

@@ -2,6 +2,7 @@
     <div id="{{id}}">{{name}}</div>
 </ng-template>
 
-<moneteer-dropdown-list [items]="envelopeCategories" [disabled]="disabled" [(selectedItem)]="selectedEnvelopeCategory"
-    [itemTemplate]="envelopeCategory">
+<moneteer-dropdown-list [items]="envelopeCategories" [disabled]="disabled" 
+    [(selectedItem)]="selectedEnvelopeCategory" [itemTemplate]="envelopeCategory"
+    [inputSize]="inputSize">
 </moneteer-dropdown-list>

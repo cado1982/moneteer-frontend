@@ -6,7 +6,7 @@ export class TransactionModel {
     public id: string;
     public account: AccountModel;
     public payee: PayeeModel | undefined;
-    public targetAccount: AccountModel;
+    public targetAccount: AccountModel | undefined;
     public date: Date;
     public description: string;
     public isCleared: boolean;

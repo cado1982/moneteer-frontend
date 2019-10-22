@@ -16,11 +16,21 @@ import { map } from 'rxjs/operators';
 export class EnvelopeMoveBalanceModalComponent implements OnInit {
 
     public envelopes$: Observable<EnvelopeModel[]>;
-    public fromEnvelope: EnvelopeModel;
-    public isBusy: boolean;
-    public error: string;
-    public amount: number;
+    
+    public isBusy: boolean = false;
+    public error: string = "";
+    public amount: number = 0;
     public toEnvelope: EnvelopeModel | undefined;
+    public hiddenEnvelopeIds: string[] = []; // Used to hide the fromEnvelope from the list of targets
+
+    private _fromEnvelope: EnvelopeModel;
+    public set fromEnvelope(newValue: EnvelopeModel) {
+        this._fromEnvelope = newValue;
+        this.hiddenEnvelopeIds = [newValue.id];
+    }
+    public get fromEnvelope(): EnvelopeModel {
+        return this._fromEnvelope;
+    }
 
     constructor(
         public modal: NgbActiveModal,

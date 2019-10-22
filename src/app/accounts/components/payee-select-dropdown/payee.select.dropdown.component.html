@@ -3,7 +3,7 @@
 </ng-template>
 
 <ng-template #header>
-    <h5>Payees</h5>
+    <small>Payees</small>
 </ng-template>
 
 <ng-template #noPayees>
@@ -11,5 +11,5 @@
 </ng-template>
 
 <moneteer-dropdown-list [items]="payees" [disabled]="disabled" [(selectedItem)]="selectedPayee"
-    [itemTemplate]="payee" [headerTemplate]="header" [noItemsTemplate]="noPayees">
+    [itemTemplate]="payee" [headerTemplate]="header" [noItemsTemplate]="noPayees" [inputSize]="inputSize">
 </moneteer-dropdown-list>

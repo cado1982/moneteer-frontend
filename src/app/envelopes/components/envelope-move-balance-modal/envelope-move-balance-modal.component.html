@@ -15,7 +15,8 @@
         </div>
         <div class="form-group">
             <label for="toEnvelope">To</label>
-            <moneteer-envelope-select-dropdown inputSize="" [envelopes]="envelopes$ | async" [(selectedEnvelope)]="toEnvelope">
+            <moneteer-envelope-select-dropdown inputSize="" [envelopes]="envelopes$ | async" [(selectedEnvelope)]="toEnvelope"
+                [hideEnvelopeIds]="hiddenEnvelopeIds">
                 </moneteer-envelope-select-dropdown>
         </div>
         <div class="form-group">

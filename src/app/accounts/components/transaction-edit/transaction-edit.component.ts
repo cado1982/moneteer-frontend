@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import { Observable } from "rxjs";
 
-import { EnvelopeModel, GuidModel } from "../../../core/models/index";
+import { EnvelopeModel, GuidModel, PayeeModel } from "../../../core/models/index";
 import { TransactionModel, AccountModel } from "../../models/index";
 import { Component, Input, OnInit, ViewChildren, QueryList } from "@angular/core";
 import { Store } from "@ngrx/store";
@@ -9,8 +9,8 @@ import { IAccountsState, getAccounts } from "../../../core/reducers/accounts.red
 import { OnChanges } from "@angular/core";
 import { SimpleChanges } from "@angular/core";
 import { TransactionAssignmentModel } from "../../models/transaction.assignment.model";
-import { TransactionAssignmentComponent } from "../transaction-assignment/transaction.assignment.component";
 import { getVisibleEnvelopes } from "src/app/core/reducers/envelopes.reducer";
+import { getPayees } from "src/app/core/reducers/transactions.reducer";
 
 @Component({
     selector: 'moneteer-transaction-edit',
@@ -22,8 +22,13 @@ export class TransactionEditComponent implements OnInit, OnChanges {
     @Input() public transaction: TransactionModel;
     @Input() public currentAccountId: string;
 
+    public accounts$: Observable<Array<AccountModel>>;
+    public envelopes$: Observable<Array<EnvelopeModel>>;
+    public payees$: Observable<PayeeModel[]>;
+
     public date: Date;
-    public account: AccountModel;
+    public account: AccountModel | undefined;
+    public targetAccount: AccountModel | undefined;
     public description: string;
     public isCleared: boolean;
     public assignments: TransactionAssignmentModel[] = [new TransactionAssignmentModel()];
@@ -113,9 +118,6 @@ export class TransactionEditComponent implements OnInit, OnChanges {
         return updatedTransaction;
     }
 
-    public accounts$: Observable<Array<AccountModel>>;
-    public envelopes$: Observable<Array<EnvelopeModel>>;
-
     constructor(
         private store: Store<IAccountsState>) {
 
@@ -124,6 +126,7 @@ export class TransactionEditComponent implements OnInit, OnChanges {
     public ngOnInit(): void {
         this.accounts$ = this.store.select(getAccounts);
         this.envelopes$ = this.store.select(getVisibleEnvelopes);
+        this.payees$ = this.store.select(getPayees);
     }
 
     public ngOnChanges(changes: SimpleChanges): void {

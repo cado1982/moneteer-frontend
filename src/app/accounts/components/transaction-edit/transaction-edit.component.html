@@ -8,8 +8,14 @@
         </div>
     </div>
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--account">
-        <moneteer-account-select-dropdown class="w-100" [accounts]="accounts$ | async" [(selectedAccount)]="account">
+        <moneteer-account-select-dropdown class="w-100" [accounts]="accounts$ | async" [(selectedAccount)]="account" inputSize="xs">
         </moneteer-account-select-dropdown>
+    </div>
+    <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--payee">
+        <moneteer-payee-select-dropdown class="w-100" [payees]="payees$ | async"
+            [accounts]="accounts$ | async" [(selectedPayee)]="payee" 
+            inputSize="xs">
+        </moneteer-payee-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--description">
         <input class="form-control form-control-xs" type="text" [(ngModel)]="description" name="description">

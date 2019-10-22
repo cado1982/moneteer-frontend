@@ -15,7 +15,7 @@
     <div class="body mt-2">
         <ng-container *ngIf="!!groupByProperty">
             <div *ngFor="let group of groupedItems">
-                <div class="pl-2 text-bold text-primary">{{group.groupName}}</div>
+                <small class="pl-2 text-bold text-primary">{{group.groupName}}</small>
                 <div #itemElement class="item pl-3 cursor-pointer pr-2"
                     [ngClass]="{'selected': isItemSelected(item)}" *ngFor="let item of group.items"
                     (mousedown)="itemClicked(item)" [id]="item[idProperty]">
