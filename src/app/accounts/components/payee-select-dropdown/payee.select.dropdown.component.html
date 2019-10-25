@@ -5,22 +5,26 @@
 
 <moneteer-dropdown [anchor]="searchInput" openOn="focus">
     <div class="body mt-2">
-        <div class="header">Transfers</div>
-        <div *ngFor="let account of filteredAccounts" class="item px-1 pl-2" [ngClass]="{'selected': isAccountHighlighted(account)}" (mousedown)="accountClicked(account)">
-            Transfer to: {{account.name}}
-        </div>
-        <div class="header">Previous Payees</div>
-        <div *ngIf="payees.length === 0">
-            <div style="font-size: 0.7em;" class="text-muted">Enter a new payee</div>
-        </div>
-        <div *ngIf="payees.length > 0">
-            <div *ngFor="let payee of filteredPayees" class="item px-1 pl-2" [ngClass]="{'selected': isPayeeHighlighted(payee)}" (mousedown)="payeeClicked(payee)">
-                {{payee.name}}
+        <div *ngIf="!selectedPayee || selectedPayee.id !== null">
+            <div class="header">Transfers</div>
+            <div *ngFor="let account of filteredAccounts" class="item px-1 pl-2"
+                [ngClass]="{'selected': isAccountHighlighted(account)}" (mousedown)="accountClicked(account)">
+                Transfer to: {{account.name}}
+            </div>
+            <div class="header">Previous Payees</div>
+            <div *ngIf="payees.length === 0">
+                <div style="font-size: 0.7em;" class="text-muted">Enter a new payee</div>
+            </div>
+            <div *ngIf="payees.length > 0">
+                <div *ngFor="let payee of filteredPayees" class="item px-1 pl-2"
+                    [ngClass]="{'selected': isPayeeHighlighted(payee)}" (mousedown)="payeeClicked(payee)">
+                    {{payee.name}}
+                </div>
             </div>
         </div>
         <div *ngIf="selectedPayee && selectedPayee.id === null">
-            <div style="font-size: 0.7em;" class="text-muted">Payee '{{selectedPayee.name}}' will be created</div>
+            <div style="font-size: 0.7em;" class="text-muted pl-2">Payee '{{selectedPayee.name}}' will be created</div>
         </div>
-        
+
     </div>
 </moneteer-dropdown>

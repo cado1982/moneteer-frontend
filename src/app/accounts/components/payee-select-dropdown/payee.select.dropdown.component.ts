@@ -20,27 +20,27 @@ export class PayeeSelectDropdownComponent implements OnInit {
     public filteredPayees: PayeeModel[] = [];
     public filteredAccounts: AccountModel[] = [];
 
-    private clickedPayee: PayeeModel | null;
-    private clickedAccount: AccountModel | null;
+    //private clickedPayee: PayeeModel | null;
+    //private clickedAccount: AccountModel | null;
 
     public searchFilterTerm$ = new BehaviorSubject<string>("");
     public scrollSelectedItemToTop = true;
 
-    public highlightedItemId: string | null = null;
+    //public highlightedItemId: string | null = null;
     
     private _selectedPayee: PayeeModel | null;
     @Input() public get selectedPayee() { return this._selectedPayee; }
     public set selectedPayee(value: PayeeModel | null) {
         this._selectedPayee = value;
 
-        if (this._selectedPayee == null) {
-            this.searchFilter = "";
-            this.highlightedItemId = null;
-        } else {
-            this.selectedAccount = null;
-            this.highlightedItemId = this._selectedPayee.id;
-            this.searchFilter = "Payee: " + this._selectedPayee.name;
-        }
+        // if (this._selectedPayee == null) {
+        //     this.searchFilter = "";
+        //     //this.highlightedItemId = null;
+        // } else {
+        //     this.selectedAccount = null;
+        //     //this.highlightedItemId = this._selectedPayee.id;
+        //     this.searchFilter = "Payee: " + this._selectedPayee.name;
+        // }
 
         this.selectedPayeeChange.emit(this._selectedPayee);
     }
@@ -53,14 +53,14 @@ export class PayeeSelectDropdownComponent implements OnInit {
     public set selectedAccount(value: AccountModel | null) {
         this._selectedAccount = value;
 
-        if (this._selectedAccount == null) {
-            this.searchFilter = "";
-            this.highlightedItemId = null;
-        } else {
-            this.selectedPayee = null;
-            this.highlightedItemId = this._selectedAccount.id;
-            this.searchFilter = "Transfer to: " + this._selectedAccount.name;
-        }
+        // if (this._selectedAccount == null) {
+        //     this.searchFilter = "";
+        //    // this.highlightedItemId = null;
+        // } else {
+        //     this.selectedPayee = null;
+        //     //this.highlightedItemId = this._selectedAccount.id;
+        //     this.searchFilter = "Transfer to: " + this._selectedAccount.name;
+        // }
 
         this.selectedAccountChange.emit(this._selectedAccount);
     }
@@ -70,50 +70,42 @@ export class PayeeSelectDropdownComponent implements OnInit {
 
 
     public isPayeeHighlighted(payee: PayeeModel): boolean {
-        return this.highlightedItemId === payee.id;
+        return !!this.selectedPayee && this.selectedPayee.id === payee.id;
     }
 
     public isAccountHighlighted(account: AccountModel): boolean {
-        return this.highlightedItemId === account.id;
+        return !!this.selectedAccount && this.selectedAccount.id === account.id;
     }
 
     public payeeClicked(payee: PayeeModel): void {
-        this.clickedPayee = payee;
-        this.clickedAccount = null;
+        this.selectedPayee = payee;
     }
 
     public accountClicked(account: AccountModel): void {
-        this.clickedAccount = account;
-        this.clickedPayee = null;
+        this.selectedAccount = account;
     }
 
     public onSearchInputBlur(event: FocusEvent): void {
-        if (!!this.clickedPayee) {
-            this.selectedPayee = this.clickedPayee;
-            this.clickedPayee = null;
-        } else if (!!this.clickedAccount) {
-            this.selectedAccount = this.clickedAccount;
-            this.clickedAccount = null;
-        } else if (!this.searchFilter) {
-            this.selectedPayee = null;
-            this.selectedAccount = null;
-        } else if (this.highlightedItemId) {
-            const payee = this.payees.find(p => p.id === this.highlightedItemId);
-            const account = this.accounts.find(a => a.id === this.highlightedItemId);
+        if (this.selectedAccount) {
+            this.searchFilter = "Transfer to: " + this.selectedAccount.name;
+        } else if (this.selectedPayee) {
+            this.searchFilter = "Payee: " + this.selectedPayee.name;
+        } else {
+            this.searchFilter = "";
+        }
+        // if (!this.searchFilter) {
+        //     this.selectedPayee = null;
+        //     this.selectedAccount = null;
+        // } else if (event && event.target) {
+        //     const searchQuery = (<HTMLInputElement>event.target).value;
 
-            if (payee !== undefined) {
-                this.selectedPayee = payee;
-            } else if (account !== undefined) {
-                this.selectedAccount = account;
-            }
-        }
-         else if (event && event.target) {
-            let payee = new PayeeModel();
-            payee.id = null;
-            payee.name = (<HTMLInputElement>event.target).value;
-            this.selectedPayee = payee;
-            this.selectedAccount = null;
-        }
+        //     const matchingPayee = this.payees.find(p => p.id === searchQuery)
+        //     let payee = new PayeeModel();
+        //     payee.id = null;
+        //     //payee.name = 
+        //     this.selectedPayee = payee;
+        //     this.selectedAccount = null;
+        // }
     }
 
     public onSearchInputValueChanged(newValue: string): void {
@@ -121,12 +113,9 @@ export class PayeeSelectDropdownComponent implements OnInit {
     }
 
     public onSearchInputFocus($event: any): void {
-        this.clickedPayee = null;
-        this.clickedAccount = null;
-
         $event.target.select();
 
-        this.searchFilterTerm$.next("");
+        //this.searchFilterTerm$.next("");
     }
 
     public onSearchInputKeyUp($event: any): void {
@@ -231,12 +220,24 @@ export class PayeeSelectDropdownComponent implements OnInit {
             });
 
             if (searchTerm === "") {
-                this.highlightedItemId = null;
+                this.selectedPayee = null;
+                this.selectedAccount = null;
+            } else if (this.filteredAccounts.length === 0 && this.filteredPayees.length === 0) {
+                this.selectedAccount = null;
+                let payee = new PayeeModel();
+                payee.id = null;
+                payee.name = searchTerm;
+                this.selectedPayee = payee;
             } else {
-                if (this.filteredAccounts.length > 0) {
-                    this.highlightedItemId = this.filteredAccounts[0].id;
-                } else if (this.filteredPayees.length > 0) {
-                    this.highlightedItemId = this.filteredPayees[0].id;
+                const matchingPayee = this.filteredPayees.find(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+                const matchingAccount = this.filteredAccounts.find(a => a.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+                if (matchingAccount) {
+                    this.selectedAccount = matchingAccount;
+                    this.selectedPayee = null;
+                } else if (matchingPayee) {
+                    this.selectedAccount = null;
+                    this.selectedPayee = matchingPayee
                 }
             }
         });
