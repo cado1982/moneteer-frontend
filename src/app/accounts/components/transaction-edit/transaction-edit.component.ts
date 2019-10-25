@@ -18,7 +18,6 @@ import { getPayees } from "src/app/core/reducers/transactions.reducer";
     styleUrls: ['./transaction-edit.component.scss', './../../styles/transaction.scss']
 })
 export class TransactionEditComponent implements OnInit, OnChanges {
-
     @Input() public transaction: TransactionModel;
     @Input() public currentAccountId: string;
 
@@ -27,10 +26,11 @@ export class TransactionEditComponent implements OnInit, OnChanges {
     public payees$: Observable<PayeeModel[]>;
 
     public date: Date;
-    public account: AccountModel | undefined;
-    public targetAccount: AccountModel | undefined;
-    public description: string;
-    public isCleared: boolean;
+    public account: AccountModel | null = null;
+    public targetAccount: AccountModel | null = null;
+    public payee: PayeeModel | null = null;
+    public description: string = "";
+    public isCleared: boolean = false;
     public assignments: TransactionAssignmentModel[] = [new TransactionAssignmentModel()];
 
     public get inflow(): number {
@@ -69,8 +69,9 @@ export class TransactionEditComponent implements OnInit, OnChanges {
     public transactionIsValid(): boolean {
         const totalTransactionValueIsNotZero = this.inflow !== 0 || this.outflow !== 0;
         const accountNotNull = !!this.account;
+        const payeeAndTargetAccountSet = this.payee && this.targetAccount;
 
-        return this.allAssignmentsValid() && totalTransactionValueIsNotZero && accountNotNull;
+        return this.allAssignmentsValid() && totalTransactionValueIsNotZero && accountNotNull && !payeeAndTargetAccountSet;
     }
 
     public get inUseEnvelopeIds(): string[] {
@@ -99,11 +100,20 @@ export class TransactionEditComponent implements OnInit, OnChanges {
         updatedTransaction.isCleared = this.isCleared;
 
         updatedTransaction.account = new AccountModel();
-
         if (this.currentAccountId) {
             updatedTransaction.account.id = this.currentAccountId;
         } else if (this.account) {
             updatedTransaction.account.id = this.account.id;
+        }
+
+        if (this.targetAccount) {
+            updatedTransaction.targetAccount = new AccountModel();
+            updatedTransaction.targetAccount.id = this.targetAccount.id;
+        }
+
+        if (this.payee) {
+            updatedTransaction.payee = new PayeeModel();
+            updatedTransaction.payee.id = this.payee.id;
         }
         
         updatedTransaction.assignments = [];
@@ -134,6 +144,7 @@ export class TransactionEditComponent implements OnInit, OnChanges {
             this.date = this.transaction.date;
             this.description = this.transaction.description;
             this.account = this.transaction.account;
+            this.targetAccount = this.transaction.targetAccount;
             this.isCleared = this.transaction.isCleared;
             this.assignments = [];
             this.transaction.assignments.forEach(assignment => {

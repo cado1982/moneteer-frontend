@@ -1,6 +1,6 @@
 import {
     Component, OnInit, Input, ElementRef, Output, EventEmitter,
-    ViewChildren, QueryList, ViewChild, TemplateRef
+    ViewChildren, QueryList, ViewChild, TemplateRef, OnChanges, SimpleChanges
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { groupBy, get } from 'lodash';
@@ -11,7 +11,7 @@ import scrollIntoView from 'scroll-into-view-if-needed';
     templateUrl: './dropdown-list.component.html',
     styleUrls: ['./dropdown-list.component.scss']
 })
-export class DropdownListComponent<T> implements OnInit {
+export class DropdownListComponent<T> implements OnInit, OnChanges {
 
     @Input() public items: T[] = [];
     @Input('groupBy') public groupByProperty: string;
@@ -21,6 +21,7 @@ export class DropdownListComponent<T> implements OnInit {
     @Input() public disabled: boolean = false;
     @Input() public allowsNewItems: boolean = false;
     @Input() public inputSize: string = "";
+    @Input() public disabledDescription: string = "";
 
     @Input() public itemTemplate: TemplateRef<any>;
     @Input() public headerTemplate: TemplateRef<any>;
@@ -251,6 +252,16 @@ export class DropdownListComponent<T> implements OnInit {
             case "Enter":
                 this.onEnterPressed();
                 break;
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.disabled || changes.disabledDescription) {
+            if (this.disabled === true) {
+                this.searchFilter = this.disabledDescription;
+            } else {
+                this.searchFilter = !this.selectedItem ? "" : this.selectedItem[this.itemDisplayProperty];
+            }
         }
     }
 

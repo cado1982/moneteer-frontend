@@ -7,14 +7,23 @@
 
 .item {
     font-size: 0.7em;
-    padding: 3px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .item:hover {
-    background-color: $theme-light;
+    background-color: $theme-hover;
 }
 
 .subitem {
     margin-left: 5px;
+}
+
+.item.selected {
+    background-color: $theme-accent !important;
+}
+
+.header {
+    font-size: 0.6em;
+    color: $theme-light;
 }

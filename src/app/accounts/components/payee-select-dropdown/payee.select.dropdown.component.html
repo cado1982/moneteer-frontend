@@ -1,15 +1,26 @@
-<ng-template #payee let-name="name" let-id="id">
-    <div id="{{id}}">{{name}}</div>
-</ng-template>
+<input [attr.disabled]="disabled ? '' : null" style="width: 100%;" class="form-control form-control-xs" #searchInput
+    (focus)="onSearchInputFocus($event)" type="text" [(ngModel)]="searchFilter" name="search-input"
+    (ngModelChange)="onSearchInputValueChanged($event)" (keyup)="onSearchInputKeyUp($event)"
+    (blur)="onSearchInputBlur($event)">
 
-<ng-template #header>
-    <small>Payees</small>
-</ng-template>
-
-<ng-template #noPayees>
-    <div>Enter a new payee.</div>
-</ng-template>
-
-<moneteer-dropdown-list [items]="payees" [disabled]="disabled" [(selectedItem)]="selectedPayee"
-    [itemTemplate]="payee" [headerTemplate]="header" [noItemsTemplate]="noPayees" [inputSize]="inputSize">
-</moneteer-dropdown-list>
+<moneteer-dropdown [anchor]="searchInput" openOn="focus">
+    <div class="body mt-2">
+        <div class="header">Transfers</div>
+        <div *ngFor="let account of filteredAccounts" class="item px-1 pl-2" [ngClass]="{'selected': isAccountHighlighted(account)}" (mousedown)="accountClicked(account)">
+            Transfer to: {{account.name}}
+        </div>
+        <div class="header">Previous Payees</div>
+        <div *ngIf="payees.length === 0">
+            <div style="font-size: 0.7em;" class="text-muted">Enter a new payee</div>
+        </div>
+        <div *ngIf="payees.length > 0">
+            <div *ngFor="let payee of filteredPayees" class="item px-1 pl-2" [ngClass]="{'selected': isPayeeHighlighted(payee)}" (mousedown)="payeeClicked(payee)">
+                {{payee.name}}
+            </div>
+        </div>
+        <div *ngIf="selectedPayee && selectedPayee.id === null">
+            <div style="font-size: 0.7em;" class="text-muted">Payee '{{selectedPayee.name}}' will be created</div>
+        </div>
+        
+    </div>
+</moneteer-dropdown>

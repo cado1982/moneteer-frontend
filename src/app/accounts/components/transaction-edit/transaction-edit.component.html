@@ -13,7 +13,7 @@
     </div>
     <div [hidden]="currentAccountId" class="transaction-cell transaction-cell--payee">
         <moneteer-payee-select-dropdown class="w-100" [payees]="payees$ | async"
-            [accounts]="accounts$ | async" [(selectedPayee)]="payee" 
+            [accounts]="accounts$ | async" [(selectedPayee)]="payee" [(selectedAccount)]="targetAccount"
             inputSize="xs">
         </moneteer-payee-select-dropdown>
     </div>
@@ -24,7 +24,7 @@
         <div *ngIf="assignments.length > 1">Multiple Envelopes</div>
         <moneteer-envelope-select-dropdown class="w-100" *ngIf="assignments.length === 1"
             [(selectedEnvelope)]="assignments[0].envelope" [envelopes]="envelopes$ | async" [allowMultiple]="true"
-            (onMultipleEnvelopes)="addEnvelope()" inputSize="xs">
+            (onMultipleEnvelopes)="addEnvelope()" inputSize="xs" [disabled]="!!targetAccount">
         </moneteer-envelope-select-dropdown>
     </div>
     <div class="transaction-cell transaction-cell--flow">
@@ -54,3 +54,6 @@
     </moneteer-transaction-assignment>
     <button class="align-self-end mr-3 transaction-row text-right btn btn-xs btn-primary" (click)="addEnvelope()">Add envelope</button>
 </div>
+
+<pre>{{targetAccount | json}}</pre>
+<pre>{{payee | json}}</pre>

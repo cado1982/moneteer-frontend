@@ -8,7 +8,7 @@ import { Event } from '@angular/router';
     styleUrls: ['./envelope.select.dropdown.component.scss']
 })
 export class EnvelopeSelectDropdownComponent implements OnInit {
-    @Input() public disabled: Boolean;
+    @Input() public disabled: boolean = false;
     @Input() envelopes: EnvelopeModel[];
     @Input() public inputSize: string;
     @Input() public allowMultiple: boolean;
